@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/global/style/app_themes.dart';
 import '../global/routes/app_routes.dart';
 import '../global/routes/navigation_service.dart';
 import '../global/routes/route_observer.dart';
@@ -19,9 +20,8 @@ class MyApp extends StatelessWidget {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp(
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
+          title: "Rate Your Uni",
+          theme: AppThemes.lightTheme,
           locale: const Locale('vi', ''),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
