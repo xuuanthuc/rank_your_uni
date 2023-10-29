@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/di/dependencies.dart';
 import '../../global_bloc/connectivity/connectivity_bloc.dart';
+import '../widgets/appbar_common.dart';
+import '../widgets/responsive_builder.dart';
 import 'bloc/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeCubit>().getPosts();
+    // context.read<HomeCubit>().getPosts();
   }
 
   @override
@@ -48,9 +50,9 @@ class _HomeViewState extends State<HomeView> {
 
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: const AppbarCommon(),
         backgroundColor: Colors.redAccent,
-        body: Container(color: Colors.redAccent,)
+        body: Container(),
       ),
     );
   }

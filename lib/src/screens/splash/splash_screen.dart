@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/src/global_bloc/connectivity/connectivity_bloc.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import '../../../global/routes/navigation_service.dart';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   goToHome() async {
     await Future.delayed(const Duration(seconds: 1));
-    navService.pushNamed(RouteKey.home);
+    context.go(RouteKey.home);
   }
 
   @override
