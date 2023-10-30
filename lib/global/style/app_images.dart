@@ -34,4 +34,7 @@ abstract class AppImages {
   static const String iPaint                = "images/i_paint.svg";
   static const String iProtect              = "images/i_protect.svg";
   static const String iStudentCap              = "images/i_student_cap.svg";
+  static const String iHomeLike              = "images/i_home_like.png";
+  static const String iHomeManager              = "images/i_home_manager.png";
+  static const String iHomePrivate              = "images/i_home_private.png";
 }
