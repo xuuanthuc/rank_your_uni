@@ -26,26 +26,36 @@ class MyApp extends StatelessWidget {
           locale: const Locale('vi', ''),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: GoRouter(
+            routes: [
+              GoRoute(
+                path: RouteKey.home,
+                builder: (context, state) => const HomeScreen(),
+                pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+                  context: context,
+                  state: state,
+                  child: const HomeScreen(),
+                ),
+              ),
+              GoRoute(
+                path: RouteKey.root,
+                builder: (context, state) => const RootScreen(),
+                pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+                  context: context,
+                  state: state,
+                  child: const RootScreen(),
+                ),
+              ),
+            ],
+          ),
           // navigatorObservers: [MyRouteObserver()],
           // onGenerateRoute: AppRoutes.onGenerateRoutes,
           // onGenerateInitialRoutes: (_) => AppRoutes.onGenerateInitialRoute(),
           // navigatorKey: NavigationService.navigationKey,
-          routerConfig: _router,
         ),
       ),
     );
   }
 }
 
-final _router = GoRouter(
-  routes: [
-    GoRoute(
-      path: RouteKey.home,
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: RouteKey.root,
-      builder: (context, state) => const RootScreen(),
-    ),
-  ],
-);
+

@@ -12,8 +12,8 @@ abstract class Public {
   //     title: 'Edit image',
   //   ),
   // ];
-  static const mobileSize = 640;
-  static const tabletSize = 768;
-  static const laptopSize = 1024;
-  static const desktopSize = 1200;
+  static const mobileSize = 640.0;
+  static const tabletSize = 768.0;
+  static const laptopSize = 1024.0;
+  static const desktopSize = 1200.0;
 }

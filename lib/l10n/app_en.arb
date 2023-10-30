@@ -1,10 +1,14 @@
 {
-  "hello": "Hello World! {name}",
+  "hello": "Xin chao {name}!!",
   "@hello" : {
     "placeholders": {
       "name": {
         "type" : "String"
       }
     }
-  }
+  },
+  "signIn": "Đăng nhập",
+  "signUp": "Đăng ký",
+  "yourUniversity": "Trường đại học của bạn",
+  "homeLargeTitle": "Tìm trường Đại học của bạn"
 }

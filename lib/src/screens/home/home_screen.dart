@@ -1,11 +1,14 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/global/style/app_images.dart';
+import 'package:template/global/utilities/public.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/screens/home/widgets/home_description.dart';
+import 'package:template/src/screens/home/widgets/landing_view.dart';
 import '../../global_bloc/connectivity/connectivity_bloc.dart';
 import '../widgets/appbar_common.dart';
-import '../widgets/responsive_builder.dart';
 import 'bloc/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,13 +49,17 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeCubit, HomeState>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       child: Scaffold(
         appBar: const AppbarCommon(),
-        backgroundColor: Colors.redAccent,
-        body: Container(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const LandingView(),
+              HomeDescription()
+            ],
+          ),
+        ),
       ),
     );
   }
