@@ -8,10 +8,33 @@ import 'package:template/l10n/l10n.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
-class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarCommon({super.key});
+import '../../../global/style/app_colors.dart';
 
+class AppbarCommon extends StatefulWidget implements PreferredSizeWidget {
+  final Function onSearch;
+
+  const AppbarCommon({
+    super.key,
+    required this.onSearch,
+  });
+
+  @override
+  State<AppbarCommon> createState() => _AppbarCommonState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
+}
+
+class _AppbarCommonState extends State<AppbarCommon> {
   final double _appbarHeight = 60;
+
+  void _showSignUpDialog() {}
+
+  void _showSignInDialog() {}
+
+  void _onToggleMenu() {}
+
+  void _onToggleSearchField() {}
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +60,13 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
             Align(
               alignment: Alignment.topRight,
               child: ResponsiveBuilder(
-                smallView: Container(),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Image.asset(AppImages.iHomeHeaderBackground),
-                ),
+                smallView: const SizedBox(),
+                child: isHome
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Image.asset(AppImages.iHomeHeaderBackground),
+                      )
+                    : const SizedBox(),
               ),
             ),
             Align(
@@ -49,54 +74,79 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
               child: SizedBox(
                 height: _appbarHeight * 3 / 5,
                 child: ResponsiveBuilder(
-                  smallView: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          AppImages.iMenu,
-                          colorFilter: ColorFilter.mode(
-                            isHome ? theme.primaryColor : Colors.white,
-                            BlendMode.srcIn,
+                  mediumView: isHome
+                      ? null
+                      : Row(
+                          children: [
+                            AppBarLogo(isHome: isHome),
+                            !isHome
+                                ? AppBarTextField(
+                                    theme: theme,
+                                    text: text,
+                                    onSearch: () => widget.onSearch(),
+                                  )
+                                : const Spacer(),
+                            MenuIcon(
+                              isHome: isHome,
+                              theme: theme,
+                              onTap: () => _onToggleMenu(),
+                            )
+                          ],
+                        ),
+                  smallView: IntrinsicHeight(
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: MenuIcon(
+                            isHome: isHome,
+                            theme: theme,
+                            onTap: () => _onToggleMenu(),
                           ),
                         ),
-                      ),
-                    ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: AppBarLogo(isHome: isHome),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: isHome
+                              ? Container()
+                              : IconButton(
+                                  onPressed: () => _onToggleSearchField(),
+                                  icon: SvgPicture.asset(
+                                    AppImages.iSearch,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                ),
+                        )
+                      ],
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            context.go(RouteKey.home);
-                          },
-                          child: SizedBox(
-                            child: SvgPicture.asset(
-                              isHome
-                                  ? AppImages.iLogoPrimary
-                                  : AppImages.iLogoWhite,
-                            ),
-                          ),
-                        ),
-                      ),
+                      AppBarLogo(isHome: isHome),
                       !isHome
-                          ? const Expanded(
-                              child: TextField(),
+                          ? AppBarTextField(
+                              theme: theme,
+                              text: text,
+                              onSearch: () => widget.onSearch(),
                             )
                           : const Spacer(),
                       Row(
                         children: [
                           AppButton(
-                            onTap: () {},
+                            onTap: () => _showSignInDialog(),
+                            hasBorder: false,
                             title: text.signIn,
                             isOutline: true,
-                            titleTextStyle:
-                                theme.primaryTextTheme.labelLarge?.copyWith(
-                              color: theme.primaryColor,
-                            ),
+                            titleTextStyleColor:
+                                isHome ? theme.primaryColor : Colors.white,
                             height: double.infinity,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20,
@@ -105,9 +155,11 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                           ),
                           const SizedBox(width: 16),
                           AppButton(
-                            onTap: () {},
+                            onTap: () => _showSignUpDialog(),
                             title: text.signUp,
                             height: double.infinity,
+                            borderColor:
+                                isHome ? theme.primaryColor : Colors.white,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 0,
@@ -125,7 +177,103 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
+}
+
+class MenuIcon extends StatelessWidget {
+  final bool isHome;
+  final ThemeData theme;
+  final Function onTap;
+
+  const MenuIcon(
+      {super.key,
+      required this.isHome,
+      required this.theme,
+      required this.onTap});
 
   @override
-  Size get preferredSize => Size.fromHeight(_appbarHeight);
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => onTap(),
+      icon: SvgPicture.asset(
+        AppImages.iMenu,
+        colorFilter: ColorFilter.mode(
+          isHome ? theme.primaryColor : Colors.white,
+          BlendMode.srcIn,
+        ),
+      ),
+    );
+  }
+}
+
+class AppBarTextField extends StatelessWidget {
+  final ThemeData theme;
+  final AppLocalizations text;
+  final Function onSearch;
+
+  const AppBarTextField({
+    super.key,
+    required this.theme,
+    required this.text,
+    required this.onSearch,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: TextField(
+          style: theme.primaryTextTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+          cursorHeight: 18,
+          cursorColor: AppColors.black,
+          onEditingComplete: () => onSearch(),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            hintText: text.yourUniversity,
+            hintStyle: theme.primaryTextTheme.bodyLarge
+                ?.copyWith(color: AppColors.textGrey),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            hoverColor: Colors.transparent,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 12),
+              child: SvgPicture.asset(AppImages.iStudentCap),
+            ),
+            contentPadding: const EdgeInsets.all(4),
+            isDense: true,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AppBarLogo extends StatelessWidget {
+  final bool isHome;
+
+  const AppBarLogo({super.key, required this.isHome});
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          context.go(RouteKey.home);
+        },
+        child: SvgPicture.asset(
+          isHome ? AppImages.iLogoPrimary : AppImages.iLogoWhite,
+        ),
+      ),
+    );
+  }
 }

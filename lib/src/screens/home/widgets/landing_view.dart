@@ -7,7 +7,9 @@ import '../../../../l10n/l10n.dart';
 import '../../widgets/responsive_builder.dart';
 
 class LandingView extends StatelessWidget {
-  const LandingView({super.key});
+  final Function onSearch;
+
+  const LandingView({super.key, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,11 @@ class LandingView extends StatelessWidget {
           children: [
             const LandingBackground(height: 350),
             Container(color: Colors.black38),
-            const LandingContent(
+            LandingContent(
               fontSize: 20,
               logoHeight: 40,
               contentPadding: 12,
+              onSearch: () => onSearch(),
             ),
           ],
         ),
@@ -34,10 +37,11 @@ class LandingView extends StatelessWidget {
           children: [
             const LandingBackground(height: 500),
             Container(color: Colors.black38),
-            const LandingContent(
+            LandingContent(
               fontSize: 30,
               logoHeight: 60,
               contentPadding: 18,
+              onSearch: () => onSearch(),
             ),
           ],
         ),
@@ -71,12 +75,14 @@ class LandingContent extends StatelessWidget {
   final double logoHeight;
   final double fontSize;
   final double contentPadding;
+  final Function onSearch;
 
   const LandingContent({
     super.key,
     required this.fontSize,
     required this.logoHeight,
     required this.contentPadding,
+    required this.onSearch,
   });
 
   @override
@@ -110,9 +116,7 @@ class LandingContent extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 cursorColor: AppColors.black,
-                onEditingComplete: (){
-                  //function when enter
-                },
+                onEditingComplete: () => onSearch(),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

@@ -37,4 +37,5 @@ abstract class AppImages {
   static const String iHomeLike              = "images/i_home_like.png";
   static const String iHomeManager              = "images/i_home_manager.png";
   static const String iHomePrivate              = "images/i_home_private.png";
+  static const String iSearch              = "images/i_search.svg";
 }

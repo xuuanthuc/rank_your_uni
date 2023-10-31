@@ -15,7 +15,7 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
 }
 
 abstract class RouteKey {
-  static const String root = "/root";
+  static const String search = "/search";
   static const String home = "/";
 }
 

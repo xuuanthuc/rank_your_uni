@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AppButton extends StatelessWidget {
+
+class AppButton extends StatefulWidget {
   final Function onTap;
   final String title;
   final bool isOutline;
+  final bool hasBorder;
   final TextStyle? titleTextStyle;
+  final Color? titleTextStyleColor;
+  final Color? backgroundColor;
+  final Color? borderColor;
   final EdgeInsetsGeometry? padding;
   final double? height;
 
@@ -13,53 +18,86 @@ class AppButton extends StatelessWidget {
     required this.onTap,
     required this.title,
     this.isOutline = false,
+    this.hasBorder = true,
     this.titleTextStyle,
+    this.titleTextStyleColor,
+    this.backgroundColor,
+    this.borderColor,
     this.height,
     this.padding,
   });
 
   @override
+  State<AppButton> createState() => _AppButtonState();
+}
+
+class _AppButtonState extends State<AppButton> {
+  bool _isUnderLine = false;
+
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
-    return TextButton(
-      onPressed: () => onTap(),
-      style: ButtonStyle(
-        padding:
-            MaterialStateProperty.all(EdgeInsets.zero),
-        minimumSize: MaterialStateProperty.all(Size.zero),
-        overlayColor: MaterialStateProperty.all(theme.colorScheme.surface),
-        backgroundColor: MaterialStateProperty.all(
-          isOutline ? Colors.transparent : theme.primaryColor,
-        ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(0),
-            ),
-            side: BorderSide(
-              width: 2,
-              color: theme.primaryColor,
+    return MouseRegion(
+      onHover: (details) {
+        setState(() {
+          _isUnderLine = true;
+        });
+      },
+      onExit: (details) {
+        setState(() {
+          _isUnderLine = false;
+        });
+      },
+      child: TextButton(
+        onPressed: () => widget.onTap(),
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          minimumSize: MaterialStateProperty.all(Size.zero),
+          overlayColor: MaterialStateProperty.all(
+            widget.hasBorder ? theme.colorScheme.surface : Colors.transparent,
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            widget.isOutline ? Colors.transparent : widget.backgroundColor ?? theme.primaryColor,
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(0),
+              ),
+              side: BorderSide(
+                width: 2,
+                color:
+                    widget.hasBorder ? widget.borderColor ?? theme.primaryColor : Colors.transparent,
+              ),
             ),
           ),
         ),
-      ),
-      child: Container(
-        height: height,
-        padding: padding ??
-            const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
+        child: Container(
+          height: widget.height,
+          padding: widget.padding ??
+              const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+          child: Center(
+            child: Text(
+              widget.title,
+              style: widget.titleTextStyle ??
+                  theme.primaryTextTheme.labelLarge?.copyWith(
+                    color: widget.titleTextStyleColor ?? Colors.white,
+                    decoration: widget.hasBorder
+                        ? null
+                        : _isUnderLine
+                            ? TextDecoration.underline
+                            : null,
+                    decorationColor: widget.titleTextStyleColor ?? Colors.white,
+                    decorationThickness: 2,
+                  ),
             ),
-        child: Center(
-          child: Text(
-            title,
-            style: titleTextStyle ??
-                theme.primaryTextTheme.labelLarge
-                    ?.copyWith(color: Colors.white),
           ),
         ),
       ),

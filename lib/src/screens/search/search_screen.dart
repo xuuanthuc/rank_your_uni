@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:template/src/screens/widgets/appbar_common.dart';
 
-class RootScreen extends StatelessWidget {
-  const RootScreen({Key? key}) : super(key: key);
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppbarCommon(),
-      body: Container(),
+      appBar: AppbarCommon(
+        onSearch: () {},
+      ),
     );
   }
 }

@@ -21,6 +21,9 @@ abstract class AppThemes {
       surface: AppColors.level4.withOpacity(0.15),
       onSurface: AppColors.black,
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: AppColors.textSelected,
+    ),
     primaryTextTheme: const TextTheme(
       displayLarge: TextStyle(
         fontWeight: FontWeight.w900,
