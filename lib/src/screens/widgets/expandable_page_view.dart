@@ -46,6 +46,7 @@ class _ExpandablePageViewState extends State<ExpandablePageView>
       tween: Tween<double>(begin: _heights[0], end: _currentHeight),
       builder: (context, value, child) => SizedBox(height: value, child: child),
       child: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: widget.pageController,
         children: _sizeReportingChildren
             .asMap() //
