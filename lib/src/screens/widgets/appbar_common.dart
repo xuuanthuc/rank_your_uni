@@ -5,6 +5,7 @@ import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/style/app_images.dart';
 import 'package:template/global/utilities/public.dart';
 import 'package:template/l10n/l10n.dart';
+import 'package:template/src/screens/widgets/auth_form.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
@@ -28,9 +29,25 @@ class AppbarCommon extends StatefulWidget implements PreferredSizeWidget {
 class _AppbarCommonState extends State<AppbarCommon> {
   final double _appbarHeight = 60;
 
-  void _showSignUpDialog() {}
+  Future<void> _showSignUpDialog() {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const AuthForm(pageIndex: 1);
+      },
+    );
+  }
 
-  void _showSignInDialog() {}
+  Future<void> _showSignInDialog() {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const AuthForm(pageIndex: 0);
+      },
+    );
+  }
 
   void _onToggleMenu() {}
 
@@ -227,7 +244,6 @@ class AppBarTextField extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
           cursorHeight: 18,
-          cursorColor: AppColors.black,
           onEditingComplete: () => onSearch(),
           decoration: InputDecoration(
             filled: true,

@@ -94,13 +94,13 @@ class LandingContent extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(50),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
               height: logoHeight,
               child: Image.asset(AppImages.iHomeLogo),
             ),
-            const Spacer(),
+            const SizedBox(height: 45),
             Text(
               text.homeLargeTitle,
               style: Theme.of(context).primaryTextTheme.displaySmall?.copyWith(
@@ -108,7 +108,6 @@ class LandingContent extends StatelessWidget {
                     fontSize: fontSize,
                   ),
             ),
-            const SizedBox(height: 45),
             Container(
               constraints: const BoxConstraints(maxWidth: Public.tabletSize),
               child: TextField(

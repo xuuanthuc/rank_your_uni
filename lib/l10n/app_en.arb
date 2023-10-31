@@ -17,5 +17,18 @@
   "yourRateAlwaysAnonymous": "Đánh giá của bạn\nluôn ẩn danh",
   "likeOrDislike": "Like hoặc dislike các\nđánh giá",
   "signUpNow": "Đăng ký ngay",
-  "copyRight": "© 2023 Rank Your Uni. All Rights Reserved"
+  "copyRight": "© 2023 Rank Your Uni. All Rights Reserved",
+  "signInWithGoogle": "Đăng nhập bằng google",
+  "orSignInWithEmail": "hoặc đăng nhập với email",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "enterEmail": "Nhập email ",
+  "enterPassword": "Nhập mật khẩu",
+  "forgetPassword": "Quên mật khẩu?",
+  "authNotice": "Rank Your Uni được thiết kế và sử dụng bởi sinh viên Việt Nam để đánh giá về các trường đại học trên toàn quốc",
+  "notHaveAccount": "Chưa có tài khoản?",
+  "signUpWithGoogle": "Đăng ký bằng google",
+  "orSignUpWithEmail": "hoặc đăng ký với email",
+  "continueText": "Tiếp tục",
+  "alreadyHaveAccount": "Đã có tài khoản?"
 }

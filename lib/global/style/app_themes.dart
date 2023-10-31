@@ -23,6 +23,7 @@ abstract class AppThemes {
     ),
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: AppColors.textSelected,
+      cursorColor: AppColors.black,
     ),
     primaryTextTheme: const TextTheme(
       displayLarge: TextStyle(
