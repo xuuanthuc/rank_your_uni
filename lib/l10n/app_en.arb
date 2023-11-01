@@ -30,5 +30,6 @@
   "signUpWithGoogle": "Đăng ký bằng google",
   "orSignUpWithEmail": "hoặc đăng ký với email",
   "continueText": "Tiếp tục",
-  "alreadyHaveAccount": "Đã có tài khoản?"
+  "alreadyHaveAccount": "Đã có tài khoản?",
+  "cancel": "Huỷ"
 }

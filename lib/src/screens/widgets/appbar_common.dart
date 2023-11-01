@@ -1,33 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/style/app_images.dart';
 import 'package:template/global/utilities/public.dart';
 import 'package:template/l10n/l10n.dart';
+import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/widgets/auth_form.dart';
+import 'package:template/src/screens/widgets/bloc/appbar_cubit.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../global/style/app_colors.dart';
 
-class AppbarCommon extends StatefulWidget implements PreferredSizeWidget {
+class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
   final Function onSearch;
 
-  const AppbarCommon({
-    super.key,
-    required this.onSearch,
-  });
+  const AppbarCommon({super.key, required this.onSearch});
+
+  final double _appbarHeight = 60;
 
   @override
-  State<AppbarCommon> createState() => _AppbarCommonState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt.get<AppbarCubit>(),
+      child: AppbarView(
+        onSearch: () => onSearch(),
+        appbarHeight: _appbarHeight,
+      ),
+    );
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
 }
 
-class _AppbarCommonState extends State<AppbarCommon> {
-  final double _appbarHeight = 60;
+class AppbarView extends StatefulWidget {
+  final Function onSearch;
+  final double appbarHeight;
+
+  const AppbarView({
+    super.key,
+    required this.onSearch,
+    required this.appbarHeight,
+  });
+
+  @override
+  State<AppbarView> createState() => _AppbarViewState();
+}
+
+class _AppbarViewState extends State<AppbarView> {
+  late double _appbarHeight;
 
   Future<void> _showSignUpDialog() {
     return showDialog<void>(
@@ -51,7 +74,15 @@ class _AppbarCommonState extends State<AppbarCommon> {
 
   void _onToggleMenu() {}
 
-  void _onToggleSearchField() {}
+  void _onToggleSearchField() {
+    context.read<AppbarCubit>().changeSmallTextFieldState();
+  }
+
+  @override
+  void initState() {
+    _appbarHeight = widget.appbarHeight;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,36 +142,62 @@ class _AppbarCommonState extends State<AppbarCommon> {
                           ],
                         ),
                   smallView: IntrinsicHeight(
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: MenuIcon(
-                            isHome: isHome,
-                            theme: theme,
-                            onTap: () => _onToggleMenu(),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: AppBarLogo(isHome: isHome),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: isHome
-                              ? Container()
-                              : IconButton(
-                                  onPressed: () => _onToggleSearchField(),
-                                  icon: SvgPicture.asset(
-                                    AppImages.iSearch,
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.white,
-                                      BlendMode.srcIn,
+                    child: BlocBuilder<AppbarCubit, AppbarState>(
+                      buildWhen: (_, current) =>
+                          current.status == AppbarStatus.searchField,
+                      builder: (context, state) {
+                        if (state.onShowSmallTextField == true && !isHome) {
+                          return Row(
+                            children: [
+                              AppBarTextField(
+                                theme: theme,
+                                text: text,
+                                onSearch: () => widget.onSearch,
+                              ),
+                              AppButton(
+                                onTap: () => _onToggleSearchField(),
+                                hasBorder: false,
+                                title: text.cancel,
+                                isOutline: true,
+                                titleTextStyleColor: Colors.white,
+                                height: double.infinity,
+                                padding: EdgeInsets.zero,
+                              ),
+                            ],
+                          );
+                        }
+                        return Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: MenuIcon(
+                                isHome: isHome,
+                                theme: theme,
+                                onTap: () => _onToggleMenu(),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: AppBarLogo(isHome: isHome),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: isHome
+                                  ? Container()
+                                  : IconButton(
+                                      onPressed: () => _onToggleSearchField(),
+                                      icon: SvgPicture.asset(
+                                        AppImages.iSearch,
+                                        colorFilter: const ColorFilter.mode(
+                                          Colors.white,
+                                          BlendMode.srcIn,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                        )
-                      ],
+                            )
+                          ],
+                        );
+                      },
                     ),
                   ),
                   child: Row(
