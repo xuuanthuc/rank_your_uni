@@ -12,8 +12,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:template/src/network/api_provider.dart' as _i3;
 import 'package:template/src/repositories/post_repository.dart' as _i6;
+import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i4;
 import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i5;
-import 'package:template/src/screens/widgets/bloc/appbar_cubit.dart' as _i4;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt

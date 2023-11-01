@@ -24,6 +24,7 @@ class _AuthFormState extends State<AuthForm> {
     super.initState();
     _pageController = PageController(initialPage: widget.pageIndex);
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -40,12 +41,12 @@ class _AuthFormState extends State<AuthForm> {
             pageIndex: widget.pageIndex,
             children: [
               SignInForm(
-                onSignUp: (){
+                onSignUp: () {
                   _pageController.jumpToPage(1);
                 },
               ),
               SignUpForm(
-                onSignIn: (){
+                onSignIn: () {
                   _pageController.jumpToPage(0);
                 },
               ),
@@ -63,16 +64,11 @@ class _AuthFormState extends State<AuthForm> {
   }
 }
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends StatelessWidget {
   const SignInForm({super.key, required this.onSignUp});
 
   final Function onSignUp;
 
-  @override
-  State<SignInForm> createState() => _SignInFormState();
-}
-
-class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -86,38 +82,10 @@ class _SignInFormState extends State<SignInForm> {
           style: theme.primaryTextTheme.displayLarge,
         ),
         const SizedBox(height: 45),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {},
-            child: ResponsiveBuilder(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: Image.asset(AppImages.iGoogleLogo),
-                    ),
-                    const SizedBox(width: 14),
-                    Flexible(
-                      child: Text(
-                        text.signInWithGoogle,
-                        textAlign: TextAlign.center,
-                        style: theme.primaryTextTheme.labelLarge,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+        AuthWithGoogleButton(
+          theme: theme,
+          text: text.signInWithGoogle,
+          onAuthWithGoogle: () {},
         ),
         const SizedBox(height: 26),
         Row(
@@ -144,45 +112,14 @@ class _SignInFormState extends State<SignInForm> {
           ],
         ),
         const SizedBox(height: 26),
-        TextField(
-          style: theme.primaryTextTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
-          decoration: InputDecoration(
-            hintText: text.enterEmail,
-            hintStyle: theme.primaryTextTheme.bodyLarge
-                ?.copyWith(color: AppColors.textGrey),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.grey, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.grey, width: 1)),
-            isDense: true,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
-          ),
+        AuthTextField(
+          theme: theme,
+          text: text,
         ),
         const SizedBox(height: 26),
-        TextField(
-          style: theme.primaryTextTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
-          decoration: InputDecoration(
-              hintText: text.enterPassword,
-              hintStyle: theme.primaryTextTheme.bodyLarge
-                  ?.copyWith(color: AppColors.textGrey),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:
-                      const BorderSide(color: AppColors.grey, width: 1)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:
-                      const BorderSide(color: AppColors.grey, width: 1)),
-              isDense: true,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 18, horizontal: 20)),
+        AuthTextField(
+          theme: theme,
+          text: text,
         ),
         const SizedBox(height: 14),
         Row(
@@ -218,7 +155,7 @@ class _SignInFormState extends State<SignInForm> {
             ),
             AppButton(
               onTap: () {
-                widget.onSignUp();
+                onSignUp();
               },
               hasBorder: false,
               title: text.signUp,
@@ -233,7 +170,7 @@ class _SignInFormState extends State<SignInForm> {
   }
 }
 
-class SignUpForm extends StatefulWidget {
+class SignUpForm extends StatelessWidget {
   const SignUpForm({
     super.key,
     required this.onSignIn,
@@ -241,11 +178,6 @@ class SignUpForm extends StatefulWidget {
 
   final Function onSignIn;
 
-  @override
-  State<SignUpForm> createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -259,38 +191,10 @@ class _SignUpFormState extends State<SignUpForm> {
           style: theme.primaryTextTheme.displayLarge,
         ),
         const SizedBox(height: 45),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {},
-            child: ResponsiveBuilder(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: Image.asset(AppImages.iGoogleLogo),
-                    ),
-                    const SizedBox(width: 14),
-                    Flexible(
-                      child: Text(
-                        text.signUpWithGoogle,
-                        textAlign: TextAlign.center,
-                        style: theme.primaryTextTheme.labelLarge,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+        AuthWithGoogleButton(
+          theme: theme,
+          text: text.signUpWithGoogle,
+          onAuthWithGoogle: () {},
         ),
         const SizedBox(height: 26),
         Row(
@@ -317,24 +221,9 @@ class _SignUpFormState extends State<SignUpForm> {
           ],
         ),
         const SizedBox(height: 26),
-        TextField(
-          style: theme.primaryTextTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
-          decoration: InputDecoration(
-            hintText: text.enterEmail,
-            hintStyle: theme.primaryTextTheme.bodyLarge
-                ?.copyWith(color: AppColors.textGrey),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.grey, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.grey, width: 1)),
-            isDense: true,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
-          ),
+        AuthTextField(
+          theme: theme,
+          text: text,
         ),
         const SizedBox(height: 35),
         AppButton(
@@ -358,7 +247,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             AppButton(
               onTap: () {
-                widget.onSignIn();
+                onSignIn();
               },
               hasBorder: false,
               title: text.signIn,
@@ -369,6 +258,89 @@ class _SignUpFormState extends State<SignUpForm> {
           ],
         )
       ],
+    );
+  }
+}
+
+class AuthTextField extends StatelessWidget {
+  final ThemeData theme;
+  final AppLocalizations text;
+
+  const AuthTextField({
+    super.key,
+    required this.theme,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      style: theme.primaryTextTheme.bodyLarge?.copyWith(
+        fontWeight: FontWeight.w500,
+      ),
+      decoration: InputDecoration(
+        hintText: text.enterEmail,
+        hintStyle: theme.primaryTextTheme.bodyLarge
+            ?.copyWith(color: AppColors.textGrey),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.grey, width: 1)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.grey, width: 1)),
+        isDense: true,
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+      ),
+    );
+  }
+}
+
+class AuthWithGoogleButton extends StatelessWidget {
+  final ThemeData theme;
+  final String text;
+  final Function onAuthWithGoogle;
+
+  const AuthWithGoogleButton({
+    super.key,
+    required this.theme,
+    required this.text,
+    required this.onAuthWithGoogle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => onAuthWithGoogle(),
+        child: ResponsiveBuilder(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 1, color: AppColors.grey)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset(AppImages.iGoogleLogo),
+                ),
+                const SizedBox(width: 14),
+                Flexible(
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: theme.primaryTextTheme.labelLarge,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

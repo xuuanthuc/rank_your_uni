@@ -8,7 +8,7 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/home/widgets/home_description.dart';
 import 'package:template/src/screens/home/widgets/landing_view.dart';
 import '../../global_bloc/connectivity/connectivity_bloc.dart';
-import '../widgets/appbar_common.dart';
+import '../appbar/appbar_common.dart';
 import '../widgets/footer_common.dart';
 import 'bloc/home_cubit.dart';
 

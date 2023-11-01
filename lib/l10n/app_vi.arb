@@ -1,5 +1,5 @@
 {
-  "hello": "Xin chao {name}!!",
+  "hello": "Xin chào {name}",
   "@hello" : {
     "placeholders": {
       "name": {
