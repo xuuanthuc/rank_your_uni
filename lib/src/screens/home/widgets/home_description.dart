@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:template/l10n/l10n.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-import '../../../../global/style/app_images.dart';
-import '../../../../global/utilities/public.dart';
+import 'package:template/global/style/styles.dart';
 
 class HomeDescription extends StatefulWidget {
   const HomeDescription({super.key});

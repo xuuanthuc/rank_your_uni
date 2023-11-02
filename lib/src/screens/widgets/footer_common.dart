@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/global/style/app_images.dart';
-import 'package:template/global/utilities/public.dart';
-import 'package:template/l10n/l10n.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
+import 'package:template/global/style/styles.dart';
 import '../../../global/routes/route_keys.dart';
 
 class FooterCommon extends StatelessWidget {

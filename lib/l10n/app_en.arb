@@ -1,12 +1,5 @@
 {
-  "hello": "Xin chao {name}!!",
-  "@hello" : {
-    "placeholders": {
-      "name": {
-        "type" : "String"
-      }
-    }
-  },
+  "hello": "Xin chao!!!",
   "signIn": "Đăng nhập",
   "signUp": "Đăng ký",
   "yourUniversity": "Trường đại học của bạn",
@@ -31,5 +24,26 @@
   "orSignUpWithEmail": "hoặc đăng ký với email",
   "continueText": "Tiếp tục",
   "alreadyHaveAccount": "Đã có tài khoản?",
-  "cancel": "Huỷ"
+  "cancel": "Huỷ",
+  "createPassword": "Tạo mật khẩu",
+  "passwordAtLeast": "Ít nhất 8 ký tự",
+  "createPasswordDescription": "Bằng cách nhấp vào 'Tiếp tục', bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư của chúng tôi. Rank Your Uni được thiết kế và sử dụng bởi sinh viên Việt Nam để đánh giá về các trường đại học trên toàn quốc",
+  "createUser": "Cập nhật người dùng",
+  "fullName": "Họ và tên",
+  "universityName": "Tên trường học",
+  "enterFullName": "Nhập họ và tên ",
+  "whatIsYourUniversity": "Trường học của bạn là gì?",
+  "completeRegister": "Hoàn thành đăng ký",
+  "hey": "Hey, {name}",
+  "@hey": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profile": "Hồ sơ",
+  "settingAccount": "Cài đặt tài khoản",
+  "yourRating": "Đánh giá của bạn",
+  "signOut": "Đăng xuất"
 }

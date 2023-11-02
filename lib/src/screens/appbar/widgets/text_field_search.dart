@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../global/style/app_colors.dart';
-import '../../../../global/style/app_images.dart';
-import '../../../../l10n/l10n.dart';
+import 'package:template/global/style/styles.dart';
 
 class AppBarTextField extends StatelessWidget {
   final ThemeData theme;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
+import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import '../global/routes/route_keys.dart';
@@ -42,11 +44,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ConnectivityBloc()),
+        BlocProvider(create: (context) => getIt.get<AuthenticationBloc>()),
       ],
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp.router(
-          title: "Rate Your Uni",
+          title: "Rank Your Uni",
           theme: AppThemes.lightTheme,
           locale: const Locale('vi', ''),
           localizationsDelegates: AppLocalizations.localizationsDelegates,

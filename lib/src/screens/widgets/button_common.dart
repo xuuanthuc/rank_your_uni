@@ -12,6 +12,7 @@ class AppButton extends StatefulWidget {
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
   final double? height;
+  final Widget? child;
 
   const AppButton({
     super.key,
@@ -25,6 +26,7 @@ class AppButton extends StatefulWidget {
     this.borderColor,
     this.height,
     this.padding,
+    this.child,
   });
 
   @override
@@ -84,7 +86,7 @@ class _AppButtonState extends State<AppButton> {
                 vertical: 10,
               ),
           child: Center(
-            child: Text(
+            child: widget.child ?? Text(
               widget.title,
               style: widget.titleTextStyle ??
                   theme.primaryTextTheme.labelLarge?.copyWith(

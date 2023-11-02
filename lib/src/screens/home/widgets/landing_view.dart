@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:template/global/style/app_colors.dart';
-import 'package:template/global/utilities/public.dart';
-import '../../../../global/style/app_images.dart';
-import '../../../../l10n/l10n.dart';
 import '../../widgets/responsive_builder.dart';
+import 'package:template/global/style/styles.dart';
 
 class LandingView extends StatelessWidget {
   final Function onSearch;

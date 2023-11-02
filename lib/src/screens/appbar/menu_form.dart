@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/global/style/app_colors.dart';
-import 'package:template/global/utilities/public.dart';
-import 'package:template/l10n/l10n.dart';
+import 'package:template/global/style/styles.dart';
+import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
-import '../../../global/style/app_images.dart';
 import '../widgets/button_common.dart';
 
-class MenuFormHeader extends StatefulWidget {
+class MenuFormHeader extends StatelessWidget {
   final Function onSignIn;
   final Function onSignUp;
 
@@ -18,21 +17,12 @@ class MenuFormHeader extends StatefulWidget {
     required this.onSignIn,
   });
 
-  @override
-  State<MenuFormHeader> createState() => _MenuFormHeaderState();
-}
-
-class _MenuFormHeaderState extends State<MenuFormHeader>  {
+  void _signOut(BuildContext context){
+    context.read<AuthenticationBloc>().add(OnSignOutEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if(MediaQuery.sizeOf(context).width > Public.tabletSize) {
-    //     if(mounted) {
-    //       context.pop();
-    //     }
-    //   }
-    // });
     final ThemeData theme = Theme.of(context);
     final AppLocalizations text = AppLocalizations.of(context)!;
 
@@ -82,49 +72,96 @@ class _MenuFormHeaderState extends State<MenuFormHeader>  {
                 ),
               ),
               const SizedBox(height: 28),
-              Text(
-                text.hello(''),
-                style: theme.primaryTextTheme.displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w900),
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                buildWhen: (_, current) =>
+                    current.status == AuthenticationStatus.success,
+                builder: (context, state) {
+                  if (state.isAuthenticated == true) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          text.hey("Thuc"),
+                          style: theme.primaryTextTheme.displayMedium
+                              ?.copyWith(fontWeight: FontWeight.w900),
+                        ),
+                        const SizedBox(height: 28),
+                        MenuOption(
+                          onTap: () {},
+                          label: text.profile,
+                        ),
+                        MenuOption(
+                          onTap: () {},
+                          label: text.settingAccount,
+                        ),
+                        MenuOption(
+                          onTap: () {},
+                          label: text.yourRating,
+                        ),
+                        MenuOption(
+                          onTap: () => _signOut(context),
+                          label: text.signOut,
+                        ),
+                      ],
+                    );
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        text.hello,
+                        style: theme.primaryTextTheme.displayMedium
+                            ?.copyWith(fontWeight: FontWeight.w900),
+                      ),
+                      const SizedBox(height: 28),
+                      MenuOption(
+                        onTap: () {
+                          context.pop();
+                          onSignIn();
+                        },
+                        label: text.signIn,
+                      ),
+                      MenuOption(
+                        onTap: () {
+                          context.pop();
+                          onSignUp();
+                        },
+                        label: text.signUp,
+                      ),
+                    ],
+                  );
+                },
               ),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppButton(
-                    onTap: () {
-                      context.pop();
-                      widget.onSignIn();
-                    },
-                    hasBorder: false,
-                    title: text.signIn,
-                    isOutline: true,
-                    titleTextStyleColor: AppColors.black,
-                    padding: EdgeInsets.zero,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppButton(
-                    onTap: () {
-                      context.pop();
-                      widget.onSignUp();
-                    },
-                    hasBorder: false,
-                    title: text.signUp,
-                    isOutline: true,
-                    titleTextStyleColor: AppColors.black,
-                    padding: EdgeInsets.zero,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MenuOption extends StatelessWidget {
+  final Function onTap;
+  final String label;
+
+  const MenuOption({super.key, required this.onTap, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppButton(
+            onTap: () => onTap(),
+            hasBorder: false,
+            title: label,
+            isOutline: true,
+            titleTextStyleColor: AppColors.black,
+            padding: EdgeInsets.zero,
+          ),
+        ],
       ),
     );
   }
