@@ -18,12 +18,12 @@ class AuthButton extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         return AppButton(
-          onTap: state.status == AuthenticationStatus.loading
+          onTap: state.isLoading == true
               ? () {}
               : () => onTap(),
           title: label,
           height: 56,
-          child: state.status == AuthenticationStatus.loading
+          child: state.isLoading == true
               ? const SizedBox(
                   height: 20,
                   width: 20,

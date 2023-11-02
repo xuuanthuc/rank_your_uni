@@ -73,10 +73,10 @@ class MenuFormHeader extends StatelessWidget {
               ),
               const SizedBox(height: 28),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                buildWhen: (_, current) =>
-                    current.status == AuthenticationStatus.success,
+                buildWhen: (prev, cur) =>
+                    cur.status != prev.status,
                 builder: (context, state) {
-                  if (state.isAuthenticated == true) {
+                  if (state.status == AuthenticationStatus.authenticated) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -26,6 +26,10 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
 
   final double _appbarHeight = 60;
 
+  void _updateUserProfile(BuildContext context) {
+    context.read<AuthenticationBloc>().add(OnCompleteSignUpEvent());
+  }
+
   Future<void> _showSignUpDialog(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -33,7 +37,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       builder: (BuildContext context) {
         return const AuthForm(pageIndex: 1);
       },
-    );
+    ).then((value) => _updateUserProfile(context));
   }
 
   Future<void> _showSignInDialog(BuildContext context) {
@@ -43,7 +47,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       builder: (BuildContext context) {
         return const AuthForm(pageIndex: 0);
       },
-    );
+    ).then((value) => _updateUserProfile(context));
   }
 
   Future<void> _onToggleMenu(BuildContext context) {
@@ -71,7 +75,9 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
     final text = AppLocalizations.of(context)!;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        if (state.status == AuthenticationStatus.success) {
+        if ((state.action == AuthenticationAction.signOut ||
+                state.action == AuthenticationAction.signIn) &&
+            state.isSuccess == true) {
           context.go(RouteKey.home);
         }
       },
@@ -201,10 +207,10 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                 )
                               : const Spacer(),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            buildWhen: (_, current) =>
-                                current.status == AuthenticationStatus.success,
+                            buildWhen: (prev, cur) => cur.status != prev.status,
                             builder: (context, state) {
-                              if (state.isAuthenticated == true) {
+                              if (state.status ==
+                                  AuthenticationStatus.authenticated) {
                                 return UserQuickButton(isHome: isHome);
                               }
                               return Row(

@@ -28,22 +28,26 @@
   "createPassword": "Tạo mật khẩu",
   "passwordAtLeast": "Ít nhất 8 ký tự",
   "createPasswordDescription": "Bằng cách nhấp vào 'Tiếp tục', bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư của chúng tôi. Rank Your Uni được thiết kế và sử dụng bởi sinh viên Việt Nam để đánh giá về các trường đại học trên toàn quốc",
-  "createUser": "Cập nhật người dùng",
-  "fullName": "Họ và tên",
+  "updateProfile": "Cập nhật người dùng",
+  "firstName": "Tên",
+  "lastName": "Họ và tên đệm",
   "universityName": "Tên trường học",
   "enterFullName": "Nhập họ và tên ",
   "whatIsYourUniversity": "Trường học của bạn là gì?",
   "completeRegister": "Hoàn thành đăng ký",
   "hey": "Hey, {name}",
-  "@hey": {
+  "@hey" : {
     "placeholders": {
       "name": {
-        "type": "String"
+        "type" : "String"
       }
     }
   },
   "profile": "Hồ sơ",
   "settingAccount": "Cài đặt tài khoản",
   "yourRating": "Đánh giá của bạn",
-  "signOut": "Đăng xuất"
+  "signOut": "Đăng xuất",
+  "welcomeBack": "Chào mừng trở lại",
+  "enterLastName": "Họ và tên đệm của bạn là gì?",
+  "enterFirstName": "Tên của bạn là gì?"
 }

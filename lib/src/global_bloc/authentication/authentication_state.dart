@@ -1,30 +1,41 @@
 part of 'authentication_bloc.dart';
 
-enum AuthenticationStatus { none, loading, success, error }
+enum AuthenticationAction { init, signIn, signUp, signOut }
+
+enum AuthenticationStatus { unauthenticated, authenticated }
 
 @injectable
 class AuthenticationState extends Equatable {
-  final bool? isAuthenticated;
+  final bool? isLoading;
+  final bool? isSuccess;
   final AuthenticationStatus? status;
+  final AuthenticationAction? action;
 
   const AuthenticationState({
-    this.isAuthenticated,
+    this.isLoading,
+    this.isSuccess,
     this.status,
+    this.action,
   });
 
   AuthenticationState copyWith({
-    bool? isAuthenticated,
+    bool? isLoading,
     AuthenticationStatus? status,
+    AuthenticationAction? action,
+    bool? isSuccess,
   }) {
     return AuthenticationState(
-      isAuthenticated: isAuthenticated,
-      status: status,
-    );
+        isLoading: isLoading,
+        status: status,
+        isSuccess: isSuccess,
+        action: action);
   }
 
   @override
   List<Object?> get props => [
-        isAuthenticated,
+        isSuccess,
         status,
+        isLoading,
+        action,
       ];
 }

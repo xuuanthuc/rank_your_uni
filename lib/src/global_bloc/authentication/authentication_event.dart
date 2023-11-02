@@ -14,3 +14,13 @@ class OnSignOutEvent extends AuthenticationEvent{
   @override
   List<Object?> get props => [];
 }
+
+class OnSignUpEvent extends AuthenticationEvent{
+  @override
+  List<Object?> get props => [];
+}
+
+class OnCompleteSignUpEvent extends AuthenticationEvent{
+  @override
+  List<Object?> get props => [];
+}

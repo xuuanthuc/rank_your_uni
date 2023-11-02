@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
+
+import '../../../global_bloc/authentication/authentication_bloc.dart';
 
 class HomeDescription extends StatefulWidget {
   const HomeDescription({super.key});
@@ -27,7 +30,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
                   width: MediaQuery.sizeOf(context).width * 1.5,
                   child: Image.asset(AppImages.iHomeBody2)),
               mediumView: Container(
-                margin: const EdgeInsets.only(top: 300),
+                  margin: const EdgeInsets.only(top: 300),
                   width: MediaQuery.sizeOf(context).width * 0.8,
                   child: Image.asset(AppImages.iHomeBody2)),
               child: SizedBox(
@@ -70,9 +73,16 @@ class _HomeDescriptionState extends State<HomeDescription> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 45),
-                  Text(
-                    text.joinWithUs,
-                    style: theme.primaryTextTheme.displayLarge,
+                  BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    buildWhen: (prev, cur) => cur.status != prev.status,
+                    builder: (context, state) {
+                      return Text(
+                        state.status == AuthenticationStatus.authenticated
+                            ? text.welcomeBack
+                            : text.joinWithUs,
+                        style: theme.primaryTextTheme.displayLarge,
+                      );
+                    },
                   ),
                   const SizedBox(height: 35),
                   Text(
@@ -119,11 +129,19 @@ class _HomeDescriptionState extends State<HomeDescription> {
                   const SizedBox(height: 75),
                   SizedBox(
                     width: 300,
-                    child: AppButton(
-                      onTap: () {},
-                      title: text.signUpNow,
-                      titleTextStyle: theme.textTheme.labelLarge
-                          ?.copyWith(color: Colors.white),
+                    child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      buildWhen: (prev, cur) => cur.status != prev.status,
+                      builder: (context, state) {
+                        return AppButton(
+                          onTap: () {},
+                          title:
+                              state.status == AuthenticationStatus.authenticated
+                                  ? text.yourRating
+                                  : text.signUpNow,
+                          titleTextStyle: theme.textTheme.labelLarge
+                              ?.copyWith(color: Colors.white),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(height: 200),
