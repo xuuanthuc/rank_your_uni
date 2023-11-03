@@ -49,5 +49,8 @@
   "signOut": "Đăng xuất",
   "welcomeBack": "Chào mừng trở lại",
   "enterLastName": "Họ và tên đệm của bạn là gì?",
-  "enterFirstName": "Tên của bạn là gì?"
+  "enterFirstName": "Tên của bạn là gì?",
+  "help": "Trợ giúp",
+  "side": "Website",
+  "sideGuidelines": "Hướng dẫn sử dụng website"
 }

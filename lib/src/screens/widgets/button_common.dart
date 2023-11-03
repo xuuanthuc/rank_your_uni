@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AppButton extends StatefulWidget {
   final Function onTap;
   final String title;
@@ -13,6 +12,8 @@ class AppButton extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final double? height;
   final Widget? child;
+  final FontWeight? fontWeight;
+  final double? fontSize;
 
   const AppButton({
     super.key,
@@ -27,6 +28,8 @@ class AppButton extends StatefulWidget {
     this.height,
     this.padding,
     this.child,
+    this.fontWeight,
+    this.fontSize,
   });
 
   @override
@@ -60,7 +63,9 @@ class _AppButtonState extends State<AppButton> {
             widget.hasBorder ? theme.colorScheme.surface : Colors.transparent,
           ),
           backgroundColor: MaterialStateProperty.all(
-            widget.isOutline ? Colors.transparent : widget.backgroundColor ?? theme.primaryColor,
+            widget.isOutline
+                ? Colors.transparent
+                : widget.backgroundColor ?? theme.primaryColor,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -72,8 +77,9 @@ class _AppButtonState extends State<AppButton> {
               ),
               side: BorderSide(
                 width: 2,
-                color:
-                    widget.hasBorder ? widget.borderColor ?? theme.primaryColor : Colors.transparent,
+                color: widget.hasBorder
+                    ? widget.borderColor ?? theme.primaryColor
+                    : Colors.transparent,
               ),
             ),
           ),
@@ -86,20 +92,24 @@ class _AppButtonState extends State<AppButton> {
                 vertical: 10,
               ),
           child: Center(
-            child: widget.child ?? Text(
-              widget.title,
-              style: widget.titleTextStyle ??
-                  theme.primaryTextTheme.labelLarge?.copyWith(
-                    color: widget.titleTextStyleColor ?? Colors.white,
-                    decoration: widget.hasBorder
-                        ? null
-                        : _isUnderLine
-                            ? TextDecoration.underline
-                            : null,
-                    decorationColor: widget.titleTextStyleColor ?? Colors.white,
-                    decorationThickness: 2,
-                  ),
-            ),
+            child: widget.child ??
+                Text(
+                  widget.title,
+                  style: widget.titleTextStyle ??
+                      theme.primaryTextTheme.labelLarge?.copyWith(
+                        color: widget.titleTextStyleColor ?? Colors.white,
+                        decoration: widget.hasBorder
+                            ? null
+                            : _isUnderLine
+                                ? TextDecoration.underline
+                                : null,
+                        decorationColor:
+                            widget.titleTextStyleColor ?? Colors.white,
+                        decorationThickness: 2,
+                        fontWeight: widget.fontWeight,
+                        fontSize: widget.fontSize,
+                      ),
+                ),
           ),
         ),
       ),
