@@ -4,7 +4,7 @@ import '../../widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
 
 class LandingView extends StatelessWidget {
-  final Function onSearch;
+  final Function(String) onSearch;
 
   const LandingView({super.key, required this.onSearch});
 
@@ -22,7 +22,7 @@ class LandingView extends StatelessWidget {
               fontSize: 20,
               logoHeight: 40,
               contentPadding: 12,
-              onSearch: () => onSearch(),
+              onSearch: (keyword) => onSearch(keyword),
             ),
           ],
         ),
@@ -38,7 +38,7 @@ class LandingView extends StatelessWidget {
               fontSize: 30,
               logoHeight: 60,
               contentPadding: 18,
-              onSearch: () => onSearch(),
+              onSearch: (keyword) => onSearch(keyword),
             ),
           ],
         ),
@@ -72,7 +72,7 @@ class LandingContent extends StatelessWidget {
   final double logoHeight;
   final double fontSize;
   final double contentPadding;
-  final Function onSearch;
+  final Function(String) onSearch;
 
   const LandingContent({
     super.key,
@@ -82,10 +82,12 @@ class LandingContent extends StatelessWidget {
     required this.onSearch,
   });
 
+
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final TextEditingController controller = TextEditingController();
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -112,7 +114,8 @@ class LandingContent extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 cursorColor: AppColors.black,
-                onEditingComplete: () => onSearch(),
+                controller: controller,
+                onEditingComplete: () => onSearch(controller.text),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

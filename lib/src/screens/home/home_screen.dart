@@ -27,44 +27,21 @@ class HomeScreen extends StatelessWidget {
       },
       child: BlocProvider(
         create: (context) => getIt.get<HomeCubit>(),
-        child: const HomeView(),
-      ),
-    );
-  }
-}
-
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-    // context.read<HomeCubit>().getPosts();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
-      listener: (context, state) {},
-      child: SelectionArea(
-        child: Scaffold(
-          appBar: AppbarCommon(onSearch: () {}),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                LandingView(
-                  onSearch: () {
-                    context.go(RouteKey.search);
-                  },
-                ),
-                const HomeDescription(),
-                const FooterCommon()
-              ],
+        child: SelectionArea(
+          child: Scaffold(
+            appBar: AppbarCommon(onSearch: () {}),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  LandingView(
+                    onSearch: (keyword) {
+                      context.goNamed(RouteKey.search, queryParameters: {"q" : keyword});
+                    },
+                  ),
+                  const HomeDescription(),
+                  const FooterCommon()
+                ],
+              ),
             ),
           ),
         ),

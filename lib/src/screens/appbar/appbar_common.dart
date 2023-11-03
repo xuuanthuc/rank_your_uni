@@ -18,10 +18,12 @@ import 'package:template/global/style/styles.dart';
 
 class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
   final Function onSearch;
+  final String? keyword;
 
   const AppbarCommon({
     super.key,
     required this.onSearch,
+    this.keyword,
   });
 
   final double _appbarHeight = 60;
@@ -70,7 +72,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     String currentRoute = GoRouterState.of(context).matchedLocation;
-    bool isHome = currentRoute == RouteKey.home;
+    bool isHome = currentRoute == '/';
     ThemeData theme = Theme.of(context);
     final text = AppLocalizations.of(context)!;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
@@ -78,7 +80,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
         if ((state.action == AuthenticationAction.signOut ||
                 state.action == AuthenticationAction.signIn) &&
             state.isSuccess == true) {
-          context.go(RouteKey.home);
+          context.goNamed(RouteKey.home);
         }
       },
       child: BlocProvider(
@@ -125,6 +127,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                         theme: theme,
                                         text: text,
                                         onSearch: () => onSearch(),
+                                        keyword: keyword,
                                       )
                                     : const Spacer(),
                                 MenuIcon(
@@ -146,6 +149,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                     theme: theme,
                                     text: text,
                                     onSearch: () => onSearch,
+                                    keyword: keyword,
                                   ),
                                   AppButton(
                                     onTap: () => _onToggleSearchField(context),
@@ -204,6 +208,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                   theme: theme,
                                   text: text,
                                   onSearch: () => onSearch(),
+                                  keyword: keyword,
                                 )
                               : const Spacer(),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(

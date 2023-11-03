@@ -250,7 +250,7 @@ class FooterLogo extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: () {
-            context.go(RouteKey.home);
+            context.goNamed(RouteKey.home);
           },
           child: SvgPicture.asset(
             AppImages.iLogoWhite,

@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: RouteKey.home,
+          path: '/',
+          name: RouteKey.home,
           builder: (context, state) => const HomeScreen(),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
@@ -29,14 +29,24 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GoRoute(
-          path: RouteKey.search,
+          path: '/search/school',
           name: RouteKey.search,
-          builder: (context, state) => const SearchScreen(),
-          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
-            context: context,
-            state: state,
-            child: const SearchScreen(),
-          ),
+          builder: (context, state) {
+            final data = state.uri.queryParameters;
+            return SearchScreen(
+              keyword: data['q'],
+            );
+          },
+          pageBuilder: (context, state) {
+            final data = state.uri.queryParameters;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: SearchScreen(
+                keyword: data['q'],
+              ),
+            );
+          },
         ),
       ],
     );
@@ -65,5 +75,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
