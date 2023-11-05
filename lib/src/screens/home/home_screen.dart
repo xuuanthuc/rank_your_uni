@@ -35,7 +35,10 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   LandingView(
                     onSearch: (keyword) {
-                      context.goNamed(RouteKey.search, queryParameters: {"q" : keyword});
+                      context.goNamed(
+                        RouteKey.search,
+                        queryParameters: {"q": keyword},
+                      );
                     },
                   ),
                   const HomeDescription(),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/screens/detail/university_detail.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import '../global/routes/route_keys.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/',
           name: RouteKey.home,
-          builder: (context, state) => const HomeScreen(),
+          // builder: (context, state) => const HomeScreen(),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,
@@ -29,14 +30,34 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GoRoute(
-          path: '/search/school',
-          name: RouteKey.search,
-          builder: (context, state) {
-            final data = state.uri.queryParameters;
-            return SearchScreen(
-              keyword: data['q'],
+          path: '/university/:id',
+          name: RouteKey.university,
+          // builder: (context, state) {
+          //   final data = state.pathParameters;
+          //   return UniversityDetail(
+          //     id: int.parse(data["id"] as String),
+          //   );
+          // },
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: UniversityDetail(
+                id: int.parse(data["id"] as String),
+              ),
             );
           },
+        ),
+        GoRoute(
+          path: '/search/school',
+          name: RouteKey.search,
+          // builder: (context, state) {
+          //   final data = state.uri.queryParameters;
+          //   return SearchScreen(
+          //     keyword: data['q'],
+          //   );
+          // },
           pageBuilder: (context, state) {
             final data = state.uri.queryParameters;
             return buildPageWithDefaultTransition<void>(

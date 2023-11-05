@@ -52,5 +52,26 @@
   "enterFirstName": "Tên của bạn là gì?",
   "help": "Trợ giúp",
   "side": "Website",
-  "sideGuidelines": "Hướng dẫn sử dụng website"
+  "sideGuidelines": "Hướng dẫn sử dụng website",
+  "resultsForSearch": "Trường đại học hiển thị cho \"{university}\"",
+  "@resultsForSearch" : {
+    "placeholders": {
+      "university": {
+        "type" : "String"
+      }
+    }
+  },
+  "quality": "Chất lượng",
+  "review": "Đánh giá",
+  "seeMore": "Xem thêm",
+  "addUniversity": "Thêm trường học",
+  "noResultForUniversity": "Không thấy trường đại học bạn đang tìm kiếm?",
+  "reviewCount": "{value} đánh giá",
+  "@reviewCount" : {
+    "placeholders": {
+      "value": {
+        "type" : "int"
+      }
+    }
+  }
 }

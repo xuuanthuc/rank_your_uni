@@ -82,7 +82,6 @@ class LandingContent extends StatelessWidget {
     required this.onSearch,
   });
 
-
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -115,7 +114,10 @@ class LandingContent extends StatelessWidget {
                 ),
                 cursorColor: AppColors.black,
                 controller: controller,
-                onEditingComplete: () => onSearch(controller.text),
+                onEditingComplete: () {
+                  if(controller.text.trim().isEmpty) return;
+                  onSearch(controller.text.trim());
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

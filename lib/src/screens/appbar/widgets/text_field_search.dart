@@ -40,7 +40,10 @@ class _AppBarTextFieldState extends State<AppBarTextField> {
             fontWeight: FontWeight.w500,
           ),
           cursorHeight: 18,
-          onEditingComplete: () => widget.onSearch(),
+          onEditingComplete: () {
+            if (_controller.text.trim().isEmpty) return;
+            widget.onSearch();
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

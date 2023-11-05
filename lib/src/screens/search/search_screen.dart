@@ -3,6 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/appbar/appbar_common.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
+import 'package:template/src/screens/search/widgets/search_results_list.dart';
+import 'package:template/src/screens/search/widgets/text_result_for.dart';
+import 'package:template/src/screens/widgets/footer_common.dart';
+
+import 'widgets/load_more_universities.dart';
 
 class SearchScreen extends StatelessWidget {
   final String? keyword;
@@ -28,10 +33,24 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppbarCommon(
-        onSearch: () {},
-        keyword: keyword,
+    return SelectionArea(
+      child: Scaffold(
+        appBar: AppbarCommon(
+          onSearch: () {
+            print("Hell");
+          },
+          keyword: keyword,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextResultUniversities(keyword: keyword),
+              const SearchResultsView(),
+              const LoadMoreUniversities(),
+              const FooterCommon(),
+            ],
+          ),
+        ),
       ),
     );
   }
