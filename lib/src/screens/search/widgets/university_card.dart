@@ -18,18 +18,18 @@ class UniversityCard extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.sizeOf(context).width > Public.laptopSize
-                ? Public.tabletSize
-                : Public.laptopSize,
-          ),
-          margin:
-              const EdgeInsets.symmetric(vertical: 25 / 2, horizontal: 50),
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          color: AppColors.primaryShadow,
-          child: GestureDetector(
-            onTap: () => onTap(),
+        child: GestureDetector(
+          onTap: () => onTap(),
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.sizeOf(context).width > Public.laptopSize
+                  ? Public.tabletSize
+                  : Public.laptopSize,
+            ),
+            margin:
+                const EdgeInsets.symmetric(vertical: 25 / 2, horizontal: 50),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            color: AppColors.primaryShadow,
             child: const ResponsiveBuilder(
               tinyView: Column(
                 mainAxisSize: MainAxisSize.min,
