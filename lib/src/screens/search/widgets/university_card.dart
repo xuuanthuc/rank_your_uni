@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../widgets/point_container.dart';
 
 class UniversityCard extends StatelessWidget {
   final Function onTap;
@@ -42,23 +41,24 @@ class UniversityCard extends StatelessWidget {
                       UniversityAddress(),
                     ],
                   ),
+                  SizedBox(height: 7),
                   UniversityName(),
                 ],
               ),
-              child: Stack(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      RatingQuality(),
-                      SizedBox(width: 40),
-                      UniversityName(),
-                    ],
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: UniversityAddress(),
+                  RatingQuality(),
+                  SizedBox(width: 40),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        UniversityAddress(),
+                        SizedBox(height: 7),
+                        UniversityName(),
+
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -87,48 +87,12 @@ class RatingQuality extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: getBackgroundPoint(Random().nextDouble() * 5),
-          ),
-          margin: const EdgeInsets.all(7),
-          width: 62,
-          height: 62,
-          child: const Center(
-            child: Text(
-              '5.0',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Angkor',
-                fontSize: 25,
-              ),
-            ),
-          ),
-        ),
+        const PointContainer.regular(),
         Text(text.reviewCount(50)),
       ],
     );
   }
 
-  Color getBackgroundPoint(double point) {
-    Color color = AppColors.level0;
-
-    if (point >= 5.0) {
-      color = AppColors.level5;
-    } else if (point >= 4.0) {
-      color = AppColors.level4;
-    } else if (point >= 3.0) {
-      color = AppColors.level3;
-    } else if (point >= 2.0) {
-      color = AppColors.level2;
-    } else if (point >= 1.0) {
-      color = AppColors.level1;
-    } else if (point > 0.0) {
-      color = AppColors.level1;
-    }
-    return color;
-  }
 }
 
 class UniversityName extends StatelessWidget {
@@ -137,12 +101,10 @@ class UniversityName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Flexible(
-      child: Text(
-        'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh',
-        style: theme.primaryTextTheme.displayMedium?.copyWith(
-          fontWeight: FontWeight.w800,
-        ),
+    return Text(
+      'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh',
+      style: theme.primaryTextTheme.displayMedium?.copyWith(
+        fontWeight: FontWeight.w800,
       ),
     );
   }
@@ -153,6 +115,11 @@ class UniversityAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Cầu Giấy, Hà Nội");
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text("Cầu Giấy, Hà Nội"),
+      ],
+    );
   }
 }

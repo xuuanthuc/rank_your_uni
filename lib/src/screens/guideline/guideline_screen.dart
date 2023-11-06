@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../global/utilities/public.dart';
+import '../widgets/responsive_builder.dart';
 
 class GuidelinesScreen extends StatefulWidget {
   const GuidelinesScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+            padding: EdgeInsets.symmetric(horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
             constraints: const BoxConstraints(
               maxWidth: Public.desktopSize,
             ),

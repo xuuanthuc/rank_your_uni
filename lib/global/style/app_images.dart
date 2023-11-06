@@ -40,4 +40,6 @@ abstract class AppImages {
   static const String iSearch              = "images/i_search.svg";
   static const String iGoogleLogo              = "images/i_google_logo.png";
   static const String iBack              = "images/i_back.svg";
+  static const String iCompete              = "images/i_compete.svg";
+  static const String iReputation         = "images/i_reputation.svg";
 }

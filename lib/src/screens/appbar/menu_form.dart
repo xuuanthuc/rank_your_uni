@@ -6,6 +6,7 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
 import '../widgets/button_common.dart';
+import '../widgets/responsive_builder.dart';
 
 class MenuFormHeader extends StatelessWidget {
   final Function onSignIn;
@@ -32,7 +33,7 @@ class MenuFormHeader extends StatelessWidget {
         color: Colors.white,
         child: Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: const EdgeInsets.symmetric(horizontal: 50),
+          padding: EdgeInsets.symmetric(horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -116,14 +117,12 @@ class MenuFormHeader extends StatelessWidget {
                       const SizedBox(height: 28),
                       MenuOption(
                         onTap: () {
-                          context.pop();
                           onSignIn();
                         },
                         label: text.signIn,
                       ),
                       MenuOption(
                         onTap: () {
-                          context.pop();
                           onSignUp();
                         },
                         label: text.signUp,

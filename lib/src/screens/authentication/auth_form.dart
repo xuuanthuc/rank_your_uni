@@ -10,6 +10,7 @@ import 'package:template/src/screens/authentication/widgets/google_auth_button.d
 import 'package:template/src/screens/authentication/widgets/text_field_auth.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/expandable_page_view.dart';
+import 'package:template/src/screens/widgets/responsive_builder.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key, required this.pageIndex});
@@ -120,7 +121,8 @@ class SignInForm extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: 35, horizontal: setHorizontalDialogPadding(context)),
+          vertical: 35,
+          horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -242,7 +244,9 @@ class SignUpEmailForm extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: setHorizontalDialogPadding(context), vertical: 35),
+        horizontal: ResponsiveBuilder.setHorizontalPadding(context),
+        vertical: 35,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -379,7 +383,7 @@ class SignUpPasswordForm extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: setHorizontalDialogPadding(context)),
+                horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -437,7 +441,7 @@ class UpdateUserProfileForm extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: 35,
-        horizontal: setHorizontalDialogPadding(context),
+        horizontal: ResponsiveBuilder.setHorizontalPadding(context),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -487,22 +491,4 @@ class UpdateUserProfileForm extends StatelessWidget {
       ),
     );
   }
-}
-
-double setHorizontalDialogPadding(BuildContext context) {
-  if (MediaQuery.sizeOf(context).width < Public.mobileSize) {
-    return 35;
-  } else if (MediaQuery.sizeOf(context).width > Public.mobileSize &&
-      MediaQuery.sizeOf(context).width < Public.tabletSize) {
-    return 40;
-  } else if (MediaQuery.sizeOf(context).width > Public.tabletSize &&
-      MediaQuery.sizeOf(context).width < Public.laptopSize) {
-    return 50;
-  } else if (MediaQuery.sizeOf(context).width > Public.laptopSize &&
-      MediaQuery.sizeOf(context).width < Public.desktopSize) {
-    return 60;
-  } else if (MediaQuery.sizeOf(context).width > Public.desktopSize) {
-    return 70;
-  }
-  return 70;
 }

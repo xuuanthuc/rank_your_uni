@@ -73,5 +73,19 @@
         "type" : "int"
       }
     }
-  }
+  },
+  "reviewThisUniversity": "Đánh giá trường này",
+  "compareUniversity": "So sánh trường học",
+  "reputation": "Danh tiếng",
+  "competitionLevel": "Độ cạnh tranh",
+  "location": "Vị trí",
+  "internet": "Internet",
+  "favorite": "Độ yêu thích",
+  "infrastructure": "Cơ sở vật chất",
+  "clubs": "CLB/ ngoại khoá",
+  "food": "Đồ ăn",
+  "overall": "Tổng thể",
+  "helpful": "Hữu ích",
+  "notHelpful": "Không hữu ích",
+  "report": " Báo cáo"
 }

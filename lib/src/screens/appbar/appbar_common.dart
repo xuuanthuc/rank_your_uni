@@ -58,8 +58,12 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
         return MenuFormHeader(
-          onSignIn: () => _showSignInDialog(context),
-          onSignUp: () => _showSignUpDialog(context),
+          onSignIn: () {
+            _showSignInDialog(context);
+          },
+          onSignUp: () {
+            _showSignUpDialog(context);
+          },
         );
       },
     );
@@ -96,7 +100,8 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
           title: Container(
             width: MediaQuery.sizeOf(context).width,
             height: _appbarHeight,
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+            padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
             constraints: const BoxConstraints(maxWidth: Public.desktopSize),
             child: Stack(
               children: [
