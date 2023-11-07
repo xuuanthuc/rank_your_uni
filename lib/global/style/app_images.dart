@@ -4,7 +4,7 @@ abstract class AppImages {
   static const String iLogo = "assets/images/logo.png";
 
   static const String iAwful = "images/i_awful.svg";
-  static const String iBad   = "images/i_bad .svg";
+  static const String iBad   = "images/i_bad.svg";
   static const String iClose = "images/i_close.svg";
   static const String iClubs = "images/i_clubs.svg";
   static const String iDetailBackground = "images/i_detail_background.png";
@@ -42,4 +42,5 @@ abstract class AppImages {
   static const String iBack              = "images/i_back.svg";
   static const String iCompete              = "images/i_compete.svg";
   static const String iReputation         = "images/i_reputation.svg";
+  static const String iSheetClose         = "images/i_sheet_close.svg";
 }

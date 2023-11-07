@@ -43,10 +43,10 @@ class ResponsiveBuilder extends StatelessWidget {
 
   static double setHorizontalPadding(BuildContext context) {
     if (MediaQuery.sizeOf(context).width < Public.mobileSize) {
-      return 35;
+      return 20;
     } else if (MediaQuery.sizeOf(context).width > Public.mobileSize &&
         MediaQuery.sizeOf(context).width < Public.tabletSize) {
-      return 40;
+      return 35;
     } else if (MediaQuery.sizeOf(context).width > Public.tabletSize &&
         MediaQuery.sizeOf(context).width < Public.laptopSize) {
       return 50;

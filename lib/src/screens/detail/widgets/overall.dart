@@ -1,15 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:template/global/utilities/criteria.dart';
+import 'package:go_router/go_router.dart';
+import 'package:template/global/routes/route_keys.dart';
+import 'package:template/global/enum/criteria.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../../global/style/styles.dart';
 import '../../widgets/button_common.dart';
 
 class UniversityOverview extends StatelessWidget {
   const UniversityOverview({super.key});
+
+  void _openReviewForm(BuildContext context) {
+    context.goNamed(
+      RouteKey.review,
+      pathParameters: {"id": "100"},
+    );
+  }
+
+  void _compareUniversity() {}
 
   @override
   Widget build(BuildContext context) {
@@ -17,57 +27,64 @@ class UniversityOverview extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       child: Center(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
+          margin: EdgeInsets.symmetric(
+              horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
           constraints: const BoxConstraints(
             maxWidth: Public.laptopSize,
           ),
-          child: const ResponsiveBuilder(
+          child: ResponsiveBuilder(
             smallView: Column(
               children: [
-                SizedBox(height: 40),
-                OverallPoint(),
-                SizedBox(height: 14),
-                UniversityName(),
-                SizedBox(height: 14),
-                UniversityAddress(),
-                SizedBox(height: 28),
-                ActionReviewAndCompare(),
-                SizedBox(height: 40),
-                ReviewCriteria(criteria: Criteria.reputation),
-                ReviewCriteria(criteria: Criteria.competition),
-                ReviewCriteria(criteria: Criteria.internet),
-                ReviewCriteria(criteria: Criteria.location),
-                ReviewCriteria(criteria: Criteria.favorite),
-                ReviewCriteria(criteria: Criteria.infrastructure),
-                ReviewCriteria(criteria: Criteria.clubs),
-                ReviewCriteria(criteria: Criteria.food),
+                const SizedBox(height: 40),
+                const OverallPoint(),
+                const SizedBox(height: 14),
+                const UniversityName(),
+                const SizedBox(height: 14),
+                const UniversityAddress(),
+                const SizedBox(height: 28),
+                ActionReviewAndCompare(
+                  addReview: () => _openReviewForm(context),
+                  compareUniversity: () => _compareUniversity(),
+                ),
+                const SizedBox(height: 40),
+                const ReviewCriteria(criteria: Criteria.reputation),
+                const ReviewCriteria(criteria: Criteria.competition),
+                const ReviewCriteria(criteria: Criteria.internet),
+                const ReviewCriteria(criteria: Criteria.location),
+                const ReviewCriteria(criteria: Criteria.favorite),
+                const ReviewCriteria(criteria: Criteria.infrastructure),
+                const ReviewCriteria(criteria: Criteria.clubs),
+                const ReviewCriteria(criteria: Criteria.food),
               ],
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 40),
+                  padding: const EdgeInsets.symmetric(vertical: 40),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      OverallPoint(),
-                      SizedBox(width: 25),
+                      const OverallPoint(),
+                      const SizedBox(width: 25),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            UniversityAddress(),
-                            SizedBox(height: 14),
-                            UniversityName(),
-                            SizedBox(height: 28),
-                            ActionReviewAndCompare(),
+                            const UniversityAddress(),
+                            const SizedBox(height: 14),
+                            const UniversityName(),
+                            const SizedBox(height: 28),
+                            ActionReviewAndCompare(
+                              addReview: () => _openReviewForm(context),
+                              compareUniversity: () => _compareUniversity(),
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
                 ),
-                IntrinsicHeight(
+                const IntrinsicHeight(
                   child: Row(
                     children: [
                       Expanded(
@@ -90,8 +107,7 @@ class UniversityOverview extends StatelessWidget {
                         child: Column(
                           children: [
                             ReviewCriteria(criteria: Criteria.favorite),
-                            ReviewCriteria(
-                                criteria: Criteria.infrastructure),
+                            ReviewCriteria(criteria: Criteria.infrastructure),
                             ReviewCriteria(criteria: Criteria.clubs),
                             ReviewCriteria(criteria: Criteria.food),
                           ],
@@ -110,7 +126,14 @@ class UniversityOverview extends StatelessWidget {
 }
 
 class ActionReviewAndCompare extends StatelessWidget {
-  const ActionReviewAndCompare({super.key});
+  final Function addReview;
+  final Function compareUniversity;
+
+  const ActionReviewAndCompare({
+    super.key,
+    required this.addReview,
+    required this.compareUniversity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +143,7 @@ class ActionReviewAndCompare extends StatelessWidget {
       smallView: Column(
         children: [
           AppButton(
-            onTap: () => {},
+            onTap: () => addReview(),
             title: text.reviewThisUniversity,
             padding: const EdgeInsets.symmetric(
               horizontal: 15,
@@ -129,7 +152,7 @@ class ActionReviewAndCompare extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           AppButton(
-            onTap: () => {},
+            onTap: () => compareUniversity(),
             title: text.compareUniversity,
             isOutline: true,
             borderColor: theme.primaryColor,
@@ -144,7 +167,7 @@ class ActionReviewAndCompare extends StatelessWidget {
       child: Row(
         children: [
           AppButton(
-            onTap: () => {},
+            onTap: () => addReview(),
             title: text.reviewThisUniversity,
             padding: const EdgeInsets.symmetric(
               horizontal: 15,
@@ -153,7 +176,7 @@ class ActionReviewAndCompare extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           AppButton(
-            onTap: () => {},
+            onTap: () => compareUniversity(),
             title: text.compareUniversity,
             isOutline: true,
             borderColor: theme.primaryColor,

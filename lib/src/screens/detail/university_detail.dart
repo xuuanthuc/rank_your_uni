@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:template/src/screens/appbar/appbar_common.dart';
 import 'package:template/src/screens/detail/widgets/overall.dart';
 import 'package:template/src/screens/detail/widgets/reviews.dart';
+import 'package:template/src/screens/widgets/footer_common.dart';
 
 import '../../../global/style/styles.dart';
 
@@ -24,6 +25,7 @@ class UniversityDetail extends StatelessWidget {
                   children: [
                     UniversityOverview(),
                     ReviewsBuilder(),
+                    FooterCommon(),
                   ],
                 ),
               ],

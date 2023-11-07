@@ -6,6 +6,7 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
 import 'package:template/src/screens/home/home_screen.dart';
+import 'package:template/src/screens/review/review_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: '/',
+          path: '/a',
           name: RouteKey.home,
           // builder: (context, state) => const HomeScreen(),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GoRoute(
-          path: '/university/:id',
+          // path: '/university/:id',
+          path: '/',
           name: RouteKey.university,
           // builder: (context, state) {
           //   final data = state.pathParameters;
@@ -44,7 +46,8 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: UniversityDetail(
-                id: int.parse(data["id"] as String),
+                // id: int.parse(data["id"] as String),
+                id: 100,
               ),
             );
           },
@@ -65,6 +68,20 @@ class MyApp extends StatelessWidget {
               state: state,
               child: SearchScreen(
                 keyword: data['q'],
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review/university:id',
+          name: RouteKey.review,
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ReviewForm(
+                universityId: data['id'] as String,
               ),
             );
           },

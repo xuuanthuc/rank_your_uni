@@ -87,5 +87,35 @@
   "overall": "Tổng thể",
   "helpful": "Hữu ích",
   "notHelpful": "Không hữu ích",
-  "report": " Báo cáo"
+  "report": " Báo cáo",
+  "reviewUniversity": "Đánh giá: {university}",
+  "@reviewUniversity" : {
+    "placeholders": {
+      "university": {
+        "type" : "String"
+      }
+    }
+  },
+  "reputationDescription": "Danh tiếng",
+  "competitionDescription": "Độ cạnh tranh (tuyển sinh, điểm số, học bổng)",
+  "locationDescription": "Vị trí thuận tiện để di chuyển",
+  "internetDescription": "Chất lượng Internet",
+  "favoriteDescription": "Độ yêu thích của sinh viên",
+  "infrastructureDescription": "Cơ sở vật chất",
+  "clubsDescription": "Các hoạt động câu lạc bộ/ ngoại khoá",
+  "foodDescription": "Đồ ăn bên trong và quanh trường",
+  "writeReview": "Viết đánh giá",
+  "tooltipWriteReview": "Thảo luận về kinh nghiệm cá nhân của bạn về ngôi trường này. Điều gì bạn cảm thấy tuyệt vời về nó?",
+  "guideline": "Hướng dẫn",
+  "seeAllGuideline": "Xem tất cả hướng dẫn",
+  "guidelineBasic1": "Đánh giá của bạn có thể bị xoá nếu sử dụng các ngôn từ tục tĩu, xúc phạm.",
+  "guidelineBasic2": "Tham khảo các danh mục xếp hạng để xây dựng nhận xét của mình tốt hơn.",
+  "guidelineBasic3": "Đừng quên xem lại đánh giá của bạn",
+  "placeHolderReview": "Hãy cho những sinh viên khác biết thêm vài điều về ngôi trường này",
+  "submitReview": "Gửi đánh giá",
+  "awful": "Tồi tệ",
+  "bad": "Yếu",
+  "medium": "Trung bình",
+  "good": "Tốt",
+  "excellent": "Tuyệt vời"
 }

@@ -74,7 +74,7 @@ abstract class AppThemes {
       //title1
 
       titleLarge: TextStyle(
-        fontSize: 12,
+        fontSize: 13,
         color: AppColors.black,
         fontWeight: FontWeight.w600,
       ),

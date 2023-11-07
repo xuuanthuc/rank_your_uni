@@ -38,6 +38,31 @@ extension CriteriaName on Criteria {
     }
   }
 
+  String description(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+
+    switch (this) {
+      case Criteria.competition:
+        return text.competitionDescription;
+      case Criteria.reputation:
+        return text.reputationDescription;
+      case Criteria.location:
+        return text.locationDescription;
+      case Criteria.internet:
+        return text.internetDescription;
+      case Criteria.favorite:
+        return text.favoriteDescription;
+      case Criteria.infrastructure:
+        return text.infrastructureDescription;
+      case Criteria.clubs:
+        return text.clubsDescription;
+      case Criteria.food:
+        return text.foodDescription;
+      default:
+        return '';
+    }
+  }
+
   String get iconPath {
     switch (this) {
       case Criteria.competition:

@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:template/global/style/styles.dart';
-import 'package:template/global/utilities/criteria.dart';
+import 'package:template/global/enum/criteria.dart';
+import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
@@ -38,11 +39,25 @@ class ReviewsBuilder extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return const ReviewItem();
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: (((index + 1) % 3) == 0) ? 75 : 0,
+                ),
+                child: const ReviewItem(),
+              );
             },
             itemCount: 20,
             separatorBuilder: (_, __) => const SizedBox(height: 30),
           ),
+          const SizedBox(height: 75),
+          SizedBox(
+            width: 250,
+            child: AppButton(
+              onTap: () {},
+              title: text.seeMore,
+            ),
+          ),
+          const SizedBox(height: 200),
         ],
       ),
     );
