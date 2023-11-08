@@ -19,7 +19,13 @@ class UniversityOverview extends StatelessWidget {
     );
   }
 
-  void _compareUniversity() {}
+  void _compareUniversity(BuildContext context) {
+    context.goNamed(
+      RouteKey.compare,
+      pathParameters: {"id": "100"},
+      extra: "Back Khoa"
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class UniversityOverview extends StatelessWidget {
                 const SizedBox(height: 28),
                 ActionReviewAndCompare(
                   addReview: () => _openReviewForm(context),
-                  compareUniversity: () => _compareUniversity(),
+                  compareUniversity: () => _compareUniversity(context),
                 ),
                 const SizedBox(height: 40),
                 const ReviewCriteria(criteria: Criteria.reputation),
@@ -76,7 +82,7 @@ class UniversityOverview extends StatelessWidget {
                             const SizedBox(height: 28),
                             ActionReviewAndCompare(
                               addReview: () => _openReviewForm(context),
-                              compareUniversity: () => _compareUniversity(),
+                              compareUniversity: () => _compareUniversity(context),
                             ),
                           ],
                         ),

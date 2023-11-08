@@ -19,5 +19,6 @@ abstract class RouteKey {
   static const String home = "home";
   static const String university = "university";
   static const String review = "review";
+  static const String compare = "compare";
 }
 

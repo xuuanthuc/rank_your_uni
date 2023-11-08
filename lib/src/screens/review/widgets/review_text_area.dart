@@ -29,17 +29,19 @@ class ReviewArea extends StatelessWidget {
               text.writeReview,
               style: theme.primaryTextTheme.labelLarge,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    text.tooltipWriteReview,
-                    style: theme.primaryTextTheme.bodyLarge,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      text.tooltipWriteReview,
+                      style: theme.primaryTextTheme.bodyLarge,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            const SizedBox(height: 14),
             Row(
               children: [
                 Expanded(
@@ -55,7 +57,10 @@ class ReviewArea extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset(AppImages.iProtect),
+                              SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SvgPicture.asset(AppImages.iProtect)),
                               const SizedBox(width: 4),
                               Text(
                                 text.guideline,
@@ -64,24 +69,25 @@ class ReviewArea extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 5),
-                          Text(text.guidelineBasic1),
-                          const SizedBox(height: 8),
-                          Text(text.guidelineBasic2),
-                          const SizedBox(height: 8),
-                          Text(text.guidelineBasic3),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              AppButton(
-                                onTap: () {},
-                                hasBorder: false,
-                                title: text.seeAllGuideline,
-                                isOutline: true,
-                                titleTextStyleColor: AppColors.black,
-                                fontSize: 13,
-                                padding: EdgeInsets.zero,
-                              ),
-                            ],
+                          GuidelineBasic(text: text.guidelineBasic1),
+                          GuidelineBasic(text: text.guidelineBasic2),
+                          GuidelineBasic(text: text.guidelineBasic3),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 4),
+                            child: Row(
+                              children: [
+                                AppButton(
+                                  onTap: () {},
+                                  hasBorder: false,
+                                  title: text.seeAllGuideline,
+                                  isOutline: true,
+                                  titleTextStyleColor: AppColors.black,
+                                  fontSize: 13,
+                                  padding: EdgeInsets.zero,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -91,8 +97,59 @@ class ReviewArea extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
+            TextField(
+              maxLines: 7,
+              decoration: InputDecoration(
+                hintText: text.placeHolderReview,
+                hintStyle: theme.primaryTextTheme.bodyMedium?.copyWith(
+                  color: AppColors.textGrey,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: theme.primaryColor,
+                    width: 1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: theme.primaryColor,
+                    width: 1,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class GuidelineBasic extends StatelessWidget {
+  final String text;
+
+  const GuidelineBasic({
+    super.key,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+      child: Row(
+        children: [
+          Container(
+            height: 5,
+            width: 5,
+            decoration: BoxDecoration(
+                color: AppColors.black, borderRadius: BorderRadius.circular(5)),
+          ),
+          const SizedBox(width: 5),
+          Text(text),
+        ],
       ),
     );
   }

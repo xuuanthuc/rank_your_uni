@@ -117,5 +117,10 @@
   "bad": "Yếu",
   "medium": "Trung bình",
   "good": "Tốt",
-  "excellent": "Tuyệt vời"
+  "excellent": "Tuyệt vời",
+  "reportReview": "Báo cáo một đánh giá",
+  "youAreReportingReview": "Bạn đang báo cáo đánh giá:",
+  "whatIsMatter": "Vấn đề là gì?",
+  "whatIsMatterDescription": "Nếu bạn cho rằng nhận xét này không phù hợp với Nguyên tắc đánh giá của trang chúng tôi, hãy báo cáo nhận xét đó và cho chúng tôi biết lý do.",
+  "reportContent": "Nội dung báo cáo"
 }

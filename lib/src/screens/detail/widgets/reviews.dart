@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/enum/criteria.dart';
+import 'package:template/src/screens/detail/report_review_form.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
@@ -67,6 +68,16 @@ class ReviewsBuilder extends StatelessWidget {
 class ReviewItem extends StatelessWidget {
   const ReviewItem({super.key});
 
+  Future<void> _onReport(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const ReportReviewForm();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -75,21 +86,25 @@ class ReviewItem extends StatelessWidget {
         color: AppColors.primaryShadow,
         constraints: const BoxConstraints(maxWidth: Public.tabletSize),
         padding: const EdgeInsets.all(22).copyWith(bottom: 10),
-        child: const ResponsiveBuilder(
+        child: ResponsiveBuilder(
           mediumView: Column(
             children: [
-              OverallPoint(),
-              SizedBox(height: 15),
-              ReviewContent(),
+              const OverallPoint(),
+              const SizedBox(height: 15),
+              ReviewContent(
+                onReport: () => _onReport(context),
+              ),
             ],
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OverallPoint(),
-              SizedBox(width: 35),
+              const OverallPoint(),
+              const SizedBox(width: 35),
               Expanded(
-                child: ReviewContent(),
+                child: ReviewContent(
+                  onReport: () => _onReport(context),
+                ),
               ),
             ],
           ),
@@ -100,7 +115,12 @@ class ReviewItem extends StatelessWidget {
 }
 
 class ReviewContent extends StatelessWidget {
-  const ReviewContent({super.key});
+  final Function onReport;
+
+  const ReviewContent({
+    super.key,
+    required this.onReport,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +245,7 @@ class ReviewContent extends StatelessWidget {
             Tooltip(
               message: text.report,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () => onReport(),
                 icon: SizedBox(
                   height: 25,
                   width: 25,
@@ -245,9 +265,13 @@ class ReviewDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(Random().nextInt(3) == 2
-        ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-        : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ');
+    final theme = Theme.of(context);
+    return Text(
+      Random().nextInt(3) == 2
+          ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ',
+      style: theme.primaryTextTheme.bodyMedium,
+    );
   }
 }
 

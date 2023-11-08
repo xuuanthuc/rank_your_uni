@@ -166,7 +166,6 @@ class CriteriaReviewLevel extends StatelessWidget {
   }
 
   Color getColorRated(int index, CriteriaRated rated) {
-    print("get color");
     Color color = AppColors.primaryShadow;
     if (rated.point.index >= index) {
       if (index == 0) {
@@ -186,7 +185,6 @@ class CriteriaReviewLevel extends StatelessWidget {
   }
 
   Color getColorProgress(int index, MouseStatus status) {
-    print("get color 1");
     Color color = AppColors.primaryShadow;
     if (status == MouseStatus.hover) {
       if (index == 0) {
