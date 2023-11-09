@@ -21,8 +21,10 @@ class TextResultUniversities extends StatelessWidget {
                   .copyWith(
                 bottom: 40 - 25 / 2,
               ),
-              child: Text(
-                text.resultsForSearch(keyword ?? ""),
+              child: SelectionArea(
+                child: Text(
+                  text.resultsForSearch(keyword ?? ""),
+                ),
               ),
             ),
           ],

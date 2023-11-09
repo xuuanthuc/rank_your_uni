@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: '/a',
+          path: '/',
           name: RouteKey.home,
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GoRoute(
-          // path: '/university/:id',
-          path: '/',
+          path: '/university/:id',
           name: RouteKey.university,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
@@ -40,8 +39,7 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: UniversityDetail(
-                // id: int.parse(data["id"] as String),
-                id: 100,
+                id: int.parse(data["id"] as String),
               ),
             );
           },
@@ -86,6 +84,34 @@ class MyApp extends StatelessWidget {
               child: CompareScreen(
                 universityId: data['id'] as String,
               ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/compare/university/:id/:withUniId',
+          name: RouteKey.compareWith,
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            final extra = state.extra;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: CompareScreen(
+                universityId: data['id'] as String,
+                compareWithUniversityId: data['withUniId'] as String,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/compare/university',
+          name: RouteKey.reset,
+          pageBuilder: (context, state) {
+            final extra = state.extra;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const CompareScreen(),
             );
           },
         ),

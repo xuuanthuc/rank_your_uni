@@ -140,15 +140,16 @@ class GuidelineBasic extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 5,
-            width: 5,
+            height: 7,
+            width: 7,
+            margin: const EdgeInsets.all(6.5).copyWith(left: 0),
             decoration: BoxDecoration(
                 color: AppColors.black, borderRadius: BorderRadius.circular(5)),
           ),
-          const SizedBox(width: 5),
-          Text(text),
+          Expanded(child: Text(text)),
         ],
       ),
     );

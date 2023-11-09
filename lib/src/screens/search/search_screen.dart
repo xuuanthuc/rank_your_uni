@@ -33,23 +33,21 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child: Scaffold(
-        appBar: AppbarCommon(
-          onSearch: () {
-            print("Hell");
-          },
-          keyword: keyword,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextResultUniversities(keyword: keyword),
-              const SearchResultsView(),
-              const LoadMoreUniversities(),
-              const FooterCommon(),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppbarCommon(
+        onSearch: () {
+          print("Hell");
+        },
+        keyword: keyword,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextResultUniversities(keyword: keyword),
+            const SearchResultsView(),
+            const LoadMoreUniversities(),
+            const FooterCommon(),
+          ],
         ),
       ),
     );

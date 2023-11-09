@@ -20,5 +20,7 @@ abstract class RouteKey {
   static const String university = "university";
   static const String review = "review";
   static const String compare = "compare";
+  static const String compareWith = "compare_with";
+  static const String reset = "reset_compare";
 }
 

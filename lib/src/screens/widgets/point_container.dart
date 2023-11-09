@@ -20,6 +20,12 @@ class PointContainer extends StatelessWidget {
     this.fontSize = 23,
   });
 
+  const PointContainer.tiny({
+    super.key,
+    this.size = 34,
+    this.fontSize = 14,
+  });
+
   const PointContainer.medium({
     super.key,
     this.size = 70,

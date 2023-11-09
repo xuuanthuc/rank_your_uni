@@ -16,9 +16,11 @@ class LoadMoreUniversities extends StatelessWidget {
             const SizedBox(height: 75),
             AppButton(onTap: () {}, title: text.seeMore),
             const SizedBox(height: 25),
-            Text(
-              text.noResultForUniversity,
-              textAlign: TextAlign.center,
+            SelectionArea(
+              child: Text(
+                text.noResultForUniversity,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 12),
             AppButton(

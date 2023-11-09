@@ -40,6 +40,28 @@ class ResponsiveBuilder extends StatelessWidget {
     );
   }
 
+  static double setSize(BuildContext context,
+      {double? tinySize,
+      double? smallSize,
+      double? mediumSize,
+      double? largeSize,
+      required double extraSize}) {
+    if (MediaQuery.sizeOf(context).width < Public.mobileSize) {
+      return tinySize ?? smallSize ?? mediumSize ?? largeSize ?? extraSize;
+    } else if (MediaQuery.sizeOf(context).width > Public.mobileSize &&
+        MediaQuery.sizeOf(context).width < Public.tabletSize) {
+      return smallSize ?? mediumSize ?? largeSize ?? extraSize;
+    } else if (MediaQuery.sizeOf(context).width > Public.tabletSize &&
+        MediaQuery.sizeOf(context).width < Public.laptopSize) {
+      return mediumSize ?? largeSize ?? extraSize;
+    } else if (MediaQuery.sizeOf(context).width > Public.laptopSize &&
+        MediaQuery.sizeOf(context).width < Public.desktopSize) {
+      return largeSize ?? extraSize;
+    } else if (MediaQuery.sizeOf(context).width > Public.desktopSize) {
+      return  extraSize;
+    }
+    return extraSize;
+  }
 
   static double setHorizontalPadding(BuildContext context) {
     if (MediaQuery.sizeOf(context).width < Public.mobileSize) {

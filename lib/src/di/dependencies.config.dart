@@ -13,9 +13,10 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart'
     as _i5;
 import 'package:template/src/network/api_provider.dart' as _i3;
-import 'package:template/src/repositories/post_repository.dart' as _i7;
+import 'package:template/src/repositories/post_repository.dart' as _i8;
 import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i4;
-import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i6;
+import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i6;
+import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i7;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,11 +36,17 @@ extension GetItInjectableX on _i1.GetIt {
           status: gh<_i4.AppbarStatus>(),
         ));
     gh.factory<_i5.AuthenticationBloc>(() => _i5.AuthenticationBloc());
-    gh.factory<_i5.AuthenticationState>(() => const _i5.AuthenticationState());
-    gh.factory<_i6.HomeState>(
-        () => _i6.HomeState(status: gh<_i6.HomeStatus>()));
-    gh.factory<_i7.PostRepository>(() => _i7.PostRepository());
-    gh.factory<_i6.HomeCubit>(() => _i6.HomeCubit(gh<_i7.PostRepository>()));
+    gh.factory<_i5.AuthenticationState>(() => _i5.AuthenticationState(
+          isLoading: gh<bool>(),
+          isSuccess: gh<bool>(),
+          status: gh<_i5.AuthenticationStatus>(),
+          action: gh<_i5.AuthenticationAction>(),
+        ));
+    gh.factory<_i6.CompareCubit>(() => _i6.CompareCubit());
+    gh.factory<_i7.HomeState>(
+        () => _i7.HomeState(status: gh<_i7.HomeStatus>()));
+    gh.factory<_i8.PostRepository>(() => _i8.PostRepository());
+    gh.factory<_i7.HomeCubit>(() => _i7.HomeCubit(gh<_i8.PostRepository>()));
     return this;
   }
 }
