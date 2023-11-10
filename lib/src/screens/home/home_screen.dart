@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         create: (context) => getIt.get<HomeCubit>(),
         child: SelectionArea(
           child: Scaffold(
-            appBar: AppbarCommon(onSearch: () {}),
+            appBar: const AppbarCommon( ),
             body: SingleChildScrollView(
               child: Column(
                 children: [

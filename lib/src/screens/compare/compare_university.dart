@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/style/styles.dart';
@@ -72,7 +71,10 @@ class _CompareViewState extends State<CompareView> {
   }
 
   void _goCompare(BuildContext context, {String? id, String? withUniId}) {
-    Map<String, String> param = {};
+    Map<String, String> param = {
+      "id": "100",
+    };
+    String route = RouteKey.compare;
     if (id == null) {
       return;
     } else if (withUniId != null) {
@@ -80,21 +82,13 @@ class _CompareViewState extends State<CompareView> {
         "id": "100",
         "withUniId": "200",
       };
-      context.goNamed(
-        RouteKey.compareWith,
-        pathParameters: param,
-        extra: "Back Khoa",
-      );
-    } else if (withUniId == null) {
-      param = {
-        "id": "100",
-      };
-      context.goNamed(
-        RouteKey.compare,
-        pathParameters: param,
-        extra: "Back Khoa",
-      );
+      route = RouteKey.compareWith;
     }
+    context.goNamed(
+      route,
+      pathParameters: param,
+      extra: "Back Khoa",
+    );
   }
 
   void _resetUniversity(bool resetAll) {
@@ -119,9 +113,7 @@ class _CompareViewState extends State<CompareView> {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppbarCommon(
-        onSearch: () {},
-      ),
+      appBar: const AppbarCommon( ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

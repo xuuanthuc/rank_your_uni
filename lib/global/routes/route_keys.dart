@@ -22,5 +22,8 @@ abstract class RouteKey {
   static const String compare = "compare";
   static const String compareWith = "compare_with";
   static const String reset = "reset_compare";
+  static const String profile = "profile";
+  static const String account = "account";
+  static const String yourRating = "youRating";
 }
 

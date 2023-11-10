@@ -17,6 +17,7 @@ import 'package:template/src/repositories/post_repository.dart' as _i8;
 import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i4;
 import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i6;
 import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i7;
+import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i9;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -46,6 +47,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i7.HomeState>(
         () => _i7.HomeState(status: gh<_i7.HomeStatus>()));
     gh.factory<_i8.PostRepository>(() => _i8.PostRepository());
+    gh.factory<_i9.ProfileCubit>(() => _i9.ProfileCubit());
     gh.factory<_i7.HomeCubit>(() => _i7.HomeCubit(gh<_i8.PostRepository>()));
     return this;
   }

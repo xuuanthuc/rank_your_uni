@@ -17,12 +17,10 @@ import 'bloc/appbar_cubit.dart';
 import 'package:template/global/style/styles.dart';
 
 class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
-  final Function onSearch;
   final String? keyword;
 
   const AppbarCommon({
     super.key,
-    required this.onSearch,
     this.keyword,
   });
 
@@ -131,7 +129,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                     ? AppBarTextField(
                                         theme: theme,
                                         text: text,
-                                        onSearch: () => onSearch(),
                                         keyword: keyword,
                                       )
                                     : const Spacer(),
@@ -153,7 +150,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                   AppBarTextField(
                                     theme: theme,
                                     text: text,
-                                    onSearch: () => onSearch,
                                     keyword: keyword,
                                   ),
                                   AppButton(
@@ -212,7 +208,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                               ? AppBarTextField(
                                   theme: theme,
                                   text: text,
-                                  onSearch: () => onSearch(),
                                   keyword: keyword,
                                 )
                               : const Spacer(),

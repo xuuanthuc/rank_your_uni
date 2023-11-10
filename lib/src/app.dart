@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
 import 'package:template/src/screens/home/home_screen.dart';
+import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/review_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import '../global/routes/route_keys.dart';
@@ -112,6 +114,39 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: const CompareScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/account/profile',
+          name: RouteKey.profile,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const ProfileScreen(menu: QuickMenu.profile),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/account/setting',
+          name: RouteKey.account,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const ProfileScreen(menu: QuickMenu.settingAccount),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/account/ratings',
+          name: RouteKey.yourRating,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const ProfileScreen(menu: QuickMenu.yourRating),
             );
           },
         ),

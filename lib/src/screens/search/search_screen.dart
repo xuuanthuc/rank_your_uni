@@ -35,9 +35,6 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppbarCommon(
-        onSearch: () {
-          print("Hell");
-        },
         keyword: keyword,
       ),
       body: SingleChildScrollView(

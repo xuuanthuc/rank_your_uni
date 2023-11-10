@@ -21,9 +21,7 @@ class ReviewForm extends StatelessWidget {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppbarCommon(
-        onSearch: () {},
-      ),
+      appBar: const AppbarCommon( ),
       body: SelectionArea(
         child: SingleChildScrollView(
           child: Column(

@@ -89,6 +89,7 @@ class ReviewItem extends StatelessWidget {
         child: ResponsiveBuilder(
           mediumView: Column(
             children: [
+              const MyReview(),
               const OverallPoint(),
               const SizedBox(height: 15),
               ReviewContent(
@@ -96,20 +97,105 @@ class ReviewItem extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: [
-              const OverallPoint(),
-              const SizedBox(width: 35),
-              Expanded(
-                child: ReviewContent(
-                  onReport: () => _onReport(context),
-                ),
+              const MyReview(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const OverallPoint(),
+                  const SizedBox(width: 35),
+                  Expanded(
+                    child: ReviewContent(
+                      onReport: () => _onReport(context),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class MyReview extends StatelessWidget {
+  const MyReview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Visibility(
+      visible: true,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                  style: theme.primaryTextTheme.labelLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(AppImages.iEdit),
+                      const SizedBox(width: 4),
+                      Text(
+                        AppLocalizations.of(context)!.edit,
+                        style: theme.primaryTextTheme.labelLarge,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: DashLine(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DashLine extends StatelessWidget {
+  const DashLine({Key? key, this.height = 1, this.color = Colors.black})
+      : super(key: key);
+  final double height;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final boxWidth = constraints.constrainWidth();
+        const dashWidth = 3.0;
+        final dashHeight = height;
+        final dashCount = (boxWidth / (2 * dashWidth)).floor();
+        return Flex(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
+          children: List.generate(dashCount, (_) {
+            return SizedBox(
+              width: dashWidth,
+              height: dashHeight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: color),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 }

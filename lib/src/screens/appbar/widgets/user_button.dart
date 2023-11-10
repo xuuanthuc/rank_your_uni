@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+
+import '../../../../global/routes/route_keys.dart';
 
 class UserQuickButton extends StatelessWidget {
   final bool isHome;
@@ -75,6 +78,12 @@ class UserQuickButton extends StatelessWidget {
           onChanged: (value) {
             if (value?.value == QuickMenu.signOut) {
               _signOut(context);
+            } else if (value?.value == QuickMenu.profile) {
+              context.goNamed(RouteKey.profile);
+            } else if (value?.value == QuickMenu.settingAccount) {
+              context.goNamed(RouteKey.account);
+            } else if (value?.value == QuickMenu.yourRating) {
+              context.goNamed(RouteKey.yourRating);
             }
           },
           items: items

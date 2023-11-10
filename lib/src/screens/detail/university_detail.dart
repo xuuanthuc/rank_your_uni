@@ -15,7 +15,7 @@ class UniversityDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return SelectionArea(
       child: Scaffold(
-        appBar: AppbarCommon(onSearch: () {}),
+        appBar: const AppbarCommon( ),
         body: SingleChildScrollView(
           child: Center(
             child: Stack(

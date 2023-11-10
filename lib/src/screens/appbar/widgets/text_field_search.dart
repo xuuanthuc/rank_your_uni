@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
+
+import '../../../../global/routes/route_keys.dart';
 
 class AppBarTextField extends StatefulWidget {
   final ThemeData theme;
   final AppLocalizations text;
-  final Function onSearch;
   final String? keyword;
 
   const AppBarTextField({
     super.key,
     required this.theme,
     required this.text,
-    required this.onSearch,
     this.keyword,
   });
 
@@ -42,7 +43,10 @@ class _AppBarTextFieldState extends State<AppBarTextField> {
           cursorHeight: 18,
           onEditingComplete: () {
             if (_controller.text.trim().isEmpty) return;
-            widget.onSearch();
+            context.goNamed(
+              RouteKey.search,
+              queryParameters: {"q": _controller.text.trim()},
+            );
           },
           decoration: InputDecoration(
             filled: true,

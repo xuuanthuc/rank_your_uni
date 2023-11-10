@@ -126,5 +126,7 @@
   "nameUniversity": "Tên trường đại học",
   "changeUniversity": "Đổi trường học",
   "shareComparison": "Chia sẻ so sánh",
-  "reset": "Cài đặt lại"
+  "reset": "Cài đặt lại",
+  "edit": "Chỉnh sửa",
+  "updateAccount": "Cập nhật tài khoản"
 }

@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
+import 'package:template/src/screens/appbar/widgets/user_button.dart';
+import '../../../global/routes/route_keys.dart';
 import '../widgets/button_common.dart';
 import '../widgets/responsive_builder.dart';
 
@@ -18,7 +20,7 @@ class MenuFormHeader extends StatelessWidget {
     required this.onSignIn,
   });
 
-  void _signOut(BuildContext context){
+  void _signOut(BuildContext context) {
     context.read<AuthenticationBloc>().add(OnSignOutEvent());
   }
 
@@ -33,7 +35,8 @@ class MenuFormHeader extends StatelessWidget {
         color: Colors.white,
         child: Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.symmetric(horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
+          padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -74,8 +77,7 @@ class MenuFormHeader extends StatelessWidget {
               ),
               const SizedBox(height: 28),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                buildWhen: (prev, cur) =>
-                    cur.status != prev.status,
+                buildWhen: (prev, cur) => cur.status != prev.status,
                 builder: (context, state) {
                   if (state.status == AuthenticationStatus.authenticated) {
                     return Column(
@@ -88,15 +90,15 @@ class MenuFormHeader extends StatelessWidget {
                         ),
                         const SizedBox(height: 28),
                         MenuOption(
-                          onTap: () {},
+                          onTap: () => context.goNamed(RouteKey.profile),
                           label: text.profile,
                         ),
                         MenuOption(
-                          onTap: () {},
+                          onTap: () => context.goNamed(RouteKey.account),
                           label: text.settingAccount,
                         ),
                         MenuOption(
-                          onTap: () {},
+                          onTap: () => context.goNamed(RouteKey.yourRating),
                           label: text.yourRating,
                         ),
                         MenuOption(
