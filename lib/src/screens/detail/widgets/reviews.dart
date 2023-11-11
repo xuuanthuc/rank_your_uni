@@ -39,6 +39,7 @@ class ReviewsBuilder extends StatelessWidget {
           ),
           ListView.separated(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(
@@ -430,6 +431,7 @@ class CriteriaItem extends StatelessWidget {
             height: 16,
             child: ListView.separated(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) {
                 return Container(

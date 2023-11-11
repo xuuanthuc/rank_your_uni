@@ -20,6 +20,7 @@ class YourRatings extends StatelessWidget {
             children: [
               ListView.separated(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
