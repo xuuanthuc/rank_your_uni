@@ -31,7 +31,7 @@ class LoadMoreUniversities extends StatelessWidget {
               titleTextStyleColor: AppColors.black,
               padding: EdgeInsets.zero,
             ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 100),
           ],
         ),
       ),

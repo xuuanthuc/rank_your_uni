@@ -115,7 +115,7 @@ class LandingContent extends StatelessWidget {
                 cursorColor: AppColors.black,
                 controller: controller,
                 onEditingComplete: () {
-                  if(controller.text.trim().isEmpty) return;
+                  if (controller.text.trim().isEmpty) return;
                   onSearch(controller.text.trim());
                 },
                 decoration: InputDecoration(

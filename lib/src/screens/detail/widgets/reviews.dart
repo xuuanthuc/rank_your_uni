@@ -58,7 +58,6 @@ class ReviewsBuilder extends StatelessWidget {
               title: text.seeMore,
             ),
           ),
-          const SizedBox(height: 200),
         ],
       ),
     );
@@ -140,19 +139,21 @@ class MyReview extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(AppImages.iEdit),
-                      const SizedBox(width: 4),
-                      Text(
-                        AppLocalizations.of(context)!.edit,
-                        style: theme.primaryTextTheme.labelLarge,
-                      )
-                    ],
+              SelectionContainer.disabled(
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(AppImages.iEdit),
+                        const SizedBox(width: 4),
+                        Text(
+                          AppLocalizations.of(context)!.edit,
+                          style: theme.primaryTextTheme.labelLarge,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )

@@ -11,7 +11,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc()
       : super(const AuthenticationState(
-          status: AuthenticationStatus.authenticated,
+          status: AuthenticationStatus.unauthenticated,
           action: AuthenticationAction.init,
           isLoading: false,
           isSuccess: false,

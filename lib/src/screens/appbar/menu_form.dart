@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
-import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/button_common.dart';
 import '../widgets/responsive_builder.dart';

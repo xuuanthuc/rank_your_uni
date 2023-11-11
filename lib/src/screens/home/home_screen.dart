@@ -8,8 +8,7 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/home/widgets/home_description.dart';
 import 'package:template/src/screens/home/widgets/landing_view.dart';
 import '../../global_bloc/connectivity/connectivity_bloc.dart';
-import '../appbar/appbar_common.dart';
-import '../widgets/footer_common.dart';
+import '../widgets/base_scaffold.dart';
 import 'bloc/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,24 +27,18 @@ class HomeScreen extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt.get<HomeCubit>(),
         child: SelectionArea(
-          child: Scaffold(
-            appBar: const AppbarCommon( ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  LandingView(
-                    onSearch: (keyword) {
-                      context.goNamed(
-                        RouteKey.search,
-                        queryParameters: {"q": keyword},
-                      );
-                    },
-                  ),
-                  const HomeDescription(),
-                  const FooterCommon()
-                ],
+          child: AppScaffold(
+            children: [
+              LandingView(
+                onSearch: (keyword) {
+                  context.goNamed(
+                    RouteKey.search,
+                    queryParameters: {"q": keyword},
+                  );
+                },
               ),
-            ),
+              const HomeDescription(),
+            ],
           ),
         ),
       ),

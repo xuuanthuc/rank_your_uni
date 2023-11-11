@@ -15,52 +15,54 @@ class UniversityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: GestureDetector(
-          onTap: () => onTap(),
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width > Public.laptopSize
-                  ? Public.tabletSize
-                  : Public.laptopSize,
-            ),
-            margin:
-                const EdgeInsets.symmetric(vertical: 25 / 2, horizontal: 50),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            color: AppColors.primaryShadow,
-            child: const ResponsiveBuilder(
-              tinyView: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RatingQuality(),
-                      UniversityAddress(),
-                    ],
-                  ),
-                  SizedBox(height: 7),
-                  UniversityName(),
-                ],
+      child: SelectionContainer.disabled(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: GestureDetector(
+            onTap: () => onTap(),
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.sizeOf(context).width > Public.laptopSize
+                    ? Public.tabletSize
+                    : Public.laptopSize,
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RatingQuality(),
-                  SizedBox(width: 40),
-                  Expanded(
-                    child: Column(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 25 / 2, horizontal: 50),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              color: AppColors.primaryShadow,
+              child: const ResponsiveBuilder(
+                tinyView: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        RatingQuality(),
                         UniversityAddress(),
-                        SizedBox(height: 7),
-                        UniversityName(),
-
                       ],
                     ),
-                  )
-                ],
+                    SizedBox(height: 7),
+                    UniversityName(),
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RatingQuality(),
+                    SizedBox(width: 40),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          UniversityAddress(),
+                          SizedBox(height: 7),
+                          UniversityName(),
+
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

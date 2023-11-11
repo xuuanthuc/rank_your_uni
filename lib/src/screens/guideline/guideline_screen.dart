@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../global/utilities/public.dart';
+import '../widgets/base_scaffold.dart';
 import '../widgets/responsive_builder.dart';
 
 class GuidelinesScreen extends StatefulWidget {
@@ -13,10 +13,9 @@ class GuidelinesScreen extends StatefulWidget {
 class _GuidelinesScreenState extends State<GuidelinesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Center(
+    return AppScaffold(
+      children: [
+        Center(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
             constraints: const BoxConstraints(
@@ -128,8 +127,8 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
               ],
             ),
           ),
-        ),
-      ),
+        )
+      ],
     );
   }
 }

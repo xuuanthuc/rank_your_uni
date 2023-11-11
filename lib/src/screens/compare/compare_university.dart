@@ -5,8 +5,7 @@ import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/university.dart';
-import 'package:template/src/screens/appbar/appbar_common.dart';
-import 'package:template/src/screens/widgets/footer_common.dart';
+import 'package:template/src/screens/widgets/base_scaffold.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/button_common.dart';
 import '../widgets/responsive_builder.dart';
@@ -112,112 +111,105 @@ class _CompareViewState extends State<CompareView> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Scaffold(
-      appBar: const AppbarCommon( ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(
-                  ResponsiveBuilder.setHorizontalPadding(context),
-                ),
-                constraints: const BoxConstraints(
-                  maxWidth: Public.laptopSize,
-                ),
-                child: Column(
+    return AppScaffold(
+      children: [
+        Center(
+          child: Container(
+            margin: EdgeInsets.all(
+              ResponsiveBuilder.setHorizontalPadding(context),
+            ),
+            constraints: const BoxConstraints(
+              maxWidth: Public.laptopSize,
+            ),
+            child: Column(
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            text.compareUniversity,
-                            style: theme.primaryTextTheme.displayLarge,
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          BlocBuilder<CompareCubit, CompareState>(
-                              builder: (context, state) {
-                            if (state.firstUniversity != null) {
-                              return UniversityCompared(
-                                university: state.firstUniversity!,
-                                isFirst: true,
-                                onChange: () {},
-                              );
-                            }
-                            return NoUniversityToCompare(
-                              onCompare: () => _goCompare(context, id: "200"),
-                            );
-                          }),
-                          const SizedBox(width: 8),
-                          BlocBuilder<CompareCubit, CompareState>(
-                            builder: (context, state) {
-                              if (state.compareWith != null) {
-                                return UniversityCompared(
-                                  university: state.compareWith!,
-                                  isFirst: false,
-                                  onChange: () => _resetUniversity(false),
-                                );
-                              }
-                              return NoUniversityToCompare(
-                                onCompare: () => _goCompare(context,
-                                    id: widget.universityId, withUniId: "200"),
-                              );
-                            },
-                          )
-                        ],
+                    Expanded(
+                      child: Text(
+                        text.compareUniversity,
+                        style: theme.primaryTextTheme.displayLarge,
                       ),
-                    ),
-                    const SizedBox(height: 25),
-                    const CriteriaItem(
-                      criteria: Criteria.reputation,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.competition,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.internet,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.location,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.favorite,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.infrastructure,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.clubs,
-                    ),
-                    const CriteriaItem(
-                      criteria: Criteria.food,
-                    ),
-                    const SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppButton(
-                          onTap: () => _resetUniversity(true),
-                          title: text.reset,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 200),
+                    )
                   ],
                 ),
-              ),
-              const FooterCommon(),
-            ],
+                const SizedBox(height: 40),
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      BlocBuilder<CompareCubit, CompareState>(
+                          builder: (context, state) {
+                        if (state.firstUniversity != null) {
+                          return UniversityCompared(
+                            university: state.firstUniversity!,
+                            isFirst: true,
+                            onChange: () {},
+                          );
+                        }
+                        return NoUniversityToCompare(
+                          onCompare: () => _goCompare(context, id: "200"),
+                        );
+                      }),
+                      const SizedBox(width: 8),
+                      BlocBuilder<CompareCubit, CompareState>(
+                        builder: (context, state) {
+                          if (state.compareWith != null) {
+                            return UniversityCompared(
+                              university: state.compareWith!,
+                              isFirst: false,
+                              onChange: () => _resetUniversity(false),
+                            );
+                          }
+                          return NoUniversityToCompare(
+                            onCompare: () => _goCompare(context,
+                                id: widget.universityId, withUniId: "200"),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 25),
+                const CriteriaItem(
+                  criteria: Criteria.reputation,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.competition,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.internet,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.location,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.favorite,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.infrastructure,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.clubs,
+                ),
+                const CriteriaItem(
+                  criteria: Criteria.food,
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppButton(
+                      onTap: () => _resetUniversity(true),
+                      title: text.reset,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:template/src/screens/appbar/appbar_common.dart';
 import 'package:template/src/screens/detail/widgets/overall.dart';
 import 'package:template/src/screens/detail/widgets/reviews.dart';
-import 'package:template/src/screens/widgets/footer_common.dart';
+import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
 
@@ -14,10 +13,9 @@ class UniversityDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SelectionArea(
-      child: Scaffold(
-        appBar: const AppbarCommon( ),
-        body: SingleChildScrollView(
-          child: Center(
+      child:  AppScaffold(
+        children: [
+          Center(
             child: Stack(
               children: [
                 Image.asset(AppImages.iDetailBackground),
@@ -25,13 +23,12 @@ class UniversityDetail extends StatelessWidget {
                   children: [
                     UniversityOverview(),
                     ReviewsBuilder(),
-                    FooterCommon(),
                   ],
                 ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }

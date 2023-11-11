@@ -27,137 +27,142 @@ class _FooterCommonState extends State<FooterCommon> {
     final theme = Theme.of(context);
     final text = AppLocalizations.of(context)!;
 
-    return Container(
-      color: theme.primaryColor,
-      width: MediaQuery.sizeOf(context).width,
-      padding: const EdgeInsets.symmetric(horizontal: 50),
-      child: ResponsiveBuilder(
-        smallView: SizedBox(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ArrowButton(
-                onTap: () => _onToggleFooter(),
-                isFull: _isFull,
-              ),
-              const SizedBox(height: 8),
-              const FooterLogo(alignment: Alignment.center),
-              const SizedBox(height: 12),
-              _isFull
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          text.side,
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            FooterOptionButton(
-                              label: text.help,
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            FooterOptionButton(
-                              label: text.sideGuidelines,
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
-                  : Container(),
-              if (_isFull) const SizedBox(height: 30),
-              const CopyRightText(),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-        child: Center(
-          child: AnimatedSize(
-            alignment: Alignment.bottomCenter,
-            duration: const Duration(milliseconds: 300),
-            reverseDuration: const Duration(milliseconds: 300),
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: Public.desktopSize),
-              child: Stack(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          color: theme.primaryColor,
+          width: MediaQuery.sizeOf(context).width,
+          padding: const EdgeInsets.symmetric(horizontal: 50),
+          child: ResponsiveBuilder(
+            smallView: SizedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: _isFull
-                        ? Padding(
-                            padding: const EdgeInsets.only(bottom: 20, top: 40),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      text.side,
-                                      style:
-                                          theme.textTheme.labelLarge?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    FooterOptionButton(
-                                      label: text.help,
-                                      onTap: () {},
-                                    ),
-                                    const SizedBox(height: 8),
-                                    FooterOptionButton(
-                                      label: text.sideGuidelines,
-                                      onTap: () {},
-                                    ),
-                                  ],
-                                ),
-                                const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    FooterLogo(),
-                                    SizedBox(height: 12),
-                                    CopyRightText(),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        : const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CopyRightText(),
-                                FooterLogo(),
-                              ],
-                            ),
-                          ),
-                  ),
                   ArrowButton(
                     onTap: () => _onToggleFooter(),
                     isFull: _isFull,
-                  )
+                  ),
+                  const SizedBox(height: 8),
+                  const FooterLogo(alignment: Alignment.center),
+                  const SizedBox(height: 12),
+                  _isFull
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              text.side,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FooterOptionButton(
+                                  label: text.help,
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FooterOptionButton(
+                                  label: text.sideGuidelines,
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  if (_isFull) const SizedBox(height: 30),
+                  const CopyRightText(),
+                  const SizedBox(height: 20),
                 ],
+              ),
+            ),
+            child: Center(
+              child: AnimatedSize(
+                alignment: Alignment.bottomCenter,
+                duration: const Duration(milliseconds: 300),
+                reverseDuration: const Duration(milliseconds: 300),
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: Public.desktopSize),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: _isFull
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 20, top: 40),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          text.side,
+                                          style:
+                                              theme.textTheme.labelLarge?.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        FooterOptionButton(
+                                          label: text.help,
+                                          onTap: () {},
+                                        ),
+                                        const SizedBox(height: 8),
+                                        FooterOptionButton(
+                                          label: text.sideGuidelines,
+                                          onTap: () {},
+                                        ),
+                                      ],
+                                    ),
+                                    const Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        FooterLogo(),
+                                        SizedBox(height: 12),
+                                        CopyRightText(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CopyRightText(),
+                                    FooterLogo(),
+                                  ],
+                                ),
+                              ),
+                      ),
+                      ArrowButton(
+                        onTap: () => _onToggleFooter(),
+                        isFull: _isFull,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

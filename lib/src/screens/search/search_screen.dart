@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/di/dependencies.dart';
-import 'package:template/src/screens/appbar/appbar_common.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
 import 'package:template/src/screens/search/widgets/search_results_list.dart';
 import 'package:template/src/screens/search/widgets/text_result_for.dart';
-import 'package:template/src/screens/widgets/footer_common.dart';
+import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import 'widgets/load_more_universities.dart';
 
@@ -33,20 +32,13 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppbarCommon(
-        keyword: keyword,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TextResultUniversities(keyword: keyword),
-            const SearchResultsView(),
-            const LoadMoreUniversities(),
-            const FooterCommon(),
-          ],
-        ),
-      ),
+    return AppScaffold(
+      keyword: keyword,
+      children: [
+        TextResultUniversities(keyword: keyword),
+        const SearchResultsView(),
+        const LoadMoreUniversities(),
+      ],
     );
   }
 }

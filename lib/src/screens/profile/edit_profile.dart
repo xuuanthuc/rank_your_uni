@@ -55,7 +55,7 @@ class EditProfile extends StatelessWidget {
                   AppButton(onTap: (){}, title: text.updateProfile)
                 ],
               ),
-              // const SizedBox(height: 500),
+              const SizedBox(height: 500),
             ],
           ),
         ),
