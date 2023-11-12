@@ -39,6 +39,7 @@ class UniversityCard extends StatelessWidget {
               child: ResponsiveBuilder(
                 tinyView: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
