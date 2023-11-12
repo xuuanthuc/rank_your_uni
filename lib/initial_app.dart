@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import './../../src/di/dependencies.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -29,6 +30,7 @@ Future<void> initialApp(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = AppBlocObserver();
+  setUrlStrategy(PathUrlStrategy());
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyClyX0rLU0gCJ6nLcYuLdw4tj1PzhGilbg",

@@ -1,15 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../widgets/point_container.dart';
 
 class UniversityCard extends StatelessWidget {
   final Function onTap;
+  final University university;
 
   const UniversityCard({
     super.key,
     required this.onTap,
+    required this.university,
   });
 
   @override
@@ -33,7 +36,7 @@ class UniversityCard extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               color: AppColors.primaryShadow,
-              child: const ResponsiveBuilder(
+              child: ResponsiveBuilder(
                 tinyView: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -41,26 +44,27 @@ class UniversityCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RatingQuality(),
-                        UniversityAddress(),
+                        const RatingQuality(),
+                        UniversityAddress(university: university),
                       ],
                     ),
-                    SizedBox(height: 7),
-                    UniversityName(),
+                    const SizedBox(height: 7),
+                    UniversityName(university: university),
                   ],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RatingQuality(),
-                    SizedBox(width: 40),
+                    const RatingQuality(),
+                    const SizedBox(width: 40),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UniversityAddress(),
-                          SizedBox(height: 12),
-                          UniversityName(),
+                          UniversityAddress(university: university),
+                          const SizedBox(height: 12),
+                          UniversityName(university: university),
 
                         ],
                       ),
@@ -101,13 +105,14 @@ class RatingQuality extends StatelessWidget {
 }
 
 class UniversityName extends StatelessWidget {
-  const UniversityName({super.key});
+  final University university;
+  const UniversityName({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AutoSizeText(
-      'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh',
+      university.name ?? '',
       style: theme.primaryTextTheme.displayMedium
           ?.copyWith(fontWeight: FontWeight.w800, fontSize: 20),
       maxLines: 3,
@@ -117,15 +122,16 @@ class UniversityName extends StatelessWidget {
 }
 
 class UniversityAddress extends StatelessWidget {
-  const UniversityAddress({super.key});
+  final University university;
+  const UniversityAddress({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         AutoSizeText(
-          "Cầu Giấy, Hà Nội",
+          university.address ?? '',
           maxLines: 1,
           minFontSize: 10,
         ),

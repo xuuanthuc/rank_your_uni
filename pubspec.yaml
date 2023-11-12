@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
   flutter_localizations: # Add this line
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
   injectable:

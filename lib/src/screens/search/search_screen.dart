@@ -22,7 +22,7 @@ class SearchScreen extends StatelessWidget {
   }
 }
 
-class SearchView extends StatelessWidget {
+class SearchView extends StatefulWidget {
   final String? keyword;
 
   const SearchView({
@@ -31,11 +31,23 @@ class SearchView extends StatelessWidget {
   });
 
   @override
+  State<SearchView> createState() => _SearchViewState();
+}
+
+class _SearchViewState extends State<SearchView> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<SearchCubit>().onSearch(widget.keyword ?? "");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      keyword: keyword,
+      keyword: widget.keyword,
       children: [
-        TextResultUniversities(keyword: keyword),
+        TextResultUniversities(keyword: widget.keyword),
         const SearchResultsView(),
         const LoadMoreUniversities(),
       ],

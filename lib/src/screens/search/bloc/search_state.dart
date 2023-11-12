@@ -1,6 +1,29 @@
 part of 'search_cubit.dart';
 
-@immutable
-abstract class SearchState {}
+enum SearchStatus {
+  init,
+  loadingMore,
+  success,
+  error,
+}
 
-class SearchInitial extends SearchState {}
+@immutable
+class SearchState extends Equatable {
+  final List<University>? universities;
+  final SearchStatus? status;
+
+  const SearchState({this.universities, this.status});
+
+  SearchState copyWith({List<University>? universities, SearchStatus? status}) {
+    return SearchState(
+      universities: universities ?? this.universities,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        universities,
+        status,
+      ];
+}

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:template/src/screens/search/bloc/search_cubit.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
+
+import '../../widgets/loading.dart';
 
 class LoadMoreUniversities extends StatelessWidget {
   const LoadMoreUniversities({super.key});
@@ -8,33 +12,54 @@ class LoadMoreUniversities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
-    return Center(
-      child: SizedBox(
-        width: 250,
-        child: Column(
-          children: [
-            const SizedBox(height: 75),
-            AppButton(onTap: () {}, title: text.seeMore),
-            const SizedBox(height: 25),
-            SelectionArea(
-              child: Text(
-                text.noResultForUniversity,
-                textAlign: TextAlign.center,
-              ),
+    return BlocBuilder<SearchCubit, SearchState>(
+      buildWhen: (prev, curt) => prev.status == SearchStatus.init,
+      builder: (context, state) {
+        if (state.universities == null) {
+          return const SizedBox.shrink();
+        }
+        return Center(
+          child: SizedBox(
+            width: 250,
+            child: Column(
+              children: [
+                const SizedBox(height: 55),
+                BlocBuilder<SearchCubit, SearchState>(
+                  buildWhen: (prev, curr) =>
+                      curr.status == SearchStatus.loadingMore ||
+                      curr.status == SearchStatus.success,
+                  builder: (context, state) {
+                    return LoadingCommon(
+                        state.status == SearchStatus.loadingMore);
+                  },
+                ),
+                const SizedBox(height: 25),
+                AppButton(
+                  onTap: () => context.read<SearchCubit>().loadMore(),
+                  title: text.seeMore,
+                ),
+                const SizedBox(height: 25),
+                SelectionArea(
+                  child: Text(
+                    text.noResultForUniversity,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                AppButton(
+                  onTap: () {},
+                  hasBorder: false,
+                  title: text.addUniversity,
+                  isOutline: true,
+                  titleTextStyleColor: AppColors.black,
+                  padding: EdgeInsets.zero,
+                ),
+                const SizedBox(height: 100),
+              ],
             ),
-            const SizedBox(height: 12),
-            AppButton(
-              onTap: () {},
-              hasBorder: false,
-              title: text.addUniversity,
-              isOutline: true,
-              titleTextStyleColor: AppColors.black,
-              padding: EdgeInsets.zero,
-            ),
-            const SizedBox(height: 100),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
