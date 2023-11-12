@@ -7,6 +7,8 @@ import 'package:template/src/global_bloc/authentication/authentication_bloc.dart
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
+import 'package:template/src/screens/guideline/guideline_screen.dart';
+import 'package:template/src/screens/guideline/help_screen.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/review_screen.dart';
@@ -150,6 +152,28 @@ class MyApp extends StatelessWidget {
             );
           },
         ),
+        GoRoute(
+          path: '/guidelines',
+          name: RouteKey.guidelines,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const GuidelinesScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/helps',
+          name: RouteKey.helps,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const HelpScreen(),
+            );
+          },
+        ),
       ],
     );
 
@@ -161,7 +185,7 @@ class MyApp extends StatelessWidget {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp.router(
-          title: "Rank Your Uni",
+          title: "Rank Your UNi",
           theme: AppThemes.lightTheme,
           locale: const Locale('vi', ''),
           localizationsDelegates: AppLocalizations.localizationsDelegates,

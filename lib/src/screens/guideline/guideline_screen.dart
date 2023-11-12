@@ -24,6 +24,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 40),
                 NormalContent('Hướng dẫn sử dụng trang'),
                 SizedBox(height: 40),
                 NormalContent(
@@ -116,7 +117,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 NormalContent(
                     "Bất kì ai có hành động tấn công hoặc mong muốn cáo buộc liên quan tới các vấn đề pháp lý sẽ chịu trách nhiệm trước pháp luật Việt Nam."),
                 SizedBox(height: 30),
-                Title('QUYỀN CỦA RANK YOUR UNi'),
+                Title('QUYỀN CỦA Rank Your UNi'),
                 Gap(),
                 NormalContent(
                     "Rank Your UNi có quyền xóa bất kỳ bình luận nào được coi là không phù hợp, bôi nhọ, phỉ báng, không đứng đắn, thô tục hoặc tục tĩu, khiêu dâm, khiêu dâm hoặc khêu gợi tình dục, xúc phạm chủng tộc, văn hóa hoặc sắc tộc, có hại, quấy rối, đe dọa, đe dọa, căm thù, phản cảm , phân biệt đối xử hoặc lạm dụng hoặc có thể mạo danh bất kỳ ai khác hoặc vi phạm hướng dẫn sử dụng trang."),
@@ -149,9 +150,10 @@ class Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Text(
       title,
-      style: const TextStyle(fontWeight: FontWeight.w700),
+      style: theme.primaryTextTheme.labelLarge?.copyWith(fontSize: 14),
     );
   }
 }
@@ -163,7 +165,8 @@ class NormalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text);
+    final theme = Theme.of(context);
+    return Text(text, style: theme.primaryTextTheme.bodyMedium,);
   }
 }
 
@@ -174,6 +177,7 @@ class DotLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

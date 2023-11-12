@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/src/screens/review/widgets/item_rate.dart';
@@ -31,9 +32,12 @@ class ReviewForm extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(
-                  text.reviewUniversity('Đại học bách khoa Hà Nội'),
+                AutoSizeText(
+                  text.reviewUniversity(
+                      'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh'),
                   style: theme.primaryTextTheme.displayLarge,
+                  maxLines: 3,
+                  minFontSize: 12,
                 ),
                 const SizedBox(height: 30),
                 const CriteriaReviewLevel(criteria: Criteria.reputation),

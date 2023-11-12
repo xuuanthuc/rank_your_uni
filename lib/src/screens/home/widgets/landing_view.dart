@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/responsive_builder.dart';
@@ -19,7 +20,6 @@ class LandingView extends StatelessWidget {
             const LandingBackground(height: 350),
             Container(color: Colors.black38),
             LandingContent(
-              fontSize: 20,
               logoHeight: 40,
               contentPadding: 12,
               onSearch: (keyword) => onSearch(keyword),
@@ -35,7 +35,6 @@ class LandingView extends StatelessWidget {
             const LandingBackground(height: 500),
             Container(color: Colors.black38),
             LandingContent(
-              fontSize: 30,
               logoHeight: 60,
               contentPadding: 18,
               onSearch: (keyword) => onSearch(keyword),
@@ -70,13 +69,11 @@ class LandingBackground extends StatelessWidget {
 
 class LandingContent extends StatelessWidget {
   final double logoHeight;
-  final double fontSize;
   final double contentPadding;
   final Function(String) onSearch;
 
   const LandingContent({
     super.key,
-    required this.fontSize,
     required this.logoHeight,
     required this.contentPadding,
     required this.onSearch,
@@ -99,12 +96,15 @@ class LandingContent extends StatelessWidget {
               child: Image.asset(AppImages.iHomeLogo),
             ),
             const SizedBox(height: 45),
-            Text(
+            AutoSizeText(
               text.homeLargeTitle,
-              style: Theme.of(context).primaryTextTheme.displaySmall?.copyWith(
+              style: Theme.of(context).primaryTextTheme.displayLarge?.copyWith(
                     color: Colors.white,
-                    fontSize: fontSize,
+                    fontWeight: FontWeight.w700,
                   ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              minFontSize: 14,
             ),
             Container(
               constraints: const BoxConstraints(maxWidth: Public.tabletSize),

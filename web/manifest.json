@@ -1,6 +1,6 @@
 {
-    "name": "base_template",
-    "short_name": "base_template",
+    "name": "Rank Your UNi",
+    "short_name": "Rank Your UNi",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

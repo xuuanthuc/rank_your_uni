@@ -66,6 +66,7 @@ class NoUniversityToCompare extends StatelessWidget {
               Text(
                 text.nameUniversity,
                 style: theme.primaryTextTheme.bodyLarge,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

@@ -53,6 +53,7 @@ class UniversityCompared extends StatelessWidget {
                       horizontal: 15,
                     ),
                     title: text.changeUniversity,
+                    fontSize: 12,
                   ),
                 ],
               )

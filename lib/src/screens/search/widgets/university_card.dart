@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
@@ -26,8 +27,10 @@ class UniversityCard extends StatelessWidget {
                     ? Public.tabletSize
                     : Public.laptopSize,
               ),
-              margin:
-                  const EdgeInsets.symmetric(vertical: 25 / 2, horizontal: 50),
+              margin: EdgeInsets.symmetric(
+                vertical: 25 / 2,
+                horizontal: ResponsiveBuilder.setHorizontalPadding(context),
+              ),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               color: AppColors.primaryShadow,
               child: const ResponsiveBuilder(
@@ -53,9 +56,10 @@ class UniversityCard extends StatelessWidget {
                     SizedBox(width: 40),
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           UniversityAddress(),
-                          SizedBox(height: 7),
+                          SizedBox(height: 12),
                           UniversityName(),
 
                         ],
@@ -94,7 +98,6 @@ class RatingQuality extends StatelessWidget {
       ],
     );
   }
-
 }
 
 class UniversityName extends StatelessWidget {
@@ -103,11 +106,12 @@ class UniversityName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Text(
+    return AutoSizeText(
       'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh',
-      style: theme.primaryTextTheme.displayMedium?.copyWith(
-        fontWeight: FontWeight.w800,
-      ),
+      style: theme.primaryTextTheme.displayMedium
+          ?.copyWith(fontWeight: FontWeight.w800, fontSize: 20),
+      maxLines: 3,
+      minFontSize: 14,
     );
   }
 }
@@ -120,7 +124,11 @@ class UniversityAddress extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text("Cầu Giấy, Hà Nội"),
+        AutoSizeText(
+          "Cầu Giấy, Hà Nội",
+          maxLines: 1,
+          minFontSize: 10,
+        ),
       ],
     );
   }

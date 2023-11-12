@@ -62,65 +62,67 @@ class _ProfileViewState extends State<ProfileView>
     final theme = Theme.of(context);
     return AppScaffold(
       children: [
-        Container(
-          constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-          margin: EdgeInsets.symmetric(
-            horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-          ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Text(
-                      text.hey("Username"),
-                      style: theme.primaryTextTheme.displayLarge,
+        Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: Public.tabletSize),
+            margin: EdgeInsets.symmetric(
+              horizontal: ResponsiveBuilder.setHorizontalPadding(context),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: Text(
+                        text.hey("Username"),
+                        style: theme.primaryTextTheme.displayLarge,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              BlocBuilder<ProfileCubit, ProfileState>(
-                builder: (context, state) {
-                  return TabBar(
-                    controller: _tabController,
-                    labelPadding: EdgeInsets.zero,
-                    isScrollable: true,
-                    indicatorColor: Colors.transparent,
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    tabs: [
-                      TabProfileItem(
-                        index: 0,
-                        currentIndex: _currentIndex,
-                        label: text.profile,
-                      ),
-                      TabProfileItem(
-                        index: 1,
-                        currentIndex: _currentIndex,
-                        label: text.settingAccount,
-                      ),
-                      TabProfileItem(
-                        index: 2,
-                        currentIndex: _currentIndex,
-                        label: text.yourRating,
-                      ),
-                    ],
-                    onTap: (index) {
-                      if (_currentIndex == index) return;
-                      _currentIndex = index;
-                      context
-                          .read<ProfileCubit>()
-                          .onPageChange(QuickMenu.values[index]);
-                    },
-                  );
-                },
-              ),
-              Container(
-                height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 14),
-                color: AppColors.black,
-              ),
-            ],
+                  ],
+                ),
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    return TabBar(
+                      controller: _tabController,
+                      labelPadding: EdgeInsets.zero,
+                      isScrollable: true,
+                      indicatorColor: Colors.transparent,
+                      overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      tabs: [
+                        TabProfileItem(
+                          index: 0,
+                          currentIndex: _currentIndex,
+                          label: text.profile,
+                        ),
+                        TabProfileItem(
+                          index: 1,
+                          currentIndex: _currentIndex,
+                          label: text.settingAccount,
+                        ),
+                        TabProfileItem(
+                          index: 2,
+                          currentIndex: _currentIndex,
+                          label: text.yourRating,
+                        ),
+                      ],
+                      onTap: (index) {
+                        if (_currentIndex == index) return;
+                        _currentIndex = index;
+                        context
+                            .read<ProfileCubit>()
+                            .onPageChange(QuickMenu.values[index]);
+                      },
+                    );
+                  },
+                ),
+                Container(
+                  height: 1,
+                  margin: const EdgeInsets.symmetric(vertical: 14),
+                  color: AppColors.black,
+                ),
+              ],
+            ),
           ),
         ),
         BlocBuilder<ProfileCubit, ProfileState>(

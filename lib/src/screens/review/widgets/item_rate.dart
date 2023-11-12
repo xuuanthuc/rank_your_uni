@@ -149,6 +149,7 @@ class CriteriaReviewLevel extends StatelessWidget {
                           width: sliderItemHeight,
                           child: SvgPicture.asset(state.rated!.point.iconPath),
                         ),
+                        const SizedBox(width: 8),
                         Text(
                           state.rated!.point.name(context),
                           style: theme.primaryTextTheme.bodyLarge,

@@ -1,10 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
 
+import '../../../../global/routes/route_keys.dart';
 import '../../../global_bloc/authentication/authentication_bloc.dart';
+import '../../authentication/auth_form.dart';
 
 class HomeDescription extends StatefulWidget {
   const HomeDescription({super.key});
@@ -14,6 +18,20 @@ class HomeDescription extends StatefulWidget {
 }
 
 class _HomeDescriptionState extends State<HomeDescription> {
+  void _updateUserProfile(BuildContext context) {
+    context.read<AuthenticationBloc>().add(OnCompleteSignUpEvent());
+  }
+
+  Future<void> _showSignUpDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const AuthForm(pageIndex: 1);
+      },
+    ).then((value) => _updateUserProfile(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -76,19 +94,24 @@ class _HomeDescriptionState extends State<HomeDescription> {
                   BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     buildWhen: (prev, cur) => cur.status != prev.status,
                     builder: (context, state) {
-                      return Text(
+                      return AutoSizeText(
                         state.status == AuthenticationStatus.authenticated
                             ? text.welcomeBack
                             : text.joinWithUs,
                         style: theme.primaryTextTheme.displayLarge,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        minFontSize: 14,
                       );
                     },
                   ),
                   const SizedBox(height: 35),
-                  Text(
+                  AutoSizeText(
                     text.shareForEveryone,
                     style: theme.primaryTextTheme.displayMedium,
                     textAlign: TextAlign.center,
+                    maxLines: 3,
+                    minFontSize: 12,
                   ),
                   const SizedBox(height: 25),
                   ResponsiveBuilder(
@@ -133,7 +156,11 @@ class _HomeDescriptionState extends State<HomeDescription> {
                       buildWhen: (prev, cur) => cur.status != prev.status,
                       builder: (context, state) {
                         return AppButton(
-                          onTap: () {},
+                          onTap: () {
+                            state.status == AuthenticationStatus.unauthenticated
+                                ? _showSignUpDialog(context)
+                                : context.goNamed(RouteKey.yourRating);
+                          },
                           title:
                               state.status == AuthenticationStatus.authenticated
                                   ? text.yourRating
@@ -179,7 +206,9 @@ class HomeBodyItemDescription extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             text,
-            style: theme.primaryTextTheme.displayMedium,
+            style: theme.primaryTextTheme.displaySmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
             textAlign: TextAlign.center,
           )
         ],

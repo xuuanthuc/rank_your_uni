@@ -64,7 +64,8 @@ class _FooterCommonState extends State<FooterCommon> {
                               children: [
                                 FooterOptionButton(
                                   label: text.help,
-                                  onTap: () {},
+                                  onTap: () =>
+                                      context.goNamed(RouteKey.helps),
                                 ),
                               ],
                             ),
@@ -74,7 +75,8 @@ class _FooterCommonState extends State<FooterCommon> {
                               children: [
                                 FooterOptionButton(
                                   label: text.sideGuidelines,
-                                  onTap: () {},
+                                  onTap: () =>
+                                      context.goNamed(RouteKey.guidelines),
                                 ),
                               ],
                             ),
@@ -93,44 +95,53 @@ class _FooterCommonState extends State<FooterCommon> {
                 duration: const Duration(milliseconds: 300),
                 reverseDuration: const Duration(milliseconds: 300),
                 child: Container(
-                  constraints: const BoxConstraints(maxWidth: Public.desktopSize),
+                  constraints:
+                      const BoxConstraints(maxWidth: Public.desktopSize),
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: _isFull
                             ? Padding(
-                                padding: const EdgeInsets.only(bottom: 20, top: 40),
+                                padding:
+                                    const EdgeInsets.only(bottom: 20, top: 40),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           text.side,
-                                          style:
-                                              theme.textTheme.labelLarge?.copyWith(
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
                                             color: Colors.white,
                                           ),
                                         ),
                                         const SizedBox(height: 20),
                                         FooterOptionButton(
                                           label: text.help,
-                                          onTap: () {},
+                                          onTap: () =>
+                                              context.goNamed(RouteKey.helps),
                                         ),
                                         const SizedBox(height: 8),
                                         FooterOptionButton(
                                           label: text.sideGuidelines,
-                                          onTap: () {},
+                                          onTap: () => context
+                                              .goNamed(RouteKey.guidelines),
                                         ),
                                       ],
                                     ),
                                     const Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         FooterLogo(),
                                         SizedBox(height: 12),
@@ -143,7 +154,8 @@ class _FooterCommonState extends State<FooterCommon> {
                             : const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CopyRightText(),
                                     FooterLogo(),

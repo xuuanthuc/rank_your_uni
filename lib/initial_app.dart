@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './../../src/di/dependencies.dart';
@@ -28,5 +29,13 @@ Future<void> initialApp(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = AppBlocObserver();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyClyX0rLU0gCJ6nLcYuLdw4tj1PzhGilbg",
+      appId: "1:680959591423:web:1d94a128b2230134b55dca",
+      messagingSenderId: "680959591423",
+      projectId: "rankyouruni",
+    ),
+  );
   runApp(await builder());
 }

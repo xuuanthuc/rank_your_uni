@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:template/global/routes/route_keys.dart';
 
 import '../../../../global/style/styles.dart';
 import '../../widgets/button_common.dart';
@@ -78,7 +80,8 @@ class ReviewArea extends StatelessWidget {
                             child: Row(
                               children: [
                                 AppButton(
-                                  onTap: () {},
+                                  onTap: () =>
+                                      context.goNamed(RouteKey.guidelines),
                                   hasBorder: false,
                                   title: text.seeAllGuideline,
                                   isOutline: true,

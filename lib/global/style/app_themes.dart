@@ -67,7 +67,7 @@ abstract class AppThemes {
       //body2
 
       titleMedium: TextStyle(
-        fontSize: 24,
+        fontSize: 20,
         color: AppColors.black,
         fontWeight: FontWeight.w500,
       ),
