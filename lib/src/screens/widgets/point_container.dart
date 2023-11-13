@@ -35,21 +35,23 @@ class PointContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final point = double.parse((Random().nextDouble() * 5).toStringAsFixed(1));
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: getBackgroundPoint(point),
-      ),
-      margin: const EdgeInsets.all(7),
-      width: size,
-      height: size,
-      child: Center(
-        child: Text(
-          point.toString(),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Angkor',
-            fontSize: fontSize,
+    return SelectionContainer.disabled(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: getBackgroundPoint(point),
+        ),
+        margin: const EdgeInsets.all(7),
+        width: size,
+        height: size,
+        child: Center(
+          child: Text(
+            point.toString(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Angkor',
+              fontSize: fontSize,
+            ),
           ),
         ),
       ),

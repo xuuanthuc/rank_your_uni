@@ -238,23 +238,25 @@ class OverallPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 220,
-      height: 180,
-      child: Stack(
-        children: [
-          SvgPicture.asset(AppImages.iPaint),
-          const Align(
-            alignment: Alignment.center,
-            child: Text(
-              '5.0',
-              style: TextStyle(
-                fontFamily: "Angkor",
-                fontSize: 70,
+    return SelectionContainer.disabled(
+      child: SizedBox(
+        width: 220,
+        height: 180,
+        child: Stack(
+          children: [
+            SvgPicture.asset(AppImages.iPaint),
+            const Align(
+              alignment: Alignment.center,
+              child: Text(
+                '5.0',
+                style: TextStyle(
+                  fontFamily: "Angkor",
+                  fontSize: 70,
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
