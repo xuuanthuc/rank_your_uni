@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
@@ -171,6 +172,17 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: const HelpScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/add/university',
+          name: RouteKey.addUniversity,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const AddUniversity(),
             );
           },
         ),

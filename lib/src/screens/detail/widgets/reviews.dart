@@ -374,7 +374,7 @@ class ReviewDate extends StatelessWidget {
       children: [
         Text(
           '27 tháng 03, 2023',
-          style: theme.primaryTextTheme.labelLarge,
+          style: theme.primaryTextTheme.titleLarge,
         ),
       ],
     );

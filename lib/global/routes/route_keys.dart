@@ -27,5 +27,6 @@ abstract class RouteKey {
   static const String yourRating = "youRating";
   static const String guidelines = "guidelines";
   static const String helps = "helps";
+  static const String addUniversity = "add_university";
 }
 

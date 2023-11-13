@@ -15,9 +15,9 @@ class SearchCubit extends Cubit<SearchState> {
     emit(state.copyWith(status: SearchStatus.init));
     final List<University> universities = [
       const University(
-          name: "Đại học Bách khoa Hà Nội", address: "Hai Bà Trưng, Hà Nội"),
+          name: "Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh", address: "Hai Bà Trưng, Hà Nội"),
       const University(
-          name: "Đại học Bách khoa Hà Nội", address: "Hai Bà Trưng, Hà Nội"),
+          name: "Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh", address: "Hai Bà Trưng, Hà Nội"),
       const University(
           name: "Đại học Bách khoa Hà Nội", address: "Hai Bà Trưng, Hà Nội"),
       const University(

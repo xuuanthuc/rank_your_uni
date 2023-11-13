@@ -41,32 +41,36 @@ class UniversityCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const RatingQuality(),
-                        UniversityAddress(university: university),
+                        RatingQuality(),
                       ],
                     ),
                     const SizedBox(height: 7),
                     UniversityName(university: university),
+                    const SizedBox(height: 7),
+                    UniversityAddress(university: university),
                   ],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const RatingQuality(),
-                    const SizedBox(width: 40),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UniversityAddress(university: university),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              UniversityAddress(university: university),
+                            ],
+                          ),
                           const SizedBox(height: 12),
                           UniversityName(university: university),
-
                         ],
                       ),
                     )
@@ -95,11 +99,16 @@ class RatingQuality extends StatelessWidget {
         Text(
           text.quality,
           style: theme.primaryTextTheme.labelLarge?.copyWith(
-            fontSize: 14,
+            fontSize: 13,
           ),
         ),
         const PointContainer.regular(),
-        Text(text.reviewCount(50)),
+        Text(
+          text.reviewCount(50),
+          style: theme.primaryTextTheme.bodyMedium?.copyWith(
+            fontSize: 13,
+          ),
+        ),
       ],
     );
   }
@@ -107,6 +116,7 @@ class RatingQuality extends StatelessWidget {
 
 class UniversityName extends StatelessWidget {
   final University university;
+
   const UniversityName({super.key, required this.university});
 
   @override
@@ -124,19 +134,15 @@ class UniversityName extends StatelessWidget {
 
 class UniversityAddress extends StatelessWidget {
   final University university;
+
   const UniversityAddress({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        AutoSizeText(
-          university.address ?? '',
-          maxLines: 1,
-          minFontSize: 10,
-        ),
-      ],
+    return AutoSizeText(
+      university.address ?? '',
+      maxLines: 1,
+      minFontSize: 10,
     );
   }
 }

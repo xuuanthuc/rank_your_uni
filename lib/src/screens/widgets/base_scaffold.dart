@@ -14,8 +14,10 @@ class AppScaffold extends StatelessWidget {
       child: Scaffold(
         appBar: AppbarCommon(keyword: keyword),
         body: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverList(
+
               delegate: SliverChildListDelegate(
                 children,
               ),

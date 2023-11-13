@@ -127,5 +127,13 @@
   "shareComparison": "Chia sẻ so sánh",
   "reset": "Cài đặt lại",
   "edit": "Chỉnh sửa",
-  "updateAccount": "Cập nhật tài khoản"
+  "updateAccount": "Cập nhật tài khoản",
+  "addAUniversity":"Thêm một trường đại học",
+  "addAUniversityWarning":"Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng trường đó chưa tồn tại.",
+  "nameOfUniversity":"Tên trường đại học",
+  "stateOrWard":"Quận/Huyện",
+  "cityOrProvince":"Tỉnh/Thành Phố",
+  "website":"Trang web trường",
+  "yourEmail":"Email của bạn",
+  "agreeTermsOfUse":"Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư"
 }
