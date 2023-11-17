@@ -1,3 +1,3 @@
 abstract class ApiEndpoint{
-  static String get post => '/posts';
+  static String get search => '/schools';
 }

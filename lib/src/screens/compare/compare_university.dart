@@ -57,12 +57,12 @@ class _CompareViewState extends State<CompareView> {
   void initState() {
     super.initState();
     if (widget.universityId != null) {
-      context.read<CompareCubit>().initFirstUniversity(const University(
+      context.read<CompareCubit>().initFirstUniversity(const University(1,
             name: "Trường Đại học Khoa học Xã hội và Nhân văn",
           ));
     }
     if (widget.compareWithUniversityId != null) {
-      context.read<CompareCubit>().compareWith(const University(
+      context.read<CompareCubit>().compareWith(const University(1,
             name:
                 "Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh",
           ));

@@ -26,29 +26,29 @@ class LoadMoreUniversities extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 55),
-                BlocBuilder<SearchCubit, SearchState>(
-                  buildWhen: (prev, curr) =>
-                      curr.status == SearchStatus.loadingMore ||
-                      curr.status == SearchStatus.success,
-                  builder: (context, state) {
-                    return LoadingCommon(
-                        state.status == SearchStatus.loadingMore);
-                  },
-                ),
-                const SizedBox(height: 25),
-                BlocBuilder<SearchCubit, SearchState>(
-                    buildWhen: (prev, curr) =>
-                        prev.status == SearchStatus.init,
-                    builder: (context, state) {
-                      if ((state.universities ?? []).isNotEmpty) {
-                        return AppButton(
-                          onTap: () => context.read<SearchCubit>().loadMore(),
-                          title: text.seeMore,
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    }),
-                const SizedBox(height: 25),
+                // BlocBuilder<SearchCubit, SearchState>(
+                //   buildWhen: (prev, curr) =>
+                //       curr.status == SearchStatus.loadingMore ||
+                //       curr.status == SearchStatus.success,
+                //   builder: (context, state) {
+                //     return LoadingCommon(
+                //         state.status == SearchStatus.loadingMore);
+                //   },
+                // ),
+                // const SizedBox(height: 25),
+                // BlocBuilder<SearchCubit, SearchState>(
+                //     buildWhen: (prev, curr) =>
+                //         prev.status == SearchStatus.init,
+                //     builder: (context, state) {
+                //       if ((state.universities ?? []).isNotEmpty) {
+                //         return AppButton(
+                //           onTap: () => context.read<SearchCubit>().loadMore(),
+                //           title: text.seeMore,
+                //         );
+                //       }
+                //       return const SizedBox.shrink();
+                //     }),
+                // const SizedBox(height: 25),
                 SelectionArea(
                   child: Text(
                     text.noResultForUniversity,

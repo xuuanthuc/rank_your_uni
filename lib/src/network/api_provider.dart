@@ -34,6 +34,7 @@ class ApiProvider {
     RequestInterceptorHandler handler, {
     bool? needToken,
   }) async {
+    LoggerUtils.i(options.uri);
     String token = '';
     if (needToken ?? true) {
       // token = await AppPreference().authToken ?? '';
@@ -81,7 +82,7 @@ class ApiProvider {
     } on SocketException {
       throw ErrorException(ErrorCode.NO_NETWORK, 'NO_NETWORK');
     } on DioException catch (e) {
-      debugPrint('error = $e');
+      LoggerUtils.e(e);
       if (e.type == DioExceptionType.connectionTimeout) {
         throw ErrorException(ErrorCode.NO_NETWORK, 'NO_NETWORK');
       }

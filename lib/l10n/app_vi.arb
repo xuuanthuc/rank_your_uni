@@ -135,5 +135,7 @@
   "cityOrProvince":"Tỉnh/Thành Phố",
   "website":"Trang web trường",
   "yourEmail":"Email của bạn",
-  "agreeTermsOfUse":"Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư"
+  "agreeTermsOfUse":"Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư",
+  "somethingWrong": "Oops, Đã có lỗi xảy ra!",
+  "tryAgainLater": "Vui lòng thử lại sau"
 }

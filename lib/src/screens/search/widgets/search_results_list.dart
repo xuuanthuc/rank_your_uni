@@ -18,8 +18,9 @@ class SearchResultsView extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: Public.desktopSize),
         child: BlocBuilder<SearchCubit, SearchState>(
           buildWhen: (prev, curr) =>
-          curr.status == SearchStatus.init ||
-              curr.status == SearchStatus.success,
+              curr.status == SearchStatus.init ||
+              curr.status == SearchStatus.success ||
+              curr.status == SearchStatus.error,
           builder: (context, state) {
             if (state.status == SearchStatus.init) {
               return Padding(
@@ -44,7 +45,7 @@ class SearchResultsView extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: (state.universities?? []).length,
+              itemCount: (state.universities ?? []).length,
             );
           },
         ),
