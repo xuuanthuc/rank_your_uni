@@ -11,13 +11,31 @@ enum SearchStatus {
 class SearchState extends Equatable {
   final List<University>? universities;
   final SearchStatus? status;
+  final int? currentPage;
+  final String? keyword;
+  final SearchModel? searchModel;
 
-  const SearchState({this.universities, this.status});
+  const SearchState({
+    this.universities,
+    this.status,
+    this.currentPage,
+    this.keyword,
+    this.searchModel,
+  });
 
-  SearchState copyWith({List<University>? universities, SearchStatus? status}) {
+  SearchState copyWith({
+    List<University>? universities,
+    SearchStatus? status,
+    int? currentPage,
+    String? keyword,
+    SearchModel? searchModel,
+  }) {
     return SearchState(
       universities: universities ?? this.universities,
       status: status ?? this.status,
+      currentPage: currentPage ?? this.currentPage,
+      searchModel: searchModel ?? this.searchModel,
+      keyword: keyword ?? this.keyword,
     );
   }
 
@@ -25,5 +43,8 @@ class SearchState extends Equatable {
   List<Object?> get props => [
         universities,
         status,
+        currentPage,
+        keyword,
+        searchModel,
       ];
 }

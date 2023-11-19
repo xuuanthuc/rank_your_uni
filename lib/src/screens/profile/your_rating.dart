@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:template/src/models/response/review.dart';
 
 import '../../../global/utilities/public.dart';
 import '../detail/widgets/reviews.dart';
@@ -26,7 +27,7 @@ class YourRatings extends StatelessWidget {
                     padding: EdgeInsets.only(
                       bottom: (((index + 1) % 3) == 0) ? 75 : 0,
                     ),
-                    child: const ReviewItem(),
+                    child: ReviewItem(review: Review(1),),
                   );
                 },
                 itemCount: 20,

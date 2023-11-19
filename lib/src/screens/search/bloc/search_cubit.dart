@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:template/global/utilities/logger.dart';
+import 'package:template/src/models/response/search_response.dart';
 import 'package:template/src/repositories/search_repository.dart';
 
 import '../../../models/response/university.dart';
@@ -24,10 +26,14 @@ class SearchCubit extends Cubit<SearchState> {
     }
     emit(state.copyWith(status: SearchStatus.init));
     try {
-      final data = await _searchRepository.getUniversities(keyword);
-      universities.addAll(data);
+      final data = await _searchRepository.getUniversities(keyword, 0);
+      universities.addAll(data.universities);
+      final page = data.pageable.pageNumber;
       emit(state.copyWith(
         status: SearchStatus.success,
+        currentPage: page,
+        keyword: keyword,
+        searchModel: data,
         universities: universities,
       ));
     } catch (e) {
@@ -39,13 +45,28 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   loadMore() async {
-    if (state.status == SearchStatus.loadingMore) return;
+    if (state.status == SearchStatus.loadingMore ||
+        (state.keyword ?? '').isEmpty) return;
+    final newPage = (state.currentPage ?? 0) + 1;
+    if (state.searchModel == null ||
+        newPage + 1 > state.searchModel!.totalPages) {
+      return;
+    }
     emit(state.copyWith(status: SearchStatus.loadingMore));
-    final List<University> universities = [];
-    state.universities?.addAll(universities);
-    emit(state.copyWith(
-      status: SearchStatus.success,
-      universities: state.universities,
-    ));
+    try {
+      final data =
+          await _searchRepository.getUniversities(state.keyword!, newPage);
+      (state.universities ?? []).addAll(data.universities);
+      emit(state.copyWith(
+        status: SearchStatus.success,
+        currentPage: data.pageable.pageNumber,
+      ));
+    } catch (e) {
+      LoggerUtils.e(e);
+      emit(state.copyWith(
+        status: SearchStatus.error,
+        universities: [],
+      ));
+    }
   }
 }

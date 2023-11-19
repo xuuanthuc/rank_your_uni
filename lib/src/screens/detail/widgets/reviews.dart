@@ -1,11 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/enum/criteria.dart';
+import 'package:template/global/utilities/format.dart';
+import 'package:template/src/models/response/review.dart';
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/detail/report_review_form.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
@@ -23,50 +24,57 @@ class ReviewsBuilder extends StatelessWidget {
       constraints: const BoxConstraints(
         maxWidth: Public.laptopSize,
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          Row(
+      child: BlocBuilder<DetailCubit, DetailState>(
+        builder: (context, state) {
+          return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Text(
-                  text.reviewCount(50),
-                  style: theme.textTheme.labelLarge,
-                ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Text(
+                      text.reviewCount(state.university?.totalReviews ?? 0),
+                      style: theme.textTheme.labelLarge,
+                    ),
+                  ),
+                ],
               ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      bottom: (((index + 1) % 3) == 0) ? 75 : 0,
+                    ),
+                    child: ReviewItem(
+                        review: (state.university?.reviews ?? [])[index]),
+                  );
+                },
+                itemCount: state.university?.reviews?.length ?? 0,
+                separatorBuilder: (_, __) => const SizedBox(height: 30),
+              ),
+              const SizedBox(height: 75),
+              // SizedBox(
+              //   width: 250,
+              //   child: AppButton(
+              //     onTap: () {},
+              //     title: text.seeMore,
+              //   ),
+              // ),
             ],
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  bottom: (((index + 1) % 3) == 0) ? 75 : 0,
-                ),
-                child: const ReviewItem(),
-              );
-            },
-            itemCount: 20,
-            separatorBuilder: (_, __) => const SizedBox(height: 30),
-          ),
-          const SizedBox(height: 75),
-          SizedBox(
-            width: 250,
-            child: AppButton(
-              onTap: () {},
-              title: text.seeMore,
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 }
 
 class ReviewItem extends StatelessWidget {
-  const ReviewItem({super.key});
+  final Review review;
+
+  const ReviewItem({super.key, required this.review});
 
   Future<void> _onReport(BuildContext context) {
     return showDialog<void>(
@@ -89,25 +97,27 @@ class ReviewItem extends StatelessWidget {
         child: ResponsiveBuilder(
           mediumView: Column(
             children: [
-              const MyReview(),
-              const OverallPoint(),
+              // const MyReview(),
+              OverallPoint(review: review),
               const SizedBox(height: 15),
               ReviewContent(
                 onReport: () => _onReport(context),
+                review: review,
               ),
             ],
           ),
           child: Column(
             children: [
-              const MyReview(),
+              // const MyReview(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const OverallPoint(),
+                  OverallPoint(review: review),
                   const SizedBox(width: 35),
                   Expanded(
                     child: ReviewContent(
                       onReport: () => _onReport(context),
+                      review: review,
                     ),
                   ),
                 ],
@@ -203,11 +213,13 @@ class DashLine extends StatelessWidget {
 }
 
 class ReviewContent extends StatelessWidget {
+  final Review review;
   final Function onReport;
 
   const ReviewContent({
     super.key,
     required this.onReport,
+    required this.review,
   });
 
   @override
@@ -218,36 +230,44 @@ class ReviewContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ReviewDate(),
+        ReviewDate(review: review),
         const SizedBox(height: 14),
-        const ReviewDescription(),
+        ReviewDescription(review: review),
         const SizedBox(height: 20),
-        const ResponsiveBuilder(
+        ResponsiveBuilder(
           smallView: Column(
             children: [
               CriteriaItem(
                 criteria: Criteria.reputation,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.competition,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.internet,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.location,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.favorite,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.infrastructure,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.clubs,
+                review: review,
               ),
               CriteriaItem(
                 criteria: Criteria.food,
+                review: review,
               ),
             ],
           ),
@@ -258,34 +278,42 @@ class ReviewContent extends StatelessWidget {
                   children: [
                     CriteriaItem(
                       criteria: Criteria.reputation,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.competition,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.internet,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.location,
+                      review: review,
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 30),
+              const SizedBox(width: 30),
               Expanded(
                 child: Column(
                   children: [
                     CriteriaItem(
                       criteria: Criteria.favorite,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.infrastructure,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.clubs,
+                      review: review,
                     ),
                     CriteriaItem(
                       criteria: Criteria.food,
+                      review: review,
                     ),
                   ],
                 ),
@@ -349,22 +377,24 @@ class ReviewContent extends StatelessWidget {
 }
 
 class ReviewDescription extends StatelessWidget {
-  const ReviewDescription({super.key});
+  final Review review;
+
+  const ReviewDescription({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Text(
-      Random().nextInt(3) == 2
-          ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ',
+      review.content ?? '',
       style: theme.primaryTextTheme.bodyMedium,
     );
   }
 }
 
 class ReviewDate extends StatelessWidget {
-  const ReviewDate({super.key});
+  final Review review;
+
+  const ReviewDate({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -373,7 +403,7 @@ class ReviewDate extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          '27 tháng 03, 2023',
+          Formatter.vnDdMMMyyyy(review.reviewDate ?? ''),
           style: theme.primaryTextTheme.titleLarge,
         ),
       ],
@@ -382,7 +412,9 @@ class ReviewDate extends StatelessWidget {
 }
 
 class OverallPoint extends StatelessWidget {
-  const OverallPoint({super.key});
+  final Review review;
+
+  const OverallPoint({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -397,9 +429,13 @@ class OverallPoint extends StatelessWidget {
           style: theme.primaryTextTheme.bodyLarge,
         ),
         const SizedBox(height: 7),
-        const ResponsiveBuilder(
-          tinyView: PointContainer.small(),
-          child: PointContainer.medium(),
+        ResponsiveBuilder(
+          tinyView: PointContainer.small(
+            point: review.averagePointPerReview ?? 0,
+          ),
+          child: PointContainer.medium(
+            point: review.averagePointPerReview ?? 0,
+          ),
         ),
       ],
     );
@@ -408,16 +444,17 @@ class OverallPoint extends StatelessWidget {
 
 class CriteriaItem extends StatelessWidget {
   final Criteria criteria;
+  final Review review;
 
   const CriteriaItem({
     super.key,
     required this.criteria,
+    required this.review,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final point = (Random().nextInt(5) + 1).toDouble();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -439,7 +476,8 @@ class CriteriaItem extends StatelessWidget {
                   width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
-                    color: getColorProgress(index + 1, point),
+                    color: getColorProgress(
+                        index + 1, getReviewPoint(review, criteria)),
                   ),
                 );
               },
@@ -468,5 +506,34 @@ class CriteriaItem extends StatelessWidget {
       color = AppColors.level1;
     }
     return color;
+  }
+
+  getReviewPoint(Review review, Criteria criteria) {
+    switch (criteria) {
+      case Criteria.reputation:
+        return review.reputation ?? 0;
+      case Criteria.competition:
+        return review.competition ?? 0;
+
+      case Criteria.location:
+        return review.location ?? 0;
+
+      case Criteria.internet:
+        return review.internet ?? 0;
+
+      case Criteria.favorite:
+        return review.favourite ?? 0;
+
+      case Criteria.infrastructure:
+        return review.facilities ?? 0;
+
+      case Criteria.clubs:
+        return review.clubs ?? 0;
+
+      case Criteria.food:
+        return review.food ?? 0;
+      default:
+        return 0.0;
+    }
   }
 }

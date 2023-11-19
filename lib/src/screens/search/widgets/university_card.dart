@@ -41,10 +41,10 @@ class UniversityCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        RatingQuality(),
+                        RatingQuality(university),
                       ],
                     ),
                     const SizedBox(height: 7),
@@ -56,7 +56,7 @@ class UniversityCard extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const RatingQuality(),
+                    RatingQuality(university),
                     const SizedBox(width: 20),
                     Expanded(
                       child: Column(
@@ -86,7 +86,9 @@ class UniversityCard extends StatelessWidget {
 }
 
 class RatingQuality extends StatelessWidget {
-  const RatingQuality({super.key});
+  final University university;
+
+  const RatingQuality(this.university, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +104,9 @@ class RatingQuality extends StatelessWidget {
             fontSize: 13,
           ),
         ),
-        const PointContainer.regular(),
+        PointContainer.regular(point: university.averagePointAllReviews ?? 0),
         Text(
-          text.reviewCount(50),
+          text.reviewCount(university.totalReviews ?? 0),
           style: theme.primaryTextTheme.bodyMedium?.copyWith(
             fontSize: 13,
           ),

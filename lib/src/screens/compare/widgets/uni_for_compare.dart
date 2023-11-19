@@ -29,7 +29,7 @@ class UniversityCompared extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const PointContainer.medium(),
+            const PointContainer.medium(point: 0,),
             const SizedBox(height: 3),
             Text(
               text.reviewCount(50),

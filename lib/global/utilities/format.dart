@@ -1,6 +1,19 @@
 import 'package:intl/intl.dart';
 
 abstract class Formatter {
+  static String vnDdMMMyyyy(String date) {
+    try {
+      DateTime dateFormated = DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+          .parse(date, true)
+          .toUtc()
+          .toLocal();
+
+      return DateFormat('dd MMMM, yyyy', 'vi').format(dateFormated);
+    } catch (e) {
+      return '';
+    }
+  }
+
   static String timeAgoSinceDate(String dateString,
       {bool numericDates = true}) {
     try {

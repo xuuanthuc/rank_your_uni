@@ -1,40 +1,41 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import '../../../global/style/styles.dart';
 
 class PointContainer extends StatelessWidget {
+  final double point;
   final double size;
   final double fontSize;
 
   const PointContainer.regular({
     super.key,
+    required this.point,
     this.size = 62,
     this.fontSize = 25,
   });
 
   const PointContainer.small({
     super.key,
+    required this.point,
     this.size = 55,
     this.fontSize = 23,
   });
 
   const PointContainer.tiny({
     super.key,
+    required this.point,
     this.size = 34,
     this.fontSize = 14,
   });
 
   const PointContainer.medium({
     super.key,
+    required this.point,
     this.size = 70,
     this.fontSize = 30,
   });
 
   @override
   Widget build(BuildContext context) {
-    final point = double.parse((Random().nextDouble() * 5).toStringAsFixed(1));
     return SelectionContainer.disabled(
       child: Container(
         decoration: BoxDecoration(

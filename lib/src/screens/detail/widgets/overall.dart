@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/enum/criteria.dart';
+import 'package:template/src/models/response/university.dart';
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../../global/style/styles.dart';
@@ -12,120 +15,157 @@ import '../../widgets/button_common.dart';
 class UniversityOverview extends StatelessWidget {
   const UniversityOverview({super.key});
 
-  void _openReviewForm(BuildContext context) {
+  void _openReviewForm(BuildContext context, University? university) {
+    if (university == null) return;
     context.goNamed(
       RouteKey.review,
-      pathParameters: {"id": "100"},
+      pathParameters: {"id": "${university.id}"},
     );
   }
 
-  void _compareUniversity(BuildContext context) {
-    context.goNamed(
-      RouteKey.compare,
-      pathParameters: {"id": "100"},
-      extra: "Back Khoa"
-    );
+  void _compareUniversity(BuildContext context, University? university) {
+    if (university == null) return;
+    context.goNamed(RouteKey.compare,
+        pathParameters: {"id": "${university.id}"}, extra: university);
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
-          constraints: const BoxConstraints(
-            maxWidth: Public.laptopSize,
-          ),
-          child: ResponsiveBuilder(
-            smallView: Column(
-              children: [
-                const SizedBox(height: 40),
-                const OverallPoint(),
-                const SizedBox(height: 14),
-                const UniversityName(),
-                const SizedBox(height: 14),
-                const UniversityAddress(),
-                const SizedBox(height: 28),
-                ActionReviewAndCompare(
-                  addReview: () => _openReviewForm(context),
-                  compareUniversity: () => _compareUniversity(context),
+      child: BlocBuilder<DetailCubit, DetailState>(
+        builder: (context, state) {
+          return Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
+              constraints: const BoxConstraints(
+                maxWidth: Public.laptopSize,
+              ),
+              child: ResponsiveBuilder(
+                smallView: Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    OverallPoint(university: state.university),
+                    const SizedBox(height: 14),
+                    UniversityName(university: state.university),
+                    const SizedBox(height: 14),
+                    UniversityAddress(university: state.university),
+                    const SizedBox(height: 28),
+                    ActionReviewAndCompare(
+                      addReview: () =>
+                          _openReviewForm(context, state.university),
+                      compareUniversity: () =>
+                          _compareUniversity(context, state.university),
+                    ),
+                    const SizedBox(height: 40),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.reputation),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.competition),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.internet),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.location),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.favorite),
+                    ReviewCriteria(
+                        university: state.university,
+                        criteria: Criteria.infrastructure),
+                    ReviewCriteria(
+                        university: state.university, criteria: Criteria.clubs),
+                    ReviewCriteria(
+                        university: state.university, criteria: Criteria.food),
+                  ],
                 ),
-                const SizedBox(height: 40),
-                const ReviewCriteria(criteria: Criteria.reputation),
-                const ReviewCriteria(criteria: Criteria.competition),
-                const ReviewCriteria(criteria: Criteria.internet),
-                const ReviewCriteria(criteria: Criteria.location),
-                const ReviewCriteria(criteria: Criteria.favorite),
-                const ReviewCriteria(criteria: Criteria.infrastructure),
-                const ReviewCriteria(criteria: Criteria.clubs),
-                const ReviewCriteria(criteria: Criteria.food),
-              ],
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const OverallPoint(),
-                      const SizedBox(width: 25),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const UniversityAddress(),
-                            const SizedBox(height: 14),
-                            const UniversityName(),
-                            const SizedBox(height: 28),
-                            ActionReviewAndCompare(
-                              addReview: () => _openReviewForm(context),
-                              compareUniversity: () => _compareUniversity(context),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OverallPoint(university: state.university),
+                          const SizedBox(width: 25),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                UniversityAddress(university: state.university),
+                                const SizedBox(height: 14),
+                                UniversityName(university: state.university),
+                                const SizedBox(height: 28),
+                                ActionReviewAndCompare(
+                                  addReview: () => _openReviewForm(
+                                      context, state.university),
+                                  compareUniversity: () => _compareUniversity(
+                                      context, state.university),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          )
+                        ],
+                      ),
+                    ),
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.reputation),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.competition),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.internet),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.location),
+                              ],
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: VerticalDivider(
+                              color: AppColors.grey,
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.favorite),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.infrastructure),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.clubs),
+                                ReviewCriteria(
+                                    university: state.university,
+                                    criteria: Criteria.food),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                const IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            ReviewCriteria(criteria: Criteria.reputation),
-                            ReviewCriteria(criteria: Criteria.competition),
-                            ReviewCriteria(criteria: Criteria.internet),
-                            ReviewCriteria(criteria: Criteria.location),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: VerticalDivider(
-                          color: AppColors.grey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            ReviewCriteria(criteria: Criteria.favorite),
-                            ReviewCriteria(criteria: Criteria.infrastructure),
-                            ReviewCriteria(criteria: Criteria.clubs),
-                            ReviewCriteria(criteria: Criteria.food),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -199,7 +239,9 @@ class ActionReviewAndCompare extends StatelessWidget {
 }
 
 class UniversityAddress extends StatelessWidget {
-  const UniversityAddress({super.key});
+  final University? university;
+
+  const UniversityAddress({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +249,7 @@ class UniversityAddress extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'Cầu Giấy, Hà Nội',
+          university?.address ?? '',
           style: theme.primaryTextTheme.bodyLarge,
         ),
       ],
@@ -216,13 +258,15 @@ class UniversityAddress extends StatelessWidget {
 }
 
 class UniversityName extends StatelessWidget {
-  const UniversityName({super.key});
+  final University? university;
+
+  const UniversityName({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AutoSizeText(
-      'Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh',
+      university?.name ?? '',
       style: theme.primaryTextTheme.displayMedium?.copyWith(
         fontWeight: FontWeight.w800,
         fontSize: 30,
@@ -234,7 +278,9 @@ class UniversityName extends StatelessWidget {
 }
 
 class OverallPoint extends StatelessWidget {
-  const OverallPoint({super.key});
+  final University? university;
+
+  const OverallPoint({super.key, required this.university});
 
   @override
   Widget build(BuildContext context) {
@@ -244,12 +290,18 @@ class OverallPoint extends StatelessWidget {
         height: 180,
         child: Stack(
           children: [
-            SvgPicture.asset(AppImages.iPaint),
-            const Align(
+            SvgPicture.asset(
+              AppImages.iPaint,
+              colorFilter: ColorFilter.mode(
+                getBackgroundPoint(university?.averagePointAllReviews ?? 0),
+                BlendMode.srcIn,
+              ),
+            ),
+            Align(
               alignment: Alignment.center,
               child: Text(
-                '5.0',
-                style: TextStyle(
+                "${university?.averagePointAllReviews ?? 0}",
+                style: const TextStyle(
                   fontFamily: "Angkor",
                   fontSize: 70,
                 ),
@@ -260,14 +312,34 @@ class OverallPoint extends StatelessWidget {
       ),
     );
   }
+
+  Color getBackgroundPoint(double point) {
+    Color color = AppColors.level0;
+    if (point >= 5.0) {
+      color = AppColors.level5;
+    } else if (point >= 4.0) {
+      color = AppColors.level4;
+    } else if (point >= 3.0) {
+      color = AppColors.level3;
+    } else if (point >= 2.0) {
+      color = AppColors.level2;
+    } else if (point >= 1.0) {
+      color = AppColors.level1;
+    } else if (point > 0.0) {
+      color = AppColors.level1;
+    }
+    return color;
+  }
 }
 
 class ReviewCriteria extends StatelessWidget {
   final Criteria criteria;
+  final University? university;
 
   const ReviewCriteria({
     super.key,
     required this.criteria,
+    required this.university,
   });
 
   @override
@@ -290,8 +362,39 @@ class ReviewCriteria extends StatelessWidget {
             style: theme.primaryTextTheme.titleMedium,
           ),
         ),
-        const PointContainer.small()
+        PointContainer.small(
+          point: getReviewPoint(university, criteria),
+        )
       ],
     );
+  }
+
+  getReviewPoint(University? university, Criteria criteria) {
+    switch (criteria) {
+      case Criteria.reputation:
+        return university?.reputationAvg ?? 0;
+      case Criteria.competition:
+        return university?.competitionLevelAvg ?? 0;
+
+      case Criteria.location:
+        return university?.locationAvg ?? 0;
+
+      case Criteria.internet:
+        return university?.internetAvg ?? 0;
+
+      case Criteria.favorite:
+        return university?.favoriteAvg ?? 0;
+
+      case Criteria.infrastructure:
+        return university?.facilitiesAvg ?? 0;
+
+      case Criteria.clubs:
+        return university?.clubsAvg ?? 0;
+
+      case Criteria.food:
+        return university?.foodAvg ?? 0;
+      default:
+        return 0.0;
+    }
   }
 }

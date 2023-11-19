@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/detail/widgets/overall.dart';
 import 'package:template/src/screens/detail/widgets/reviews.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
+import '../../../global/utilities/toast.dart';
 
 class UniversityDetail extends StatelessWidget {
   final int id;
@@ -12,23 +16,60 @@ class UniversityDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child:  AppScaffold(
-        children: [
-          Center(
-            child: Stack(
-              children: [
-                Image.asset(AppImages.iDetailBackground),
-                const Column(
-                  children: [
-                    UniversityOverview(),
-                    ReviewsBuilder(),
-                  ],
-                ),
-              ],
+    return BlocProvider(
+      create: (context) => getIt.get<DetailCubit>(),
+      child: UniversityView(id: id),
+    );
+  }
+}
+
+
+class UniversityView extends StatefulWidget {
+  final int id;
+
+  const UniversityView({super.key, required this.id});
+
+  @override
+  State<UniversityView> createState() => _UniversityViewState();
+}
+
+class _UniversityViewState extends State<UniversityView> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<DetailCubit>().getDetailUniversity(widget.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<DetailCubit, DetailState>(
+      listenWhen: (_, cur) => cur.status == DetailStatus.error,
+      listener: (context, state) {
+        appToast(
+          context,
+          message: AppLocalizations.of(context)!.somethingWrong,
+          subMessage: AppLocalizations.of(context)!.tryAgainLater,
+        );
+      },
+      child: SelectionArea(
+        child: AppScaffold(
+          children: [
+            Center(
+              child: Stack(
+                children: [
+                  Image.asset(AppImages.iDetailBackground),
+                  const Column(
+                    children: [
+                      UniversityOverview(),
+                      ReviewsBuilder(),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

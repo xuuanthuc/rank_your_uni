@@ -1,15 +1,16 @@
 class Review {
   final int id;
   final String? content;
-  final int? reputation;
-  final int? competition;
-  final int? favourite;
-  final int? internet;
-  final int? location;
-  final int? facilities;
-  final int? food;
-  final int? clubs;
+  final double? reputation;
+  final double? competition;
+  final double? favourite;
+  final double? internet;
+  final double? location;
+  final double? facilities;
+  final double? food;
+  final double? clubs;
   final String? reviewDate;
+  final double? averagePointPerReview;
 
   Review(
     this.id, {
@@ -23,6 +24,7 @@ class Review {
     this.food,
     this.clubs,
     this.reviewDate,
+    this.averagePointPerReview,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) {
@@ -30,13 +32,14 @@ class Review {
     final content = json["contentRated"];
     final reputation = json["reputation"];
     final competition = json["competitionLevel"];
-    final favourite = json["favourite"];
+    final favourite = json["favorite"];
     final internet = json["internet"];
     final location = json["location"];
     final facilities = json["facilities"];
     final food = json["food"];
     final clubs = json["clubs"];
     final reviewDate = json["reviewDate"];
+    final averagePointPerReview = double.tryParse(json["averagePointPerReview"]) ?? 0.0;
 
     return Review(
       id,
@@ -50,6 +53,7 @@ class Review {
       food: food,
       clubs: clubs,
       reviewDate: reviewDate,
+      averagePointPerReview: averagePointPerReview,
     );
   }
 }

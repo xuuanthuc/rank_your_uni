@@ -10,11 +10,11 @@ class AppFlavor {
   static String get baseApi {
     switch (appFlavor) {
       case Flavor.release:
-        return 'http://13.211.174.175:8080/api';
+        return 'http://13.211.174.175:8081/api';
       case Flavor.development:
-        return 'http://13.211.174.175:8080/api';
+        return 'http://13.211.174.175:8081/api';
       default:
-        return 'http://13.211.174.175:8080/api';
+        return 'http://13.211.174.175:8081/api';
     }
   }
 }

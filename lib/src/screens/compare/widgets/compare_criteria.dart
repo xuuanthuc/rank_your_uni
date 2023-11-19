@@ -1,9 +1,7 @@
 import 'dart:math';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../../global/enum/criteria.dart';
 import '../../../../global/style/styles.dart';
 
@@ -57,7 +55,7 @@ class CriteriaItem extends StatelessWidget {
             ),
           ),
           SizedBox(width: heightSize),
-          const PointContainer.tiny(),
+          const PointContainer.tiny(point: 0,),
           Expanded(
             child: Text(
               criteria.name(context),
@@ -65,7 +63,7 @@ class CriteriaItem extends StatelessWidget {
               style: theme.primaryTextTheme.titleLarge,
             ),
           ),
-          const PointContainer.tiny(),
+          const PointContainer.tiny(point: 0,),
           SizedBox(width: heightSize),
           SizedBox(
             height: heightSize,
