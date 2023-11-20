@@ -45,4 +45,6 @@ abstract class AppImages {
   static const String iReputation           = "${releasePath}images/i_reputation.svg";
   static const String iSheetClose           = "${releasePath}images/i_sheet_close.svg";
   static const String iWarning           = "${releasePath}images/i_warning.svg";
+  static const String iHandHeart           = "${releasePath}images/i_hand_heart.svg";
+  static const String iSuccessBg           = "${releasePath}images/i_success_bg.svg";
 }

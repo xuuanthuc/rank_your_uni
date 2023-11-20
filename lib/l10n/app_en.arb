@@ -53,11 +53,14 @@
   "help": "Trợ giúp",
   "side": "Website",
   "sideGuidelines": "Hướng dẫn sử dụng website",
-  "resultsForSearch": "Trường đại học hiển thị cho \"{university}\"",
+  "resultsForSearch": "{total} trường đại học hiển thị với tên \"{university}\"",
   "@resultsForSearch" : {
     "placeholders": {
       "university": {
         "type" : "String"
+      },
+      "total": {
+        "type" : "int"
       }
     }
   },
@@ -138,5 +141,15 @@
   "yourEmail":"Email của bạn",
   "agreeTermsOfUse":"Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư",
   "somethingWrong": "Oops, Đã có lỗi xảy ra!",
-  "tryAgainLater": "Vui lòng thử lại sau"
+  "tryAgainLater": "Vui lòng thử lại sau",
+  "thanksForReviewUniversity": "Cám ơn bạn đã đánh giá {university}",
+  "@thanksForReviewUniversity" : {
+    "placeholders": {
+      "university": {
+        "type" : "String"
+      }
+    }
+  },
+  "yourReviewAreSubmitting": "Chúng tôi đã đăng xếp hạng của bạn nhưng xếp hạng vẫn đang được xem xét để đảm bảo đáp ứng Nguyên tắc trang web của chúng tôi.",
+  "seeReview": "Xem đánh giá"
 }

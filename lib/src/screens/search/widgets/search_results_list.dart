@@ -31,6 +31,7 @@ class SearchResultsView extends StatelessWidget {
             return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(

@@ -18,12 +18,6 @@ class SearchCubit extends Cubit<SearchState> {
 
   onSearch(String keyword) async {
     final List<University> universities = [];
-    if (keyword.length < 3) {
-      return emit(state.copyWith(
-        status: SearchStatus.success,
-        universities: universities,
-      ));
-    }
     emit(state.copyWith(status: SearchStatus.init));
     try {
       final data = await _searchRepository.getUniversities(keyword, 0);

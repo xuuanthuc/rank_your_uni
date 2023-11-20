@@ -20,6 +20,7 @@ class UniversityOverview extends StatelessWidget {
     context.goNamed(
       RouteKey.review,
       pathParameters: {"id": "${university.id}"},
+      extra: university
     );
   }
 

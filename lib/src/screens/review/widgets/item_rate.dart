@@ -8,10 +8,12 @@ import '../bloc/item_criteria_cubit.dart';
 
 class CriteriaReviewLevel extends StatelessWidget {
   final Criteria criteria;
+  final Function(CriteriaRated) onUpdate;
 
   const CriteriaReviewLevel({
     super.key,
     required this.criteria,
+    required this.onUpdate,
   });
 
   @override
@@ -24,143 +26,154 @@ class CriteriaReviewLevel extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => ItemCriteriaCubit(),
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 25 / 2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            width: 1,
-            color: theme.primaryColor,
+      child: BlocListener<ItemCriteriaCubit, ItemCriteriaState>(
+        listener: (context, state) {
+          if(state.status == MouseStatus.none){
+            if (state.rated != null && state.rated?.point != null) {
+              onUpdate(state.rated!);
+            }
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 25 / 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 1,
+              color: theme.primaryColor,
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      criteria.description(context),
-                      style: theme.primaryTextTheme.labelLarge,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        criteria.description(context),
+                        style: theme.primaryTextTheme.labelLarge,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    '*',
-                    style: theme.primaryTextTheme.labelLarge?.copyWith(
-                      color: Colors.red,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            BlocBuilder<ItemCriteriaCubit, ItemCriteriaState>(
-              builder: (context, state) {
-                return SizedBox(
-                  height: sliderItemHeight,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return MouseRegion(
-                        onEnter: (detail) {
-                          context
-                              .read<ItemCriteriaCubit>()
-                              .onStartHover(index + 1);
-                        },
-                        onExit: (detail) {
-                          context.read<ItemCriteriaCubit>().onEndHover();
-                        },
-                        child: GestureDetector(
-                          onTap: () {
-                            context
-                                .read<ItemCriteriaCubit>()
-                                .onRate(CriteriaRated(
-                                  criteria: criteria,
-                                  point: getPoint(index),
-                                ));
-                          },
-                          child: Container(
-                            height: sliderItemHeight,
-                            width: sliderItemWidth,
-                            decoration: BoxDecoration(
-                              color: state.status == MouseStatus.hover
-                                  ? (index + 1) > (state.indexHover ?? 0)
-                                      ? AppColors.primaryShadow
-                                      : getColorProgress(
-                                          index,
-                                          state.status ?? MouseStatus.none,
-                                        ).withOpacity(
-                                          state.status == MouseStatus.hover
-                                              ? 0.7
-                                              : 1)
-                                  : state.rated != null
-                                      ? getColorRated(index, state.rated!)
-                                      : (index + 1) > (state.indexHover ?? 0)
-                                          ? AppColors.primaryShadow
-                                          : getColorProgress(
-                                              index,
-                                              state.status ?? MouseStatus.none,
-                                            ),
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_, __) =>
-                        const SizedBox(width: sliderItemSpacer),
-                    itemCount: 5,
-                  ),
-                );
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-              child: SizedBox(
-                height: sliderItemHeight,
-                child: BlocBuilder<ItemCriteriaCubit, ItemCriteriaState>(
-                  buildWhen: (prev, curt) => prev.rated != curt.rated,
-                  builder: (context, state) {
-                    if (state.rated == null) {
-                      return SizedBox(
-                        width: sliderItemSpacer * 4 + sliderItemWidth * 6,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              text.awful,
-                              style: theme.primaryTextTheme.bodyLarge,
-                            ),
-                            Text(
-                              text.excellent,
-                              style: theme.primaryTextTheme.bodyLarge,
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: sliderItemHeight,
-                          width: sliderItemHeight,
-                          child: SvgPicture.asset(state.rated!.point.iconPath),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          state.rated!.point.name(context),
-                          style: theme.primaryTextTheme.bodyLarge,
-                        ),
-                      ],
-                    );
-                  },
+                    const SizedBox(width: 5),
+                    Text(
+                      '*',
+                      style: theme.primaryTextTheme.labelLarge?.copyWith(
+                        color: Colors.red,
+                      ),
+                    )
+                  ],
                 ),
               ),
-            )
-          ],
+              BlocBuilder<ItemCriteriaCubit, ItemCriteriaState>(
+                builder: (context, state) {
+                  return SizedBox(
+                    height: sliderItemHeight,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return MouseRegion(
+                          onEnter: (detail) {
+                            context
+                                .read<ItemCriteriaCubit>()
+                                .onStartHover(index + 1);
+                          },
+                          onExit: (detail) {
+                            context.read<ItemCriteriaCubit>().onEndHover();
+                          },
+                          child: GestureDetector(
+                            onTap: () {
+                              context
+                                  .read<ItemCriteriaCubit>()
+                                  .onRate(CriteriaRated(
+                                criteria: criteria,
+                                point: getPoint(index),
+                              ));
+                            },
+                            child: Container(
+                              height: sliderItemHeight,
+                              width: sliderItemWidth,
+                              decoration: BoxDecoration(
+                                color: state.status == MouseStatus.hover
+                                    ? (index + 1) > (state.indexHover ?? 0)
+                                    ? AppColors.primaryShadow
+                                    : getColorProgress(
+                                  index,
+                                  state.status ?? MouseStatus.none,
+                                ).withOpacity(
+                                    state.status == MouseStatus.hover
+                                        ? 0.7
+                                        : 1)
+                                    : state.rated != null
+                                    ? getColorRated(index, state.rated!)
+                                    : (index + 1) > (state.indexHover ?? 0)
+                                    ? AppColors.primaryShadow
+                                    : getColorProgress(
+                                  index,
+                                  state.status ?? MouseStatus.none,
+                                ),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (_, __) =>
+                      const SizedBox(width: sliderItemSpacer),
+                      itemCount: 5,
+                    ),
+                  );
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 25, vertical: 10),
+                child: SizedBox(
+                  height: sliderItemHeight,
+                  child: BlocBuilder<ItemCriteriaCubit, ItemCriteriaState>(
+                    buildWhen: (prev, curt) => prev.rated != curt.rated,
+                    builder: (context, state) {
+                      if (state.rated == null) {
+                        return SizedBox(
+                          width: sliderItemSpacer * 4 + sliderItemWidth * 6,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                text.awful,
+                                style: theme.primaryTextTheme.bodyLarge,
+                              ),
+                              Text(
+                                text.excellent,
+                                style: theme.primaryTextTheme.bodyLarge,
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: sliderItemHeight,
+                            width: sliderItemHeight,
+                            child: SvgPicture.asset(
+                                state.rated!.point.iconPath),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            state.rated!.point.name(context),
+                            style: theme.primaryTextTheme.bodyLarge,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -21,7 +21,7 @@ class ItemCriteriaCubit extends Cubit<ItemCriteriaState> {
 
   void onRate(CriteriaRated rated) {
     if(rated.point == state.rated?.point) {
-      emit(state.copyWith(status: MouseStatus.hover, rated: null));
+      // emit(state.copyWith(status: MouseStatus.hover, rated: null));
     } else {
       emit(state.copyWith(status: MouseStatus.none, rated: rated));
     }

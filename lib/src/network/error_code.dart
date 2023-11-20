@@ -2,6 +2,7 @@
 
 abstract class ErrorCode {
   static const int HTTP_OK = 200;
+  static const int HTTP_CREATED = 201;
   static const int HTTP_BAD_REQUEST = 400;
   static const int HTTP_UNAUTHORIZED = 401;
   static const int HTTP_FORBIDDEN = 403;

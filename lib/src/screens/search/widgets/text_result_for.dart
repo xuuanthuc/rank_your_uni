@@ -35,7 +35,7 @@ class TextResultUniversities extends StatelessWidget {
                   ),
                   child: SelectionArea(
                     child: Text(
-                      text.resultsForSearch(keyword ?? ""),
+                      text.resultsForSearch(keyword ?? "", state.searchModel?.totalElements ?? 0),
                     ),
                   ),
                 ),

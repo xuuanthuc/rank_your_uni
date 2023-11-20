@@ -181,6 +181,7 @@ class ApiProvider {
   dynamic _formatRes(int? code, dynamic data, Headers header) {
     switch (code) {
       case ErrorCode.HTTP_OK:
+      case ErrorCode.HTTP_CREATED:
         return data;
       case ErrorCode.HTTP_BAD_REQUEST:
         throw BadRequestException(data['message']);

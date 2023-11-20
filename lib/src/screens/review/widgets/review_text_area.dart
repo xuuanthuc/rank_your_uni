@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
+import 'package:template/src/screens/review/bloc/review_cubit.dart';
 
 import '../../../../global/style/styles.dart';
 import '../../widgets/button_common.dart';
@@ -102,6 +104,9 @@ class ReviewArea extends StatelessWidget {
             const SizedBox(height: 14),
             TextField(
               maxLines: 7,
+              onChanged: (value) {
+                context.read<ReviewCubit>().updateContent(value);
+              },
               decoration: InputDecoration(
                 hintText: text.placeHolderReview,
                 hintStyle: theme.primaryTextTheme.bodyMedium?.copyWith(

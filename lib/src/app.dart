@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
+import 'package:template/src/screens/blank/blank_screen.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
 import 'package:template/src/screens/guideline/guideline_screen.dart';
@@ -13,6 +15,7 @@ import 'package:template/src/screens/guideline/help_screen.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/review_screen.dart';
+import 'package:template/src/screens/review/review_success.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -82,7 +85,6 @@ class MyApp extends StatelessWidget {
           name: RouteKey.compare,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
-            final extra = state.extra;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
@@ -97,7 +99,6 @@ class MyApp extends StatelessWidget {
           name: RouteKey.compareWith,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
-            final extra = state.extra;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
@@ -112,11 +113,24 @@ class MyApp extends StatelessWidget {
           path: '/compare/university',
           name: RouteKey.reset,
           pageBuilder: (context, state) {
-            final extra = state.extra;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
               child: const CompareScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review-university/success',
+          name: RouteKey.reviewSuccess,
+          pageBuilder: (context, state) {
+            final university = state.extra;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: university == null
+                  ? const BlankScreen()
+                  : ReviewSuccessScreen(university: university as University),
             );
           },
         ),

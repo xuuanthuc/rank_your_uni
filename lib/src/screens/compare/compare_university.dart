@@ -86,7 +86,6 @@ class _CompareViewState extends State<CompareView> {
     context.goNamed(
       route,
       pathParameters: param,
-      extra: "Back Khoa",
     );
   }
 
@@ -94,7 +93,6 @@ class _CompareViewState extends State<CompareView> {
     if (resetAll) {
       context.goNamed(
         RouteKey.reset,
-        extra: "Back Khoa",
       );
     } else {
       context.goNamed(
@@ -102,7 +100,6 @@ class _CompareViewState extends State<CompareView> {
         pathParameters: {
           "id": "100",
         },
-        extra: "Back Khoa",
       );
     }
   }
