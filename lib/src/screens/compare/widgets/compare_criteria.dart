@@ -1,5 +1,7 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/src/models/response/university.dart';
+import 'package:template/src/screens/compare/bloc/compare_cubit.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../../global/enum/criteria.dart';
@@ -16,7 +18,6 @@ class CriteriaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final point = (Random().nextInt(5) + 1).toDouble();
     final heightSize = ResponsiveBuilder.setSize(
       context,
       extraSize: 20,
@@ -35,27 +36,40 @@ class CriteriaItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: heightSize,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return Container(
-                  height: heightSize,
-                  width: widthSize,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: getColorProgress(index + 1, point),
-                  ),
-                );
-              },
-              itemCount: 5,
-              separatorBuilder: (_, __) => const SizedBox(width: 2),
-            ),
+          BlocBuilder<CompareCubit, CompareState>(
+            builder: (context, state) {
+              return SizedBox(
+                height: heightSize,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) {
+                    return Container(
+                      height: heightSize,
+                      width: widthSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: getColorProgress(
+                          index + 1,
+                          getReviewPoint(state.firstUniversity, criteria),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: 5,
+                  separatorBuilder: (_, __) => const SizedBox(width: 2),
+                ),
+              );
+            },
           ),
           SizedBox(width: heightSize),
-          const PointContainer.tiny(point: 0,),
+          BlocBuilder<CompareCubit, CompareState>(
+            builder: (context, state) {
+              return PointContainer.tiny(
+                point: getReviewPoint(state.firstUniversity, criteria),
+              );
+            },
+          ),
           Expanded(
             child: Text(
               criteria.name(context),
@@ -63,30 +77,72 @@ class CriteriaItem extends StatelessWidget {
               style: theme.primaryTextTheme.titleLarge,
             ),
           ),
-          const PointContainer.tiny(point: 0,),
+          BlocBuilder<CompareCubit, CompareState>(
+            builder: (context, state) {
+              return PointContainer.tiny(
+                point: getReviewPoint(state.compareWith, criteria),
+              );
+            },
+          ),
           SizedBox(width: heightSize),
-          SizedBox(
-            height: heightSize,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return Container(
-                  height: heightSize,
-                  width: widthSize,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: getColorProgress(index + 1, point),
-                  ),
-                );
-              },
-              itemCount: 5,
-              separatorBuilder: (_, __) => const SizedBox(width: 2),
-            ),
+          BlocBuilder<CompareCubit, CompareState>(
+            builder: (context, state) {
+              return SizedBox(
+                height: heightSize,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) {
+                    return Container(
+                      height: heightSize,
+                      width: widthSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: getColorProgress(
+                          index + 1,
+                          getReviewPoint(state.compareWith, criteria),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: 5,
+                  separatorBuilder: (_, __) => const SizedBox(width: 2),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
+  }
+
+  getReviewPoint(University? university, Criteria criteria) {
+    switch (criteria) {
+      case Criteria.reputation:
+        return university?.reputationAvg ?? 0;
+      case Criteria.competition:
+        return university?.competitionLevelAvg ?? 0;
+
+      case Criteria.location:
+        return university?.locationAvg ?? 0;
+
+      case Criteria.internet:
+        return university?.internetAvg ?? 0;
+
+      case Criteria.favorite:
+        return university?.favoriteAvg ?? 0;
+
+      case Criteria.infrastructure:
+        return university?.facilitiesAvg ?? 0;
+
+      case Criteria.clubs:
+        return university?.clubsAvg ?? 0;
+
+      case Criteria.food:
+        return university?.foodAvg ?? 0;
+      default:
+        return 0.0;
+    }
   }
 
   Color getColorProgress(int index, double criteriaPoint) {

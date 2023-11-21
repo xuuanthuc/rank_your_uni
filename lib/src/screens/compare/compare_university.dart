@@ -6,6 +6,7 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
+import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/button_common.dart';
 import '../widgets/responsive_builder.dart';
@@ -17,21 +18,31 @@ import 'widgets/uni_for_compare.dart';
 class CompareScreen extends StatelessWidget {
   final String? universityId;
   final String? compareWithUniversityId;
+  final University? universityInitial;
 
   const CompareScreen({
     super.key,
     this.universityId,
     this.compareWithUniversityId,
+    this.universityInitial,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<CompareCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt.get<CompareCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt.get<AutocompletionCubit>(),
+        ),
+      ],
       child: SelectionArea(
         child: CompareView(
           universityId: universityId,
           compareWithUniversityId: compareWithUniversityId,
+          universityInitial: universityInitial,
         ),
       ),
     );
@@ -41,11 +52,13 @@ class CompareScreen extends StatelessWidget {
 class CompareView extends StatefulWidget {
   final String? universityId;
   final String? compareWithUniversityId;
+  final University? universityInitial;
 
   const CompareView({
     super.key,
     required this.universityId,
     this.compareWithUniversityId,
+    this.universityInitial,
   });
 
   @override
@@ -57,50 +70,47 @@ class _CompareViewState extends State<CompareView> {
   void initState() {
     super.initState();
     if (widget.universityId != null) {
-      context.read<CompareCubit>().initFirstUniversity(const University(1,
-            name: "Trường Đại học Khoa học Xã hội và Nhân văn",
-          ));
+      context.read<CompareCubit>().initFirstUniversity(
+          int.tryParse(widget.universityId!) ?? -1, widget.universityInitial);
     }
     if (widget.compareWithUniversityId != null) {
-      context.read<CompareCubit>().compareWith(const University(1,
-            name:
-                "Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Thành Phố Hồ Chí Minh",
-          ));
+      context
+          .read<CompareCubit>()
+          .compareWith(int.tryParse(widget.compareWithUniversityId!) ?? -1);
     }
   }
 
-  void _goCompare(BuildContext context, {String? id, String? withUniId}) {
-    Map<String, String> param = {
-      "id": "100",
-    };
-    String route = RouteKey.compare;
-    if (id == null) {
-      return;
-    } else if (withUniId != null) {
-      param = {
-        "id": "100",
-        "withUniId": "200",
+  void _goCompare(BuildContext context,
+      {String? id, String? withUniId, University? university}) {
+    if (id != null) {
+      Map<String, String> param = {
+        "id": id,
       };
-      route = RouteKey.compareWith;
+      String route = RouteKey.compare;
+      if (withUniId != null) {
+        param = {
+          "id": id,
+          "withUniId": withUniId,
+        };
+        route = RouteKey.compareWith;
+      }
+      context.goNamed(route, pathParameters: param, extra: university);
     }
-    context.goNamed(
-      route,
-      pathParameters: param,
-    );
   }
 
-  void _resetUniversity(bool resetAll) {
+  void _resetUniversity(bool resetAll, {String? id, University? university}) {
     if (resetAll) {
       context.goNamed(
         RouteKey.reset,
       );
     } else {
-      context.goNamed(
-        RouteKey.compare,
-        pathParameters: {
-          "id": "100",
-        },
-      );
+      if (id != null) {
+        context.goNamed(RouteKey.compare,
+            pathParameters: {
+              "id": id,
+            },
+            extra: university);
+      }
     }
   }
 
@@ -145,7 +155,10 @@ class _CompareViewState extends State<CompareView> {
                           );
                         }
                         return NoUniversityToCompare(
-                          onCompare: () => _goCompare(context, id: "200"),
+                          onCompare: (id) => _goCompare(
+                            context,
+                            id: id.toString(),
+                          ),
                         );
                       }),
                       const SizedBox(width: 8),
@@ -155,12 +168,29 @@ class _CompareViewState extends State<CompareView> {
                             return UniversityCompared(
                               university: state.compareWith!,
                               isFirst: false,
-                              onChange: () => _resetUniversity(false),
+                              onChange: () => _resetUniversity(
+                                false,
+                                id: state.firstUniversity?.id.toString(),
+                                university: state.firstUniversity,
+                              ),
                             );
                           }
                           return NoUniversityToCompare(
-                            onCompare: () => _goCompare(context,
-                                id: widget.universityId, withUniId: "200"),
+                            onCompare: (id) {
+                              if (state.firstUniversity == null) {
+                                _goCompare(
+                                  context,
+                                  id: id.toString(),
+                                );
+                              } else {
+                                _goCompare(
+                                  context,
+                                  id: widget.universityId,
+                                  university: widget.universityInitial,
+                                  withUniId: id.toString(),
+                                );
+                              }
+                            },
                           );
                         },
                       )

@@ -21,8 +21,8 @@ class CompareState extends Equatable {
   }) {
     return CompareState(
       status: status ?? this.status,
-      compareWith: compareWith,
-      firstUniversity: firstUniversity,
+      compareWith: compareWith ?? this.compareWith,
+      firstUniversity: firstUniversity ?? this.firstUniversity,
     );
   }
 

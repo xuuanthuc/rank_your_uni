@@ -43,11 +43,13 @@ class MyApp extends StatelessWidget {
           name: RouteKey.university,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
+            final University? university = state.extra as University?;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
               child: UniversityDetail(
                 id: int.parse(data["id"] as String),
+                university: university,
               ),
             );
           },
@@ -71,11 +73,13 @@ class MyApp extends StatelessWidget {
           name: RouteKey.review,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
+            final University? university = state.extra as University?;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
               child: ReviewForm(
                 universityId: data['id'] as String,
+                university: university,
               ),
             );
           },
@@ -85,11 +89,13 @@ class MyApp extends StatelessWidget {
           name: RouteKey.compare,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
+            final University? university = state.extra as University?;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
               child: CompareScreen(
                 universityId: data['id'] as String,
+                universityInitial: university,
               ),
             );
           },
@@ -98,6 +104,7 @@ class MyApp extends StatelessWidget {
           path: '/compare/university/:id/:withUniId',
           name: RouteKey.compareWith,
           pageBuilder: (context, state) {
+            final University? university = state.extra as University?;
             final data = state.pathParameters;
             return buildPageWithDefaultTransition<void>(
               context: context,
@@ -105,6 +112,7 @@ class MyApp extends StatelessWidget {
               child: CompareScreen(
                 universityId: data['id'] as String,
                 compareWithUniversityId: data['withUniId'] as String,
+                universityInitial: university,
               ),
             );
           },

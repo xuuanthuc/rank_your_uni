@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:template/src/models/response/review.dart';
 
 class University {
@@ -47,11 +45,19 @@ class University {
     final abbrevia = json['abbrevia'];
     final website = json['website'];
     final address = json['address'];
-    final totalReviews = json['totalReviews'] ?? Random().nextInt(30);
+    final totalReviews = json['totalReview'];
     final averagePointAllReviews =
-        double.tryParse(json['averagePointAllReviews']) ?? 0.0;
+        double.tryParse(json['averagePointAllReviews'] ?? "") ?? 0.0;
     final phone = json['phone'];
-
+    final reputationAvg = double.tryParse(json['reputationAvg'] ?? "") ?? 0.0;
+    final internetAvg = double.tryParse(json['internetAvg'] ?? "") ?? 0.0;
+    final locationAvg = double.tryParse(json['locationAvg'] ?? "") ?? 0.0;
+    final facilitiesAvg = double.tryParse(json['facilitiesAvg'] ?? "") ?? 0.0;
+    final foodAvg = double.tryParse(json['foodAvg'] ?? "") ?? 0.0;
+    final clubsAvg = double.tryParse(json['clubsAvg'] ?? "") ?? 0.0;
+    final favoriteAvg = double.tryParse(json['favoriteAvg'] ?? "") ?? 0.0;
+    final competitionLevelAvg =
+        double.tryParse(json['competitionLevelAvg'] ?? "") ?? 0.0;
     return University(
       id,
       name: name,
@@ -61,6 +67,14 @@ class University {
       averagePointAllReviews: averagePointAllReviews,
       phone: phone,
       totalReviews: totalReviews,
+      reputationAvg: reputationAvg,
+      internetAvg: internetAvg,
+      locationAvg: locationAvg,
+      facilitiesAvg: facilitiesAvg,
+      foodAvg: foodAvg,
+      clubsAvg: clubsAvg,
+      favoriteAvg: favoriteAvg,
+      competitionLevelAvg: competitionLevelAvg,
     );
   }
 
@@ -70,19 +84,18 @@ class University {
     final abbrevia = json['abbrevia'];
     final website = json['website'];
     final address = json['address'];
-    final totalReviews = json['totalReviews'] ?? Random().nextInt(30);
-    final reputationAvg = double.tryParse(json['reputationAvg']) ?? 0.0;
-    final internetAvg = double.tryParse(json['internetAvg']) ?? 0.0;
-    final locationAvg = double.tryParse(json['locationAvg']) ?? 0.0;
-    final facilitiesAvg = double.tryParse(json['facilitiesAvg']) ?? 0.0;
-    final foodAvg = double.tryParse(json['foodAvg']) ?? 0.0;
-    final clubsAvg = double.tryParse(json['clubsAvg']) ?? 0.0;
-    final favoriteAvg = double.tryParse(json['favoriteAvg']) ?? 0.0;
+    final totalReviews = json['totalReview'];
+    final reputationAvg = double.tryParse(json['reputationAvg'] ?? "") ?? 0.0;
+    final internetAvg = double.tryParse(json['internetAvg'] ?? "") ?? 0.0;
+    final locationAvg = double.tryParse(json['locationAvg'] ?? "") ?? 0.0;
+    final facilitiesAvg = double.tryParse(json['facilitiesAvg'] ?? "") ?? 0.0;
+    final foodAvg = double.tryParse(json['foodAvg'] ?? "") ?? 0.0;
+    final clubsAvg = double.tryParse(json['clubsAvg'] ?? "") ?? 0.0;
+    final favoriteAvg = double.tryParse(json['favoriteAvg'] ?? "") ?? 0.0;
     final competitionLevelAvg =
-        double.tryParse(json['competitionLevelAvg']) ?? 0.0;
-
+        double.tryParse(json['competitionLevelAvg'] ?? "") ?? 0.0;
     final averagePointAllReviews =
-        double.tryParse(json['averagePointAllReviews']) ?? 0.0;
+        double.tryParse(json['averagePointAllReviews'] ?? "") ?? 0.0;
     final phone = json['phone'];
     final reviews = <Review>[];
     if (json['reviews'] != null) {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:template/src/screens/widgets/text_field_suggestion.dart';
 
 import '../../../../global/style/styles.dart';
 
 class NoUniversityToCompare extends StatelessWidget {
-  final Function onCompare;
+  final Function(int) onCompare;
 
   const NoUniversityToCompare({
     super.key,
@@ -35,32 +36,8 @@ class NoUniversityToCompare extends StatelessWidget {
                 height: 70,
               ),
               const Spacer(),
-              TextField(
-                onTap: () => onCompare(),
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: AppColors.grey,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: AppColors.grey,
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  hoverColor: Colors.transparent,
-                  isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                ),
+              TextFieldAutocompleted(
+                onSelected: (university) => onCompare(university.id),
               ),
               const SizedBox(height: 20),
               Text(

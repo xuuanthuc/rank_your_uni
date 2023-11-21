@@ -17,17 +17,17 @@ class UniversityOverview extends StatelessWidget {
 
   void _openReviewForm(BuildContext context, University? university) {
     if (university == null) return;
-    context.goNamed(
-      RouteKey.review,
-      pathParameters: {"id": "${university.id}"},
-      extra: university
-    );
+    context.goNamed(RouteKey.review,
+        pathParameters: {"id": "${university.id}"}, extra: university);
   }
 
   void _compareUniversity(BuildContext context, University? university) {
     if (university == null) return;
-    context.goNamed(RouteKey.compare,
-        pathParameters: {"id": "${university.id}"}, extra: university);
+    context.goNamed(
+      RouteKey.compare,
+      pathParameters: {"id": "${university.id}"},
+      extra: university,
+    );
   }
 
   @override

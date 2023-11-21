@@ -17,13 +17,17 @@ class ReviewCubit extends Cubit<ReviewState> {
 
   ReviewCubit(this._detailRepository) : super(const ReviewState());
 
-  void getDetailUniversity(int id) async {
-    if (id == 0) return;
-    try {
-      final data = await _detailRepository.getDetailUniversity(id);
-      emit(state.copyWith(university: data));
-    } catch (e) {
-      emit(state.copyWith(status: ReviewStatus.error));
+  void getDetailUniversity(int id, University? university) async {
+    if (id == -1) return;
+    if(university != null) {
+      emit(state.copyWith(university: university));
+    } else {
+      try {
+        final data = await _detailRepository.getDetailUniversity(id);
+        emit(state.copyWith(university: data));
+      } catch (e) {
+        emit(state.copyWith(status: ReviewStatus.error));
+      }
     }
   }
 
@@ -38,7 +42,7 @@ class ReviewCubit extends Cubit<ReviewState> {
         state.competition == null ||
         (state.contentRated ?? "").trim().isEmpty ||
         state.clubs == null ||
-        schoolId == 0) return;
+        schoolId == -1) return;
     emit(state.copyWith(status: ReviewStatus.loading));
     try {
       ReviewRaw reviewRaw = ReviewRaw(

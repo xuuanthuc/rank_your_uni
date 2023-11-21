@@ -9,13 +9,13 @@ import '../network/api_provider.dart';
 class SearchRepository {
   final ApiProvider _apiProvider = getIt.get<ApiProvider>();
 
-  Future<SearchModel> getUniversities(String keyword, int page) async {
+  Future<SearchModel> getUniversities(String keyword, int page, {int? pageSize}) async {
     final res = await _apiProvider.get(
       ApiEndpoint.search,
       params: {
         'keyword': keyword,
         'pageIndex': page,
-        'pageSize': 10,
+        'pageSize': pageSize ?? 10,
       },
       needToken: false,
     );

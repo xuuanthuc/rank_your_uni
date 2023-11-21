@@ -15,8 +15,8 @@ class DetailCubit extends Cubit<DetailState> {
 
   DetailCubit(this._detailRepository) : super(const DetailState());
 
-  void getDetailUniversity(int id) async {
-    emit(state.copyWith(status: DetailStatus.loading));
+  void getDetailUniversity(int id, University? university) async {
+    emit(state.copyWith(status: DetailStatus.loading, university: university));
     try {
       final data = await _detailRepository.getDetailUniversity(id);
       emit(state.copyWith(status: DetailStatus.success, university: data));

@@ -34,7 +34,7 @@ class ReviewsBuilder extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40),
                     child: Text(
-                      text.reviewCount(state.university?.totalReviews ?? 0),
+                      text.reviewCount(state.university?.reviews?.length ?? 0),
                       style: theme.textTheme.labelLarge,
                     ),
                   ),

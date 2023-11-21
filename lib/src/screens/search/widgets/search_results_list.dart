@@ -41,7 +41,10 @@ class SearchResultsView extends StatelessWidget {
                     university: (state.universities ?? [])[index],
                     onTap: () {
                       context.goNamed(RouteKey.university,
-                          pathParameters: {"id": "${(state.universities ?? [])[index].id}"});
+                          pathParameters: {
+                            "id": "${(state.universities ?? [])[index].id}"
+                          },
+                          extra: (state.universities ?? [])[index]);
                     },
                   ),
                 );

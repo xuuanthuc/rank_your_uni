@@ -62,10 +62,11 @@ class _ReviewSuccessScreenState extends State<ReviewSuccessScreen> {
                         width: 200,
                         child: AppButton(
                           onTap: () {
-                            context.goNamed(RouteKey.university,
-                                pathParameters: {
-                                  "id": "${widget.university.id}"
-                                });
+                            context.goNamed(
+                              RouteKey.university,
+                              pathParameters: {"id": "${widget.university.id}"},
+                              extra: widget.university,
+                            );
                           },
                           title: text.seeReview,
                         ),

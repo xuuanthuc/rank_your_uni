@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/widgets/item_rate.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
@@ -17,27 +18,34 @@ import 'widgets/review_text_area.dart';
 
 class ReviewForm extends StatelessWidget {
   final String universityId;
+  final University? university;
 
   const ReviewForm({
     super.key,
     required this.universityId,
+    this.university,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt.get<ReviewCubit>(),
-      child: ReviewView(universityId: universityId),
+      child: ReviewView(
+        universityId: universityId,
+        university: university,
+      ),
     );
   }
 }
 
 class ReviewView extends StatefulWidget {
   final String universityId;
+  final University? university;
 
   const ReviewView({
     super.key,
     required this.universityId,
+    this.university,
   });
 
   @override
@@ -48,7 +56,7 @@ class _ReviewViewState extends State<ReviewView> {
   void onSubmitReview(BuildContext context) {
     context
         .read<ReviewCubit>()
-        .onSubmitReview(int.tryParse(widget.universityId) ?? 0);
+        .onSubmitReview(int.tryParse(widget.universityId) ?? -1);
   }
 
   void updatePoint(BuildContext context, CriteriaRated rated) {
@@ -58,9 +66,10 @@ class _ReviewViewState extends State<ReviewView> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<ReviewCubit>()
-        .getDetailUniversity(int.tryParse(widget.universityId) ?? 0);
+    context.read<ReviewCubit>().getDetailUniversity(
+          int.tryParse(widget.universityId) ?? -1,
+          widget.university,
+        );
   }
 
   @override
