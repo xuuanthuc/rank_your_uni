@@ -136,7 +136,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Cao đẳng Vĩnh Phúc', 'Phúc Yên, Vĩnh Phúc', 'caodangvinhphuc', 'http://caodangvinhphuc.edu.vn/'),
 
-('Trường Đại học An Giang - Đại học Quốc gia TP. Hồ Chí Minh', 'Đông Xuyên, Long Xuyên', 'agu', 'https://www.agu.edu.vn/'),
+('Trường Đại học An Giang - Đại học Quốc gia TP. Hồ Chí Minh', 'Đông Xuyên, Long Xuyên', 'agu vnuhcm', 'https://www.agu.edu.vn/'),
 
 ('Trường Đại học Anh Quốc - Việt Nam', 'Ecopark, Hưng Yên', 'buv', 'https://www.buv.edu.vn/'),
 
@@ -144,7 +144,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Bạc Liêu', 'Phường 8, Bạc Liêu', 'blu', 'https://blu.edu.vn/'),
 
-('Trường Đại học Bách Khoa - Đại học Quốc gia TP. Hồ Chí Minh', 'Quận 10, Hồ Chí Minh', 'hcmut', 'http://www.hcmut.edu.vn/'),
+('Trường Đại học Bách Khoa - Đại học Quốc gia TP. Hồ Chí Minh', 'Quận 10, Hồ Chí Minh', 'hcmut vnuhcm', 'http://www.hcmut.edu.vn/'),
 
 ('Trường Đại học Bách Khoa Hà Nội', 'Hai Bà Trưng, Hà Nội', 'hust', 'https://www.hust.edu.vn/'),
 
@@ -172,7 +172,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Công nghệ TP. Hồ Chí Minh', 'TP. Hồ Chí Minh', 'hutech', 'https://www.hutech.edu.vn/'),
 
-('Trường Đại học Công nghệ Thông tin - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, TP. Hồ Chí Minh', 'uit', 'https://www.uit.edu.vn/'),
+('Trường Đại học Công nghệ Thông tin - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, TP. Hồ Chí Minh', 'uit vnuhcm', 'https://www.uit.edu.vn/'),
 
 ('Trường Đại học Công nghệ Thông tin và Truyền thông Việt Hàn, Đại học Đà Nẵng', 'Ngũ Hành Sơn, Đà Nẵng', 'vku', 'http://vku.udn.vn/'),
 
@@ -280,11 +280,11 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Kinh tế - Công nghệ Thái Nguyên (Việt BẮC)', 'Đồng Hỷ, Thái Nguyên', 'vietbac', 'http://vietbac.edu.vn/'),
 
-('Trường Đại học Kinh tế - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ueb', 'http://ueb.edu.vn/'),
+('Trường Đại học Kinh tế - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ueb vnu', 'http://ueb.edu.vn/'),
 
 ('Trường Đại học Kinh tế - Kỹ thuật Bình Dương', 'Thuận An, Bình Dương', 'ktkt', 'https://ktkt.edu.vn/'),
 
-('Trường Đại học Kinh tế - Luật - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, TP. Hồ Chí Minh', 'uel', 'https://www.uel.edu.vn/'),
+('Trường Đại học Kinh tế - Luật - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, TP. Hồ Chí Minh', 'uel vnuhcm', 'https://www.uel.edu.vn/'),
 
 ('Trường Đại học Kinh tế - Tài chính TP. Hồ Chí Minh', 'Bình Thạnh, TP. Hồ Chí Minh', 'uef', '	https://www.uef.edu.vn/'),
 
@@ -292,7 +292,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Kinh tế Công nghiệp Long An', 'Tân An, Long An','daihoclongan', 'https://daihoclongan.edu.vn/'),
 
-('Trường Đại học Kinh tế Kỹ thuật Công nghiệp', 'Hà Nội','uneti', 'https://uneti.edu.vn/'),
+('Trường Đại học Kinh tế Kỹ thuật Công nghiệp', 'Hai Bà Trưng, Hà Nội','uneti', 'https://uneti.edu.vn/'),
 
 ('Trường Đại học Kinh tế Nghệ An', 'Vinh, Nghệ An','naue', 'https://naue.edu.vn/'),
 
@@ -312,15 +312,15 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Khánh Hoà', 'Nha Trang, Khánh Hoà','ukh', 'https://ukh.edu.vn/vi-vn/'),
 
-('Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội', 'Thanh Xuân, Hà Nội','hus','https://hus.vnu.edu.vn/'),
+('Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội', 'Thanh Xuân, Hà Nội','hus vnu','https://hus.vnu.edu.vn/'),
 
-('Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia TP. Hồ Chí Minh', 'Quận 5, TP. Hồ Chí Minh','hcmus', 'https://www.hcmus.edu.vn/'),
+('Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia TP. Hồ Chí Minh', 'Quận 5, TP. Hồ Chí Minh','hcmus vnuhcm', 'https://www.hcmus.edu.vn/'),
 
 ('Trường Đại học Khoa học và Công nghệ Hà Nội', 'Cầu Giấy, Hà Nội', 'usth', 'https://usth.edu.vn/'),
 
-('Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Hà Nội', 'Thanh Xuân, Hà Nội','ussh', 'https://ussh.vnu.edu.vn/'),
+('Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia Hà Nội', 'Thanh Xuân, Hà Nội','ussh vnu', 'https://ussh.vnu.edu.vn/'),
 
-('Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia TP. Hồ Chí Minh', 'TP. Hồ Chí Minh', 'hcmussh', 'https://hcmussh.edu.vn/'),
+('Trường Đại học Khoa học Xã hội và Nhân văn - Đại học Quốc gia TP. Hồ Chí Minh', 'TP. Hồ Chí Minh', 'hcmussh vnuhcm', 'https://hcmussh.edu.vn/'),
 
 ('Trường Đại học Khoa học, Đại học Huế', 'Thừa Thiên Huế','husc', 'http://husc.hueuni.edu.vn/'),
 
@@ -332,7 +332,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Lâm nghiệp', 'Chương Mỹ, Hà Nội','vnuf','https://vnuf.edu.vn/'),
 
-('Trường Đại học Luật - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội','lawvnu', 'https://law.vnu.edu.vn/'),
+('Trường Đại học Luật - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội','lawvnu vnu', 'https://law.vnu.edu.vn/'),
 
 ('Trường Đại học Luật Hà Nội', 'Đống Đa, Hà Nội','hlu', 'https://hlu.edu.vn/'),
 
@@ -372,7 +372,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Nghệ thuật, Đại học Huế', 'Thừa Thiên Huế', 'nghethuathue', 'https://nghethuathue.edu.vn/'),
 
-('Trường Đại học Ngoại ngữ - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ulis', 'https://ulis.vnu.edu.vn/'),
+('Trường Đại học Ngoại ngữ - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ulis vnu', 'https://ulis.vnu.edu.vn/'),
 
 ('Trường Đại học Ngoại ngữ - Tin học TP. Hồ Chí Minh', 'Quận 10, TP. Hồ Chí Minh', 'huflit', 'https://huflit.edu.vn/'),
 
@@ -408,7 +408,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Quang Trung', 'Qui Nhơn, Bình Định', 'qtu', 'https://qtu.edu.vn'),
 
-('Trường Đại học Quốc tế - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, Hồ Chí Minh', 'hcmiu', 'https://hcmiu.edu.vn/'),
+('Trường Đại học Quốc tế - Đại học Quốc gia TP. Hồ Chí Minh', 'Thủ Đức, Hồ Chí Minh', 'hcmiu vnuhcm', 'https://hcmiu.edu.vn/'),
 
 ('Trường Đại học Quốc tế Bắc Hà', 'Tiên Du, Bắc Ninh', 'iubh', 'http://iubh.edu.vn/'),
 
@@ -526,7 +526,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Việt Đức', 'Bến Cát, Bình Dương', 'vgu', 'https://vgu.edu.vn/vi/home'),
 
-('Trường Đại học Việt Nhật - Đại học Quốc gia Hà Nội', 'Nam Từ Liêm, Hà Nội', 'vju', 'http://vju.ac.vn/'),
+('Trường Đại học Việt Nhật - Đại học Quốc gia Hà Nội', 'Nam Từ Liêm, Hà Nội', 'vju vnu', 'http://vju.ac.vn/'),
 
 ('Trường Đại học VINUNI', 'Gia Lam, Hà Nội', 'vinuni', 'https://vinuni.edu.vn/'),
 
@@ -540,7 +540,7 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Xây dựng Miền Trung', 'Tuy Hoà, Phú Yên', 'muce', 'http://muce.edu.vn/'),
 
-('Trường Đại học Y Dược - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ump', 'http://ump.vnu.edu.vn/'),
+('Trường Đại học Y Dược - Đại học Quốc gia Hà Nội', 'Cầu Giấy, Hà Nội', 'ump vnu', 'http://ump.vnu.edu.vn/'),
 
 ('Trường Đại học Y Dược Buôn Ma Thuột', 'Đắk Lắk', 'bmtu', 'https://bmtu.edu.vn/'),
 

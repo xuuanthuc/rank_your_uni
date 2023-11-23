@@ -24,26 +24,37 @@ class LoadMoreUniversities extends StatelessWidget {
           child: SizedBox(
             width: 250,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 55),
                 BlocBuilder<SearchCubit, SearchState>(
                   buildWhen: (prev, curr) =>
                       curr.status == SearchStatus.loadingMore ||
                       curr.status == SearchStatus.success,
                   builder: (context, state) {
-                    return LoadingCommon(
-                        state.status == SearchStatus.loadingMore);
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 35),
+                      child: LoadingCommon(
+                        state.status == SearchStatus.loadingMore,
+                      ),
+                    );
                   },
                 ),
-                const SizedBox(height: 25),
                 BlocBuilder<SearchCubit, SearchState>(
                     buildWhen: (prev, curr) =>
-                        prev.status == SearchStatus.init,
+                        prev.status == SearchStatus.init ||
+                        curr.searchModel?.totalElements ==
+                            curr.universities?.length,
                     builder: (context, state) {
-                      if ((state.universities ?? []).isNotEmpty) {
-                        return AppButton(
-                          onTap: () => context.read<SearchCubit>().loadMore(),
-                          title: text.seeMore,
+                      if ((state.universities ?? []).isNotEmpty &&
+                          state.searchModel?.totalElements !=
+                              state.universities?.length) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: AppButton(
+                            onTap: () =>
+                                context.read<SearchCubit>().loadMore(),
+                            title: text.seeMore,
+                          ),
                         );
                       }
                       return const SizedBox.shrink();

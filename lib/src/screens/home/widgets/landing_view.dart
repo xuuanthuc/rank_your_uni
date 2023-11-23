@@ -1,8 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../global/routes/route_keys.dart';
 import '../../widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
+
+import '../../widgets/text_field_suggestion.dart';
 
 class LandingView extends StatelessWidget {
   final Function(String) onSearch;
@@ -83,7 +87,6 @@ class LandingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final TextEditingController controller = TextEditingController();
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -108,17 +111,19 @@ class LandingContent extends StatelessWidget {
             ),
             Container(
               constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-              child: TextField(
-                style: theme.primaryTextTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-                cursorColor: AppColors.black,
-                controller: controller,
-                onEditingComplete: () {
-                  if (controller.text.trim().isEmpty) return;
-                  onSearch(controller.text.trim());
+              child: TextFieldAutocompleted(
+                onSelected: (university) {
+                  context.goNamed(
+                    RouteKey.university,
+                    pathParameters: {"id": "${university.id}"},
+                    extra: university,
+                  );
                 },
-                decoration: InputDecoration(
+                onEditingComplete: (keyword) {
+                  if (keyword.trim().isEmpty) return;
+                  onSearch(keyword.trim());
+                },
+                inputDecorationCustom: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   hintText: text.yourUniversity,
