@@ -37,7 +37,7 @@ class TextFieldAutocompleted extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Material(
                 elevation: 4,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(14),
                 child: Container(
                   constraints: const BoxConstraints(
                     maxHeight: 400,

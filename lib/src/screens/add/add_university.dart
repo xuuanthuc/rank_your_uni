@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/screens/add/bloc/add_university_cubit.dart';
+import 'package:template/src/screens/add/widgets/select_province_dialog.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
@@ -7,6 +11,32 @@ import '../widgets/responsive_builder.dart';
 
 class AddUniversity extends StatelessWidget {
   const AddUniversity({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt.get<AddUniversityCubit>(),
+      child: const AddUniversityView(),
+    );
+  }
+}
+
+
+class AddUniversityView extends StatelessWidget {
+  const AddUniversityView({super.key});
+
+  Future<void> _selectProvince(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return BlocProvider(
+          create: (context) => getIt.get<AddUniversityCubit>(),
+          child: const SelectProvinceDialog(),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +76,16 @@ class AddUniversity extends StatelessWidget {
                       label: text.nameOfUniversity,
                     ),
                     TextAddField(
-                      label: text.stateOrWard,
+                      label: text.cityOrProvince,
+                      readOnly: true,
+                      onTap: () => _selectProvince(context),
                     ),
                     TextAddField(
-                      label: text.cityOrProvince,
+                      label: text.stateOrWard,
+                      readOnly: true,
+                      onTap: () {
+                        print('taop');
+                      },
                     ),
                     TextAddField(
                       label: text.website,
@@ -64,7 +100,7 @@ class AddUniversity extends StatelessWidget {
                           child: Checkbox(
                             checkColor: Colors.white,
                             fillColor:
-                                MaterialStateProperty.all(theme.primaryColor),
+                            MaterialStateProperty.all(theme.primaryColor),
                             value: true,
                             onChanged: (bool? value) {},
                           ),
@@ -101,8 +137,11 @@ class AddUniversity extends StatelessWidget {
 
 class TextAddField extends StatelessWidget {
   final String label;
+  final bool readOnly;
+  final Function? onTap;
 
-  const TextAddField({super.key, required this.label});
+  const TextAddField(
+      {super.key, required this.label, this.readOnly = false, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +158,8 @@ class TextAddField extends StatelessWidget {
           style: theme.primaryTextTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.w500,
           ),
+          readOnly: readOnly,
+          onTap: () => onTap!(),
           cursorHeight: 18,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -129,9 +170,13 @@ class TextAddField extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(width: 1, color: AppColors.grey),
             ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(width: 1, color: AppColors.grey),
+            ),
             hoverColor: Colors.transparent,
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             isDense: true,
           ),
         ),
