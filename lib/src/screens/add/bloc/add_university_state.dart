@@ -5,46 +5,31 @@ enum AddUniStatus { loading, success, error }
 @immutable
 class AddUniversityState extends Equatable {
   final AddUniStatus? status;
-  final Province? provinceSelected;
-  final Districts? districtSelected;
-  final List<Province>? provinces;
-  final List<Province>? searchingProvinces;
-  final List<Districts>? searchingDistrics;
+  final AddUniversityRaw? addUniversityRaw;
+  final bool? acceptPrivacy;
 
   const AddUniversityState({
     this.status,
-    this.provinces,
-    this.searchingProvinces,
-    this.searchingDistrics,
-    this.provinceSelected,
-    this.districtSelected,
+    this.addUniversityRaw,
+    this.acceptPrivacy,
   });
 
   AddUniversityState copyWith({
     AddUniStatus? status,
-    List<Province>? provinces,
-    List<Province>? searchingProvinces,
-    List<Districts>? searchingDistrics,
-    Province? provinceSelected,
-    Districts? districtSelected,
+    AddUniversityRaw? addUniversityRaw,
+    bool? acceptPrivacy,
   }) {
     return AddUniversityState(
       status: status ?? this.status,
-      provinces: provinces ?? this.provinces,
-      searchingProvinces: searchingProvinces ?? this.searchingProvinces,
-      searchingDistrics: searchingDistrics ?? this.searchingDistrics,
-      provinceSelected: provinceSelected,
-      districtSelected: districtSelected,
+      addUniversityRaw: addUniversityRaw ?? this.addUniversityRaw,
+      acceptPrivacy: acceptPrivacy ?? this.acceptPrivacy,
     );
   }
 
   @override
   List<Object?> get props => [
         status,
-        provinces,
-        searchingProvinces,
-        searchingDistrics,
-        provinceSelected,
-        districtSelected,
+        addUniversityRaw,
+        acceptPrivacy,
       ];
 }

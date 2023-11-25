@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/add/bloc/add_university_cubit.dart';
+import 'package:template/src/screens/add/bloc/select_province_cubit.dart';
 import 'package:template/src/screens/add/widgets/select_province_dialog.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
-
 import '../../../global/style/styles.dart';
 import '../widgets/button_common.dart';
 import '../widgets/responsive_builder.dart';
@@ -21,22 +21,43 @@ class AddUniversity extends StatelessWidget {
   }
 }
 
-
-class AddUniversityView extends StatelessWidget {
+class AddUniversityView extends StatefulWidget {
   const AddUniversityView({super.key});
 
-  Future<void> _selectProvince(BuildContext context) {
-    return showDialog<void>(
+  @override
+  State<AddUniversityView> createState() => _AddUniversityViewState();
+}
+
+class _AddUniversityViewState extends State<AddUniversityView> {
+  Future<void> _selectProvince(BuildContext context) async {
+    final res = await showDialog<Map<String, dynamic>>(
       context: context,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => getIt.get<AddUniversityCubit>(),
+          create: (context) => getIt.get<SelectProvinceCubit>(),
           child: const SelectProvinceDialog(),
         );
       },
     );
+    if (res != null) {
+      if (!context.mounted) return;
+      context.read<AddUniversityCubit>().onSelectedProvinceDistrict(
+            res['province'],
+            res['district'],
+          );
+    }
   }
+
+  final TextEditingController _nameController = TextEditingController();
+
+  final TextEditingController _provinceController = TextEditingController();
+
+  final TextEditingController _districtController = TextEditingController();
+
+  final TextEditingController _websiteController = TextEditingController();
+
+  final TextEditingController _creatorEmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,73 +79,92 @@ class AddUniversityView extends StatelessWidget {
                 constraints: const BoxConstraints(
                   maxWidth: Public.mobileSize,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text.addAUniversity,
-                      style: theme.primaryTextTheme.displayLarge,
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      text.addAUniversityWarning,
-                      style: theme.primaryTextTheme.bodyMedium
-                          ?.copyWith(fontStyle: FontStyle.italic),
-                    ),
-                    const SizedBox(height: 30),
-                    TextAddField(
-                      label: text.nameOfUniversity,
-                    ),
-                    TextAddField(
-                      label: text.cityOrProvince,
-                      readOnly: true,
-                      onTap: () => _selectProvince(context),
-                    ),
-                    TextAddField(
-                      label: text.stateOrWard,
-                      readOnly: true,
-                      onTap: () {
-                        print('taop');
-                      },
-                    ),
-                    TextAddField(
-                      label: text.website,
-                    ),
-                    TextAddField(
-                      label: text.yourEmail,
-                    ),
-                    Row(
+                child: BlocBuilder<AddUniversityCubit, AddUniversityState>(
+                  builder: (context, state) {
+                    _provinceController.text =
+                        state.addUniversityRaw?.province?.name ?? '';
+                    _districtController.text =
+                        state.addUniversityRaw?.districts?.name ?? '';
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Transform.scale(
-                          scale: 1.5,
-                          child: Checkbox(
-                            checkColor: Colors.white,
-                            fillColor:
-                            MaterialStateProperty.all(theme.primaryColor),
-                            value: true,
-                            onChanged: (bool? value) {},
-                          ),
+                        Text(
+                          text.addAUniversity,
+                          style: theme.primaryTextTheme.displayLarge,
                         ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Text(
-                            text.agreeTermsOfUse,
-                            style: theme.primaryTextTheme.bodyMedium,
-                          ),
+                        const SizedBox(height: 20),
+                        Text(
+                          text.addAUniversityWarning,
+                          style: theme.primaryTextTheme.bodyMedium
+                              ?.copyWith(fontStyle: FontStyle.italic),
+                        ),
+                        const SizedBox(height: 30),
+                        TextAddField(
+                          label: text.nameOfUniversity,
+                          controller: _nameController,
+                        ),
+                        TextAddField(
+                          label: text.cityOrProvince,
+                          readOnly: true,
+                          onTap: () => _selectProvince(context),
+                          controller: _provinceController,
+                        ),
+                        TextAddField(
+                          label: text.stateOrWard,
+                          readOnly: true,
+                          onTap: () => _selectProvince(context),
+                          controller: _districtController,
+                        ),
+                        TextAddField(
+                          label: text.website,
+                          controller: _websiteController,
+                        ),
+                        TextAddField(
+                          label: text.yourEmail,
+                          controller: _creatorEmailController,
+                        ),
+                        Row(
+                          children: [
+                            BlocBuilder<AddUniversityCubit, AddUniversityState>(
+                              builder: (context, state) {
+                                return Transform.scale(
+                                  scale: 1.5,
+                                  child: Checkbox(
+                                    checkColor: Colors.white,
+                                    activeColor: theme.primaryColor,
+                                    side: const BorderSide(color: AppColors.grey, width: 1),
+                                    value: state.acceptPrivacy ?? false,
+                                    onChanged: (bool? value) {
+                                      context
+                                          .read<AddUniversityCubit>()
+                                          .onCheckPrivacy();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Text(
+                                text.agreeTermsOfUse,
+                                style: theme.primaryTextTheme.bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppButton(
+                              onTap: () => {},
+                              title: text.addUniversity,
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppButton(
-                          onTap: () => {},
-                          title: text.addUniversity,
-                        ),
-                      ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -139,9 +179,15 @@ class TextAddField extends StatelessWidget {
   final String label;
   final bool readOnly;
   final Function? onTap;
+  final TextEditingController controller;
 
-  const TextAddField(
-      {super.key, required this.label, this.readOnly = false, this.onTap});
+  const TextAddField({
+    super.key,
+    required this.label,
+    this.readOnly = false,
+    this.onTap,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +204,7 @@ class TextAddField extends StatelessWidget {
           style: theme.primaryTextTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.w500,
           ),
+          controller: controller,
           readOnly: readOnly,
           onTap: () => onTap!(),
           cursorHeight: 18,
@@ -176,7 +223,7 @@ class TextAddField extends StatelessWidget {
             ),
             hoverColor: Colors.transparent,
             contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             isDense: true,
           ),
         ),
