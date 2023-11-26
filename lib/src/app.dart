@@ -17,6 +17,8 @@ import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/review_screen.dart';
 import 'package:template/src/screens/review/review_success.dart';
 import 'package:template/src/screens/search/search_screen.dart';
+import 'package:template/src/screens/term_and_policy/privacy_policy_screen.dart';
+import 'package:template/src/screens/term_and_policy/terms_of_services.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -205,6 +207,28 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: const AddUniversity(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/terms',
+          name: RouteKey.terms,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const TermsOfServiceScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/policy',
+          name: RouteKey.policy,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const PrivacyPolicyScreen(),
             );
           },
         ),

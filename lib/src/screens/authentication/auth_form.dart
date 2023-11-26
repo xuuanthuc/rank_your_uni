@@ -115,6 +115,10 @@ class SignInForm extends StatelessWidget {
     context.read<AuthenticationBloc>().add(OnSignInEvent());
   }
 
+  void _onSignGoogleSignIn(BuildContext context) {
+    context.read<AuthenticationBloc>().add(OnGoogleSignInEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -135,7 +139,7 @@ class SignInForm extends StatelessWidget {
           AuthWithGoogleButton(
             theme: theme,
             text: text.signInWithGoogle,
-            onAuthWithGoogle: () {},
+            onAuthWithGoogle: () => _onSignGoogleSignIn(context),
           ),
           const SizedBox(height: 26),
           Row(
@@ -238,6 +242,10 @@ class SignUpEmailForm extends StatelessWidget {
   final Function goSignIn;
   final Function continueSignUp;
 
+  void _onSignGoogleSignIn(BuildContext context) {
+    context.read<AuthenticationBloc>().add(OnGoogleSignUpEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -259,7 +267,7 @@ class SignUpEmailForm extends StatelessWidget {
           AuthWithGoogleButton(
             theme: theme,
             text: text.signUpWithGoogle,
-            onAuthWithGoogle: () {},
+            onAuthWithGoogle: () => _onSignGoogleSignIn(context),
           ),
           const SizedBox(height: 26),
           Row(
