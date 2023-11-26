@@ -49,12 +49,12 @@ class AuthenticationBloc
     OnGoogleSignInEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-      ],
-    );
     try {
+      GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: [
+          'email',
+        ],
+      );
       emit(state.copyWith(
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signIn,
