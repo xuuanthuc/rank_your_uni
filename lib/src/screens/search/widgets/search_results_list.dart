@@ -25,7 +25,7 @@ class SearchResultsView extends StatelessWidget {
             if (state.status == SearchStatus.init) {
               return Padding(
                 padding: const EdgeInsets.only(top: 80),
-                child: LoadingCommon(state.status == SearchStatus.init),
+                child: PrimaryCircularLoading(state.status == SearchStatus.init),
               );
             }
             return ListView.builder(

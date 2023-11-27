@@ -31,8 +31,8 @@ class AuthWithGoogleButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 30,
-                  height: 30,
+                  width: 25,
+                  height: 25,
                   child: Image.asset(AppImages.iGoogleLogo),
                 ),
                 const SizedBox(width: 14),

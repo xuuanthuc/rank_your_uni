@@ -4,9 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/utilities/format.dart';
+import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/review.dart';
 import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
+import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/detail/report_review_form.dart';
+import 'package:template/src/screens/widgets/loading.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
@@ -31,10 +34,23 @@ class ReviewsBuilder extends StatelessWidget {
               const SizedBox(height: 20),
               Row(
                 children: [
+                  if (state.status == DetailStatus.loading)
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: PrimaryCircularLoading(
+                        state.status == DetailStatus.loading,
+                        strokeWidth: 5,
+                      ),
+                    ),
+                  const SizedBox(width: 15),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40),
                     child: Text(
-                      text.reviewCount(state.university?.reviews?.length ?? 0),
+                      state.status == DetailStatus.loading
+                          ? text.loadingReviews
+                          : text.reviewCount(
+                              state.university?.reviews?.length ?? 0),
                       style: theme.textTheme.labelLarge,
                     ),
                   ),
@@ -49,7 +65,8 @@ class ReviewsBuilder extends StatelessWidget {
                       bottom: (((index + 1) % 3) == 0) ? 75 : 0,
                     ),
                     child: ReviewItem(
-                        review: (state.university?.reviews ?? [])[index]),
+                      review: (state.university?.reviews ?? [])[index],
+                    ),
                   );
                 },
                 itemCount: state.university?.reviews?.length ?? 0,
@@ -81,7 +98,10 @@ class ReviewItem extends StatelessWidget {
       context: context,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
-        return const ReportReviewForm();
+        return BlocProvider(
+          create: (context) => getIt.get<ReportCubit>(),
+          child: ReportReviewForm(review: review),
+        );
       },
     );
   }

@@ -6,7 +6,7 @@ import 'package:template/src/screens/add/bloc/select_province_cubit.dart';
 import 'package:template/src/screens/add/widgets/select_province_dialog.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import '../../../global/style/styles.dart';
-import '../widgets/button_common.dart';
+import '../widgets/primary_button.dart';
 import '../widgets/responsive_builder.dart';
 
 class AddUniversity extends StatelessWidget {
@@ -156,7 +156,7 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AppButton(
+                            PrimaryButton(
                               onTap: () => {},
                               title: text.addUniversity,
                             ),

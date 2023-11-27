@@ -10,7 +10,7 @@ import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
 import 'package:template/src/screens/appbar/widgets/menu_appbar_icon.dart';
 import 'package:template/src/screens/appbar/widgets/text_field_search.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../authentication/auth_form.dart';
 import 'bloc/appbar_cubit.dart';
@@ -152,7 +152,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                     text: text,
                                     keyword: keyword,
                                   ),
-                                  AppButton(
+                                  PrimaryButton(
                                     onTap: () => _onToggleSearchField(context),
                                     hasBorder: false,
                                     title: text.cancel,
@@ -220,7 +220,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                               }
                               return Row(
                                 children: [
-                                  AppButton(
+                                  PrimaryButton(
                                     onTap: () => _showSignInDialog(context),
                                     hasBorder: false,
                                     title: text.signIn,
@@ -235,7 +235,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 16),
-                                  AppButton(
+                                  PrimaryButton(
                                     onTap: () => _showSignUpDialog(context),
                                     title: text.signUp,
                                     height: double.infinity,

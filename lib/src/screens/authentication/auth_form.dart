@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
-import 'package:template/src/screens/authentication/widgets/auth_button.dart';
+import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import 'package:template/src/screens/authentication/widgets/auth_field_label.dart';
 import 'package:template/src/screens/authentication/widgets/google_auth_button.dart';
 import 'package:template/src/screens/authentication/widgets/text_field_auth.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/expandable_page_view.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
@@ -188,7 +188,7 @@ class SignInForm extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: [
-              AppButton(
+              PrimaryButton(
                 onTap: () {},
                 hasBorder: false,
                 title: text.forgetPassword,
@@ -199,7 +199,13 @@ class SignInForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 35),
-          AuthButton(onTap: () => _onSignIn(context), label: text.signIn),
+          LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
+            onTap: () => _onSignIn(context),
+            label: text.signIn,
+            updateLoading: (state) {
+              return (state).isLoading ?? false;
+            },
+          ),
           const SizedBox(height: 26),
           Text(
             text.authNotice,
@@ -214,7 +220,7 @@ class SignInForm extends StatelessWidget {
                 '${text.notHaveAccount} ',
                 style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
               ),
-              AppButton(
+              PrimaryButton(
                 onTap: () {
                   goSignUp();
                 },
@@ -304,10 +310,10 @@ class SignUpEmailForm extends StatelessWidget {
             hintText: text.enterEmail,
           ),
           const SizedBox(height: 35),
-          AppButton(
+          PrimaryButton(
             onTap: () => continueSignUp(),
             title: text.continueText,
-            height: 56,
+            height: 46,
           ),
           const SizedBox(height: 26),
           Text(
@@ -323,7 +329,7 @@ class SignUpEmailForm extends StatelessWidget {
                 '${text.alreadyHaveAccount} ',
                 style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
               ),
-              AppButton(
+              PrimaryButton(
                 onTap: () {
                   goSignIn();
                 },
@@ -420,9 +426,12 @@ class SignUpPasswordForm extends StatelessWidget {
                       theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
                 ),
                 const SizedBox(height: 25),
-                AuthButton(
+                LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
                   onTap: () => onRegister(),
                   label: text.continueText,
+                  updateLoading: (state) {
+                    return (state).isLoading ?? false;
+                  },
                 ),
                 const SizedBox(height: 40),
               ],
@@ -490,9 +499,12 @@ class UpdateUserProfileForm extends StatelessWidget {
             hintText: text.whatIsYourUniversity,
           ),
           const SizedBox(height: 30),
-          AuthButton(
+          LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
             onTap: () {},
             label: text.completeRegister,
+            updateLoading: (state) {
+              return (state).isLoading ?? false;
+            },
           ),
           const SizedBox(height: 25),
         ],

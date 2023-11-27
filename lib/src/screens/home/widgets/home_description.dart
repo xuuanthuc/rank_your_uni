@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
 
@@ -155,7 +155,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
                     child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
                       buildWhen: (prev, cur) => cur.status != prev.status,
                       builder: (context, state) {
-                        return AppButton(
+                        return PrimaryButton(
                           onTap: () {
                             state.status == AuthenticationStatus.unauthenticated
                                 ? _showSignUpDialog(context)

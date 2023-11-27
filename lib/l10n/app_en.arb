@@ -1,11 +1,11 @@
 {
-  "hello": "Xin chao!!!",
+  "hello": "Xin chào!!!",
   "signIn": "Đăng nhập",
   "signUp": "Đăng ký",
   "yourUniversity": "Trường đại học của bạn",
   "homeLargeTitle": "Tìm trường Đại học của bạn",
-  "joinWithUs": "Tham gia với chúng tôi",
-  "shareForEveryone": "Chia sẻ cho mọi người biết về ngôi trường đại học yêu quý của bạn",
+  "joinWithUs": "Hãy trở thành thành viên của R.Y.UNi",
+  "shareForEveryone": " Bạn có điều muốn nói? RYU luôn sẵn sàng lắng nghe.\nHãy cho mọi người biết thêm về ngôi trường của bạn nhé!",
   "managerAndEditYourRate": "Quản lý và chỉnh sửa\nđánh giá của bạn",
   "yourRateAlwaysAnonymous": "Đánh giá của bạn\nluôn ẩn danh",
   "likeOrDislike": "Like hoặc dislike các\nđánh giá",
@@ -51,8 +51,8 @@
   "enterLastName": "Họ và tên đệm của bạn là gì?",
   "enterFirstName": "Tên của bạn là gì?",
   "help": "Trợ giúp",
-  "side": "Website",
-  "sideGuidelines": "Hướng dẫn sử dụng website",
+  "side": "Trang web",
+  "sideGuidelines": "Hướng dẫn sử dụng RYU",
   "resultsForSearch": "{total} trường đại học hiển thị với tên \"{university}\"",
   "@resultsForSearch" : {
     "placeholders": {
@@ -154,5 +154,13 @@
   "seeReview": "Xem đánh giá",
   "findUniversityName": "Tìm tên trường học",
   "goToUniversityPage": "Đến trang trường này",
-  "search": "Tìm kiếm"
+  "search": "Tìm kiếm",
+  "legal": "Pháp lý",
+  "termsOfService": "Điều khoản dịch vụ",
+  "privacyPolicy": "Chính sách bảo mật",
+  "aboutMe": "Về chúng tôi",
+  "contact": "Liên hệ",
+  "reportSuccess": "Báo cáo thành công",
+  "subtitleReportSuccess": "Chúng tôi sẽ xem sét báo cáo của bạn",
+  "loadingReviews": "Đang tải đánh giá..."
 }

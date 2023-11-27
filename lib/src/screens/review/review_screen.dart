@@ -12,7 +12,7 @@ import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
 import '../widgets/base_scaffold.dart';
-import '../widgets/button_common.dart';
+import '../widgets/loading_primary_button.dart';
 import 'bloc/item_criteria_cubit.dart';
 import 'widgets/review_text_area.dart';
 
@@ -146,45 +146,30 @@ class _ReviewViewState extends State<ReviewView> {
                   ),
                   const ReviewArea(),
                   const SizedBox(height: 45),
-                  SizedBox(
-                      width: 250,
-                      child: BlocBuilder<ReviewCubit, ReviewState>(
-                        builder: (context, state) {
-                          Color? backgroundColor;
-                          if (state.internet == null ||
-                              state.location == null ||
-                              state.status == ReviewStatus.loading ||
-                              state.reputation == null ||
-                              state.favorite == null ||
-                              state.food == null ||
-                              state.facilities == null ||
-                              state.competition == null ||
-                              (state.contentRated ?? "").trim().isEmpty ||
-                              state.clubs == null) {
-                            backgroundColor = AppColors.grey;
-                          } else {
-                            backgroundColor = null;
-                          }
-                          return AppButton(
-                            onTap: state.status == ReviewStatus.loading
-                                ? () {}
-                                : () => onSubmitReview(context),
-                            title: text.submitReview,
-                            height: 56,
-                            backgroundColor: backgroundColor,
-                            borderColor: backgroundColor,
-                            child: state.status == ReviewStatus.loading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                : null,
-                          );
-                        },
-                      )),
+                  LoadingPrimaryButton<ReviewCubit, ReviewState>(
+                    onTap: () => onSubmitReview(context),
+                    label: text.completeRegister,
+                    buttonWidth: 250,
+                    updateLoading: (state) {
+                      return (state).status == ReviewStatus.loading;
+                    },
+                    updateColor: (state) {
+                      if (state.internet == null ||
+                          state.location == null ||
+                          state.status == ReviewStatus.loading ||
+                          state.reputation == null ||
+                          state.favorite == null ||
+                          state.food == null ||
+                          state.facilities == null ||
+                          state.competition == null ||
+                          (state.contentRated ?? "").trim().isEmpty ||
+                          state.clubs == null) {
+                        return AppColors.grey;
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ],
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 
 import '../../widgets/loading.dart';
 
@@ -33,7 +33,7 @@ class LoadMoreUniversities extends StatelessWidget {
                   builder: (context, state) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 35),
-                      child: LoadingCommon(
+                      child: PrimaryCircularLoading(
                         state.status == SearchStatus.loadingMore,
                       ),
                     );
@@ -50,7 +50,7 @@ class LoadMoreUniversities extends StatelessWidget {
                               state.universities?.length) {
                         return Padding(
                           padding: const EdgeInsets.only(top: 25),
-                          child: AppButton(
+                          child: PrimaryButton(
                             onTap: () =>
                                 context.read<SearchCubit>().loadMore(),
                             title: text.seeMore,
@@ -67,7 +67,7 @@ class LoadMoreUniversities extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                AppButton(
+                PrimaryButton(
                   onTap: () => context.goNamed(RouteKey.addUniversity),
                   hasBorder: false,
                   title: text.addUniversity,

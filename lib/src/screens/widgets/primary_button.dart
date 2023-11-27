@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppButton extends StatefulWidget {
+class PrimaryButton extends StatefulWidget {
   final Function onTap;
   final String title;
   final bool isOutline;
@@ -15,7 +15,7 @@ class AppButton extends StatefulWidget {
   final FontWeight? fontWeight;
   final double? fontSize;
 
-  const AppButton({
+  const PrimaryButton({
     super.key,
     required this.onTap,
     required this.title,
@@ -33,10 +33,10 @@ class AppButton extends StatefulWidget {
   });
 
   @override
-  State<AppButton> createState() => _AppButtonState();
+  State<PrimaryButton> createState() => _PrimaryButtonState();
 }
 
-class _AppButtonState extends State<AppButton> {
+class _PrimaryButtonState extends State<PrimaryButton> {
   bool _isUnderLine = false;
 
   @override

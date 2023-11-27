@@ -10,7 +10,7 @@ import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../../global/style/styles.dart';
-import '../../widgets/button_common.dart';
+import '../../widgets/primary_button.dart';
 
 class UniversityOverview extends StatelessWidget {
   const UniversityOverview({super.key});
@@ -189,7 +189,7 @@ class ActionReviewAndCompare extends StatelessWidget {
     return ResponsiveBuilder(
       smallView: Column(
         children: [
-          AppButton(
+          PrimaryButton(
             onTap: () => addReview(),
             title: text.reviewThisUniversity,
             padding: const EdgeInsets.symmetric(
@@ -198,7 +198,7 @@ class ActionReviewAndCompare extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          AppButton(
+          PrimaryButton(
             onTap: () => compareUniversity(),
             title: text.compareUniversity,
             isOutline: true,
@@ -213,7 +213,7 @@ class ActionReviewAndCompare extends StatelessWidget {
       ),
       child: Row(
         children: [
-          AppButton(
+          PrimaryButton(
             onTap: () => addReview(),
             title: text.reviewThisUniversity,
             padding: const EdgeInsets.symmetric(
@@ -222,7 +222,7 @@ class ActionReviewAndCompare extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          AppButton(
+          PrimaryButton(
             onTap: () => compareUniversity(),
             title: text.compareUniversity,
             isOutline: true,

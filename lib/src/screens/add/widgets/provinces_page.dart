@@ -66,7 +66,7 @@ class _ProvincesPageState extends State<ProvincesPage>
             itemCount: state.searchingProvinces?.length,
           );
         }
-        return LoadingCommon(
+        return PrimaryCircularLoading(
           state.status == SelectStatus.loading,
         );
       },

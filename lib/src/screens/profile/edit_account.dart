@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/screens/profile/widgets/edit_button.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
 class EditAccount extends StatelessWidget {
@@ -50,7 +50,7 @@ class EditAccount extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppButton(onTap: (){}, title: text.updateAccount)
+                  PrimaryButton(onTap: (){}, title: text.updateAccount)
                 ],
               ),
               // const SizedBox(height: 500),

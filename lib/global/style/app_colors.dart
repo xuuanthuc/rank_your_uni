@@ -15,5 +15,8 @@ abstract class AppColors {
   static const black = Color(0xFF333333);
   static const textGrey = Color(0xFF676767);
   static const textSelected = Color(0xFFB4E4FF);
-  static const error = Color(0xFFFF8080);
+  static const error = Color(0xFFE14D45);
+  static const success = Color(0xFF2FCC71);
+  static const warning = Color(0xFFED991E);
+  static const info = Color(0xFF3C90D1);
 }

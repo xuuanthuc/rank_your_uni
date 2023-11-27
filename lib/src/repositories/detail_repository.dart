@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:template/global/utilities/logger.dart';
+import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
-import 'package:template/src/models/response/review.dart';
 import 'package:template/src/models/response/university.dart';
 import './../../src/network/endpoint.dart';
 
@@ -22,14 +23,33 @@ class DetailRepository {
 
   Future<bool> reviewUniversity(ReviewRaw review) async {
     try {
-      await _apiProvider.post(
+      final res = await _apiProvider.post(
         ApiEndpoint.reviews,
         needToken: false,
         params: review.toJson(),
       );
-      return true;
+      if (res != null) {
+        return true;
+      }
     } catch (e) {
-      return false;
+      LoggerUtils.e(e);
     }
+    return false;
+  }
+
+  Future<bool> reportReview(ReportRaw report) async {
+    try {
+      final res = await _apiProvider.post(
+        ApiEndpoint.report,
+        needToken: false,
+        params: report.toJson(),
+      );
+      if (res != null) {
+        return true;
+      }
+    } catch (e) {
+      LoggerUtils.e(e);
+    }
+    return false;
   }
 }

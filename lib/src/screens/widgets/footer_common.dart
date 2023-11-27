@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../global/routes/route_keys.dart';
 
 class FooterCommon extends StatefulWidget {
@@ -22,6 +23,20 @@ class _FooterCommonState extends State<FooterCommon> {
     });
   }
 
+  void _goToWebsite(Uri url) async {
+    if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
+    }
+  }
+  
+  void _goToFacebook(){
+    _goToWebsite(Uri.parse('https://www.facebook.com/xuuanthuc'));
+  }
+
+  void _goToInstagram(){
+    _goToWebsite(Uri.parse('https://www.instagram.com/thucchubbyhihi'));
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -35,7 +50,7 @@ class _FooterCommonState extends State<FooterCommon> {
           width: MediaQuery.sizeOf(context).width,
           padding: const EdgeInsets.symmetric(horizontal: 50),
           child: ResponsiveBuilder(
-            smallView: SizedBox(
+            mediumView: SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,8 +79,7 @@ class _FooterCommonState extends State<FooterCommon> {
                               children: [
                                 FooterOptionButton(
                                   label: text.help,
-                                  onTap: () =>
-                                      context.goNamed(RouteKey.helps),
+                                  onTap: () => context.goNamed(RouteKey.helps),
                                 ),
                               ],
                             ),
@@ -80,10 +94,69 @@ class _FooterCommonState extends State<FooterCommon> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 40),
+                            Text(
+                              text.legal,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FooterOptionButton(
+                                  label: text.termsOfService,
+                                  onTap: () => context.goNamed(RouteKey.terms),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FooterOptionButton(
+                                  label: text.privacyPolicy,
+                                  onTap: () => context.goNamed(RouteKey.policy),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 40),
+                            Text(
+                              text.aboutMe,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FooterOptionButton(
+                                  label: text.contact,
+                                  onTap: () => context.goNamed(RouteKey.terms),
+                                ),
+                              ],
+                            ),
                           ],
                         )
                       : Container(),
                   if (_isFull) const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SocialMediabutton(
+                        icon: AppImages.iFacebook,
+                        onTap: _goToFacebook,
+                      ),
+                      const SizedBox(width: 10),
+                      SocialMediabutton(
+                        icon: AppImages.iInstagram,
+                        onTap: _goToInstagram,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   const CopyRightText(),
                   const SizedBox(height: 20),
                 ],
@@ -104,7 +177,7 @@ class _FooterCommonState extends State<FooterCommon> {
                         child: _isFull
                             ? Padding(
                                 padding:
-                                    const EdgeInsets.only(bottom: 20, top: 40),
+                                    const EdgeInsets.only(bottom: 20, top: 60),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -137,28 +210,112 @@ class _FooterCommonState extends State<FooterCommon> {
                                         ),
                                       ],
                                     ),
-                                    const Column(
+                                    const SizedBox(width: 50),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          text.legal,
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        FooterOptionButton(
+                                          label: text.termsOfService,
+                                          onTap: () =>
+                                              context.goNamed(RouteKey.terms),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        FooterOptionButton(
+                                          label: text.privacyPolicy,
+                                          onTap: () =>
+                                              context.goNamed(RouteKey.policy),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 50),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          text.aboutMe,
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        FooterOptionButton(
+                                          label: text.contact,
+                                          onTap: () =>
+                                              context.goNamed(RouteKey.terms),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Opacity(
+                                          opacity: 0,
+                                          child: FooterOptionButton(
+                                            label: text.contact,
+                                            onTap: () =>
+                                                context.goNamed(RouteKey.terms),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        FooterLogo(),
-                                        SizedBox(height: 12),
-                                        CopyRightText(),
+                                        const FooterLogo(),
+                                        const SizedBox(height: 12),
+                                        Row(
+                                          children: [
+                                            SocialMediabutton(
+                                              icon: AppImages.iFacebook,
+                                              onTap: _goToFacebook,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            SocialMediabutton(
+                                              icon: AppImages.iInstagram,
+                                              onTap: _goToInstagram,
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const CopyRightText(),
                                       ],
                                     ),
                                   ],
                                 ),
                               )
-                            : const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 20),
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CopyRightText(),
-                                    FooterLogo(),
+                                    const CopyRightText(),
+                                    const Spacer(),
+                                    SocialMediabutton(
+                                      icon: AppImages.iFacebook,
+                                      onTap: _goToFacebook,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    SocialMediabutton(
+                                      icon: AppImages.iInstagram,
+                                      onTap: _goToInstagram,
+                                    ),
+                                    const FooterLogo(),
                                   ],
                                 ),
                               ),
@@ -179,6 +336,35 @@ class _FooterCommonState extends State<FooterCommon> {
   }
 }
 
+class SocialMediabutton extends StatelessWidget {
+  final String icon;
+  final Function onTap;
+
+  const SocialMediabutton({
+    super.key,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: IconButton(
+        onPressed: () => onTap(),
+        icon: SvgPicture.asset(
+          icon,
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class FooterOptionButton extends StatelessWidget {
   final String label;
   final Function onTap;
@@ -191,7 +377,7 @@ class FooterOptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton(
+    return PrimaryButton(
       onTap: () => onTap(),
       hasBorder: false,
       title: label,

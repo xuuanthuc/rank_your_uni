@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
-class LoadingCommon extends StatelessWidget {
+class PrimaryCircularLoading extends StatelessWidget {
   final bool condition;
+  final double? strokeWidth;
 
-  const LoadingCommon(this.condition, {super.key});
+  const PrimaryCircularLoading(
+    this.condition, {
+    super.key,
+    this.strokeWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
     return condition
-        ? const Center(
+        ? Center(
             child: SizedBox(
               width: 35,
               height: 35,
-              child: CircularProgressIndicator(strokeWidth: 7),
+              child: CircularProgressIndicator(strokeWidth: strokeWidth ?? 7),
             ),
           )
         : const SizedBox(

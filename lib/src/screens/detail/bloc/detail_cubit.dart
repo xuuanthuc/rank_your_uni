@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/repositories/detail_repository.dart';
 
-import '../../../repositories/search_repository.dart';
-
 part 'detail_state.dart';
 
 @injectable

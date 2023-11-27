@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/src/screens/widgets/button_common.dart';
+import 'package:template/src/screens/widgets/primary_button.dart';
 import '../../../../global/style/styles.dart';
 import '../../../models/response/university.dart';
 import '../../widgets/point_container.dart';
@@ -46,7 +46,7 @@ class UniversityCompared extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppButton(
+                  PrimaryButton(
                     onTap: () => onChange(),
                     padding: const EdgeInsets.symmetric(
                       vertical: 7,

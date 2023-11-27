@@ -8,7 +8,7 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
 import '../../../global/routes/route_keys.dart';
-import '../widgets/button_common.dart';
+import '../widgets/primary_button.dart';
 import '../widgets/responsive_builder.dart';
 import 'bloc/compare_cubit.dart';
 import 'widgets/compare_criteria.dart';
@@ -226,7 +226,7 @@ class _CompareViewState extends State<CompareView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AppButton(
+                    PrimaryButton(
                       onTap: () => _resetUniversity(true),
                       title: text.reset,
                     ),

@@ -19,7 +19,7 @@ void appToast(
   Widget toast = Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
-      color: type == ToastType.error ? AppColors.error : Colors.green,
+      color: type == ToastType.error ? AppColors.error : AppColors.success,
     ),
     child: IntrinsicHeight(
       child: Row(

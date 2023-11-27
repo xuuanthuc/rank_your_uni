@@ -6,7 +6,7 @@ import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 
 import '../../../../global/style/styles.dart';
-import '../../widgets/button_common.dart';
+import '../../widgets/primary_button.dart';
 
 class ReviewArea extends StatelessWidget {
   const ReviewArea({super.key});
@@ -81,7 +81,7 @@ class ReviewArea extends StatelessWidget {
                                 horizontal: 24, vertical: 4),
                             child: Row(
                               children: [
-                                AppButton(
+                                PrimaryButton(
                                   onTap: () =>
                                       context.goNamed(RouteKey.guidelines),
                                   hasBorder: false,
@@ -104,7 +104,9 @@ class ReviewArea extends StatelessWidget {
             const SizedBox(height: 14),
             TextField(
               maxLines: 7,
+              maxLength: 500,
               onChanged: (value) {
+                if(value.length > 500) return;
                 context.read<ReviewCubit>().updateContent(value);
               },
               decoration: InputDecoration(
@@ -127,7 +129,7 @@ class ReviewArea extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
