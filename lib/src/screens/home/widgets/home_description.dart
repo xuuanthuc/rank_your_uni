@@ -9,6 +9,7 @@ import 'package:template/global/style/styles.dart';
 import '../../../../global/routes/route_keys.dart';
 import '../../../global_bloc/authentication/authentication_bloc.dart';
 import '../../authentication/auth_form.dart';
+import '../../widgets/ads.dart';
 
 class HomeDescription extends StatefulWidget {
   const HomeDescription({super.key});
@@ -90,6 +91,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  AdsComponent(),
                   const SizedBox(height: 45),
                   BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     buildWhen: (prev, cur) => cur.status != prev.status,
