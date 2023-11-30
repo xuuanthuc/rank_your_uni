@@ -30,31 +30,57 @@ class ReviewsBuilder extends StatelessWidget {
       child: BlocBuilder<DetailCubit, DetailState>(
         builder: (context, state) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  if (state.status == DetailStatus.loading)
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: PrimaryCircularLoading(
-                        state.status == DetailStatus.loading,
-                        strokeWidth: 5,
+              Container(
+                constraints: const BoxConstraints(
+                  maxWidth: Public.tabletSize,
+                ),
+                child: Row(
+                  children: [
+                    if (state.status == DetailStatus.loading)
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: PrimaryCircularLoading(
+                          state.status == DetailStatus.loading,
+                          strokeWidth: 5,
+                        ),
+                      ),
+                    const SizedBox(width: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: Text(
+                        state.status == DetailStatus.loading
+                            ? text.loadingReviews
+                            : text.reviewCount(
+                                state.university?.reviews?.length ?? 0),
+                        style: theme.textTheme.labelLarge,
                       ),
                     ),
-                  const SizedBox(width: 15),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Text(
-                      state.status == DetailStatus.loading
-                          ? text.loadingReviews
-                          : text.reviewCount(
-                              state.university?.reviews?.length ?? 0),
-                      style: theme.textTheme.labelLarge,
+                    const Spacer(),
+                    SortButton(
+                      label: text.newFirst,
+                      icon: AppImages.iCalendar,
+                      onTap: () {
+                        context.read<DetailCubit>().changeSort(SortType.date);
+                      },
+                      currentType: state.sortType ?? SortType.date,
+                      type: SortType.date,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    SortButton(
+                      label: text.countLikeFirst,
+                      icon: AppImages.iLike,
+                      onTap: () {
+                        context.read<DetailCubit>().changeSort(SortType.like);
+                      },
+                      currentType: state.sortType ?? SortType.date,
+                      type: SortType.like,
+                    ),
+                  ],
+                ),
               ),
               ListView.separated(
                 shrinkWrap: true,
@@ -83,6 +109,73 @@ class ReviewsBuilder extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class SortButton extends StatelessWidget {
+  final String label;
+  final String icon;
+  final Function onTap;
+  final SortType type;
+  final SortType currentType;
+
+  const SortButton({
+    super.key,
+    required this.label,
+    required this.icon,
+    required this.onTap,
+    required this.type,
+    required this.currentType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SelectionContainer.disabled(
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () => onTap(),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color:
+                  type == currentType ? AppColors.level5 : Colors.transparent,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: SvgPicture.asset(
+                    icon,
+                    colorFilter: ColorFilter.mode(
+                      type == currentType ? Colors.white : AppColors.black,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                ResponsiveBuilder(
+                  smallView: Container(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      label,
+                      style: theme.primaryTextTheme.titleLarge?.copyWith(
+                        color: type == currentType
+                            ? Colors.white
+                            : AppColors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -357,7 +450,7 @@ class ReviewContent extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              '40',
+              (review.like ?? 0).toString(),
               style: theme.primaryTextTheme.labelLarge,
             ),
             const SizedBox(width: 30),
@@ -374,7 +467,7 @@ class ReviewContent extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              '40',
+              (review.dislike ?? 0).toString(),
               style: theme.primaryTextTheme.labelLarge,
             ),
             const Spacer(),

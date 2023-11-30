@@ -162,5 +162,7 @@
   "contact": "Liên hệ",
   "reportSuccess": "Báo cáo thành công",
   "subtitleReportSuccess": "Chúng tôi sẽ xem sét báo cáo của bạn",
-  "loadingReviews": "Đang tải đánh giá..."
+  "loadingReviews": "Đang tải đánh giá...",
+  "newFirst": "Mới nhất",
+  "countLikeFirst": "Hữu ích nhất"
 }

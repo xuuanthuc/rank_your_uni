@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Review {
   final int id;
   final String? content;
@@ -11,6 +13,8 @@ class Review {
   final double? clubs;
   final String? reviewDate;
   final double? averagePointPerReview;
+  final int? like;
+  final int? dislike;
 
   Review(
     this.id, {
@@ -25,6 +29,8 @@ class Review {
     this.clubs,
     this.reviewDate,
     this.averagePointPerReview,
+    this.like,
+    this.dislike,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) {
@@ -39,7 +45,10 @@ class Review {
     final food = json["food"];
     final clubs = json["clubs"];
     final reviewDate = json["reviewDate"];
-    final averagePointPerReview = double.tryParse(json["averagePointPerReview"]) ?? 0.0;
+    final like = Random().nextInt(50);
+    final dislike = Random().nextInt(50);
+    final averagePointPerReview =
+        double.tryParse(json["averagePointPerReview"]) ?? 0.0;
 
     return Review(
       id,
@@ -54,6 +63,8 @@ class Review {
       clubs: clubs,
       reviewDate: reviewDate,
       averagePointPerReview: averagePointPerReview,
+      like: like,
+      dislike: dislike,
     );
   }
 }

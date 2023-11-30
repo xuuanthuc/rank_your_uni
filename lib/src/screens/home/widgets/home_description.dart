@@ -112,7 +112,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
                     text.shareForEveryone,
                     style: theme.primaryTextTheme.displayMedium,
                     textAlign: TextAlign.center,
-                    maxLines: 3,
+                    maxLines: 4,
                     minFontSize: 12,
                   ),
                   const SizedBox(height: 25),

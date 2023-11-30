@@ -49,4 +49,5 @@ abstract class AppImages {
   static const String iSuccessBg           = "${releasePath}images/i_success_bg.svg";
   static const String iFacebook           = "${releasePath}images/i_facebook.svg";
   static const String iInstagram           = "${releasePath}images/i_instagram.svg";
+  static const String iCalendar           = "${releasePath}images/i_calendar.svg";
 }

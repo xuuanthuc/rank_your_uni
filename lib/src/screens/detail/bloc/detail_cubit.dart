@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/repositories/detail_repository.dart';
 
@@ -17,9 +18,32 @@ class DetailCubit extends Cubit<DetailState> {
     emit(state.copyWith(status: DetailStatus.loading, university: university));
     try {
       final data = await _detailRepository.getDetailUniversity(id);
-      emit(state.copyWith(status: DetailStatus.success, university: data));
+      emit(state.copyWith(
+        status: DetailStatus.success,
+        university: data,
+        sortType: SortType.date,
+      ));
     } catch (e) {
       emit(state.copyWith(status: DetailStatus.error));
     }
+  }
+
+  void changeSort(SortType sortType) {
+    if (sortType == state.sortType) return;
+    University? university = state.university;
+    if (sortType == SortType.like) {
+      university?.reviews?.sort(
+          (first, second) => (second.like ?? 0).compareTo(first.like ?? 0));
+    } else {
+      university?.reviews?.sort(
+        (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+                .parse(second.reviewDate ?? '', true)
+                .toUtc())
+            .compareTo(DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+                .parse(first.reviewDate ?? '', true)
+                .toUtc()),
+      );
+    }
+    emit(state.copyWith(university: university, sortType: sortType));
   }
 }
