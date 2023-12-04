@@ -38,8 +38,39 @@ class DetailRepository {
     try {
       final res = await _apiProvider.post(
         ApiEndpoint.report,
-        needToken: false,
         params: report.toJson(),
+      );
+      if (res != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<bool> likeReview(int id) async {
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviews}/$id",
+        params: {"liked": 1},
+      );
+      if (res != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<bool> dislikeReview(int id) async {
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviews}/$id",
+        params: {"disliked": 1},
       );
       if (res != null) {
         return true;

@@ -38,6 +38,7 @@ class ApiProvider {
     LoggerUtils.i(options.uri);
     if (needToken ?? true) {
       final token = await StorageProvider.instance.get(StorageKeys.token);
+      LoggerUtils.i(token);
       options.headers.addAll({'Authorization': 'Bearer $token'});
     }
     options.headers.addAll({'Content-Type': 'application/json; charset=utf-8'});

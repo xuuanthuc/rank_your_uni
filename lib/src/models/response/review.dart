@@ -45,8 +45,8 @@ class Review {
     final food = json["food"];
     final clubs = json["clubs"];
     final reviewDate = json["reviewDate"];
-    final like = Random().nextInt(50);
-    final dislike = Random().nextInt(50);
+    final like = json["liked"];
+    final dislike = json["disliked"];
     final averagePointPerReview =
         double.tryParse(json["averagePointPerReview"]) ?? 0.0;
 

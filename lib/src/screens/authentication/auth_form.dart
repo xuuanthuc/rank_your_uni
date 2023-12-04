@@ -216,25 +216,26 @@ class _SignInFormState extends State<SignInForm> {
               ),
             ],
           ),
-          const SizedBox(height: 35),
-          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            buildWhen: (prev, cur) =>
-            prev.isError != cur.isError &&
-                cur.action == AuthenticationAction.signIn,
-            builder: (context, state) {
-              if (state.isError == true &&
-                  state.action == AuthenticationAction.signIn) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    text.invalidLoginCredentials,
-                    style: theme.primaryTextTheme.labelLarge
-                        ?.copyWith(color: AppColors.error),
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
+          SizedBox(
+            height: 55,
+            child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              buildWhen: (prev, cur) =>
+              prev.isError != cur.isError &&
+                  cur.action == AuthenticationAction.signIn,
+              builder: (context, state) {
+                if (state.isError == true &&
+                    state.action == AuthenticationAction.signIn) {
+                  return Center(
+                    child: Text(
+                      text.invalidLoginCredentials,
+                      style: theme.primaryTextTheme.labelLarge
+                          ?.copyWith(color: AppColors.error),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ),
           LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
             onTap: () =>

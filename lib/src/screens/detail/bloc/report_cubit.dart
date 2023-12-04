@@ -21,7 +21,6 @@ class ReportCubit extends Cubit<ReportState> {
       reviewId: review.id,
     );
     emit(state.copyWith(status: ReportStatus.loading));
-    await Future.delayed(const Duration(seconds: 3));
     try {
       final isSuccess = await _detailRepository.reportReview(report);
       if(isSuccess) {
