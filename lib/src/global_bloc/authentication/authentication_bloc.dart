@@ -3,6 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
+import 'package:template/global/utilities/static_variable.dart';
+
+import '../../models/request/sign_in_with_email_request.dart';
+import '../../repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
 
@@ -11,7 +15,9 @@ part 'authentication_state.dart';
 @injectable
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc()
+  final AuthRepository _authRepository;
+
+  AuthenticationBloc(this._authRepository)
       : super(const AuthenticationState(
           status: AuthenticationStatus.unauthenticated,
           action: AuthenticationAction.init,
@@ -19,11 +25,44 @@ class AuthenticationBloc
           isSuccess: false,
         )) {
     on<OnSignInEvent>(onSignIn);
+    on<OnCheckToken>(onCheckToken);
     on<OnSignOutEvent>(onSignOut);
     on<OnSignUpEvent>(onSignUp);
     on<OnCompleteSignUpEvent>(onComplete);
     on<OnGoogleSignInEvent>(onGoogleSignIn);
     on<OnGoogleSignUpEvent>(onGoogleSignUp);
+  }
+
+  void onCheckToken(
+    OnCheckToken event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(state.copyWith(
+      status: AuthenticationStatus.unauthenticated,
+      action: AuthenticationAction.refreshToken,
+      isSuccess: false,
+      isLoading: true,
+    ));
+    try {
+      final isSuccess = await _authRepository.onRefreshToken();
+      if (isSuccess) {
+        emit(state.copyWith(
+          isSuccess: true,
+          status: AuthenticationStatus.authenticated,
+          action: AuthenticationAction.refreshToken,
+          isLoading: false,
+        ));
+      } else {
+        throw const FormatException();
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isError: true,
+        status: AuthenticationStatus.unauthenticated,
+        action: AuthenticationAction.refreshToken,
+        isLoading: false,
+      ));
+    }
   }
 
   void onSignIn(
@@ -36,13 +75,27 @@ class AuthenticationBloc
       isSuccess: false,
       isLoading: true,
     ));
-    await Future.delayed(const Duration(seconds: 3));
-    emit(state.copyWith(
-      isSuccess: true,
-      status: AuthenticationStatus.authenticated,
-      action: AuthenticationAction.signIn,
-      isLoading: false,
-    ));
+    try {
+      final isSuccess =
+          await _authRepository.signInWithEmailAndPassword(event.signInRequest);
+      if (isSuccess) {
+        emit(state.copyWith(
+          isSuccess: true,
+          status: AuthenticationStatus.authenticated,
+          action: AuthenticationAction.signIn,
+          isLoading: false,
+        ));
+      } else {
+        throw const FormatException();
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isError: true,
+        status: AuthenticationStatus.unauthenticated,
+        action: AuthenticationAction.signIn,
+        isLoading: false,
+      ));
+    }
   }
 
   void onGoogleSignIn(
@@ -133,13 +186,27 @@ class AuthenticationBloc
       isLoading: true,
       isSuccess: false,
     ));
-    await Future.delayed(const Duration(seconds: 1));
-    emit(state.copyWith(
-      isLoading: false,
-      status: AuthenticationStatus.unauthenticated,
-      action: AuthenticationAction.signOut,
-      isSuccess: true,
-    ));
+    try {
+      final isSuccess = await _authRepository.onSignOut();
+      if (isSuccess) {
+        emit(state.copyWith(
+          isLoading: false,
+          status: AuthenticationStatus.unauthenticated,
+          action: AuthenticationAction.signOut,
+          isSuccess: true,
+        ));
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isLoading: false,
+        status: AuthenticationStatus.authenticated,
+        action: AuthenticationAction.signOut,
+        isSuccess: false,
+        isError: true,
+      ));
+    }
   }
 
   void onSignUp(

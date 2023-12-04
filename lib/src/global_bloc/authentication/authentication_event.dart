@@ -5,21 +5,32 @@ abstract class AuthenticationEvent extends Equatable {
 }
 
 class OnSignInEvent extends AuthenticationEvent {
+  final SignInWithEmailRaw signInRequest;
+
+  const OnSignInEvent(
+    this.signInRequest,
+  );
+
+  @override
+  List<Object?> get props => [signInRequest];
+}
+
+class OnSignOutEvent extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
 
-class OnSignOutEvent extends AuthenticationEvent{
+class OnCheckToken extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
 
-class OnSignUpEvent extends AuthenticationEvent{
+class OnSignUpEvent extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
 
-class OnCompleteSignUpEvent extends AuthenticationEvent{
+class OnCompleteSignUpEvent extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }

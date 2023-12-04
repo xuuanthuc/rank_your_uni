@@ -17,7 +17,6 @@ class SearchRepository {
         'pageIndex': page,
         'pageSize': pageSize ?? 10,
       },
-      needToken: false,
     );
     return SearchModel.fromJson(res['data']);
   }

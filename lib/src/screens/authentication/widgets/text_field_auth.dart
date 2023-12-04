@@ -6,12 +6,14 @@ class AuthTextField extends StatelessWidget {
   final ThemeData theme;
   final AppLocalizations text;
   final String hintText;
+  final TextEditingController controller;
 
   const AuthTextField({
     super.key,
     required this.theme,
     required this.text,
     required this.hintText,
+    required this.controller,
   });
 
   @override
@@ -20,6 +22,7 @@ class AuthTextField extends StatelessWidget {
       style: theme.primaryTextTheme.bodyLarge?.copyWith(
         fontWeight: FontWeight.w500,
       ),
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: theme.primaryTextTheme.bodyLarge

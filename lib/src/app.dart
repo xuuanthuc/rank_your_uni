@@ -22,8 +22,6 @@ import 'package:template/src/screens/term_and_policy/terms_of_services.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'global_bloc/connectivity/connectivity_bloc.dart';
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -237,7 +235,6 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ConnectivityBloc()),
         BlocProvider(create: (context) => getIt.get<AuthenticationBloc>()),
       ],
       child: GestureDetector(
@@ -249,11 +246,6 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           routerConfig: router,
-          // routerDelegate: router.routerDelegate,
-          // navigatorObservers: [MyRouteObserver()],
-          // onGenerateRoute: AppRoutes.onGenerateRoutes,
-          // onGenerateInitialRoutes: (_) => AppRoutes.onGenerateInitialRoute(),
-          // navigatorKey: NavigationService.navigationKey,
         ),
       ),
     );

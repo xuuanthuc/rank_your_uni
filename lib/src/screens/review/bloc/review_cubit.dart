@@ -19,7 +19,7 @@ class ReviewCubit extends Cubit<ReviewState> {
 
   void getDetailUniversity(int id, University? university) async {
     if (id == -1) return;
-    if(university != null) {
+    if (university != null) {
       emit(state.copyWith(university: university));
     } else {
       try {
@@ -62,6 +62,8 @@ class ReviewCubit extends Cubit<ReviewState> {
       final isSuccess = await _detailRepository.reviewUniversity(reviewRaw);
       if (isSuccess) {
         emit(state.copyWith(status: ReviewStatus.success));
+      } else {
+        throw Exception();
       }
     } catch (e) {
       emit(state.copyWith(status: ReviewStatus.error));

@@ -164,5 +164,6 @@
   "subtitleReportSuccess": "Chúng tôi sẽ xem sét báo cáo của bạn",
   "loadingReviews": "Đang tải đánh giá...",
   "newFirst": "Mới nhất",
-  "countLikeFirst": "Hữu ích nhất"
+  "countLikeFirst": "Hữu ích nhất",
+  "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ"
 }

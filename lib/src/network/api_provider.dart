@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:template/global/storage/storage_keys.dart';
+import 'package:template/global/storage/storage_provider.dart';
 import '../../global/flavor/app_flavor.dart';
 import '../../global/utilities/logger.dart';
 import 'error_code.dart';
@@ -34,10 +36,8 @@ class ApiProvider {
     bool? needToken,
   }) async {
     LoggerUtils.i(options.uri);
-    String token = '';
     if (needToken ?? true) {
-      // token = await AppPreference().authToken ?? '';
-      LoggerUtils.d('BEARER: $token');
+      final token = await StorageProvider.instance.get(StorageKeys.token);
       options.headers.addAll({'Authorization': 'Bearer $token'});
     }
     options.headers.addAll({'Content-Type': 'application/json; charset=utf-8'});

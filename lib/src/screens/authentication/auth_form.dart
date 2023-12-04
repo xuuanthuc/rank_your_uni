@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/models/request/sign_in_with_email_request.dart';
 import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import 'package:template/src/screens/authentication/widgets/auth_field_label.dart';
 import 'package:template/src/screens/authentication/widgets/google_auth_button.dart';
@@ -106,17 +107,32 @@ class _AuthFormState extends State<AuthForm> {
   }
 }
 
-class SignInForm extends StatelessWidget {
+class SignInForm extends StatefulWidget {
   const SignInForm({super.key, required this.goSignUp});
 
   final Function goSignUp;
 
-  void _onSignIn(BuildContext context) {
-    context.read<AuthenticationBloc>().add(OnSignInEvent());
+  @override
+  State<SignInForm> createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _onSignIn(BuildContext context, SignInWithEmailRaw signInRequest) {
+    context.read<AuthenticationBloc>().add(OnSignInEvent(signInRequest));
   }
 
   void _onSignGoogleSignIn(BuildContext context) {
     context.read<AuthenticationBloc>().add(OnGoogleSignInEvent());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -174,6 +190,7 @@ class SignInForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.enterEmail,
+            controller: _emailController,
           ),
           const SizedBox(height: 26),
           AuthFormLabel(
@@ -184,6 +201,7 @@ class SignInForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.enterPassword,
+            controller: _passwordController,
           ),
           const SizedBox(height: 14),
           Row(
@@ -199,8 +217,33 @@ class SignInForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 35),
+          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            buildWhen: (prev, cur) =>
+            prev.isError != cur.isError &&
+                cur.action == AuthenticationAction.signIn,
+            builder: (context, state) {
+              if (state.isError == true &&
+                  state.action == AuthenticationAction.signIn) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    text.invalidLoginCredentials,
+                    style: theme.primaryTextTheme.labelLarge
+                        ?.copyWith(color: AppColors.error),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
           LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
-            onTap: () => _onSignIn(context),
+            onTap: () =>
+                _onSignIn(
+                    context,
+                    SignInWithEmailRaw(
+                      username: _emailController.text,
+                      password: _passwordController.text,
+                    )),
             label: text.signIn,
             updateLoading: (state) {
               return (state).isLoading ?? false;
@@ -222,7 +265,7 @@ class SignInForm extends StatelessWidget {
               ),
               PrimaryButton(
                 onTap: () {
-                  goSignUp();
+                  widget.goSignUp();
                 },
                 hasBorder: false,
                 title: text.signUp,
@@ -238,7 +281,7 @@ class SignInForm extends StatelessWidget {
   }
 }
 
-class SignUpEmailForm extends StatelessWidget {
+class SignUpEmailForm extends StatefulWidget {
   const SignUpEmailForm({
     super.key,
     required this.goSignIn,
@@ -248,8 +291,21 @@ class SignUpEmailForm extends StatelessWidget {
   final Function goSignIn;
   final Function continueSignUp;
 
+  @override
+  State<SignUpEmailForm> createState() => _SignUpEmailFormState();
+}
+
+class _SignUpEmailFormState extends State<SignUpEmailForm> {
+  final TextEditingController _emailController = TextEditingController();
+
   void _onSignGoogleSignIn(BuildContext context) {
     context.read<AuthenticationBloc>().add(OnGoogleSignUpEvent());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
   }
 
   @override
@@ -308,10 +364,11 @@ class SignUpEmailForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.enterEmail,
+            controller: _emailController,
           ),
           const SizedBox(height: 35),
           PrimaryButton(
-            onTap: () => continueSignUp(),
+            onTap: () => widget.continueSignUp(),
             title: text.continueText,
             height: 46,
           ),
@@ -331,7 +388,7 @@ class SignUpEmailForm extends StatelessWidget {
               ),
               PrimaryButton(
                 onTap: () {
-                  goSignIn();
+                  widget.goSignIn();
                 },
                 hasBorder: false,
                 title: text.signIn,
@@ -347,7 +404,7 @@ class SignUpEmailForm extends StatelessWidget {
   }
 }
 
-class SignUpPasswordForm extends StatelessWidget {
+class SignUpPasswordForm extends StatefulWidget {
   const SignUpPasswordForm({
     super.key,
     required this.onRegister,
@@ -356,6 +413,19 @@ class SignUpPasswordForm extends StatelessWidget {
 
   final Function onRegister;
   final Function onPrevious;
+
+  @override
+  State<SignUpPasswordForm> createState() => _SignUpPasswordFormState();
+}
+
+class _SignUpPasswordFormState extends State<SignUpPasswordForm> {
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -374,7 +444,7 @@ class SignUpPasswordForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 IconButton(
-                  onPressed: () => onPrevious(),
+                  onPressed: () => widget.onPrevious(),
                   icon: SvgPicture.asset(
                     AppImages.iBack,
                   ),
@@ -410,6 +480,7 @@ class SignUpPasswordForm extends StatelessWidget {
                   theme: theme,
                   text: text,
                   hintText: text.enterPassword,
+                  controller: _passwordController,
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -423,11 +494,11 @@ class SignUpPasswordForm extends StatelessWidget {
                   text.createPasswordDescription,
                   textAlign: TextAlign.center,
                   style:
-                      theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+                  theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
                 ),
                 const SizedBox(height: 25),
                 LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
-                  onTap: () => onRegister(),
+                  onTap: () => widget.onRegister(),
                   label: text.continueText,
                   updateLoading: (state) {
                     return (state).isLoading ?? false;
@@ -443,13 +514,32 @@ class SignUpPasswordForm extends StatelessWidget {
   }
 }
 
-class UpdateUserProfileForm extends StatelessWidget {
+class UpdateUserProfileForm extends StatefulWidget {
   const UpdateUserProfileForm({
     super.key,
     required this.onComplete,
   });
 
   final Function onComplete;
+
+  @override
+  State<UpdateUserProfileForm> createState() => _UpdateUserProfileFormState();
+}
+
+class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
+  final TextEditingController _lastNameController = TextEditingController();
+
+  final TextEditingController _firstNameController = TextEditingController();
+
+  final TextEditingController _universityController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _lastNameController.dispose();
+    _firstNameController.dispose();
+    _universityController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -477,6 +567,7 @@ class UpdateUserProfileForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.enterLastName,
+            controller: _lastNameController,
           ),
           const SizedBox(height: 25),
           AuthFormLabel(
@@ -487,6 +578,7 @@ class UpdateUserProfileForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.enterFirstName,
+            controller: _firstNameController,
           ),
           const SizedBox(height: 25),
           AuthFormLabel(
@@ -497,6 +589,7 @@ class UpdateUserProfileForm extends StatelessWidget {
             theme: theme,
             text: text,
             hintText: text.whatIsYourUniversity,
+            controller: _universityController,
           ),
           const SizedBox(height: 30),
           LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
