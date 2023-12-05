@@ -3,9 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
-import 'package:template/global/utilities/static_variable.dart';
-
 import '../../models/request/sign_in_with_email_request.dart';
+import '../../models/request/sign_up_with_email_request.dart';
 import '../../repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
@@ -24,10 +23,10 @@ class AuthenticationBloc
           isLoading: false,
           isSuccess: false,
         )) {
-    on<OnSignInEvent>(onSignIn);
+    on<OnSignInWithEmailEvent>(onSignInWithEmail);
     on<OnCheckToken>(onCheckToken);
     on<OnSignOutEvent>(onSignOut);
-    on<OnSignUpEvent>(onSignUp);
+    on<OnSignUpWithEmailEvent>(onSignUpWithEmail);
     on<OnCompleteSignUpEvent>(onComplete);
     on<OnGoogleSignInEvent>(onGoogleSignIn);
     on<OnGoogleSignUpEvent>(onGoogleSignUp);
@@ -65,8 +64,8 @@ class AuthenticationBloc
     }
   }
 
-  void onSignIn(
-    OnSignInEvent event,
+  void onSignInWithEmail(
+    OnSignInWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
     emit(state.copyWith(
@@ -166,7 +165,8 @@ class AuthenticationBloc
     OnCompleteSignUpEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    if (state.action == AuthenticationAction.signUp) {
+    if (state.action == AuthenticationAction.signUp &&
+        state.isSuccess == true) {
       emit(state.copyWith(
         isSuccess: true,
         status: AuthenticationStatus.authenticated,
@@ -209,22 +209,37 @@ class AuthenticationBloc
     }
   }
 
-  void onSignUp(
-    OnSignUpEvent event,
+  void onSignUpWithEmail(
+    OnSignUpWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(state.copyWith(
-      status: AuthenticationStatus.unauthenticated,
-      action: AuthenticationAction.signUp,
-      isLoading: true,
-      isSuccess: false,
-    ));
-    await Future.delayed(const Duration(seconds: 1));
-    emit(state.copyWith(
-      isLoading: false,
-      status: AuthenticationStatus.unauthenticated,
-      action: AuthenticationAction.signUp,
-      isSuccess: true,
-    ));
+    try {
+      emit(state.copyWith(
+        status: AuthenticationStatus.unauthenticated,
+        action: AuthenticationAction.signUp,
+        isLoading: true,
+        isSuccess: false,
+      ));
+      final isSuccess =
+          await _authRepository.signUpWithEmailAndPassword(event.signUpRequest);
+      if (isSuccess) {
+        emit(state.copyWith(
+          isLoading: false,
+          status: AuthenticationStatus.unauthenticated,
+          action: AuthenticationAction.signUp,
+          isSuccess: true,
+        ));
+      } else {
+        throw const FormatException();
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isLoading: false,
+        status: AuthenticationStatus.unauthenticated,
+        action: AuthenticationAction.signUp,
+        isSuccess: false,
+        isError: true,
+      ));
+    }
   }
 }

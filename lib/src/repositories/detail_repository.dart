@@ -54,7 +54,10 @@ class DetailRepository {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
-        params: {"liked": 1},
+        params: {
+          "liked": 1,
+          "id": id,
+        },
       );
       if (res != null) {
         return true;
@@ -70,7 +73,10 @@ class DetailRepository {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
-        params: {"disliked": 1},
+        params: {
+          "disliked": 1,
+          "id": id,
+        },
       );
       if (res != null) {
         return true;

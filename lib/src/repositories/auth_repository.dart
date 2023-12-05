@@ -3,6 +3,7 @@ import 'package:template/global/storage/storage_keys.dart';
 import 'package:template/global/storage/storage_provider.dart';
 import '../../global/utilities/static_variable.dart';
 import '../models/request/sign_in_with_email_request.dart';
+import '../models/request/sign_up_with_email_request.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -43,5 +44,22 @@ class AuthRepository {
   Future<bool> onSignOut() async {
     await StorageProvider.instance.delete(StorageKeys.token);
     return true;
+  }
+
+  Future<bool> signUpWithEmailAndPassword(SignUpWithEmailRaw signUp) async {
+    try {
+      final data = await _apiProvider.post(
+        ApiEndpoint.register,
+        params: signUp.toJson(),
+        needToken: false,
+      );
+      if (data["data"] != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }

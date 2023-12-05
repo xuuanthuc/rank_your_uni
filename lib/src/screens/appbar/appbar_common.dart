@@ -13,6 +13,7 @@ import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../authentication/auth_form.dart';
+import '../authentication/bloc/auth_form_cubit.dart';
 import 'bloc/appbar_cubit.dart';
 import 'package:template/global/style/styles.dart';
 
@@ -35,7 +36,10 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
-        return const AuthForm(pageIndex: 1);
+        return BlocProvider(
+          create: (context) => getIt.get<AuthFormCubit>(),
+          child: const AuthForm(pageIndex: 1),
+        );
       },
     ).then((value) => _updateUserProfile(context));
   }
@@ -45,7 +49,10 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
-        return const AuthForm(pageIndex: 0);
+        return BlocProvider(
+          create: (context) => getIt.get<AuthFormCubit>(),
+          child: const AuthForm(pageIndex: 0),
+        );
       },
     ).then((value) => _updateUserProfile(context));
   }

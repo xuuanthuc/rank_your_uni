@@ -165,5 +165,7 @@
   "loadingReviews": "Đang tải đánh giá...",
   "newFirst": "Mới nhất",
   "countLikeFirst": "Hữu ích nhất",
-  "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ"
+  "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ",
+  "invalidEmail": "Địa chỉ email không hợp lệ",
+  "invalidPassword": "Mật khẩu phải có ít nhất 8 ký tự"
 }

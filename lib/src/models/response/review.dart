@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class Review {
   final int id;
   final String? content;

@@ -91,7 +91,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AdsComponent(),
+                  const AdsComponent(),
                   const SizedBox(height: 45),
                   BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     buildWhen: (prev, cur) => cur.status != prev.status,

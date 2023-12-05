@@ -36,10 +36,10 @@
   "whatIsYourUniversity": "Trường học của bạn là gì?",
   "completeRegister": "Hoàn thành đăng ký",
   "hey": "Hey, {name}",
-  "@hey" : {
+  "@hey": {
     "placeholders": {
       "name": {
-        "type" : "String"
+        "type": "String"
       }
     }
   },
@@ -54,13 +54,13 @@
   "side": "Trang web",
   "sideGuidelines": "Hướng dẫn sử dụng RYU",
   "resultsForSearch": "{total} trường đại học hiển thị với tên \"{university}\"",
-  "@resultsForSearch" : {
+  "@resultsForSearch": {
     "placeholders": {
       "university": {
-        "type" : "String"
+        "type": "String"
       },
       "total": {
-        "type" : "int"
+        "type": "int"
       }
     }
   },
@@ -70,10 +70,10 @@
   "addUniversity": "Thêm trường học",
   "noResultForUniversity": "Không thấy trường đại học bạn đang tìm kiếm?",
   "reviewCount": "{value} đánh giá",
-  "@reviewCount" : {
+  "@reviewCount": {
     "placeholders": {
       "value": {
-        "type" : "int"
+        "type": "int"
       }
     }
   },
@@ -92,10 +92,10 @@
   "notHelpful": "Không hữu ích",
   "report": " Báo cáo",
   "reviewUniversity": "Đánh giá: {university}",
-  "@reviewUniversity" : {
+  "@reviewUniversity": {
     "placeholders": {
       "university": {
-        "type" : "String"
+        "type": "String"
       }
     }
   },
@@ -132,21 +132,21 @@
   "reset": "Cài đặt lại",
   "edit": "Chỉnh sửa",
   "updateAccount": "Cập nhật tài khoản",
-  "addAUniversity":"Thêm một trường đại học",
-  "addAUniversityWarning":"Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng trường đó chưa tồn tại.",
-  "nameOfUniversity":"Tên trường đại học",
-  "stateOrWard":"Quận/Huyện",
-  "cityOrProvince":"Tỉnh/Thành Phố",
-  "website":"Trang web trường",
-  "yourEmail":"Email của bạn",
-  "agreeTermsOfUse":"Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư",
+  "addAUniversity": "Thêm một trường đại học",
+  "addAUniversityWarning": "Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng trường đó chưa tồn tại.",
+  "nameOfUniversity": "Tên trường đại học",
+  "stateOrWard": "Quận/Huyện",
+  "cityOrProvince": "Tỉnh/Thành Phố",
+  "website": "Trang web trường",
+  "yourEmail": "Email của bạn",
+  "agreeTermsOfUse": "Tôi đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư",
   "somethingWrong": "Oops, Đã có lỗi xảy ra!",
   "tryAgainLater": "Vui lòng thử lại sau",
   "thanksForReviewUniversity": "Cám ơn bạn đã đánh giá {university}",
-  "@thanksForReviewUniversity" : {
+  "@thanksForReviewUniversity": {
     "placeholders": {
       "university": {
-        "type" : "String"
+        "type": "String"
       }
     }
   },
@@ -165,5 +165,7 @@
   "loadingReviews": "Đang tải đánh giá...",
   "newFirst": "Mới nhất",
   "countLikeFirst": "Hữu ích nhất",
-  "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ"
+  "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ",
+  "invalidEmail": "Địa chỉ email không hợp lệ",
+  "invalidPassword": "Mật khẩu phải có ít nhất 8 ký tự"
 }

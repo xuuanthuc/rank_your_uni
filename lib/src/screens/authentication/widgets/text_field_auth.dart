@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../global/style/styles.dart';
 
-
 class AuthTextField extends StatelessWidget {
   final ThemeData theme;
   final AppLocalizations text;
@@ -18,7 +17,7 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: theme.primaryTextTheme.bodyLarge?.copyWith(
         fontWeight: FontWeight.w500,
       ),
@@ -33,9 +32,15 @@ class AuthTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: AppColors.grey, width: 1)),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.error, width: 1)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.error, width: 1)),
         isDense: true,
         contentPadding:
-        const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+            const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       ),
     );
   }
