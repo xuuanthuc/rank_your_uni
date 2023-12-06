@@ -46,7 +46,7 @@ class Review {
     final like = json["liked"];
     final dislike = json["disliked"];
     final averagePointPerReview =
-        double.tryParse(json["averagePointPerReview"]) ?? 0.0;
+        double.tryParse(json["averagePointPerReview"] ?? '') ?? 0.0;
 
     return Review(
       id,

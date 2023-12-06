@@ -1,7 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
+import 'package:template/src/models/response/response.dart';
+import 'package:template/src/models/response/review.dart';
 import 'package:template/src/models/response/university.dart';
+import 'package:template/src/network/exception.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -11,26 +14,26 @@ import '../network/api_provider.dart';
 class DetailRepository {
   final ApiProvider _apiProvider = getIt.get<ApiProvider>();
 
-  Future<University> getDetailUniversity(int id) async {
-    final res = await _apiProvider.get(
-      '${ApiEndpoint.search}/$id',
-    );
-    return University.fromDetailJson(res['data']);
+  Future<RYUResponse> getDetailUniversity(int id) async {
+    try {
+      final res = await _apiProvider.get(
+        '${ApiEndpoint.search}/$id',
+      );
+      return RYUResponse(isSuccess: true, data: University.fromDetailJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
   }
 
-  Future<bool> reviewUniversity(ReviewRaw review) async {
+  Future<RYUResponse> reviewUniversity(ReviewRaw review) async {
     try {
       final res = await _apiProvider.post(
         ApiEndpoint.reviews,
         params: review.toJson(),
       );
-      if (res != null) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      throw Exception(e);
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 
@@ -50,7 +53,7 @@ class DetailRepository {
     }
   }
 
-  Future<bool> likeReview(int id) async {
+  Future<RYUResponse> likeReview(int id) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -59,17 +62,13 @@ class DetailRepository {
           "id": id,
         },
       );
-      if (res != null) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      throw Exception(e);
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 
-  Future<bool> dislikeReview(int id) async {
+  Future<RYUResponse> dislikeReview(int id) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -78,13 +77,9 @@ class DetailRepository {
           "id": id,
         },
       );
-      if (res != null) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      throw Exception(e);
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 }

@@ -4,6 +4,8 @@ import 'package:template/global/storage/storage_provider.dart';
 import '../../global/utilities/static_variable.dart';
 import '../models/request/sign_in_with_email_request.dart';
 import '../models/request/sign_up_with_email_request.dart';
+import '../models/response/response.dart';
+import '../network/exception.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -13,22 +15,21 @@ import '../network/api_provider.dart';
 class AuthRepository {
   final ApiProvider _apiProvider = getIt.get<ApiProvider>();
 
-  Future<bool> signInWithEmailAndPassword(SignInWithEmailRaw signIn) async {
+  Future<RYUResponse> signInWithEmailAndPassword(
+      SignInWithEmailRaw signIn) async {
     try {
       final data = await _apiProvider.post(
         ApiEndpoint.authenticate,
         params: signIn.toJson(),
         needToken: false,
       );
-      if (data["data"]["id_token"] != null) {
-        await StorageProvider.instance
-            .save(StorageKeys.token, data["data"]["id_token"]);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
+      return RYUResponse(isSuccess: true, data: data);
+    } on ResponseException catch (e) {
+      return RYUResponse(
+        errorMessage: e.title,
+        code: e.code,
+        isSuccess: false,
+      );
     }
   }
 
@@ -46,20 +47,17 @@ class AuthRepository {
     return true;
   }
 
-  Future<bool> signUpWithEmailAndPassword(SignUpWithEmailRaw signUp) async {
+  Future<RYUResponse> signUpWithEmailAndPassword(
+      SignUpWithEmailRaw signUp) async {
     try {
       final data = await _apiProvider.post(
         ApiEndpoint.register,
         params: signUp.toJson(),
         needToken: false,
       );
-      if (data["data"] != null) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
+      return RYUResponse(isSuccess: true, data: data);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 }

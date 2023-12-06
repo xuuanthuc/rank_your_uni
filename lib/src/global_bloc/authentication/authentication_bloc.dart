@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
+import '../../../global/storage/storage_keys.dart';
+import '../../../global/storage/storage_provider.dart';
 import '../../models/request/sign_in_with_email_request.dart';
 import '../../models/request/sign_up_with_email_request.dart';
 import '../../repositories/auth_repository.dart';
@@ -74,25 +76,24 @@ class AuthenticationBloc
       isSuccess: false,
       isLoading: true,
     ));
-    try {
-      final isSuccess =
-          await _authRepository.signInWithEmailAndPassword(event.signInRequest);
-      if (isSuccess) {
-        emit(state.copyWith(
-          isSuccess: true,
-          status: AuthenticationStatus.authenticated,
-          action: AuthenticationAction.signIn,
-          isLoading: false,
-        ));
-      } else {
-        throw const FormatException();
-      }
-    } catch (e) {
+    final res =
+        await _authRepository.signInWithEmailAndPassword(event.signInRequest);
+    if (res.isSuccess) {
+      await StorageProvider.instance
+          .save(StorageKeys.token, res.data["id_token"]);
+      emit(state.copyWith(
+        isSuccess: true,
+        status: AuthenticationStatus.authenticated,
+        action: AuthenticationAction.signIn,
+        isLoading: false,
+      ));
+    } else {
       emit(state.copyWith(
         isError: true,
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signIn,
         isLoading: false,
+        errorMessage: res.errorMessage,
       ));
     }
   }
@@ -213,31 +214,29 @@ class AuthenticationBloc
     OnSignUpWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    try {
+    emit(state.copyWith(
+      status: AuthenticationStatus.unauthenticated,
+      action: AuthenticationAction.signUp,
+      isLoading: true,
+      isSuccess: false,
+    ));
+    final res =
+        await _authRepository.signUpWithEmailAndPassword(event.signUpRequest);
+    if (res.isSuccess) {
+      await StorageProvider.instance.save(StorageKeys.token, res.data["token"]);
       emit(state.copyWith(
+        isLoading: false,
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signUp,
-        isLoading: true,
-        isSuccess: false,
+        isSuccess: true,
       ));
-      final isSuccess =
-          await _authRepository.signUpWithEmailAndPassword(event.signUpRequest);
-      if (isSuccess) {
-        emit(state.copyWith(
-          isLoading: false,
-          status: AuthenticationStatus.unauthenticated,
-          action: AuthenticationAction.signUp,
-          isSuccess: true,
-        ));
-      } else {
-        throw const FormatException();
-      }
-    } catch (e) {
+    } else {
       emit(state.copyWith(
         isLoading: false,
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signUp,
         isSuccess: false,
+        errorMessage: res.errorMessage,
         isError: true,
       ));
     }

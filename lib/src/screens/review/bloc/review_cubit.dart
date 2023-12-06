@@ -22,10 +22,10 @@ class ReviewCubit extends Cubit<ReviewState> {
     if (university != null) {
       emit(state.copyWith(university: university));
     } else {
-      try {
-        final data = await _detailRepository.getDetailUniversity(id);
-        emit(state.copyWith(university: data));
-      } catch (e) {
+      final res = await _detailRepository.getDetailUniversity(id);
+      if (res.isSuccess) {
+        emit(state.copyWith(university: res.data));
+      } else {
         emit(state.copyWith(status: ReviewStatus.error));
       }
     }
@@ -43,29 +43,24 @@ class ReviewCubit extends Cubit<ReviewState> {
         (state.contentRated ?? "").trim().isEmpty ||
         state.clubs == null ||
         schoolId == -1) return;
+    ReviewRaw reviewRaw = ReviewRaw(
+      contentRated: state.contentRated!,
+      reputation: state.reputation!,
+      internet: state.internet!,
+      location: state.location!,
+      facilities: state.facilities!,
+      food: state.food!,
+      clubs: state.clubs!,
+      favorite: state.favorite!,
+      competitionLevel: state.competition!,
+      schoolId: schoolId,
+      reviewDate: DateFormat("yyyy-MM-dd'T'hh:mm+07:00").format(DateTime.now()),
+    );
     emit(state.copyWith(status: ReviewStatus.loading));
-    try {
-      ReviewRaw reviewRaw = ReviewRaw(
-        contentRated: state.contentRated!,
-        reputation: state.reputation!,
-        internet: state.internet!,
-        location: state.location!,
-        facilities: state.facilities!,
-        food: state.food!,
-        clubs: state.clubs!,
-        favorite: state.favorite!,
-        competitionLevel: state.competition!,
-        schoolId: schoolId,
-        reviewDate:
-            DateFormat("yyyy-MM-dd'T'hh:mm+07:00").format(DateTime.now()),
-      );
-      final isSuccess = await _detailRepository.reviewUniversity(reviewRaw);
-      if (isSuccess) {
-        emit(state.copyWith(status: ReviewStatus.success));
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
+    final res = await _detailRepository.reviewUniversity(reviewRaw);
+    if (res.isSuccess) {
+      emit(state.copyWith(status: ReviewStatus.success));
+    } else {
       emit(state.copyWith(status: ReviewStatus.error));
     }
   }

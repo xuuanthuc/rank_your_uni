@@ -148,7 +148,7 @@ class _ReviewViewState extends State<ReviewView> {
                   const SizedBox(height: 45),
                   LoadingPrimaryButton<ReviewCubit, ReviewState>(
                     onTap: () => onSubmitReview(context),
-                    label: text.completeRegister,
+                    label: text.submitReview,
                     buttonWidth: 250,
                     updateLoading: (state) {
                       return (state).status == ReviewStatus.loading;

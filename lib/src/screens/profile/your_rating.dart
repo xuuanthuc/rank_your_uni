@@ -27,7 +27,10 @@ class YourRatings extends StatelessWidget {
                     padding: EdgeInsets.only(
                       bottom: (((index + 1) % 3) == 0) ? 75 : 0,
                     ),
-                    child: ReviewItem(review: Review(1),),
+                    child: ReviewItem(
+                      review: Review(1),
+                      onUpdateReviewIndex: (review) {},
+                    ),
                   );
                 },
                 itemCount: 20,

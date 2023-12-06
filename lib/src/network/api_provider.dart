@@ -73,20 +73,19 @@ class ApiProvider {
         ),
       );
       LoggerUtils.i(response.data);
-      response.data = {"data": response.data};
       responseJson = _formatRes(
         response.statusCode,
         response.data,
         response.headers,
       );
     } on SocketException {
-      throw ErrorException(ErrorCode.NO_NETWORK, 'NO_NETWORK');
+      throw ResponseException(ErrorCode.NO_NETWORK, 'NO_NETWORK');
     } on DioException catch (e) {
-      LoggerUtils.e(e);
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw ErrorException(ErrorCode.NO_NETWORK, 'NO_NETWORK');
-      }
-      throw ErrorException(e.response?.statusCode, e.response?.data['error']);
+      LoggerUtils.e(e.response);
+      throw ResponseException(
+        e.response?.statusCode,
+        e.response?.data['title'],
+      );
     }
     return responseJson;
   }
@@ -184,15 +183,11 @@ class ApiProvider {
       case ErrorCode.HTTP_OK:
       case ErrorCode.HTTP_CREATED:
         return data;
-      case ErrorCode.HTTP_BAD_REQUEST:
-        throw BadRequestException(data['message']);
-      case ErrorCode.HTTP_UNAUTHORIZED:
-      case ErrorCode.HTTP_FORBIDDEN:
-        throw UnauthorisedException(data['message']);
-      case ErrorCode.HTTP_INTERNAL_SERVER_ERROR:
       default:
-        throw ErrorException(code,
-            'Error occured while Communication with Server with StatusCode : $code');
+        throw ResponseException(
+          code,
+          'Error occured while Communication with Server with StatusCode : $code',
+        );
     }
   }
 }

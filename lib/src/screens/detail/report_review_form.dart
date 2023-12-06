@@ -159,7 +159,7 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
                                 widget.review, _editingController.text);
                           }
                         },
-                        label: text.completeRegister,
+                        label: text.report,
                         buttonWidth: 250,
                         updateLoading: (state) {
                           return (state).status == ReportStatus.loading;

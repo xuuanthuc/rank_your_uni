@@ -15,23 +15,21 @@ class CompareCubit extends Cubit<CompareState> {
 
   void compareWith(int id) async {
     if (id == -1) return;
-    emit(state.copyWith(
-      status: CompareStatus.loading,
-    ));
-    try {
-      final data = await _detailRepository.getDetailUniversity(id);
+    emit(state.copyWith(status: CompareStatus.loading));
+    final res = await _detailRepository.getDetailUniversity(id);
+    if (res.isSuccess) {
       emit(state.copyWith(
         status: CompareStatus.success,
-        compareWith: data,
+        compareWith: res.data,
       ));
-    } catch (e) {
+    } else {
       emit(state.copyWith(status: CompareStatus.error));
     }
   }
 
   void initFirstUniversity(int id, University? university) async {
     if (id == -1) return;
-    if(university != null){
+    if (university != null) {
       emit(state.copyWith(
         status: CompareStatus.success,
         firstUniversity: university,
@@ -40,13 +38,13 @@ class CompareCubit extends Cubit<CompareState> {
       emit(state.copyWith(
         status: CompareStatus.loading,
       ));
-      try {
-        final data = await _detailRepository.getDetailUniversity(id);
+      final res = await _detailRepository.getDetailUniversity(id);
+      if (res.isSuccess) {
         emit(state.copyWith(
           status: CompareStatus.success,
-          firstUniversity: data,
+          firstUniversity: res.data,
         ));
-      } catch (e) {
+      } else {
         emit(state.copyWith(status: CompareStatus.error));
       }
     }

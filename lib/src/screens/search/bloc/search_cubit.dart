@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:template/global/utilities/logger.dart';
 import 'package:template/src/models/response/search_response.dart';
 import 'package:template/src/repositories/search_repository.dart';
 
@@ -19,18 +18,18 @@ class SearchCubit extends Cubit<SearchState> {
   onSearch(String keyword) async {
     final List<University> universities = [];
     emit(state.copyWith(status: SearchStatus.init));
-    try {
-      final data = await _searchRepository.getUniversities(keyword, 0);
-      universities.addAll(data.universities);
-      final page = data.pageable.pageNumber;
+    final res = await _searchRepository.getUniversities(keyword, 0);
+    if (res.isSuccess) {
+      universities.addAll(res.data.universities);
+      final page = res.data.pageable.pageNumber;
       emit(state.copyWith(
         status: SearchStatus.success,
         currentPage: page,
         keyword: keyword,
-        searchModel: data,
+        searchModel: res.data,
         universities: universities,
       ));
-    } catch (e) {
+    } else {
       emit(state.copyWith(
         status: SearchStatus.error,
         universities: [],
@@ -47,16 +46,17 @@ class SearchCubit extends Cubit<SearchState> {
       return;
     }
     emit(state.copyWith(status: SearchStatus.loadingMore));
-    try {
-      final data =
-          await _searchRepository.getUniversities(state.keyword!, newPage);
-      (state.universities ?? []).addAll(data.universities);
+    final res = await _searchRepository.getUniversities(
+      state.keyword!,
+      newPage,
+    );
+    if (res.isSuccess) {
+      (state.universities ?? []).addAll(res.data.universities);
       emit(state.copyWith(
         status: SearchStatus.success,
-        currentPage: data.pageable.pageNumber,
+        currentPage: res.data.pageable.pageNumber,
       ));
-    } catch (e) {
-      LoggerUtils.e(e);
+    } else {
       emit(state.copyWith(
         status: SearchStatus.error,
         universities: [],

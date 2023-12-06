@@ -54,7 +54,7 @@ class _AuthFormState extends State<AuthForm> {
           appToast(
             context,
             message: AppLocalizations.of(context)!.somethingWrong,
-            subMessage: AppLocalizations.of(context)!.tryAgainLater,
+            subMessage: state.errorMessage,
           );
         }
       },
@@ -71,11 +71,17 @@ class _AuthFormState extends State<AuthForm> {
               children: [
                 SignInForm(
                   goSignUp: () {
+                    context
+                        .read<AuthFormCubit>()
+                        .showError();
                     _pageController.jumpToPage(1);
                   },
                 ),
                 SignUpEmailForm(
                   goSignIn: () {
+                    context
+                        .read<AuthFormCubit>()
+                        .showError();
                     _pageController.jumpToPage(0);
                   },
                   continueSignUp: (email) {

@@ -23,14 +23,14 @@ class AutocompletionCubit extends Cubit<AutocompletionState> {
 
   Future<Iterable<University>?> _searchUni(String keyword) async {
     if (keyword.length < 3) return [];
-    try {
-      final data = await _searchRepository.getUniversities(
-        keyword,
-        0,
-        pageSize: 5,
-      );
-      return data.universities;
-    } catch (e) {
+    final res = await _searchRepository.getUniversities(
+      keyword,
+      0,
+      pageSize: 5,
+    );
+    if (res.isSuccess) {
+      return res.data.universities;
+    } else {
       return [];
     }
   }

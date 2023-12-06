@@ -16,14 +16,14 @@ class DetailCubit extends Cubit<DetailState> {
 
   void getDetailUniversity(int id, University? university) async {
     emit(state.copyWith(status: DetailStatus.loading, university: university));
-    try {
-      final data = await _detailRepository.getDetailUniversity(id);
+    final res = await _detailRepository.getDetailUniversity(id);
+    if (res.isSuccess) {
       emit(state.copyWith(
         status: DetailStatus.success,
-        university: data,
+        university: res.data,
         sortType: SortType.date,
       ));
-    } catch (e) {
+    } else {
       emit(state.copyWith(status: DetailStatus.error));
     }
   }

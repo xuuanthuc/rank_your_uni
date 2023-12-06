@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/screens/authentication/bloc/auth_form_cubit.dart';
 import 'package:template/src/screens/authentication/widgets/text_field_auth.dart';
 import '../../../../global/style/styles.dart';
+import '../../../../global/validators/validators.dart';
 import '../../../global_bloc/authentication/authentication_bloc.dart';
 import '../../../models/request/sign_in_with_email_request.dart';
 import '../../widgets/loading_primary_button.dart';
@@ -154,23 +155,26 @@ class _SignInFormState extends State<SignInForm> {
           ),
           LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
             onTap: () {
-              //TODO: Uncomment when implement register success
-              // if (TextFieldValidator.emailValidator(_emailController.text) !=
-              //     null) {
-              //   context.read<AuthFormCubit>().showError(text.invalidEmail);
-              // } else if (TextFieldValidator.passValidator(
-              //         _passwordController.text) !=
-              //     null) {
-              //   context.read<AuthFormCubit>().showError(text.invalidPassword);
-              // } else {
-              _onSignIn(
-                context,
-                SignInWithEmailRaw(
-                  username: _emailController.text,
-                  password: _passwordController.text,
-                ),
-              );
-              // }
+              if (TextFieldValidator.emailValidator(_emailController.text) !=
+                  null) {
+                context
+                    .read<AuthFormCubit>()
+                    .showError(error: text.invalidEmail);
+              } else if (TextFieldValidator.passValidator(
+                      _passwordController.text) !=
+                  null) {
+                context
+                    .read<AuthFormCubit>()
+                    .showError(error: text.invalidPassword);
+              } else {
+                _onSignIn(
+                  context,
+                  SignInWithEmailRaw(
+                    username: _emailController.text,
+                    password: _passwordController.text,
+                  ),
+                );
+              }
             },
             label: text.signIn,
             updateLoading: (state) {

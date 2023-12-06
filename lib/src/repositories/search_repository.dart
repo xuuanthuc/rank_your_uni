@@ -1,4 +1,6 @@
 import 'package:injectable/injectable.dart';
+import 'package:template/src/network/exception.dart';
+import '../models/response/response.dart';
 import '../models/response/search_response.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
@@ -9,15 +11,23 @@ import '../network/api_provider.dart';
 class SearchRepository {
   final ApiProvider _apiProvider = getIt.get<ApiProvider>();
 
-  Future<SearchModel> getUniversities(String keyword, int page, {int? pageSize}) async {
-    final res = await _apiProvider.get(
-      ApiEndpoint.search,
-      params: {
-        'keyword': keyword,
-        'pageIndex': page,
-        'pageSize': pageSize ?? 10,
-      },
-    );
-    return SearchModel.fromJson(res['data']);
+  Future<RYUResponse> getUniversities(
+    String keyword,
+    int page, {
+    int? pageSize,
+  }) async {
+    try {
+      final res = await _apiProvider.get(
+        ApiEndpoint.search,
+        params: {
+          'keyword': keyword,
+          'pageIndex': page,
+          'pageSize': pageSize ?? 10,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: SearchModel.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
   }
 }

@@ -96,6 +96,8 @@ class ReviewsBuilder extends StatelessWidget {
                       create: (context) => getIt.get<ReviewItemCubit>(),
                       child: ReviewItem(
                         review: (state.university?.reviews ?? [])[index],
+                        onUpdateReviewIndex: (review) =>
+                            state.university?.reviews?[index] = review,
                       ),
                     ),
                   );
@@ -186,11 +188,21 @@ class SortButton extends StatelessWidget {
   }
 }
 
-class ReviewItem extends StatelessWidget {
+class ReviewItem extends StatefulWidget {
   final Review review;
+  final Function(Review) onUpdateReviewIndex;
 
-  const ReviewItem({super.key, required this.review});
+  const ReviewItem({
+    super.key,
+    required this.review,
+    required this.onUpdateReviewIndex,
+  });
 
+  @override
+  State<ReviewItem> createState() => _ReviewItemState();
+}
+
+class _ReviewItemState extends State<ReviewItem> {
   Future<void> _onReport(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -198,18 +210,24 @@ class ReviewItem extends StatelessWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => getIt.get<ReportCubit>(),
-          child: ReportReviewForm(review: review),
+          child: ReportReviewForm(review: widget.review),
         );
       },
     );
   }
 
-  void _likeReview(BuildContext context) {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ReviewItemCubit>().onInitReviewUI(widget.review);
+  }
+
+  void _likeReview(BuildContext context, Review review) {
     context.read<ReviewItemCubit>().upVoteReview(review);
   }
 
-  void _dislikeReview(BuildContext context) {
-    context.read<ReviewItemCubit>().upVoteReview(review);
+  void _dislikeReview(BuildContext context, Review review) {
+    context.read<ReviewItemCubit>().downVoteReview(review);
   }
 
   @override
@@ -217,8 +235,11 @@ class ReviewItem extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: BlocListener<ReviewItemCubit, ReviewItemState>(
-        listenWhen: (_, curr) => curr.status == ReviewItemStatus.error,
         listener: (context, state) {
+          if (state.status == ReviewItemStatus.success) {
+            if (state.review == null) return;
+            widget.onUpdateReviewIndex(state.review!);
+          }
           if (state.status == ReviewItemStatus.error) {
             appToast(
               context,
@@ -227,45 +248,53 @@ class ReviewItem extends StatelessWidget {
             );
           }
         },
-        child: Container(
-          color: AppColors.primaryShadow,
-          constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-          padding: const EdgeInsets.all(22).copyWith(bottom: 10),
-          child: ResponsiveBuilder(
-            mediumView: Column(
-              children: [
-                // const MyReview(),
-                OverallPoint(review: review),
-                const SizedBox(height: 15),
-                ReviewContent(
-                  onReport: () => _onReport(context),
-                  onLike: () => _likeReview(context),
-                  onDislike: () => _dislikeReview(context),
-                  review: review,
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                // const MyReview(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
+          builder: (context, state) {
+            if (state.review == null) {
+              return const SizedBox.shrink();
+            }
+            return Container(
+              color: AppColors.primaryShadow,
+              constraints: const BoxConstraints(maxWidth: Public.tabletSize),
+              padding: const EdgeInsets.all(22).copyWith(bottom: 10),
+              child: ResponsiveBuilder(
+                mediumView: Column(
                   children: [
-                    OverallPoint(review: review),
-                    const SizedBox(width: 35),
-                    Expanded(
-                      child: ReviewContent(
-                        onReport: () => _onReport(context),
-                        onLike: () => _likeReview(context),
-                        onDislike: () => _dislikeReview(context),
-                        review: review,
-                      ),
+                    // const MyReview(),
+                    OverallPoint(review: state.review!),
+                    const SizedBox(height: 15),
+                    ReviewContent(
+                      onReport: () => _onReport(context),
+                      onLike: () => _likeReview(context, state.review!),
+                      onDislike: () => _dislikeReview(context, state.review!),
+                      review: state.review!,
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
+                child: Column(
+                  children: [
+                    // const MyReview(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OverallPoint(review: state.review!),
+                        const SizedBox(width: 35),
+                        Expanded(
+                          child: ReviewContent(
+                            onReport: () => _onReport(context),
+                            onLike: () => _likeReview(context, state.review!),
+                            onDislike: () =>
+                                _dislikeReview(context, state.review!),
+                            review: state.review!,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -477,16 +506,34 @@ class ReviewContent extends StatelessWidget {
                 icon: SizedBox(
                   height: 30,
                   width: 30,
-                  child: SvgPicture.asset(AppImages.iLike),
+                  child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
+                    buildWhen: (_, cur) => cur.action == ReviewItemAction.like,
+                    builder: (context, state) {
+                      if (state.status == ReviewItemStatus.loading) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: PrimaryCircularLoading(
+                            state.status == ReviewItemStatus.loading,
+                            strokeWidth: 5,
+                            strokeColor: AppColors.black,
+                          ),
+                        );
+                      }
+                      return SvgPicture.asset(AppImages.iLike);
+                    },
+                  ),
                 ),
               ),
             ),
             const SizedBox(width: 2),
-            Text(
-              (review.like ?? 0).toString(),
-              style: theme.primaryTextTheme.labelLarge,
+            SizedBox(
+              width: 50,
+              child: Text(
+                (review.like ?? 0).toString(),
+                style: theme.primaryTextTheme.labelLarge,
+              ),
             ),
-            const SizedBox(width: 30),
+            const SizedBox(width: 10),
             Tooltip(
               message: text.notHelpful,
               child: IconButton(
@@ -494,7 +541,23 @@ class ReviewContent extends StatelessWidget {
                 icon: SizedBox(
                   height: 30,
                   width: 30,
-                  child: SvgPicture.asset(AppImages.iDislike),
+                  child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
+                    buildWhen: (_, cur) =>
+                        cur.action == ReviewItemAction.dislike,
+                    builder: (context, state) {
+                      if (state.status == ReviewItemStatus.loading) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: PrimaryCircularLoading(
+                            state.status == ReviewItemStatus.loading,
+                            strokeWidth: 5,
+                            strokeColor: AppColors.black,
+                          ),
+                        );
+                      }
+                      return SvgPicture.asset(AppImages.iDislike);
+                    },
+                  ),
                 ),
               ),
             ),

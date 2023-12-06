@@ -13,30 +13,34 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
 
   ReviewItemCubit(this._detailRepository) : super(const ReviewItemState());
 
+  void onInitReviewUI(Review review) {
+    emit(state.copyWith(review: review));
+  }
+
   void upVoteReview(Review review) async {
-    emit(state.copyWith(status: ReviewItemStatus.loading));
-    try {
-      final isSuccess = await _detailRepository.likeReview(review.id);
-      if (isSuccess) {
-        emit(state.copyWith(status: ReviewItemStatus.success));
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
+    if(state.status == ReviewItemStatus.loading) return;
+    emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.like));
+    final res = await _detailRepository.likeReview(review.id);
+    if (res.isSuccess) {
+      emit(state.copyWith(
+        status: ReviewItemStatus.success,
+        review: res.data,
+      ));
+    } else {
       emit(state.copyWith(status: ReviewItemStatus.error));
     }
   }
 
   void downVoteReview(Review review) async {
-    emit(state.copyWith(status: ReviewItemStatus.loading));
-    try {
-      final isSuccess = await _detailRepository.dislikeReview(review.id);
-      if (isSuccess) {
-        emit(state.copyWith(status: ReviewItemStatus.success));
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
+    if(state.status == ReviewItemStatus.loading) return;
+    emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.dislike));
+    final res = await _detailRepository.dislikeReview(review.id);
+    if (res.isSuccess) {
+      emit(state.copyWith(
+        status: ReviewItemStatus.success,
+        review: res.data,
+      ));
+    } else {
       emit(state.copyWith(status: ReviewItemStatus.error));
     }
   }

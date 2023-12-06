@@ -1,27 +1,11 @@
-class CustomException implements Exception {
-  final String? message;
+class ResponseException implements Exception {
+  final String? title;
   final int? code;
 
-  CustomException([this.code, this.message]);
+  ResponseException(this.code, this.title);
 
   @override
   String toString() {
-    return "$message";
+    return title ?? '';
   }
-}
-
-class ErrorException extends CustomException {
-  ErrorException([int? code, String? message]) : super(code, message);
-}
-
-class BadRequestException extends CustomException {
-  BadRequestException([message]) : super(400, "Invalid Request: $message");
-}
-
-class UnauthorisedException extends CustomException {
-  UnauthorisedException([message]) : super(401, "Unauthorised: $message");
-}
-
-class InvalidInputException extends CustomException {
-  InvalidInputException([message]) : super(message, "Invalid Input: $message");
 }
