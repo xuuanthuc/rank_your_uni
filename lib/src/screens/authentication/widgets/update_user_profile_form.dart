@@ -55,7 +55,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
             theme,
             text: text.lastName,
           ),
-          AuthTextField(
+          AuthTextField.normal(
             theme: theme,
             text: text,
             hintText: text.enterLastName,
@@ -66,7 +66,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
             theme,
             text: text.firstName,
           ),
-          AuthTextField(
+          AuthTextField.normal(
             theme: theme,
             text: text,
             hintText: text.enterFirstName,
@@ -77,7 +77,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
             theme,
             text: text.universityName,
           ),
-          AuthTextField(
+          AuthTextField.normal(
             theme: theme,
             text: text,
             hintText: text.whatIsYourUniversity,

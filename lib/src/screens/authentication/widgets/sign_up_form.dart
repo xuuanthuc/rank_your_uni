@@ -94,7 +94,7 @@ class _SignUpEmailFormState extends State<SignUpEmailForm> {
               theme,
               text: text.email,
             ),
-            AuthTextField(
+            AuthTextField.email(
               theme: theme,
               text: text,
               hintText: text.enterEmail,
@@ -237,7 +237,7 @@ class _SignUpPasswordFormState extends State<SignUpPasswordForm> {
                   theme,
                   text: text.password,
                 ),
-                AuthTextField(
+                AuthTextField.password(
                   theme: theme,
                   text: text,
                   hintText: text.enterPassword,

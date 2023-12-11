@@ -50,4 +50,6 @@ abstract class AppImages {
   static const String iFacebook           = "${releasePath}images/i_facebook.svg";
   static const String iInstagram           = "${releasePath}images/i_instagram.svg";
   static const String iCalendar           = "${releasePath}images/i_calendar.svg";
+  static const String iHide           = "${releasePath}images/i_hide_password.svg";
+  static const String iShow           = "${releasePath}images/i_show_password.svg";
 }

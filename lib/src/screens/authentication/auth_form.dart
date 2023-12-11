@@ -64,6 +64,7 @@ class _AuthFormState extends State<AuthForm> {
             borderRadius: BorderRadius.all(Radius.circular(0))),
         child: Container(
           constraints: const BoxConstraints(maxWidth: Public.mobileSize),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: SingleChildScrollView(
             child: ExpandablePageView(
               pageController: _pageController,

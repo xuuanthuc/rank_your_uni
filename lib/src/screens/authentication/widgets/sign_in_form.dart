@@ -93,7 +93,7 @@ class _SignInFormState extends State<SignInForm> {
             theme,
             text: text.email,
           ),
-          AuthTextField(
+          AuthTextField.email(
             theme: theme,
             text: text,
             hintText: text.enterEmail,
@@ -104,7 +104,7 @@ class _SignInFormState extends State<SignInForm> {
             theme,
             text: text.password,
           ),
-          AuthTextField(
+          AuthTextField.password(
             theme: theme,
             text: text,
             hintText: text.enterPassword,
