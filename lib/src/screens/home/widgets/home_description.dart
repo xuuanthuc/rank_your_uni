@@ -7,8 +7,10 @@ import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
 
 import '../../../../global/routes/route_keys.dart';
+import '../../../di/dependencies.dart';
 import '../../../global_bloc/authentication/authentication_bloc.dart';
 import '../../authentication/auth_form.dart';
+import '../../authentication/bloc/auth_form_cubit.dart';
 import '../../widgets/ads.dart';
 
 class HomeDescription extends StatefulWidget {
@@ -28,7 +30,10 @@ class _HomeDescriptionState extends State<HomeDescription> {
       context: context,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
-        return const AuthForm(pageIndex: 1);
+        return BlocProvider(
+          create: (context) => getIt.get<AuthFormCubit>(),
+          child: const AuthForm(pageIndex: 1),
+        );
       },
     ).then((value) => _updateUserProfile(context));
   }

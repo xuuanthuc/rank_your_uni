@@ -25,16 +25,16 @@ class _FooterCommonState extends State<FooterCommon> {
 
   void _goToWebsite(Uri url) async {
     if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
+      throw Exception('Could not launch $url');
     }
   }
-  
-  void _goToFacebook(){
-    _goToWebsite(Uri.parse('https://www.facebook.com/xuuanthuc'));
+
+  void _goToFacebook() {
+    _goToWebsite(Uri.parse('https://www.facebook.com/RankYourUNi'));
   }
 
-  void _goToInstagram(){
-    _goToWebsite(Uri.parse('https://www.instagram.com/thucchubbyhihi'));
+  void _goToInstagram() {
+    _goToWebsite(Uri.parse('https://www.instagram.com/rankyouruni'));
   }
 
   @override
@@ -67,12 +67,7 @@ class _FooterCommonState extends State<FooterCommon> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              text.side,
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
+                            FooterCategoryTitle(text: text.side),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -95,12 +90,7 @@ class _FooterCommonState extends State<FooterCommon> {
                               ],
                             ),
                             const SizedBox(height: 40),
-                            Text(
-                              text.legal,
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
+                            FooterCategoryTitle(text: text.legal),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -122,12 +112,7 @@ class _FooterCommonState extends State<FooterCommon> {
                               ],
                             ),
                             const SizedBox(height: 40),
-                            Text(
-                              text.aboutMe,
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
+                            FooterCategoryTitle(text: text.aboutMe),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -189,13 +174,7 @@ class _FooterCommonState extends State<FooterCommon> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          text.side,
-                                          style: theme.textTheme.labelLarge
-                                              ?.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        FooterCategoryTitle(text: text.side),
                                         const SizedBox(height: 20),
                                         FooterOptionButton(
                                           label: text.help,
@@ -217,13 +196,7 @@ class _FooterCommonState extends State<FooterCommon> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          text.legal,
-                                          style: theme.textTheme.labelLarge
-                                              ?.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        FooterCategoryTitle(text: text.legal),
                                         const SizedBox(height: 20),
                                         FooterOptionButton(
                                           label: text.termsOfService,
@@ -245,20 +218,14 @@ class _FooterCommonState extends State<FooterCommon> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          text.aboutMe,
-                                          style: theme.textTheme.labelLarge
-                                              ?.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        FooterCategoryTitle(text: text.aboutMe),
                                         const SizedBox(height: 20),
                                         FooterOptionButton(
                                           label: text.contact,
                                           onTap: () =>
                                               context.goNamed(RouteKey.terms),
                                         ),
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 8),
                                         Opacity(
                                           opacity: 0,
                                           child: FooterOptionButton(
@@ -299,7 +266,8 @@ class _FooterCommonState extends State<FooterCommon> {
                                 ),
                               )
                             : Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -332,6 +300,27 @@ class _FooterCommonState extends State<FooterCommon> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class FooterCategoryTitle extends StatelessWidget {
+  final String text;
+
+  const FooterCategoryTitle({
+    super.key,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Text(
+      text,
+      style: theme.textTheme.labelLarge?.copyWith(
+        color: Colors.white,
+        fontSize: 16
+      ),
     );
   }
 }
