@@ -35,9 +35,9 @@ abstract class AppImages {
   static const String iPaint                = "${releasePath}images/i_paint.svg";
   static const String iProtect              = "${releasePath}images/i_protect.svg";
   static const String iStudentCap           = "${releasePath}images/i_student_cap.svg";
-  static const String iHomeLike             = "${releasePath}images/i_home_like_new.png";
-  static const String iHomeManager          = "${releasePath}images/i_home_manager_new.png";
-  static const String iHomePrivate          = "${releasePath}images/i_home_private_new.png";
+  static const String iHomeLike             = "${releasePath}images/i_home_vote.png";
+  static const String iHomeManager          = "${releasePath}images/i_home_manager.png";
+  static const String iHomePrivate          = "${releasePath}images/i_home_private.png";
   static const String iSearch               = "${releasePath}images/i_search.svg";
   static const String iGoogleLogo           = "${releasePath}images/i_google_logo.png";
   static const String iBack                 = "${releasePath}images/i_back.svg";

@@ -167,5 +167,7 @@
   "countLikeFirst": "Hữu ích nhất",
   "invalidLoginCredentials": "Thông tin đăng nhập không hợp lệ",
   "invalidEmail": "Địa chỉ email không hợp lệ",
-  "invalidPassword": "Mật khẩu phải có ít nhất 6 ký tự"
+  "invalidPassword": "Mật khẩu phải có ít nhất 6 ký tự",
+  "createAnAccount": "Tạo một tài khoản",
+  "youNeedAnAccout": "Bạn cần có một tài khoản để thực hiện hành động này. Hãy đăng nhập hoặc đăng ký một tài khoản nhé."
 }

@@ -9,16 +9,25 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../../../global/storage/storage_keys.dart';
+import '../../../../global/storage/storage_provider.dart';
 import '../../../../global/style/styles.dart';
 import '../../widgets/primary_button.dart';
+import '../../widgets/required_login_dialog.dart';
 
 class UniversityOverview extends StatelessWidget {
   const UniversityOverview({super.key});
 
-  void _openReviewForm(BuildContext context, University? university) {
+  void _openReviewForm(BuildContext context, University? university) async {
     if (university == null) return;
-    context.goNamed(RouteKey.review,
-        pathParameters: {"id": "${university.id}"}, extra: university);
+    final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (!context.mounted) return;
+    if (token == null) {
+      _showNoticeMustLoginDialog(context);
+    } else {
+      context.goNamed(RouteKey.review,
+          pathParameters: {"id": "${university.id}"}, extra: university);
+    }
   }
 
   void _compareUniversity(BuildContext context, University? university) {
@@ -27,6 +36,16 @@ class UniversityOverview extends StatelessWidget {
       RouteKey.compare,
       pathParameters: {"id": "${university.id}"},
       extra: university,
+    );
+  }
+
+  void _showNoticeMustLoginDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const NoticeMustLoginDialog(about: NoticeAbout.private);
+      },
     );
   }
 

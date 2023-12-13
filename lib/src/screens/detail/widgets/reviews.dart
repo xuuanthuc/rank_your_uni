@@ -13,7 +13,11 @@ import 'package:template/src/screens/detail/bloc/review_item_cubit.dart';
 import 'package:template/src/screens/detail/report_review_form.dart';
 import 'package:template/src/screens/widgets/loading.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
+import 'package:template/src/screens/widgets/required_login_dialog.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+
+import '../../../../global/storage/storage_keys.dart';
+import '../../../../global/storage/storage_provider.dart';
 
 class ReviewsBuilder extends StatelessWidget {
   const ReviewsBuilder({super.key});
@@ -222,12 +226,34 @@ class _ReviewItemState extends State<ReviewItem> {
     context.read<ReviewItemCubit>().onInitReviewUI(widget.review);
   }
 
-  void _likeReview(BuildContext context, Review review) {
-    context.read<ReviewItemCubit>().upVoteReview(review);
+  void _likeReview(BuildContext context, Review review) async {
+    final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (!context.mounted) return;
+    if (token == null) {
+      _showNoticeMustLoginDialog(context);
+    } else {
+      context.read<ReviewItemCubit>().upVoteReview(review);
+    }
   }
 
-  void _dislikeReview(BuildContext context, Review review) {
-    context.read<ReviewItemCubit>().downVoteReview(review);
+  void _dislikeReview(BuildContext context, Review review) async {
+    final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (!context.mounted) return;
+    if (token == null) {
+      _showNoticeMustLoginDialog(context);
+    } else {
+      context.read<ReviewItemCubit>().downVoteReview(review);
+    }
+  }
+
+  void _showNoticeMustLoginDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const NoticeMustLoginDialog(about: NoticeAbout.vote);
+      },
+    );
   }
 
   @override
