@@ -38,6 +38,7 @@ class ReviewsBuilder extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Row(mainAxisSize: MainAxisSize.max),
               const SizedBox(height: 20),
               Container(
                 constraints: const BoxConstraints(
@@ -88,27 +89,30 @@ class ReviewsBuilder extends StatelessWidget {
                   ],
                 ),
               ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      bottom: (((index + 1) % 3) == 0) ? 75 : 0,
-                    ),
-                    child: BlocProvider(
-                      create: (context) => getIt.get<ReviewItemCubit>(),
-                      child: ReviewItem(
-                        review: (state.university?.reviews ?? [])[index],
-                        onUpdateReviewIndex: (review) =>
-                            state.university?.reviews?[index] = review,
+              if ((state.university?.reviews ?? []).isNotEmpty)
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: (((index + 1) % 3) == 0) ? 75 : 0,
                       ),
-                    ),
-                  );
-                },
-                itemCount: state.university?.reviews?.length ?? 0,
-                separatorBuilder: (_, __) => const SizedBox(height: 30),
-              ),
+                      child: BlocProvider(
+                        create: (context) => getIt.get<ReviewItemCubit>(),
+                        child: ReviewItem(
+                          review: (state.university?.reviews ?? [])[index],
+                          onUpdateReviewIndex: (review) =>
+                              state.university?.reviews?[index] = review,
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: state.university?.reviews?.length ?? 0,
+                  separatorBuilder: (_, __) => const SizedBox(height: 30),
+                ),
+              if ((state.university?.reviews ?? []).isEmpty)
+                SizedBox(height: MediaQuery.sizeOf(context).width * 0.5),
               const SizedBox(height: 75),
               // SizedBox(
               //   width: 250,

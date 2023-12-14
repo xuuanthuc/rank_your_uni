@@ -123,4 +123,26 @@ class University {
       totalReviews: totalReviews,
     );
   }
+
+  University copyWith({List<Review>? newReviews}) {
+    return University(
+      id,
+      name: name,
+      abbrevia: abbrevia,
+      website: website,
+      address: address,
+      averagePointAllReviews: averagePointAllReviews,
+      phone: phone,
+      reviews: newReviews,
+      reputationAvg: reputationAvg,
+      internetAvg: internetAvg,
+      locationAvg: locationAvg,
+      facilitiesAvg: facilitiesAvg,
+      foodAvg: foodAvg,
+      clubsAvg: clubsAvg,
+      favoriteAvg: favoriteAvg,
+      competitionLevelAvg: competitionLevelAvg,
+      totalReviews: totalReviews,
+    );
+  }
 }

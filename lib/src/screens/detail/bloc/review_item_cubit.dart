@@ -2,8 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../global/storage/storage_keys.dart';
-import '../../../../global/storage/storage_provider.dart';
 import '../../../models/response/review.dart';
 import '../../../repositories/detail_repository.dart';
 

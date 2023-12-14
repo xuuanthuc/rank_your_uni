@@ -58,6 +58,7 @@ class _SelectProvinceDialogState extends State<SelectProvinceDialog> {
       },
       child: Dialog(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(0))),
         child: Container(

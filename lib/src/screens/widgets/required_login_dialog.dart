@@ -75,6 +75,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
 
     return Dialog(
       backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0))),
       child: Container(
