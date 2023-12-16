@@ -13,7 +13,7 @@ class TermsOfServiceScreen extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxWidth: Public.laptopSize),
             child: const Text('''
-            Điều Khoản Sử Dụng
+Điều Khoản Sử Dụng
 
 Điều khoản này chứa điều khoản trọng tài và các điều khoản khước từ. Bằng cách sử dụng trang web này, người dùng được cho rằng là đồng ý với tất cả các điều khoản sử dụng của chúng tôi.
 

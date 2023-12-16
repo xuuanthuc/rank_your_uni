@@ -56,7 +56,6 @@ class DetailCubit extends Cubit<DetailState> {
   }
 
   List<Review> sortReviewByDate(List<Review> reviews) {
-    print(2);
     reviews.sort(
       (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
               .parse(second.reviewDate ?? '', true)
@@ -65,15 +64,12 @@ class DetailCubit extends Cubit<DetailState> {
               .parse(first.reviewDate ?? '', true)
               .toUtc()),
     );
-    print(3);
     return reviews;
   }
 
   List<Review> sortReviewByUseful(List<Review> reviews) {
-    print(2);
     reviews
         .sort((first, second) => (second.like ?? 0).compareTo(first.like ?? 0));
-    print(3);
     return reviews;
   }
 }

@@ -7,6 +7,7 @@ import '../../../global/storage/storage_keys.dart';
 import '../../../global/storage/storage_provider.dart';
 import '../../models/request/sign_in_with_email_request.dart';
 import '../../models/request/sign_up_with_email_request.dart';
+import '../../models/response/profile.dart';
 import '../../repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
@@ -86,6 +87,10 @@ class AuthenticationBloc
         status: AuthenticationStatus.authenticated,
         action: AuthenticationAction.signIn,
         isLoading: false,
+        profileAuthenticated: Profile(
+          username: event.signInRequest.username,
+          email: event.signInRequest.username,
+        ),
       ));
     } else {
       emit(state.copyWith(
@@ -166,14 +171,25 @@ class AuthenticationBloc
     OnCompleteSignUpEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    if (state.action == AuthenticationAction.signUp &&
-        state.isSuccess == true) {
-      emit(state.copyWith(
-        isSuccess: true,
-        status: AuthenticationStatus.authenticated,
-        action: AuthenticationAction.signIn,
-        isLoading: false,
-      ));
+    if (state.profileAuthenticated == null) return;
+    if (state.isSuccess == true) {
+      final data = await _authRepository
+          .getUserProfile(state.profileAuthenticated!.username!);
+      if (data.isSuccess) {
+        emit(state.copyWith(
+          isSuccess: true,
+          status: AuthenticationStatus.authenticated,
+          action: AuthenticationAction.signIn,
+          isLoading: false,
+        ));
+      } else {
+        emit(state.copyWith(
+          isError: true,
+          status: AuthenticationStatus.unauthenticated,
+          action: AuthenticationAction.signIn,
+          isLoading: false,
+        ));
+      }
     }
   }
 
@@ -229,6 +245,10 @@ class AuthenticationBloc
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signUp,
         isSuccess: true,
+        profileAuthenticated: Profile(
+          username: event.signUpRequest.email,
+          email: event.signUpRequest.email,
+        ),
       ));
     } else {
       emit(state.copyWith(

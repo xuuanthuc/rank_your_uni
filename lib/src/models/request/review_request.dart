@@ -38,6 +38,8 @@ class ReviewRaw {
     data['competitionLevel'] = competitionLevel;
     data['schoolId'] = schoolId;
     data['reviewDate'] = reviewDate;
+    data['liked'] = 0;
+    data['disliked'] = 0;
     return data;
   }
 }

@@ -24,7 +24,7 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
-        review: res.data,
+        review: (res.data as Review)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
       emit(state.copyWith(status: ReviewItemStatus.error));
@@ -38,7 +38,7 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
-        review: res.data,
+        review: (res.data as Review)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
       emit(state.copyWith(status: ReviewItemStatus.error));

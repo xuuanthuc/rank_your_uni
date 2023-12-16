@@ -14,7 +14,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxWidth: Public.laptopSize),
             child: const Text('''
-            Chính Sách Bảo Mật
+Chính Sách Bảo Mật
 
 Đây là chính sách bảo mật nơi mà chúng tôi mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [www.rankyouruni.com](http://www.rankyouruni.com) được sở hữu và vận hành bởi các quản trị viên của chúng tôi.
 

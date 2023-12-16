@@ -10,7 +10,7 @@ class Review {
   final double? food;
   final double? clubs;
   final String? reviewDate;
-  final double? averagePointPerReview;
+  double? averagePointPerReview;
   final int? like;
   final int? dislike;
 
