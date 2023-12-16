@@ -5,8 +5,8 @@ import 'package:template/src/screens/add/bloc/add_university_cubit.dart';
 import 'package:template/src/screens/add/bloc/select_province_cubit.dart';
 import 'package:template/src/screens/add/widgets/select_province_dialog.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
+import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
-import '../widgets/primary_button.dart';
 import '../widgets/responsive_builder.dart';
 
 class AddUniversity extends StatelessWidget {
@@ -132,7 +132,8 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                                   child: Checkbox(
                                     checkColor: Colors.white,
                                     activeColor: theme.primaryColor,
-                                    side: const BorderSide(color: AppColors.grey, width: 1),
+                                    side: const BorderSide(
+                                        color: AppColors.grey, width: 1),
                                     value: state.acceptPrivacy ?? false,
                                     onChanged: (bool? value) {
                                       context
@@ -156,9 +157,27 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            PrimaryButton(
-                              onTap: () => {},
-                              title: text.addUniversity,
+                            LoadingPrimaryButton<AddUniversityCubit,
+                                AddUniversityState>(
+                              buttonWidth: 270,
+                              onTap: () {
+                                context
+                                    .read<AddUniversityCubit>()
+                                    .submitAddUniversity(
+                                      name: _nameController.text,
+                                      website: _websiteController.text,
+                                      email: _creatorEmailController.text,
+                                    );
+                              },
+                              label: text.addUniversity,
+                              updateLoading: (state) {
+                                return (state).status == AddUniStatus.loading;
+                              },
+                              updateColor: (color) {
+                                return state.acceptPrivacy != true
+                                    ? AppColors.grey
+                                    : null;
+                              },
                             ),
                           ],
                         ),
@@ -206,7 +225,10 @@ class TextAddField extends StatelessWidget {
           ),
           controller: controller,
           readOnly: readOnly,
-          onTap: () => onTap!(),
+          onTap: () {
+            if (onTap == null) return;
+            onTap!();
+          },
           cursorHeight: 18,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(

@@ -24,4 +24,27 @@ class AddUniversityCubit extends Cubit<AddUniversityState> {
   void onCheckPrivacy() {
     emit(state.copyWith(acceptPrivacy: !(state.acceptPrivacy ?? false)));
   }
+
+  void submitAddUniversity({
+    required String name,
+    required String website,
+    required String email,
+  }) async {
+    if(state.acceptPrivacy != true) return;
+    emit(state.copyWith(
+      status: AddUniStatus.loading,
+      addUniversityRaw: state.addUniversityRaw
+        ?..creatorEmail = email
+        ..website = website
+        ..name = name,
+    ));
+    print(state.addUniversityRaw?.name);
+    print(state.addUniversityRaw?.website);
+    print(state.addUniversityRaw?.creatorEmail);
+    print(state.addUniversityRaw?.province?.name);
+    print(state.addUniversityRaw?.districts?.name);
+
+    await Future.delayed(const Duration(seconds: 3));
+    emit(state.copyWith(status: AddUniStatus.success));
+  }
 }

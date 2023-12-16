@@ -570,4 +570,152 @@ INSERT INTO school (school_name, address, abbrevia, website) VALUES ('Đại h�
 
 ('Trường Đại học Ngoại ngữ, Đại học Đà Nẵng', 'Cẩm Lệ, Đà Nẵng', 'ufl', 'http://ufl.udn.vn/'),
 
-('Trường Đại học Sư phạm Kỹ thuật, Đại học Đà Nẵng', 'Hải Châu, Đà Nẵng', 'ute', 'https://ute.udn.vn/');
+('Trường Đại học Sư phạm Kỹ thuật, Đại học Đà Nẵng', 'Hải Châu, Đà Nẵng', 'ute', 'https://ute.udn.vn/'),
+
+('Trường Cao đẳng Cộng đồng Hà Nội', 'Hà Nội', 'hncc', 'https://hncc.edu.vn/'),
+
+('Trường Cao đẳng Cộng đồng Hà Tây', 'Chương Mỹ, Hà Nội', 'htcc', 'https://htcc.edu.vn/'),
+
+('Trường Cao đẳng Công nghệ Y – Dược Việt Nam Cơ sở Hà Nội', 'Bắc Từ Liêm, Hà Nội', 'caodangydvn', 'https://caodangydvn.com/'),
+
+('Trường Cao đẳng Công nghệ và Kinh tế Hà Nội', 'Sóc Sơn, Hà Nội', 'hncte', 'http://hncte.edu.vn/'),
+
+('Trường Cao đẳng Công nghiệp In', 'Bắc Từ Liêm, Hà Nội', 'cdcnin', 'http://www.cdcnin.edu.vn/'),
+
+('Trường Cao đẳng Điện tử – Điện lạnh Hà Nội', 'Cầu Giấy, Hà Nội', 'dtdl', 'http://dtdl.edu.vn/'),
+
+('Trường Cao đẳng Du lịch Hà Nội', 'Bắc Từ Liêm, Hà Nội', 'htc', 'https://www.htc.edu.vn/'),
+
+('Trường Cao đẳng Kinh tế – Kỹ thuật Thương mại', 'Hà Đông, Hà Nội', 'ctet', 'http://www.ctet.edu.vn/'),
+
+('Trường Cao đẳng Kinh tế – Kỹ thuật Trung ương', 'Gia Lâm, Hà Nội', 'netc', 'http://netc-vca.edu.vn/'),
+
+('Trường Cao đẳng Múa Việt Nam', 'Cầu Giấy, Hà Nội', 'cdmua', 'https://cdmuavn.edu.vn/'),
+
+('Trường Cao đẳng Nội vụ Hà Nội', 'Bắc Từ Liêm, Hà Nội', 'huha', 'https://huha.edu.vn/'),
+
+('Trường Cao Đẳng Nông Nghiệp & Phát Triển Nông Thôn Bắc Bộ', 'Chương Mỹ, Hà Nội', 'vcard', 'http://vcard.edu.vn/'),
+
+('Trường Cao đẳng Sư phạm Hà Tây', 'Thường Tín, Hà Nội', 'cdsphthn', 'http://www.cdsphthn.edu.vn/'),
+
+('Trường Cao đẳng Sư phạm Trung ương', 'Cầu Giấy, Hà Nội', 'cdsptw', 'http://cdsptw.edu.vn/'),
+
+('Trường Cao đẳng Thương mại và Du lịch Hà Nội', 'Cầu Giấy, Hà Nội', 'hcct', 'http://hcct.edu.vn/'),
+
+('Trường Cao đẳng Truyền hình Việt Nam', 'Thường Tín, Hà Nội', 'ctv', 'http://ctv.vtv.vn/'),
+
+('Trường Cao đẳng Xây dựng Công trình Đô thị', 'Gia Lâm, Hà Nội', 'cuwc', 'http://www.cuwc.edu.vn/'),
+
+('Trường Cao đẳng Xây dựng số 1', 'Nam Từ Liêm, Hà Nội', 'ctc1', 'http://ctc1.edu.vn/'),
+
+('Trường Cao đẳng Y tế Bạch Mai', 'Đống Đa, Hà Nội', 'cbm', 'http://bmmc.edu.vn/'),
+
+('Trường Cao đẳng Y tế Đặng Văn Ngữ', 'Nam Từ Liêm, Hà Nội.', 'ytdvn', 'http://ytdvn.edu.vn/'),
+
+('Trường Cao đẳng Y tế Hà Nội', 'Ba Đình, Hà Nội', 'hmc', 'http://hmc.edu.vn/'),
+
+('Trường Cao đẳng Y tế Hà Đông', 'Hà Đông, Hà Nội', 'cdythd', 'http://cdythd.sfb.vn/'),
+
+('Trường Cao đẳng Công nghệ Hà Nội', 'Bắc Từ Liêm, Hà Nội', 'hitech', 'https://truong-cao-ang-cong-nghe-ha-noi-hitech.business.site/'),
+
+('Trường Cao đẳng Y Dược ASEAN', 'Bắc Từ Liêm, Hà Nội', 'cda', 'https://cdasean.edu.vn/'),
+
+('Trường Cao đẳng Công nghệ và Thương mại Hà Nội', 'Hà Nội', 'nncn', 'https://nncn.edu.vn/'),
+
+('Trường Cao đẳng Đại Việt Hà Nội', 'Hà Nội', 'dvc', 'https://dvc.edu.vn/'),
+
+('Trường Cao đẳng Dược Hà Nội', 'Hà Nội', 'cddhn', 'https://caodangduochn.edu.vn/'),
+
+('Trường Cao đẳng Việt Mỹ Hà Nội', 'Hà Nội', 'cdvmhn', 'https://caodangvietmyhanoi.edu.vn/'),
+
+('Trường Cao đẳng Kỹ thuật – Công nghệ Bách khoa', 'Thường Tín, Hà Nội', 'ctech', 'https://ctech.edu.vn/'),
+
+('Trường Cao đẳng Anh Quốc BTEC FPT', 'Hà Nội, Đà Nẵng, Hồ Chí Minh', 'btec', 'https://btec.fpt.edu.vn/'),
+
+('Trường Cao đẳng Quốc tế Pegasus Cơ sở Hà Nội', 'Ba Đình, Hà Nội', 'pegasus', 'https://pegasus.edu.vn/'),
+
+('Trường Cao đẳng Y khoa Phạm Ngọc Thạch', 'Hà Nội, Hồ Chí Minh', 'cbk', 'https://caodangykhoaphamngocthach.com/'),
+
+('Trường Cao đẳng Cơ điện và Công nghệ thực phẩm Hà Nội', 'Phú Xuyên, Hà Nội', 'codientech', 'https://codientech.edu.vn/'),
+
+('Trường Cao đẳng Điện lực Miền Bắc', 'Sóc Sơn, Hà Nội', 'nepc', 'https://nepc.edu.vn/'),
+
+('Trường Cao đẳng Đường Sắt', 'Long Biên, Hà Nội', 'caodangduongsat', 'http://caodangduongsat.edu.vn/'),
+
+('Trường Cao đẳng Giao thông vận tải trung ương I', 'Ba Vì, Hà Nội', 'gtvttw1', 'http://gtvttw1.edu.vn/'),
+
+('Trường Cao đẳng Kỹ thuật trang thiết bị Y tế', 'Đống Đa, Hà Nội', 'caodangvietduc', 'https://caodangyvietduc.edu.vn/'),
+
+('Trường Cao đẳng nghề An ninh – Công nghệ', 'Quốc Oai, Hà Nội', 'cdnac', 'Null'),
+
+('Trường Cao đẳng nghề Bách khoa Hà Nội – HATECH', 'Hai Bà Trưng, Hà Nội', 'hactech', 'https://www.hactech.edu.vn/'),
+
+('Trường Cao đẳng nghề Cơ điện Hà Nội', 'Hà Nội', 'hcem', 'https://hcem.edu.vn/'),
+
+('Trường Cao đẳng nghề Công nghệ cao Hà Nội', 'Hà Nội', 'hht', 'https://hht.edu.vn/'),
+
+('Trường Cao đẳng nghề Công nghệ và Kinh tế Hà Nội', 'Bắc Từ Liêm, Hà Nội', 'hncte', 'http://hncte.edu.vn/'),
+
+('Trường Cao đẳng nghề Công nghiệp Hà Nội', 'Đống Đa, Hà Nội', 'hnivc', 'https://hnivc.edu.vn/'),
+
+('Trường Cao đẳng Hùng Vương Hà Nội', 'Tây Hồ, Hà Nội', 'caodanghungvuong', 'http://caodanghungvuong.edu.vn/'),
+
+('Trường Cao đẳng nghề Kinh doanh và Công nghệ Hà Nội', 'Hai Bà Trưng, Hà Nội', 'kinhdoanhcongnghe', 'https://kinhdoanhcongnghe.edu.vn/'),
+
+('Trường Cao đẳng nghề Kỹ thuật – Công nghệ – Kinh tế Simco Sông Đà', 'Hà Đông, Hà Nội.', 'simcosd', 'https://simcosd.vn/'),
+
+('Trường Cao đẳng nghề Kỹ thuật Công nghệ', 'Đông Anh, Hà Nội', 'httc', 'http://httc.edu.vn/'),
+
+('Trường Cao đẳng nghề Kỹ thuật – Mỹ nghệ Việt Nam', 'Gia Lâm, Hà Nội', 'vcth', 'https://vcth.edu.vn/'),
+
+('Trường Cao đẳng nghề Kỹ thuật và Nghiệp vụ Hà Nội', 'Cầu Giấy, Hà Nội', 'hatechs', 'http://hatechs.edu.vn/'),
+
+('Trường Cao đẳng nghề Long Biên', 'Long Biên, Hà Nội', 'longbiencollege', 'http://longbiencollege.edu.vn/'),
+
+('Trường Cao đẳng nghề Nguyễn Trãi', 'Bắc Từ Liêm, Hà Nội', 'caodangnguyentrai', 'http://caodangnguyentrai.edu.vn/'),
+
+('Trường Cao đẳng nghề Quốc tế Hà Nội', 'Quốc Oai, Hà Nội', 'quoctehanoi', 'http://quoctehanoi.edu.vn/'),
+
+('Trường Cao đẳng nghề số 17 – Bộ Quốc phòng', 'Thanh Xuân, Hà Nội', 'Null', 'Null'),
+
+('Trường Cao đẳng nghề Thăng Long', 'Đông Anh, Hà Nội', 'Null', 'Null'),
+
+('Trường Cao đẳng nghề Trần Hưng Đạo', 'Nam Từ Liêm, Hà Nội', 'caodangtranhungdao', 'http://caodangtranhungdao.edu.vn/'),
+
+('Trường Cao đẳng nghề Văn Lang Hà Nội', 'Cầu Giấy, Hà Nội', 'nec', 'http://nec.edu.vn/'),
+
+('Trường Cao đẳng nghề Việt Nam – Hàn Quốc', 'Đông Anh, Hà Nội', 'cdviethanhanoi', 'http://cdviethanhanoi.edu.vn/'),
+
+('Trường Cao đẳng nghề Phú Châu', 'Cầu Giấy, Hà Nội', 'pcc', 'http://pcc.edu.vn/'),
+
+('Trường Cao đẳng nghề Thực hành FPT', 'Nam Từ Liêm, Hà Nội', 'caodangfpt', 'https://caodang.fpt.edu.vn/'),
+
+('Trường Cao đẳng nghề Công thương Việt Nam', 'Bắc Từ Liêm, Hà Nội', 'vci', 'https://vci.edu.vn/'),
+
+('Trường Cao đẳng nghề Giao thông vận tải trung ương II', 'Cầu Giấy, Hà Nội', 'Null', 'Null'),
+
+('Trường Cao đẳng nghề Kỹ thuật – Công nghệ LOD', 'Hà Nội', 'lod', 'https://lod.com.vn/'),
+
+('Trường Cao đẳng nghề Kỹ thuật Y tế Thăng Long', 'Bắc Ninh ', 'null', 'null'),
+
+('Trường Cao đẳng Kinh tế Đối ngoại', 'Hồ Chí Minh', 'cofer', 'http://www.cofer.edu.vn/'),
+
+('Trường Cao đẳng Bách khoa Nam Sài Gòn', 'Quận 8, TP Hồ Chí Minh', 'namsaigon', 'https://namsaigon.edu.vn/'),
+
+('Trường Cao đẳng Điện lực Thành phố Hồ Chí Minh', 'Quận 12, Hồ Chí Minh', 'hepc', 'https://www.hepc.edu.vn/'),
+
+('Trường Cao đẳng Giao thông vận tải TPHCM', 'Quận 12, Hồ Chí Minh', 'hcmct', 'http://hcmct.edu.vn/'),
+
+('Trường Cao đẳng Kinh tế – Kỹ thuật TP Hồ Chí Minh', 'Quận 6, Hồ Chí Minh', 'ktkthcm', 'http://ktkthcm.edu.vn/'),
+
+('Trường Cao đẳng Công thương Thành phố Hồ Chí Minh', 'Quận 9, Hồ Chí Minh', 'hitu', 'http://hitu.edu.vn/'),
+
+('Trường Cao đẳng Giao thông vận tải Trung Ương 6', 'Hồ Chí Minh', 'hcmct3', 'http://www.hcmct3.edu.vn/'),
+
+('Trường Cao đẳng Công nghệ TP Hồ Chí Minh', 'Quận Thủ Đức, Hồ Chí Minh', 'vetc', 'http://vetc.edu.vn/'),
+
+('Trường Cao đẳng Kinh tế Thành phố Hồ Chí Minh', 'Quận 10, Hồ Chí Minh', 'kthcm', 'http://kthcm.edu.vn/'),
+
+('Trường Cao đẳng Kỹ thuật Cao Thắng','Quận 1, Hồ Chí Minh','caothang','https://caothang.edu.vn/'),
+
+('Trường Cao đẳng Lý Tự Trọng TPHCM','Quận Tân Bình, Hồ Chí Minh','lttc','http://lttc.edu.vn/');
