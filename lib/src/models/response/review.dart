@@ -11,8 +11,8 @@ class Review {
   final double? clubs;
   final String? reviewDate;
   double? averagePointPerReview;
-  final int? like;
-  final int? dislike;
+  final Liked? liked;
+  final int? likedStatus;
 
   Review(
     this.id, {
@@ -27,8 +27,8 @@ class Review {
     this.clubs,
     this.reviewDate,
     this.averagePointPerReview,
-    this.like,
-    this.dislike,
+    this.liked,
+    this.likedStatus,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) {
@@ -43,10 +43,15 @@ class Review {
     final food = json["food"];
     final clubs = json["clubs"];
     final reviewDate = json["reviewDate"];
-    final like = json["liked"];
-    final dislike = json["disliked"];
     final averagePointPerReview =
         double.tryParse(json["averagePointPerReview"] ?? '') ?? 0.0;
+    final likedStatus = json['likedStatus'];
+    final liked = json['liked'] != null
+        ? Liked.fromJson(json['liked'])
+        : Liked(
+            userDisLiked: [],
+            userLiked: [],
+          );
 
     return Review(
       id,
@@ -61,8 +66,20 @@ class Review {
       clubs: clubs,
       reviewDate: reviewDate,
       averagePointPerReview: averagePointPerReview,
-      like: like,
-      dislike: dislike,
+      liked: liked,
+      likedStatus: likedStatus,
     );
+  }
+}
+
+class Liked {
+  List<int>? userLiked;
+  List<int>? userDisLiked;
+
+  Liked({this.userLiked, this.userDisLiked});
+
+  Liked.fromJson(Map<String, dynamic> json) {
+    userLiked = json['userLiked'].cast<int>();
+    userDisLiked = json['userDisLiked'].cast<int>();
   }
 }

@@ -63,7 +63,7 @@ class AuthRepository {
 
   Future<RYUResponse> getUserProfile(String username) async {
     try {
-      final data = await _apiProvider.get("${ApiEndpoint.profile}/admin");
+      final data = await _apiProvider.get("${ApiEndpoint.profile}/$username");
       return RYUResponse(isSuccess: true, data: data);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);

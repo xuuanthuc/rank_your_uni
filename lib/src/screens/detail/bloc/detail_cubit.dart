@@ -68,8 +68,10 @@ class DetailCubit extends Cubit<DetailState> {
   }
 
   List<Review> sortReviewByUseful(List<Review> reviews) {
-    reviews
-        .sort((first, second) => (second.like ?? 0).compareTo(first.like ?? 0));
+    reviews.sort(
+      (first, second) => (second.liked?.userLiked?.length ?? 0)
+          .compareTo(first.liked?.userLiked?.length ?? 0),
+    );
     return reviews;
   }
 }

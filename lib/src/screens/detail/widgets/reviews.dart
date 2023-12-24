@@ -559,7 +559,7 @@ class ReviewContent extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Text(
-                (review.like ?? 0).toString(),
+                (review.liked?.userLiked?.length ?? 0).toString(),
                 style: theme.primaryTextTheme.labelLarge,
               ),
             ),
@@ -593,7 +593,7 @@ class ReviewContent extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              (review.dislike ?? 0).toString(),
+              (review.liked?.userDisLiked?.length ?? 0).toString(),
               style: theme.primaryTextTheme.labelLarge,
             ),
             const Spacer(),

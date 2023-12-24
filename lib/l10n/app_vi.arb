@@ -26,7 +26,7 @@
   "alreadyHaveAccount": "Đã có tài khoản?",
   "cancel": "Huỷ",
   "createPassword": "Tạo mật khẩu",
-  "passwordAtLeast": "Ít nhất 8 ký tự",
+  "passwordAtLeast": "Ít nhất 6 ký tự",
   "createPasswordDescription": "Bằng cách nhấp vào 'Tiếp tục', bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư của chúng tôi. Rank Your UNi được thiết kế và sử dụng bởi sinh viên Việt Nam để đánh giá về các trường đại học trên toàn quốc",
   "updateProfile": "Cập nhật người dùng",
   "firstName": "Tên",
