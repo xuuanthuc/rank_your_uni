@@ -40,7 +40,6 @@ class _AppBarTextFieldState extends State<AppBarTextField> {
           style: widget.theme.primaryTextTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.w500,
           ),
-          cursorHeight: 18,
           onEditingComplete: () {
             if (_controller.text.trim().isEmpty) return;
             context.goNamed(

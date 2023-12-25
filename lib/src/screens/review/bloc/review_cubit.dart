@@ -31,7 +31,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void onSubmitReview(int schoolId) async {
+  void onSubmitReview(int schoolId, int userId) async {
     if (state.internet == null ||
         state.location == null ||
         state.status == ReviewStatus.loading ||
@@ -55,6 +55,7 @@ class ReviewCubit extends Cubit<ReviewState> {
       competitionLevel: state.competition!,
       schoolId: schoolId,
       reviewDate: DateFormat("yyyy-MM-dd'T'hh:mm+07:00").format(DateTime.now()),
+      userId: userId,
     );
     emit(state.copyWith(status: ReviewStatus.loading));
     final res = await _detailRepository.reviewUniversity(reviewRaw);

@@ -14,7 +14,6 @@ class AuthenticationState extends Equatable {
   final AuthenticationAction? action;
   final Profile? profileAuthenticated;
 
-
   const AuthenticationState({
     this.isLoading,
     this.isSuccess,
@@ -36,21 +35,23 @@ class AuthenticationState extends Equatable {
   }) {
     return AuthenticationState(
       isLoading: isLoading,
-      status: status,
       isSuccess: isSuccess,
-      action: action,
       isError: isError,
+      status: status,
+      action: action,
       errorMessage: errorMessage,
-        profileAuthenticated: profileAuthenticated
+      profileAuthenticated: profileAuthenticated,
     );
   }
 
   @override
   List<Object?> get props => [
-        isSuccess,
-        status,
         isLoading,
-        action,
+        isSuccess,
         isError,
+        status,
+        action,
+        errorMessage,
+        profileAuthenticated,
       ];
 }

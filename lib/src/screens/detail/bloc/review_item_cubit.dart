@@ -17,10 +17,10 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     emit(state.copyWith(review: review));
   }
 
-  void upVoteReview(Review review) async {
+  void upVoteReview(Review review, int userId) async {
     if(state.status == ReviewItemStatus.loading) return;
     emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.like));
-    final res = await _detailRepository.likeReview(review.id);
+    final res = await _detailRepository.likeReview(review.id, userId);
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
@@ -31,10 +31,10 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     }
   }
 
-  void downVoteReview(Review review) async {
+  void downVoteReview(Review review, int userId) async {
     if(state.status == ReviewItemStatus.loading) return;
     emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.dislike));
-    final res = await _detailRepository.dislikeReview(review.id);
+    final res = await _detailRepository.dislikeReview(review.id, userId);
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,

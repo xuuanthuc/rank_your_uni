@@ -46,16 +46,25 @@ class AuthenticationBloc
       isLoading: true,
     ));
     try {
-      final isSuccess = await _authRepository.onRefreshToken();
-      if (isSuccess) {
+      final res = await _authRepository.onRefreshToken();
+      if (res.isSuccess) {
         emit(state.copyWith(
           isSuccess: true,
           status: AuthenticationStatus.authenticated,
           action: AuthenticationAction.refreshToken,
+          profileAuthenticated: res.data,
           isLoading: false,
         ));
       } else {
-        throw const FormatException();
+        emit(
+          state.copyWith(
+            isError: false,
+            status: AuthenticationStatus.unauthenticated,
+            action: AuthenticationAction.refreshToken,
+            isLoading: false,
+            isSuccess: false,
+          ),
+        );
       }
     } catch (e) {
       emit(state.copyWith(
@@ -82,6 +91,8 @@ class AuthenticationBloc
     if (res.isSuccess) {
       await StorageProvider.instance
           .save(StorageKeys.token, res.data["id_token"]);
+      await StorageProvider.instance
+          .save(StorageKeys.username, event.signInRequest.username);
       emit(state.copyWith(
         isSuccess: true,
         status: AuthenticationStatus.authenticated,
@@ -180,6 +191,7 @@ class AuthenticationBloc
           isSuccess: true,
           status: AuthenticationStatus.authenticated,
           action: AuthenticationAction.signIn,
+          profileAuthenticated: data.data,
           isLoading: false,
         ));
       } else {
@@ -240,6 +252,8 @@ class AuthenticationBloc
         await _authRepository.signUpWithEmailAndPassword(event.signUpRequest);
     if (res.isSuccess) {
       await StorageProvider.instance.save(StorageKeys.token, res.data["token"]);
+      await StorageProvider.instance
+          .save(StorageKeys.username, event.signUpRequest.email);
       emit(state.copyWith(
         isLoading: false,
         status: AuthenticationStatus.unauthenticated,

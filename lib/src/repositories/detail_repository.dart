@@ -53,13 +53,14 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> likeReview(int id) async {
+  Future<RYUResponse> likeReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
         params: {
-          "liked": 1,
+          "likedStatus": 1,
           "id": id,
+          "userId": userId,
         },
       );
       return RYUResponse(isSuccess: true, data: Review.fromJson(res));
@@ -68,13 +69,31 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> dislikeReview(int id) async {
+  Future<RYUResponse> dislikeReview(int id,int userId) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
         params: {
-          "disliked": 1,
+          "likedStatus": 2,
           "id": id,
+          "userId": userId,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> undoReview(int id, int userId) async {
+    //cancel like, dislike
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviews}/$id",
+        params: {
+          "likedStatus": 0,
+          "id": id,
+          "userId": userId,
         },
       );
       return RYUResponse(isSuccess: true, data: Review.fromJson(res));

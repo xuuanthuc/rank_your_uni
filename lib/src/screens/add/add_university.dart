@@ -229,7 +229,6 @@ class TextAddField extends StatelessWidget {
             if (onTap == null) return;
             onTap!();
           },
-          cursorHeight: 18,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

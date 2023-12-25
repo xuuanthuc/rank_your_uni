@@ -10,6 +10,7 @@ class ReviewRaw {
   final int competitionLevel;
   final int schoolId;
   final String reviewDate;
+  final int userId;
 
   ReviewRaw({
     required this.contentRated,
@@ -23,6 +24,7 @@ class ReviewRaw {
     required this.competitionLevel,
     required this.schoolId,
     required this.reviewDate,
+    required this.userId,
   });
 
   Map<String, dynamic> toJson() {
@@ -38,8 +40,8 @@ class ReviewRaw {
     data['competitionLevel'] = competitionLevel;
     data['schoolId'] = schoolId;
     data['reviewDate'] = reviewDate;
-    data['liked'] = 0;
-    data['disliked'] = 0;
+    data['likedStatus'] = 0;
+    data['userId'] = userId;
     return data;
   }
 }

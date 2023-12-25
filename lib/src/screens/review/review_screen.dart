@@ -11,6 +11,7 @@ import 'package:template/src/screens/review/widgets/item_rate.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
+import '../../global_bloc/authentication/authentication_bloc.dart';
 import '../widgets/base_scaffold.dart';
 import '../widgets/loading_primary_button.dart';
 import 'bloc/item_criteria_cubit.dart';
@@ -53,10 +54,10 @@ class ReviewView extends StatefulWidget {
 }
 
 class _ReviewViewState extends State<ReviewView> {
-  void onSubmitReview(BuildContext context) {
+  void onSubmitReview(BuildContext context, int userId) {
     context
         .read<ReviewCubit>()
-        .onSubmitReview(int.tryParse(widget.universityId) ?? -1);
+        .onSubmitReview(int.tryParse(widget.universityId) ?? -1, userId);
   }
 
   void updatePoint(BuildContext context, CriteriaRated rated) {
@@ -146,28 +147,36 @@ class _ReviewViewState extends State<ReviewView> {
                   ),
                   const ReviewArea(),
                   const SizedBox(height: 45),
-                  LoadingPrimaryButton<ReviewCubit, ReviewState>(
-                    onTap: () => onSubmitReview(context),
-                    label: text.submitReview,
-                    buttonWidth: 250,
-                    updateLoading: (state) {
-                      return (state).status == ReviewStatus.loading;
-                    },
-                    updateColor: (state) {
-                      if (state.internet == null ||
-                          state.location == null ||
-                          state.status == ReviewStatus.loading ||
-                          state.reputation == null ||
-                          state.favorite == null ||
-                          state.food == null ||
-                          state.facilities == null ||
-                          state.competition == null ||
-                          (state.contentRated ?? "").trim().isEmpty ||
-                          state.clubs == null) {
-                        return AppColors.grey;
-                      } else {
-                        return null;
-                      }
+                  BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    builder: (context, state) {
+                      return LoadingPrimaryButton<ReviewCubit, ReviewState>(
+                        onTap: () {
+                          if (state.profileAuthenticated == null) return;
+                          onSubmitReview(
+                              context, state.profileAuthenticated!.id!);
+                        },
+                        label: text.submitReview,
+                        buttonWidth: 250,
+                        updateLoading: (state) {
+                          return (state).status == ReviewStatus.loading;
+                        },
+                        updateColor: (state) {
+                          if (state.internet == null ||
+                              state.location == null ||
+                              state.status == ReviewStatus.loading ||
+                              state.reputation == null ||
+                              state.favorite == null ||
+                              state.food == null ||
+                              state.facilities == null ||
+                              state.competition == null ||
+                              (state.contentRated ?? "").trim().isEmpty ||
+                              state.clubs == null) {
+                            return AppColors.grey;
+                          } else {
+                            return null;
+                          }
+                        },
+                      );
                     },
                   ),
                 ],

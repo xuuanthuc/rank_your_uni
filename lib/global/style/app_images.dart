@@ -10,6 +10,7 @@ abstract class AppImages {
   static const String iClubs                = "${releasePath}images/i_clubs.svg";
   static const String iDetailBackground     = "${releasePath}images/i_detail_background.png";
   static const String iDislike              = "${releasePath}images/i_dislike.svg";
+  static const String iDisliked              = "${releasePath}images/i_disliked.svg";
   static const String iEdit                 = "${releasePath}images/i_edit.svg";
   static const String iExcellent            = "${releasePath}images/i_excellent.svg";
   static const String iFacilities           = "${releasePath}images/i_facilities.svg";
@@ -26,6 +27,7 @@ abstract class AppImages {
   static const String iHomeLogo             = "${releasePath}images/i_home_logo.png";
   static const String iInternet             = "${releasePath}images/i_internet.svg";
   static const String iLike                 = "${releasePath}images/i_like.svg";
+  static const String iLiked                = "${releasePath}images/i_liked.svg";
   static const String iLocation             = "${releasePath}images/i_location.svg";
   static const String iLogoPrimary          = "${releasePath}images/i_logo_primary.svg";
   static const String iLogoWhite            = "${releasePath}images/i_logo_white.svg";
