@@ -556,7 +556,8 @@ class ReviewContent extends StatelessWidget {
                       width: 30,
                       child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
                         buildWhen: (_, cur) =>
-                            cur.action == ReviewItemAction.like,
+                            cur.action == ReviewItemAction.like ||
+                            cur.status == ReviewItemStatus.success,
                         builder: (context, state) {
                           if (state.status == ReviewItemStatus.loading) {
                             return Padding(
@@ -569,7 +570,7 @@ class ReviewContent extends StatelessWidget {
                             );
                           }
                           return (state.review?.liked?.userLiked ?? [])
-                              .contains(auth.profileAuthenticated?.id ?? -1)
+                                  .contains(auth.profileAuthenticated?.id ?? -1)
                               ? SvgPicture.asset(AppImages.iLiked)
                               : SvgPicture.asset(AppImages.iLike);
                         },
@@ -595,7 +596,8 @@ class ReviewContent extends StatelessWidget {
                       width: 30,
                       child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
                         buildWhen: (_, cur) =>
-                            cur.action == ReviewItemAction.dislike,
+                            cur.action == ReviewItemAction.dislike ||
+                            cur.status == ReviewItemStatus.success,
                         builder: (context, state) {
                           if (state.status == ReviewItemStatus.loading) {
                             return Padding(

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import '../../../models/response/response.dart';
 import '../../../models/response/review.dart';
 import '../../../repositories/detail_repository.dart';
 
@@ -19,8 +20,13 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
 
   void upVoteReview(Review review, int userId) async {
     if(state.status == ReviewItemStatus.loading) return;
+    RYUResponse res;
     emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.like));
-    final res = await _detailRepository.likeReview(review.id, userId);
+    if((state.review?.liked?.userLiked ?? []).contains(userId)){
+      res = await _detailRepository.undoReview(review.id, userId);
+    } else {
+      res = await _detailRepository.likeReview(review.id, userId);
+    }
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
@@ -33,8 +39,13 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
 
   void downVoteReview(Review review, int userId) async {
     if(state.status == ReviewItemStatus.loading) return;
+    RYUResponse res;
     emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.dislike));
-    final res = await _detailRepository.dislikeReview(review.id, userId);
+    if((state.review?.liked?.userDisLiked ?? []).contains(userId)){
+      res = await _detailRepository.undoReview(review.id, userId);
+    } else {
+      res = await _detailRepository.dislikeReview(review.id, userId);
+    }
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
