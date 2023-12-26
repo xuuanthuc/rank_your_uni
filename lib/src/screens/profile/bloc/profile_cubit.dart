@@ -13,13 +13,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit(this._authRepository) : super(const ProfileState());
 
-  void getProfile(){
-
-  }
+  void getProfile() {}
 
   void onPageChange(QuickMenu menu) async {
-    emit(state.copyWith(status: ProfileStatus.loading));
-    await Future.delayed(const Duration(seconds: 1));
+    emit(state.copyWith(status: ProfileStatus.loading, isEditting: false));
     emit(state.copyWith(page: menu, status: ProfileStatus.success));
   }
 }

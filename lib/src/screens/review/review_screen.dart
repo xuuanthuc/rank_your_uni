@@ -5,13 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/widgets/item_rate.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
-import '../../global_bloc/authentication/authentication_bloc.dart';
 import '../widgets/base_scaffold.dart';
 import '../widgets/loading_primary_button.dart';
 import 'bloc/item_criteria_cubit.dart';
@@ -147,13 +147,13 @@ class _ReviewViewState extends State<ReviewView> {
                   ),
                   const ReviewArea(),
                   const SizedBox(height: 45),
-                  BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                    builder: (context, state) {
+                  BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                    builder: (context, setting) {
                       return LoadingPrimaryButton<ReviewCubit, ReviewState>(
                         onTap: () {
-                          if (state.profileAuthenticated == null) return;
+                          if (setting.profileAuthenticated == null) return;
                           onSubmitReview(
-                              context, state.profileAuthenticated!.id!);
+                              context, setting.profileAuthenticated!.id!);
                         },
                         label: text.submitReview,
                         buttonWidth: 250,

@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
-
 import '../../../../global/routes/route_keys.dart';
+import '../../../global_bloc/settings/app_settings_bloc.dart';
 
 class UserQuickButton extends StatelessWidget {
   final bool isHome;
@@ -41,82 +41,88 @@ class UserQuickButton extends StatelessWidget {
         value: QuickMenu.signOut,
       ),
     ];
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.primaryColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(0),
-        ),
-        border: Border.all(
-          width: 2,
-          color: isHome ? theme.primaryColor : Colors.white,
-        ),
-      ),
-      height: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 0,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton2<QuickMenuItem>(
-          isExpanded: true,
-          hint: Center(
-            child: Text(
-              text.hey("Xuuan Thuccsd "),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: theme.primaryTextTheme.labelLarge?.copyWith(
-                color: Colors.white,
-                decorationColor: Colors.white,
-                decorationThickness: 2,
+    return BlocBuilder<AppSettingsBloc, AppSettingsState>(
+      builder: (context, state) {
+        return Container(
+          decoration: BoxDecoration(
+            color: theme.primaryColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(0),
+            ),
+            border: Border.all(
+              width: 2,
+              color: isHome ? theme.primaryColor : Colors.white,
+            ),
+          ),
+          height: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 0,
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton2<QuickMenuItem>(
+              isExpanded: true,
+              hint: Center(
+                child: Text(
+                  text.hey((state.profileAuthenticated?.lastName ?? "").isEmpty
+                      ? "My Account"
+                      : state.profileAuthenticated?.lastName ?? ''),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: theme.primaryTextTheme.labelLarge?.copyWith(
+                    color: Colors.white,
+                    decorationColor: Colors.white,
+                    decorationThickness: 2,
+                  ),
+                ),
+              ),
+              onChanged: (value) {
+                if (value?.value == QuickMenu.signOut) {
+                  _signOut(context);
+                } else if (value?.value == QuickMenu.profile) {
+                  context.goNamed(RouteKey.profile);
+                } else if (value?.value == QuickMenu.settingAccount) {
+                  context.goNamed(RouteKey.account);
+                } else if (value?.value == QuickMenu.yourRating) {
+                  context.goNamed(RouteKey.yourRating);
+                }
+              },
+              items: items
+                  .map((QuickMenuItem item) => DropdownMenuItem<QuickMenuItem>(
+                        value: item,
+                        child: Text(
+                          item.label,
+                          style: theme.primaryTextTheme.labelLarge,
+                        ),
+                      ))
+                  .toList(),
+              buttonStyleData: ButtonStyleData(
+                width: (text.hey("Xuuan Thuccsd").length * 10),
+              ),
+              iconStyleData: const IconStyleData(iconSize: 0),
+              dropdownStyleData: DropdownStyleData(
+                width: 230,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 1,
+                offset: const Offset(-20, -20),
+                scrollbarTheme: ScrollbarThemeData(
+                  radius: const Radius.circular(40),
+                  thickness: MaterialStateProperty.all(6),
+                  thumbVisibility: MaterialStateProperty.all(true),
+                ),
+              ),
+              menuItemStyleData: const MenuItemStyleData(
+                height: 50,
               ),
             ),
           ),
-          onChanged: (value) {
-            if (value?.value == QuickMenu.signOut) {
-              _signOut(context);
-            } else if (value?.value == QuickMenu.profile) {
-              context.goNamed(RouteKey.profile);
-            } else if (value?.value == QuickMenu.settingAccount) {
-              context.goNamed(RouteKey.account);
-            } else if (value?.value == QuickMenu.yourRating) {
-              context.goNamed(RouteKey.yourRating);
-            }
-          },
-          items: items
-              .map((QuickMenuItem item) => DropdownMenuItem<QuickMenuItem>(
-                    value: item,
-                    child: Text(
-                      item.label,
-                      style: theme.primaryTextTheme.labelLarge,
-                    ),
-                  ))
-              .toList(),
-          buttonStyleData: ButtonStyleData(
-            width: (text.hey("Xuuan Thuccsd").length * 10),
-          ),
-          iconStyleData: const IconStyleData(iconSize: 0),
-          dropdownStyleData: DropdownStyleData(
-            width: 230,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            elevation: 1,
-            offset: const Offset(-20, -20),
-            scrollbarTheme: ScrollbarThemeData(
-              radius: const Radius.circular(40),
-              thickness: MaterialStateProperty.all(6),
-              thumbVisibility: MaterialStateProperty.all(true),
-            ),
-          ),
-          menuItemStyleData: const MenuItemStyleData(
-            height: 50,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

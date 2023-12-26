@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/src/screens/authentication/widgets/text_field_auth.dart';
 import '../../../../global/style/styles.dart';
-import '../../../global_bloc/authentication/authentication_bloc.dart';
+import '../../../global_bloc/settings/app_settings_bloc.dart';
+import '../../../models/request/profile_request.dart';
 import '../../widgets/loading_primary_button.dart';
+import '../../widgets/primary_button.dart';
 import '../../widgets/responsive_builder.dart';
 import 'auth_field_label.dart';
 
@@ -84,12 +88,37 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
             controller: _universityController,
           ),
           const SizedBox(height: 30),
-          LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
-            onTap: () {},
+          LoadingPrimaryButton<AppSettingsBloc, AppSettingsState>(
+            onTap: () {
+              final state = BlocProvider.of<AppSettingsBloc>(context).state;
+              ProfileRaw profile = ProfileRaw(
+                id: state.profileAuthenticated?.id ?? -1,
+                username: state.profileAuthenticated?.username ?? '',
+                firstName: _firstNameController.text,
+                lastName: _lastNameController.text,
+                university: _universityController.text,
+                email: state.profileAuthenticated?.email ?? '',
+              );
+              context
+                  .read<AppSettingsBloc>()
+                  .add(UpdateUserProfileEvent(profile));
+              context.pop();
+            },
             label: text.completeRegister,
             updateLoading: (state) {
-              return (state).isLoading ?? false;
+              return state.status == AppSettingStatus.loading;
             },
+          ),
+          const SizedBox(height: 25),
+          PrimaryButton(
+            onTap: () {
+              context.pop();
+            },
+            hasBorder: false,
+            title: text.skipForNow,
+            isOutline: true,
+            titleTextStyleColor: theme.primaryColor,
+            padding: EdgeInsets.zero,
           ),
           const SizedBox(height: 25),
         ],

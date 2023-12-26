@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:template/global/validators/validators.dart';
+import 'package:template/src/models/request/password_request.dart';
+import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/profile/widgets/edit_button.dart';
-import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../global_bloc/settings/app_settings_bloc.dart';
+import '../../models/request/profile_request.dart';
+import '../widgets/loading_primary_button.dart';
 
-class EditAccount extends StatelessWidget {
+class EditAccount extends StatefulWidget {
   const EditAccount({super.key});
+
+  @override
+  State<EditAccount> createState() => _EditAccountState();
+}
+
+class _EditAccountState extends State<EditAccount> {
+  final _formKey = GlobalKey<FormState>();
+  final _formKeyPass = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = BlocProvider.of<AppSettingsBloc>(context).state;
+      _emailController.text = state.profileAuthenticated?.username ?? '';
+    });
     return SingleChildScrollView(
       child: Center(
         child: Container(
@@ -17,95 +38,144 @@ class EditAccount extends StatelessWidget {
           margin: EdgeInsets.symmetric(
             horizontal: ResponsiveBuilder.setHorizontalPadding(context),
           ),
-          child: Column(
-            children: [
-              SizedBox(height: ResponsiveBuilder.setHorizontalPadding(context)),
-              EditButton(onTap: () {}),
-              const SizedBox(height: 25),
-              SizedBox(
-                height: 100,
-                child: Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LabelField(text.email),
-                        LabelField(text.password),
-                      ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextFieldData(text.enterEmail),
-                          TextFieldData(text.enterPassword),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: Form(
+            key: _formKey,
+            child: Form(
+              key: _formKeyPass,
+              child: Column(
                 children: [
-                  PrimaryButton(onTap: (){}, title: text.updateAccount)
+                  SizedBox(
+                      height: ResponsiveBuilder.setHorizontalPadding(context)),
+                  EditButton(onTap: () {}),
+                  const SizedBox(height: 25),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LabelField(text.email),
+                      Expanded(
+                        child: TextFieldData(
+                          text.enterEmail,
+                          _emailController,
+                          validator: TextFieldValidator.emailValidator,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                        builder: (context, state) {
+                          return LoadingPrimaryButton<AppSettingsBloc,
+                              AppSettingsState>(
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                ProfileRaw profile = ProfileRaw(
+                                  id: state.profileAuthenticated?.id ?? -1,
+                                  username: _emailController.text,
+                                  firstName:
+                                      state.profileAuthenticated?.firstName ??
+                                          '',
+                                  lastName:
+                                      state.profileAuthenticated?.lastName ??
+                                          '',
+                                  university:
+                                      state.profileAuthenticated?.university ??
+                                          '',
+                                  email: _emailController.text,
+                                );
+                                context
+                                    .read<AppSettingsBloc>()
+                                    .add(UpdateUserProfileEvent(profile));
+                              }
+                            },
+                            label: text.updateAccount,
+                            buttonWidth: 250,
+                            updateLoading: (state) {
+                              return (state).status ==
+                                      AppSettingStatus.loading &&
+                                  state.action ==
+                                      AppSettingAction.updateProfile;
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LabelField(text.password),
+                      Expanded(
+                        child: TextFieldData(
+                          text.enterPassword,
+                          _passwordController,
+                          validator: TextFieldValidator.passValidator,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LabelField(text.newPassword),
+                      Expanded(
+                        child: TextFieldData(
+                          text.enterPassword,
+                          _newPasswordController,
+                          validator: TextFieldValidator.passValidator,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                        builder: (context, state) {
+                          return LoadingPrimaryButton<AppSettingsBloc,
+                              AppSettingsState>(
+                            onTap: () {
+                              if (_formKeyPass.currentState!.validate()) {
+                                PasswordRaw password = PasswordRaw(
+                                  currentPassword: _passwordController.text,
+                                  newPassword: _newPasswordController.text,
+                                );
+                                context
+                                    .read<AppSettingsBloc>()
+                                    .add(UpdatePasswordEvent(password));
+                              }
+                            },
+                            label: text.updatePassword,
+                            buttonWidth: 250,
+                            updateLoading: (state) {
+                              return state.status == AppSettingStatus.loading &&
+                                  state.action ==
+                                      AppSettingAction.changePassword;
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              // const SizedBox(height: 500),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-class LabelField extends StatelessWidget {
-  final String label;
-
-  const LabelField(
-      this.label, {
-        super.key,
-      });
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Text(label, style: theme.primaryTextTheme.labelLarge),
-    );
-  }
-}
-
-class TextFieldData extends StatelessWidget {
-  final String hint;
-
-  const TextFieldData(this.hint, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return TextField(
-      style: theme.primaryTextTheme.labelLarge,
-      decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: theme.primaryTextTheme.bodyLarge
-              ?.copyWith(color: AppColors.textGrey),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(width: 1, color: AppColors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(width: 1, color: AppColors.grey),
-          ),
-          isDense: true,
-          contentPadding:
-          const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-    );
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _newPasswordController.dispose();
   }
 }

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/appbar/menu_form.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
 import 'package:template/src/screens/appbar/widgets/menu_appbar_icon.dart';
@@ -28,7 +29,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
   final double _appbarHeight = 60;
 
   void _updateUserProfile(BuildContext context) {
-    context.read<AuthenticationBloc>().add(OnCompleteSignUpEvent());
+    context.read<AppSettingsBloc>().add(GetUserProfileEvent());
   }
 
   Future<void> _showSignUpDialog(BuildContext context) {

@@ -35,11 +35,11 @@ class OnSignUpWithEmailEvent extends AuthenticationEvent {
         signUpRequest,
       ];
 }
-
-class OnCompleteSignUpEvent extends AuthenticationEvent {
-  @override
-  List<Object?> get props => [];
-}
+//
+// class OnCompleteSignUpEvent extends AuthenticationEvent {
+//   @override
+//   List<Object?> get props => [];
+// }
 
 class OnGoogleSignInEvent extends AuthenticationEvent {
   @override

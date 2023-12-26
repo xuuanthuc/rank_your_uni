@@ -10,6 +10,7 @@ import 'package:template/src/screens/authentication/widgets/sign_up_form.dart';
 import 'package:template/src/screens/authentication/widgets/update_user_profile_form.dart';
 import 'package:template/src/screens/widgets/expandable_page_view.dart';
 
+import '../../global_bloc/settings/app_settings_bloc.dart';
 import 'bloc/auth_form_cubit.dart';
 
 class AuthForm extends StatefulWidget {
@@ -42,7 +43,8 @@ class _AuthFormState extends State<AuthForm> {
           context.pop();
         } else if (state.action == AuthenticationAction.signUp &&
             state.isSuccess == true &&
-            state.status == AuthenticationStatus.unauthenticated) {
+            state.status == AuthenticationStatus.authenticated) {
+          context.read<AppSettingsBloc>().add(GetUserProfileEvent());
           _pageController.animateToPage(
             3,
             duration: const Duration(milliseconds: 300),

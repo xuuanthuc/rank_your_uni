@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/utilities/static_variable.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import '../../global_bloc/authentication/authentication_bloc.dart';
 import '../appbar/appbar_common.dart';
 import 'footer_common.dart';
@@ -27,26 +28,34 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child: Scaffold(
-        appBar: AppbarCommon(keyword: widget.keyword),
-        body: CustomScrollView(
-          physics: const ClampingScrollPhysics(),
-          slivers: [
-            SliverList(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listenWhen: (_, cur) => cur.action == AuthenticationAction.refreshToken,
+      listener: (context, state) {
+        if(state.isSuccess == true) {
+          context.read<AppSettingsBloc>().add(GetUserProfileEvent());
+        }
+      },
+      child: SelectionArea(
+        child: Scaffold(
+          appBar: AppbarCommon(keyword: widget.keyword),
+          body: CustomScrollView(
+            physics: const ClampingScrollPhysics(),
+            slivers: [
+              SliverList(
 
-              delegate: SliverChildListDelegate(
-                widget.children,
+                delegate: SliverChildListDelegate(
+                  widget.children,
+                ),
               ),
-            ),
-            const SliverFillRemaining(
-              hasScrollBody: true,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: FooterCommon(),
+              const SliverFillRemaining(
+                hasScrollBody: true,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FooterCommon(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -32,7 +32,7 @@ class Validator {
 
 class TextFieldValidator {
   static String? notEmptyValidator(String? string) {
-    if (string?.trim().isEmpty ?? true) return 'Please enter the value';
+    if (string?.trim().isEmpty ?? true) return 'Vui lòng nhập thông tin';
     return null;
   }
 
@@ -51,7 +51,7 @@ class TextFieldValidator {
   }
 
   static String? emailValidator(String? string) {
-    if (!Validator.isEmail(string?.trim() ?? '')) return 'Invalid email';
+    if (!Validator.isEmail(string?.trim() ?? '')) return 'Email không đúng định dạng';
     return null;
   }
 
@@ -73,6 +73,6 @@ class TextFieldValidator {
     if (string != null && string.length >= 6) {
       return null;
     }
-    return 'Need equal to or more than 6 characters';
+    return 'Mật khẩu phải có ít nhất 6 ký tự';
   }
 }

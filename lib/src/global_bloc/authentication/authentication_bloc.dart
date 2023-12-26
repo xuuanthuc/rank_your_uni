@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
+import 'package:template/global/utilities/static_variable.dart';
 import '../../../global/storage/storage_keys.dart';
 import '../../../global/storage/storage_provider.dart';
 import '../../models/request/sign_in_with_email_request.dart';
 import '../../models/request/sign_up_with_email_request.dart';
-import '../../models/response/profile.dart';
 import '../../repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
@@ -30,7 +30,6 @@ class AuthenticationBloc
     on<OnCheckToken>(onCheckToken);
     on<OnSignOutEvent>(onSignOut);
     on<OnSignUpWithEmailEvent>(onSignUpWithEmail);
-    on<OnCompleteSignUpEvent>(onComplete);
     on<OnGoogleSignInEvent>(onGoogleSignIn);
     on<OnGoogleSignUpEvent>(onGoogleSignUp);
   }
@@ -52,7 +51,6 @@ class AuthenticationBloc
           isSuccess: true,
           status: AuthenticationStatus.authenticated,
           action: AuthenticationAction.refreshToken,
-          profileAuthenticated: res.data,
           isLoading: false,
         ));
       } else {
@@ -93,15 +91,12 @@ class AuthenticationBloc
           .save(StorageKeys.token, res.data["id_token"]);
       await StorageProvider.instance
           .save(StorageKeys.username, event.signInRequest.username);
+      StaticVariable.tokenIsNotChecked = false;
       emit(state.copyWith(
         isSuccess: true,
         status: AuthenticationStatus.authenticated,
         action: AuthenticationAction.signIn,
         isLoading: false,
-        profileAuthenticated: Profile(
-          username: event.signInRequest.username,
-          email: event.signInRequest.username,
-        ),
       ));
     } else {
       emit(state.copyWith(
@@ -178,33 +173,6 @@ class AuthenticationBloc
     // ));
   }
 
-  void onComplete(
-    OnCompleteSignUpEvent event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    if (state.profileAuthenticated == null) return;
-    if (state.isSuccess == true) {
-      final data = await _authRepository
-          .getUserProfile(state.profileAuthenticated!.username!);
-      if (data.isSuccess) {
-        emit(state.copyWith(
-          isSuccess: true,
-          status: AuthenticationStatus.authenticated,
-          action: AuthenticationAction.signIn,
-          profileAuthenticated: data.data,
-          isLoading: false,
-        ));
-      } else {
-        emit(state.copyWith(
-          isError: true,
-          status: AuthenticationStatus.unauthenticated,
-          action: AuthenticationAction.signIn,
-          isLoading: false,
-        ));
-      }
-    }
-  }
-
   void onSignOut(
     OnSignOutEvent event,
     Emitter<AuthenticationState> emit,
@@ -254,15 +222,12 @@ class AuthenticationBloc
       await StorageProvider.instance.save(StorageKeys.token, res.data["token"]);
       await StorageProvider.instance
           .save(StorageKeys.username, event.signUpRequest.email);
+      StaticVariable.tokenIsNotChecked = false;
       emit(state.copyWith(
         isLoading: false,
-        status: AuthenticationStatus.unauthenticated,
+        status: AuthenticationStatus.authenticated,
         action: AuthenticationAction.signUp,
         isSuccess: true,
-        profileAuthenticated: Profile(
-          username: event.signUpRequest.email,
-          email: event.signUpRequest.email,
-        ),
       ));
     } else {
       emit(state.copyWith(

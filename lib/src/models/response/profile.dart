@@ -4,6 +4,7 @@ class Profile {
   String? firstName;
   String? lastName;
   String? username;
+  String? university;
   bool? activated;
 
   Profile({
@@ -11,6 +12,7 @@ class Profile {
     this.email,
     this.firstName,
     this.lastName,
+    this.university,
     this.username,
     this.activated,
   });
@@ -19,6 +21,7 @@ class Profile {
     final id = json["id"];
     final email = json["email"];
     final firstName = json["firstName"];
+    final university = json["university"];
     final lastName = json["lastName"];
     final activated = json["activated"];
     final username = json["login"];
@@ -26,6 +29,7 @@ class Profile {
     return Profile(
       id: id,
       email: email,
+      university: university,
       firstName: firstName,
       lastName: lastName,
       username: username,

@@ -169,5 +169,11 @@
   "invalidEmail": "Địa chỉ email không hợp lệ",
   "invalidPassword": "Mật khẩu phải có ít nhất 6 ký tự",
   "createAnAccount": "Tạo một tài khoản",
-  "youNeedAnAccout": "Bạn cần có một tài khoản để thực hiện hành động này. Hãy đăng nhập hoặc đăng ký một tài khoản nhé."
+  "youNeedAnAccout": "Bạn cần có một tài khoản để thực hiện hành động này. Hãy đăng nhập hoặc đăng ký một tài khoản nhé.",
+  "updateSuccess": "Cập nhật thành công",
+  "yourInfoWillPrivate": "Thông tin của bạn sẽ được bảo mật",
+  "skipForNow": "Không muốn? Tạm thời bỏ qua",
+  "currentPassword": "Mật khẩu",
+  "newPassword": "Mật khẩu mới",
+  "updatePassword": "Cập nhật mật khẩu"
 }

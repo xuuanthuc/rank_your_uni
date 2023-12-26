@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../di/dependencies.dart';
-import '../../global_bloc/authentication/authentication_bloc.dart';
 import '../authentication/auth_form.dart';
 import '../authentication/bloc/auth_form_cubit.dart';
 
@@ -45,7 +44,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
   }
 
   void _updateUserProfile(BuildContext context) {
-    context.read<AuthenticationBloc>().add(OnCompleteSignUpEvent());
+    context.read<AppSettingsBloc>().add(GetUserProfileEvent());
   }
 
   @override

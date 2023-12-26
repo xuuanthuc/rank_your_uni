@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
@@ -236,6 +237,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt.get<AuthenticationBloc>()),
+        BlocProvider(create: (context) => getIt.get<AppSettingsBloc>()),
       ],
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

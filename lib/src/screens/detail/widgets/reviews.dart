@@ -15,10 +15,9 @@ import 'package:template/src/screens/widgets/loading.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/required_login_dialog.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
-import '../../../global_bloc/authentication/authentication_bloc.dart';
+import '../../../global_bloc/settings/app_settings_bloc.dart';
 
 class ReviewsBuilder extends StatelessWidget {
   const ReviewsBuilder({super.key});
@@ -543,14 +542,14 @@ class ReviewContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, auth) {
+        BlocBuilder<AppSettingsBloc, AppSettingsState>(
+          builder: (context, setting) {
             return Row(
               children: [
                 Tooltip(
                   message: text.helpful,
                   child: IconButton(
-                    onPressed: () => onLike(auth.profileAuthenticated?.id),
+                    onPressed: () => onLike(setting.profileAuthenticated?.id),
                     icon: SizedBox(
                       height: 30,
                       width: 30,
@@ -570,7 +569,7 @@ class ReviewContent extends StatelessWidget {
                             );
                           }
                           return (state.review?.liked?.userLiked ?? [])
-                                  .contains(auth.profileAuthenticated?.id ?? -1)
+                                  .contains(setting.profileAuthenticated?.id ?? -1)
                               ? SvgPicture.asset(AppImages.iLiked)
                               : SvgPicture.asset(AppImages.iLike);
                         },
@@ -590,7 +589,7 @@ class ReviewContent extends StatelessWidget {
                 Tooltip(
                   message: text.notHelpful,
                   child: IconButton(
-                    onPressed: () => onDislike(auth.profileAuthenticated?.id),
+                    onPressed: () => onDislike(setting.profileAuthenticated?.id),
                     icon: SizedBox(
                       height: 30,
                       width: 30,
@@ -610,7 +609,7 @@ class ReviewContent extends StatelessWidget {
                             );
                           }
                           return (state.review?.liked?.userDisLiked ?? [])
-                                  .contains(auth.profileAuthenticated?.id ?? -1)
+                                  .contains(setting.profileAuthenticated?.id ?? -1)
                               ? SvgPicture.asset(AppImages.iDisliked)
                               : SvgPicture.asset(AppImages.iDislike);
                         },

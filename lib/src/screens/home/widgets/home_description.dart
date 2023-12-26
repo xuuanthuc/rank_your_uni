@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
@@ -22,7 +23,7 @@ class HomeDescription extends StatefulWidget {
 
 class _HomeDescriptionState extends State<HomeDescription> {
   void _updateUserProfile(BuildContext context) {
-    context.read<AuthenticationBloc>().add(OnCompleteSignUpEvent());
+    context.read<AppSettingsBloc>().add(GetUserProfileEvent());
   }
 
   Future<void> _showSignUpDialog(BuildContext context) {
