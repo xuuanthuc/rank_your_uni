@@ -68,6 +68,7 @@ class _EditProfileState extends State<EditProfile> {
                   label: text.universityName,
                   hintText: text.whatIsYourUniversity,
                   controller: _universityController,
+                  validator: null,
                 ),
                 const SizedBox(height: 40),
                 Row(
