@@ -1,21 +1,28 @@
 part of 'profile_cubit.dart';
 
-enum ProfileStatus { loading, success }
+enum ProfileStatus { loading, success, error }
 
 @immutable
 class ProfileState extends Equatable {
   final QuickMenu? page;
   final ProfileStatus? status;
-  final bool? isEditting;
+  final List<Review>? reviews;
 
-  const ProfileState({this.page, this.status, this.isEditting});
+  const ProfileState({
+    this.page,
+    this.status,
+    this.reviews,
+  });
 
-  ProfileState copyWith(
-      {QuickMenu? page, ProfileStatus? status, bool? isEditting}) {
+  ProfileState copyWith({
+    QuickMenu? page,
+    ProfileStatus? status,
+    List<Review>? reviews,
+  }) {
     return ProfileState(
       page: page ?? this.page,
       status: status ?? this.status,
-      isEditting: isEditting ?? this.isEditting,
+      reviews: reviews ?? this.reviews,
     );
   }
 
@@ -23,6 +30,6 @@ class ProfileState extends Equatable {
   List<Object?> get props => [
         page,
         status,
-        isEditting,
+        reviews,
       ];
 }

@@ -6,4 +6,5 @@ abstract class ApiEndpoint{
   static String get register => '/register';
   static String get profile => '/admin/users';
   static String get password => '/account/change-password';
+  static String get myReviews => '/reviews-of-user';
 }

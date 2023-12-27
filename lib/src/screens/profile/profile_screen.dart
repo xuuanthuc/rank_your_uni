@@ -12,6 +12,8 @@ import 'package:template/src/screens/profile/your_rating.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 
+import '../../../global/validators/validators.dart';
+
 class ProfileScreen extends StatelessWidget {
   final QuickMenu menu;
 
@@ -112,6 +114,7 @@ class _ProfileViewState extends State<ProfileView>
                         labelPadding: EdgeInsets.zero,
                         isScrollable: true,
                         indicatorColor: Colors.transparent,
+                        dividerColor: Colors.transparent,
                         overlayColor:
                             MaterialStateProperty.all(Colors.transparent),
                         tabs: [
@@ -152,25 +155,17 @@ class _ProfileViewState extends State<ProfileView>
           ),
         ),
         BlocBuilder<ProfileCubit, ProfileState>(
+          buildWhen: (pre, cur) => cur.page != pre.page,
           builder: (context, state) {
-            if (state.status == ProfileStatus.loading) {
-              return SizedBox(
-                height: MediaQuery.sizeOf(context).height,
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else {
-              switch (state.page) {
-                case QuickMenu.profile:
-                  return const EditProfile();
-                case QuickMenu.settingAccount:
-                  return const EditAccount();
-                case QuickMenu.yourRating:
-                  return const YourRatings();
-                default:
-                  return Container();
-              }
+            switch (state.page) {
+              case QuickMenu.profile:
+                return const EditProfile();
+              case QuickMenu.settingAccount:
+                return const EditAccount();
+              case QuickMenu.yourRating:
+                return const YourRatings();
+              default:
+                return Container();
             }
           },
         ),
@@ -213,14 +208,13 @@ class TabProfileItem extends StatelessWidget {
   }
 }
 
-
 class LabelField extends StatelessWidget {
   final String label;
 
   const LabelField(
-      this.label, {
-        super.key,
-      });
+    this.label, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -243,13 +237,17 @@ class TextFieldData extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final bool obscureText;
+  final TextInputType? keyboardType;
 
   const TextFieldData(
-      this.hint,
-      this.controller, {
-        super.key,
-        this.validator,
-      });
+    this.hint,
+    this.controller, {
+    super.key,
+    this.validator,
+    this.obscureText = false,
+    this.keyboardType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -258,6 +256,8 @@ class TextFieldData extends StatelessWidget {
       style: theme.primaryTextTheme.labelLarge,
       controller: controller,
       validator: validator,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: theme.primaryTextTheme.bodyLarge
@@ -288,3 +288,58 @@ class TextFieldData extends StatelessWidget {
   }
 }
 
+class RowInfoField extends StatelessWidget {
+  final String label;
+  final String hintText;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final TextInputType? keyboardType;
+
+  const RowInfoField({
+    super.key,
+    required this.label,
+    required this.hintText,
+    required this.controller,
+    this.validator = TextFieldValidator.notEmptyValidator,
+    this.obscureText = false,
+    this.keyboardType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveBuilder(
+      smallView: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LabelField(label),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextFieldData(
+              hintText,
+              controller,
+              validator: validator,
+              obscureText: obscureText,
+              keyboardType: keyboardType,
+            ),
+          )
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LabelField(label),
+          Expanded(
+            child: TextFieldData(
+              hintText,
+              controller,
+              validator: validator,
+              obscureText: obscureText,
+              keyboardType: keyboardType,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

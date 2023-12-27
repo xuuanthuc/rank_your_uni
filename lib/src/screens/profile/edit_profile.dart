@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
-import 'package:template/global/validators/validators.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/request/profile_request.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
@@ -23,14 +22,20 @@ class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context)!;
+  void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final state = BlocProvider.of<AppSettingsBloc>(context).state;
       _firstNameController.text = state.profileAuthenticated?.firstName ?? '';
       _lastNameController.text = state.profileAuthenticated?.lastName ?? '';
       _universityController.text = state.profileAuthenticated?.university ?? '';
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+
     return SingleChildScrollView(
       child: Form(
         key: _formKey,
@@ -47,45 +52,22 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 EditButton(onTap: () {}),
                 const SizedBox(height: 25),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LabelField(text.lastName),
-                    Expanded(
-                      child: TextFieldData(
-                        text.enterLastName,
-                        _lastNameController,
-                        validator: TextFieldValidator.notEmptyValidator,
-                      ),
-                    )
-                  ],
+                RowInfoField(
+                  label: text.lastName,
+                  hintText: text.enterLastName,
+                  controller: _lastNameController,
                 ),
                 const SizedBox(height: 25),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LabelField(text.firstName),
-                    Expanded(
-                      child: TextFieldData(
-                        text.enterFirstName,
-                        _firstNameController,
-                        validator: TextFieldValidator.notEmptyValidator,
-                      ),
-                    )
-                  ],
+                RowInfoField(
+                  label: text.firstName,
+                  hintText: text.enterFirstName,
+                  controller: _firstNameController,
                 ),
                 const SizedBox(height: 25),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LabelField(text.universityName),
-                    Expanded(
-                      child: TextFieldData(
-                        text.whatIsYourUniversity,
-                        _universityController,
-                      ),
-                    )
-                  ],
+                RowInfoField(
+                  label: text.universityName,
+                  hintText: text.whatIsYourUniversity,
+                  controller: _universityController,
                 ),
                 const SizedBox(height: 40),
                 Row(
@@ -121,7 +103,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 500),
+                const SizedBox(height: 200),
               ],
             ),
           ),

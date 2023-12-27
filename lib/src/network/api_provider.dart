@@ -182,7 +182,11 @@ class ApiProvider {
     switch (code) {
       case ErrorCode.HTTP_OK:
       case ErrorCode.HTTP_CREATED:
-        return data;
+        if (data is List<dynamic>) {
+          return {"listItem": data};
+        } else {
+          return data;
+        }
       default:
         throw ResponseException(
           code,
