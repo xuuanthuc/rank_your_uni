@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/primary_button.dart';
@@ -82,10 +83,20 @@ class MenuFormHeader extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          text.hey("Thuc"),
-                          style: theme.primaryTextTheme.displayMedium
-                              ?.copyWith(fontWeight: FontWeight.w900),
+                        BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                          builder: (context, profile) {
+                            return Text(
+                              text.hey(
+                                  (profile.profileAuthenticated?.lastName ?? "")
+                                          .isEmpty
+                                      ? "My Account"
+                                      : profile
+                                              .profileAuthenticated?.lastName ??
+                                          ''),
+                              style: theme.primaryTextTheme.displayMedium
+                                  ?.copyWith(fontWeight: FontWeight.w900),
+                            );
+                          },
                         ),
                         const SizedBox(height: 28),
                         MenuOption(
