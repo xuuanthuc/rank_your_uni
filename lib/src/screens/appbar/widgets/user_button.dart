@@ -67,9 +67,9 @@ class UserQuickButton extends StatelessWidget {
               isExpanded: true,
               hint: Center(
                 child: Text(
-                  text.hey((state.profileAuthenticated?.lastName ?? "").isEmpty
+                  text.hey((state.profileAuthenticated?.firstName ?? "").isEmpty
                       ? "My Account"
-                      : state.profileAuthenticated?.lastName ?? ''),
+                      : state.profileAuthenticated?.firstName ?? ''),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: theme.primaryTextTheme.labelLarge?.copyWith(
@@ -102,9 +102,9 @@ class UserQuickButton extends StatelessWidget {
               buttonStyleData: ButtonStyleData(
                 width: (text
                         .hey(
-                            (state.profileAuthenticated?.lastName ?? "").isEmpty
+                            (state.profileAuthenticated?.firstName ?? "").isEmpty
                                 ? "My Account"
-                                : state.profileAuthenticated?.lastName ?? '')
+                                : state.profileAuthenticated?.firstName ?? '')
                         .length *
                     10),
               ),
