@@ -99,7 +99,7 @@ class _ProfileViewState extends State<ProfileView>
                           builder: (context, state) {
                             return Text(
                               text.hey(
-                                  "${state.profileAuthenticated?.lastName} ${state.profileAuthenticated?.firstName}"),
+                                  "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
                               style: theme.primaryTextTheme.displayLarge,
                             );
                           },
