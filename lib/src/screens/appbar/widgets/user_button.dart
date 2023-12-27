@@ -101,8 +101,10 @@ class UserQuickButton extends StatelessWidget {
                   .toList(),
               buttonStyleData: ButtonStyleData(
                 width: (text
-                        .hey(state.profileAuthenticated?.lastName ??
-                            'My account')
+                        .hey(
+                            (state.profileAuthenticated?.lastName ?? "").isEmpty
+                                ? "My Account"
+                                : state.profileAuthenticated?.lastName ?? '')
                         .length *
                     10),
               ),
