@@ -87,11 +87,11 @@ class MenuFormHeader extends StatelessWidget {
                           builder: (context, profile) {
                             return Text(
                               text.hey(
-                                  (profile.profileAuthenticated?.lastName ?? "")
+                                  (profile.profileAuthenticated?.firstName ?? "")
                                           .isEmpty
                                       ? "My Account"
                                       : profile
-                                              .profileAuthenticated?.lastName ??
+                                              .profileAuthenticated?.firstName ??
                                           ''),
                               style: theme.primaryTextTheme.displayMedium
                                   ?.copyWith(
