@@ -94,7 +94,9 @@ class MenuFormHeader extends StatelessWidget {
                                               .profileAuthenticated?.lastName ??
                                           ''),
                               style: theme.primaryTextTheme.displayMedium
-                                  ?.copyWith(fontWeight: FontWeight.w900),
+                                  ?.copyWith(
+                                fontWeight: FontWeight.w900,
+                              ),
                             );
                           },
                         ),

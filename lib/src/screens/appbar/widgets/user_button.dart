@@ -100,7 +100,11 @@ class UserQuickButton extends StatelessWidget {
                       ))
                   .toList(),
               buttonStyleData: ButtonStyleData(
-                width: (text.hey("Xuuan Thuccsd").length * 10),
+                width: (text
+                        .hey(state.profileAuthenticated?.lastName ??
+                            'My account')
+                        .length *
+                    10),
               ),
               iconStyleData: const IconStyleData(iconSize: 0),
               dropdownStyleData: DropdownStyleData(
