@@ -96,8 +96,7 @@ class _ProfileViewState extends State<ProfileView>
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 40),
-                          child:
-                              BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                          child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
                             builder: (context, state) {
                               return Text(
                                 text.hey(
@@ -242,6 +241,7 @@ class TextFieldData extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final int? maxLength;
 
   const TextFieldData(
     this.hint,
@@ -250,6 +250,7 @@ class TextFieldData extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.keyboardType,
+    this.maxLength,
   });
 
   @override
@@ -261,8 +262,10 @@ class TextFieldData extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      maxLength: maxLength,
       decoration: InputDecoration(
         hintText: hint,
+        counterText: "",
         hintStyle: theme.primaryTextTheme.bodyLarge
             ?.copyWith(color: AppColors.textGrey),
         enabledBorder: OutlineInputBorder(
@@ -298,6 +301,7 @@ class RowInfoField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final int? maxLength;
 
   const RowInfoField({
     super.key,
@@ -307,6 +311,7 @@ class RowInfoField extends StatelessWidget {
     this.validator = TextFieldValidator.notEmptyValidator,
     this.obscureText = false,
     this.keyboardType,
+    this.maxLength,
   });
 
   @override
@@ -324,6 +329,7 @@ class RowInfoField extends StatelessWidget {
               validator: validator,
               obscureText: obscureText,
               keyboardType: keyboardType,
+              maxLength: maxLength,
             ),
           )
         ],
@@ -339,6 +345,7 @@ class RowInfoField extends StatelessWidget {
               validator: validator,
               obscureText: obscureText,
               keyboardType: keyboardType,
+              maxLength: maxLength,
             ),
           )
         ],

@@ -7,7 +7,6 @@ import '../../../global_bloc/settings/app_settings_bloc.dart';
 import '../../../models/request/profile_request.dart';
 import '../../widgets/loading_primary_button.dart';
 import '../../widgets/primary_button.dart';
-import '../../widgets/responsive_builder.dart';
 import 'auth_field_label.dart';
 
 class UpdateUserProfileForm extends StatefulWidget {
@@ -54,6 +53,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
           text: text,
           hintText: text.enterLastName,
           controller: _lastNameController,
+          maxLength: 20,
         ),
         const SizedBox(height: 25),
         AuthFormLabel(
@@ -65,6 +65,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
           text: text,
           hintText: text.enterFirstName,
           controller: _firstNameController,
+          maxLength: 10,
         ),
         const SizedBox(height: 25),
         AuthFormLabel(

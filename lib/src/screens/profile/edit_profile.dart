@@ -7,7 +7,6 @@ import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/profile/widgets/edit_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../widgets/loading_primary_button.dart';
-import '../widgets/required_login_dialog.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -21,16 +20,6 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _universityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  void _showNoticeMustLoginDialog(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      barrierColor: Colors.black12,
-      builder: (BuildContext context) {
-        return const NoticeMustLoginDialog(about: NoticeAbout.manager);
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -76,12 +65,14 @@ class _EditProfileState extends State<EditProfile> {
                     label: text.lastName,
                     hintText: text.enterLastName,
                     controller: _lastNameController,
+                    maxLength: 20,
                   ),
                   const SizedBox(height: 25),
                   RowInfoField(
                     label: text.firstName,
                     hintText: text.enterFirstName,
                     controller: _firstNameController,
+                    maxLength: 10,
                   ),
                   const SizedBox(height: 25),
                   RowInfoField(
@@ -89,6 +80,7 @@ class _EditProfileState extends State<EditProfile> {
                     hintText: text.whatIsYourUniversity,
                     controller: _universityController,
                     validator: null,
+                    maxLength: 100,
                   ),
                   const SizedBox(height: 40),
                   Row(

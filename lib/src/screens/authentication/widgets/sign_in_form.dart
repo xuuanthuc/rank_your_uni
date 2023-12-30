@@ -8,7 +8,6 @@ import '../../../global_bloc/authentication/authentication_bloc.dart';
 import '../../../models/request/sign_in_with_email_request.dart';
 import '../../widgets/loading_primary_button.dart';
 import '../../widgets/primary_button.dart';
-import '../../widgets/responsive_builder.dart';
 import 'auth_field_label.dart';
 import 'google_auth_button.dart';
 

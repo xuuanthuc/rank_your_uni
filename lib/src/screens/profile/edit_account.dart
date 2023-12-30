@@ -67,6 +67,7 @@ class _EditAccountState extends State<EditAccount> {
                         hintText: text.enterEmail,
                         controller: _emailController,
                         validator: TextFieldValidator.emailValidator,
+                        maxLength: 80,
                       ),
                       const SizedBox(height: 40),
                       Row(

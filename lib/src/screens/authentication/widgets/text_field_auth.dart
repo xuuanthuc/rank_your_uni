@@ -10,6 +10,8 @@ class AuthTextField extends StatefulWidget {
   final TextInputType textInputType;
   final bool obscureText;
   final Function? onEditingComplete;
+  final int? maxLength;
+
 
   const AuthTextField.email({
     super.key,
@@ -20,6 +22,7 @@ class AuthTextField extends StatefulWidget {
     this.textInputType = TextInputType.emailAddress,
     this.obscureText = false,
     this.onEditingComplete,
+    this.maxLength = 80,
   });
 
   const AuthTextField.password({
@@ -31,6 +34,7 @@ class AuthTextField extends StatefulWidget {
     this.textInputType = TextInputType.visiblePassword,
     this.obscureText = true,
     this.onEditingComplete,
+    this.maxLength = 80,
   });
 
   const AuthTextField.normal({
@@ -42,6 +46,7 @@ class AuthTextField extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.obscureText = false,
     this.onEditingComplete,
+    this.maxLength = 100,
   });
 
   @override
@@ -78,8 +83,10 @@ class _AuthTextFieldState extends State<AuthTextField> {
               widget.onEditingComplete!();
             }
           : null,
+      maxLength: widget.maxLength,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        counterText: "",
         hintStyle: widget.theme.primaryTextTheme.bodyLarge
             ?.copyWith(color: AppColors.textGrey),
         suffixIcon: widget.textInputType == TextInputType.visiblePassword
