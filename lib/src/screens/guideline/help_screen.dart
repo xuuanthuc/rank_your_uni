@@ -160,11 +160,13 @@ class _HelpViewState extends State<HelpView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          height: 1,
-                                          color: Colors.grey,
+                                        Padding(
+                                          padding: const EdgeInsets.all(30),
+                                          child: Container(
+                                            height: 1,
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                        const SizedBox(height: 30),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 30,

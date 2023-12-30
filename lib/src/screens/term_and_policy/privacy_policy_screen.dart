@@ -28,7 +28,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 NormalContent("Chính Sách Bảo Mật"),
                 Gap(),
                 NormalContent(
-                    "Đây là chính sách bảo mật nơi mà chúng tôi mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [www.rankyouruni.com](http://www.rankyouruni.com) được sở hữu và vận hành bởi các quản trị viên của chúng tôi"),
+                    "Đây là chính sách bảo mật nơi mà chúng tôi mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [http://www.rankyouruni.com] được sở hữu và vận hành bởi các quản trị viên của chúng tôi"),
                 Gap(),
                 TitleContent(
                     "Chính sách bảo mật nay bao gồm những mục lục sau:"),
@@ -259,115 +259,165 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 NormalContent(
                     "Ngay cả khi tài khoản được người dùng huỷ kích hoạt, người dùng vẫn sẽ nhận được email từ chúng tôi trừ khi người dùng thực hiện các tuỳ chọn từ chối mà chúng tôi đề cập ở trên. Ngay cả khi bạn thực hiện các quyền từ chối được mô tả ở trên, chúng tôi vẫn có thể tiếp tục liên hệ với các bạn vì các mục đích khác được mô tả trong mục 4"),
                 Gap(),
-                NormalContent('Các sự lựa chọn ở trên đã bao gồm cookie trình duyệt do trang web của chúng tôi. Các cookie khác không được kiểm soát (hay còn được gọi là cookie của bên thứ 3) sẽ không do chúng tôi kiểm soát và sẽ không chịu trách nhiệm về việc vận hành của các cookie của các trình duyệt khác'),Gap(),
-                DotLine('Các công cụ dựa vào cookie trình duyệt internet để ghi nhớ các sự lựa chọn của người dùng. Nếu người dùng lựa chọn xoá hoặc chỉnh sửa cookie ở trong trình duyệt web, người dùng có thể phải chỉnh sửa, xoá hoặt thiết lập lại các sự lựa chọn cookie cá nhân khi có những sự thay đổi mới ở trong tương lai'),Gap(),
-                DotLine('Lưu ý, việc xoá cookie cho một trình duyệt không đồng nghĩa với việc cookie cũng sẽ bị xoá trên các trình duyệt khác'),Gap(),
-                DotLine('Một vài trình duyệt có thể mặc định vô hiệu hoá Cookie (VD: Safari). Điều này có thể ảnh hưởng đến dịch vụ tương tác hoặc các dịch vụ khác mà chúng tôi hoặc bên thứ ba mang lại (VD: quảng cáo)'),Gap(),
-                DotLine('Người dùng vẫn có thể nhìn thấy quảng cáo trên trang Web của chúng tôi. Việc vô hiệu hoá cookie không đồng nghĩa là người dùng sẽ không còn nhìn thấy quảng cáo của chúng tôi. Việc xoá cookie chỉ có nghĩa là những quảng cảo trên trang web của chúng tôi sẽ không được điều chỉnh để phù hợp với sở thích hoặc thói quen của bạn nữa và người dùng có thể sẽ nhìn thấy những quảng cáo lặp đi lặp lại của chúng tôi'),Gap(),
-                TitleContent('6. Chia sẻ và sử dụng thông tin'),Gap(),
+                NormalContent(
+                    'Các sự lựa chọn ở trên đã bao gồm cookie trình duyệt do trang web của chúng tôi. Các cookie khác không được kiểm soát (hay còn được gọi là cookie của bên thứ 3) sẽ không do chúng tôi kiểm soát và sẽ không chịu trách nhiệm về việc vận hành của các cookie của các trình duyệt khác'),
+                Gap(),
+                DotLine(
+                    'Các công cụ dựa vào cookie trình duyệt internet để ghi nhớ các sự lựa chọn của người dùng. Nếu người dùng lựa chọn xoá hoặc chỉnh sửa cookie ở trong trình duyệt web, người dùng có thể phải chỉnh sửa, xoá hoặt thiết lập lại các sự lựa chọn cookie cá nhân khi có những sự thay đổi mới ở trong tương lai'),
+                Gap(),
+                DotLine(
+                    'Lưu ý, việc xoá cookie cho một trình duyệt không đồng nghĩa với việc cookie cũng sẽ bị xoá trên các trình duyệt khác'),
+                Gap(),
+                DotLine(
+                    'Một vài trình duyệt có thể mặc định vô hiệu hoá Cookie (VD: Safari). Điều này có thể ảnh hưởng đến dịch vụ tương tác hoặc các dịch vụ khác mà chúng tôi hoặc bên thứ ba mang lại (VD: quảng cáo)'),
+                Gap(),
+                DotLine(
+                    'Người dùng vẫn có thể nhìn thấy quảng cáo trên trang Web của chúng tôi. Việc vô hiệu hoá cookie không đồng nghĩa là người dùng sẽ không còn nhìn thấy quảng cáo của chúng tôi. Việc xoá cookie chỉ có nghĩa là những quảng cảo trên trang web của chúng tôi sẽ không được điều chỉnh để phù hợp với sở thích hoặc thói quen của bạn nữa và người dùng có thể sẽ nhìn thấy những quảng cáo lặp đi lặp lại của chúng tôi'),
+                Gap(),
+                TitleContent('6. Chia sẻ và sử dụng thông tin'),
+                Gap(),
+                TitleContent(
+                    'Việc chia sẽ và sử dụng thông tin. Chúng tôi có thể chia sẻ thông tin cá nhân của người dùng đối với bên thứ ba dưới một vài trường hợp sau đây:'),
+                Gap(),
+                DotLine(
+                    "Chia sẻ và sử dụng cho việc marketing. Thông tin có thể được tiết lộ với mục đích marketing, quản lí và mục đích khác. Người dùng có thể lựa chọn huỷ bằng các phương pháp đã được nêu ở mục 5.0"),
+                Gap(),
+                DotLine(
+                    "Chia sẻ và sử dụng cho một vài thông tin hiện trên trang. Một số thông tin cá nhân liên quan tới việc đánh giá có thể sẽ được tiết lộ (ví dụ: đánh giá, tên tài khoản đánh giá, ngày tháng..)"),
+                Gap(),
+                DotLine(
+                    "Chia sẻ và sử dụng các dịch vụ và tính năng bên thứ ba - đồng thương hiệu. Trang web cũng có thể cung cấp các dịch vụ và tính năng ví dụ như sự kiện hoặc khuyến mãi mà chúng tôi kết hợp với bên thứ ba và có thể được lưu trữ và trên trang web và tổ chức bởi đối tác cùng nhãn hiệu. Đối tác cùng nhãn hiệu có trách nhiệm thông báo phương thức để người dùng có sự lựa chọn về việc không tham gia việc sử dụng thông tin cá nhân. Người dùng cần liên hệ trực tiếp đến các bên đồng thương hiệu và tuân thủ các chính sách mà bên thứ ba thiết lập"),
+                Gap(),
+                NormalContent(
+                    "Về việc sử dụng thông tin, bên thứ ba có thể sử dụng thông tin cá nhân để liên hệ với người dùng trong trường hợp cần xác minh và điều kiện nếu người dùng là một trong những người chiến thắng trong các chương trình mà chúng tôi và bên thứ ba tổ chức"),
+                Gap(),
+                DotLine(
+                    "Chia sẻ cho các nhà cung cấp dịch vụ vận hành trang. Chúng tôi có quyền chia sẻ thông tin dữ liệu cho các nhà cung cấp dịch vụ web (Operational Service Providers) với mục đích quản lý và vận hành trang web. Chúng tôi sử dụng các nhà cung cấp dịch vụ web cho mục đích xây dựng trang, vận hành nội dung, hoạt động, xây dựng tính năng và các dịch vụ khác mà chúng tôi mang tới người dùng"),
+                Gap(),
+                DotLine(
+                    "Chia sẻ cho một vài bên thứ ba nhất định. Bổ sung về việc chia sẻ thông tin, chúng tôi sẽ cung cấp thông tin cá nhân của người dùng cho một số bên thứ ba nhất định trong các trường hợp hạn chế sau"),
+                Gap(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    children: [
+                      DotLine(
+                          "Khi chúng tôi được yêu cầu bởi cơ quan chính phủ, toà án hoặc tổ chức có thẩm quyền của đất nước Việt Nam, nhằm đáp ứng phục vụ việc hầu toà, lệnh của toà án hoặc các thủ tục pháp lý như một phần của yêu cầu điều tra"),
+                      Gap(),
+                      DotLine(
+                          "Nếu chúng tôi tin rằng hành động của bạn vi phạm bất kỳ luật, quy tắc, quy định nào hoặc thỏa thuận điều khoản sử dụng, bao gồm nhưng không giới hạn ở chính sách quyền riêng tư này hoặc điều khoản bổ sung mà chúng tôi đưa ra"),
+                      Gap(),
+                      DotLine(
+                          "Liên quan đến chương trình khuyến mãi, khi cần thiết để quản lý chương trình khuyến mãi hoặc theo yêu cầu của luật, quy tắc hoặc quy định hiện hành (ví dụ: để cung cấp danh sách người chiến thắng hoặc lập hồ sơ cần thiết nếu thích hợp)"),
+                      Gap(),
+                      DotLine(
+                          "Nếu bạn đồng ý chia sẻ Thông tin cá nhân của mình hoặc tiết lộ cho bên thứ ba để tiếp thị hoặc cho các mục đích khác, trong trường hợp đó, việc bên thứ ba sử dụng Thông tin cá nhân của bạn phải tuân theo chính sách quyền riêng tư của bên thứ ba"),
+                      Gap(),
+                      DotLine(
+                          "Nếu, theo quyết định riêng của chúng tôi và chúng tôi tin rằng việc tiết lộ đó là cần thiết hoặc phù hợp:"),
+                      Gap(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Column(
+                          children: [
+                            DotLine(
+                                "để điều tra hoặc giải quyết các vấn đề hoặc thắc mắc có thể xảy ra"),
+                            Gap(),
+                            DotLine(
+                                "để bảo vệ hoạt động kinh doanh và tài sản của chúng tôi hoặc các quyền, tài sản hoặc sự an toàn của Rank Your UNi hoặc bất kỳ nhà cung cấp dịch vụ vận hành, người cấp phép, nhà cung cấp, Nhà quảng cáo, khách hàng, người dùng hoặc bất kỳ bên nào khác"),
+                            Gap(),
+                            DotLine(
+                                "để hạn chế trách nhiệm pháp lý của chúng tôi"),
+                            Gap(),
+                            DotLine("để bảo vệ lợi ích của chúng tôi"),
+                            Gap(),
+                            DotLine(
+                                "để thực thi chính sách quyền riêng tư này hoặc thỏa thuận điều khoản sử dụng hoặc để tuân thủ các nghĩa vụ pháp lý, quy định, kiểm toán và tuân thủ của chúng tôi hoặc các yêu cầu của cơ quan thực thi pháp luật hoặc các cơ quan chính phủ khác"),
+                            Gap(),
+                            DotLine(
+                                "Trong trường hợp phá sản, sáp nhập, mua lại, bán, chuyển giao quyền kiểm soát, liên doanh hoặc kết hợp kinh doanh khác liên quan đến chúng tôi"),
+                            Gap(),
+                          ],
+                        ),
+                      ),
+                      DotLine(
+                          "Tiết lộ cho các danh nghiệp tiếp thị liên kết. Chúng tôi có thể chia sẻ thông tin với các doanh nghiệp tiếp thị liên kết hoặc cơ sở kinh doanh khác của Rank Your UNi. Chúng tôi làm điều này để cung cấp hoặc cải thiện dịch vụ"),
+                      Gap(),
+
+                    ],
+                  ),
+                ),
+                NormalContent(
+                    'Chia sẻ và tiết lộ thông tin không được xác định danh tính. Chúng tôi có thể chia sẻ Thông tin không xác định với hoặc tiết lộ Thông tin không xác định cho các bên thứ ba, nhưng chúng tôi không tiết lộ Thông tin cá nhân cho họ ngoại trừ những thông tin được mô tả trong Chính sách quyền riêng tư này'),
+                Gap(),
+                TitleContent(
+                    '7. Chỉnh sửa, xoá một số thông tin, dữ liệu nhất định'),
+                Gap(),
+                DotLine(
+                    'Đăng kí tài khoản. Nếu người dùng đăng kí tài khoản để sử dụng trang web của chúng tôi. Việc đăng kí tài khoản giúp người dùng có thể dễ dàng cập nhật hoặc xoá một số thông tin nhất định được cung cấp bởi người dùng tới trang web. Tuy nhiên, sẽ có một vài thông tin cá nhân cần thiết được sử dụng để kiểm tra rằng người dùng đủ điều kiện (ví dụ: ngày sinh, tuổi) sẽ không thể bị xoá nhưng có thể được sửa đổi khi thông tin được xác minh đầy đủ và chính xác'),
+                Gap(),
+                DotLine(
+                    'Các sự lựa chọn khác. Đối với các tải khoản đăng kí của người dùng, với tư cách là thành viên đăng kí của RYU, chúng tôi có thể cung cấp các sự lựa chọn về việc họ nhận được một số thông báo nhất định và các có thể chia sẻ các hoạt động người dùng tham gia trên trang web'),
+                Gap(),
+                DotLine(
+                    'Hạn chế. Một số thông tin nhất định được thu thập trong lúc người dùng tham gia vào các chương trình khuyến mãi hoặc dịch vụ của chúng tôi sẽ phải tuân theo các yêu cầu về việc lưu trữ thông tin, hồ sơ của người dùng và sẽ không bị xoá theo yêu câu của người dùng, trừ khi người dùng dưới 16 tuổi hoặc các trường hợp nhất định khác'),
+                Gap(),
+                DotLine(
+                    'Những đối tượng không được khuyến khích sử dụng trang. Người dùng của chúng tôi được khuyến cáo phải ít nhất từ 17 tuổi để sử dụng trang. Nếu chúng tôi vô tình gửi email hoặc tin nhắn văn bản cho một số người dùng không đáp ứng về các yêu cầu về độ tuổi hoặc các điều kiện khác (người dưới 17 tuổi). Người bảo hộ (ví dụ: phụ huynh), có thể huỷ đăng kí hoặc lựa chọn không tham gia nhận email thông qua cơ chế huỷ đăng kí trong email hoặc tin nhắn hoặc các quy trình huỷ đăng kí tương tự mà chúng tôi nêu ở phía trên'),
+                Gap(),
+                NormalContent(
+                    'Ngoài ra, việc chấm dứt tư cách thành viên do không đủ điều kiện về độ tuổi. Người dùng cần sử dụng thẻ căn cước để xác minh quyền truy cập trực tiếp vào tài khoản và làm theo các quy trình. Hãy liên hệ với chúng tôi qua trang web, tại phần liên hệ'),
+                Gap(),
+                TitleContent('8. Bảo vệ thông tin'),
+                Gap(),
+                NormalContent(
+                    'Mặc dù các thông tin về dữ liệu trên mạng là không an toàn 100%, nhưng chúng tôi vẫn sử dụng các dịch vụ bảo vệ về mặt vật lý, điện tử, dữ liệu và các hoạt động thương mại để bảo vệ thông tin của bạn. Tuy nhiên, bất kể nỗ lực của chúng tôi và thiết bị người dùng sử dụng để truy cập trang đều có thể có khả năng bị tấn công với mục đích xấu từ bên thứ ba. Nhưng chúng tôi đảm bảo rằng các liên quan tới giao dịch online đều được bảo vệ'),
+                Gap(),
+                NormalContent(
+                    'Hơn nữa, chúng tôi hạn chế quyền truy cập của nhân viên đối với trang web của chúng tôi. Những cá nhân được uỷ quyền cho việc xử lý thông tin sẽ chịu trách nhiệm về pháp luật hoặc bất kì các hình phạt khác nếu bị phát hiện vi phạm các tiêu chuẩn yêu cầu về bảo mật chúng tôi. Và chúng tôi yêu cầu các nhà cung cấp dịch vụ vận hành của chúng tôi tuân theo các tiêu chuẩn tương tự về bảo mật'),
+                Gap(),
+                NormalContent('Thuật ngữ Phishing:'),
+                Gap(),
+                DotLine(
+                    'Là hình thức tấn công mạng mà kẻ tấn công giả mạo chúng tôi (RYU) để lừa đảo người dùng cung cấp thông tin cá nhân cho kẻ lừa đảo. Phương thức này thường được tin tặc thực hiện thông qua email và tin nhắn. Người dùng khi mở các email, hoặc đường link giả mạo này có thể sẽ được yêu cầu cung cấp các thông tin cá nhân nhạy cảm như: tài khoản & mật khẩu, mật khẩu giao dịch, thẻ tín dụng hoặc các thông tin quý giá khác'),
+                Gap(),
+                NormalContent(
+                    'CHÚNG TÔI KHÔNG GỬI EMAIL YÊU CẦU BẠN CUNG CẤP HOẶC XÁC NHẬN CÁC THÔNG TIN LIÊN QUAN TỚI SỐ THẺ TÍN DỤNG, MẬT KHẨU CỦA NGƯỜI DÙNG!'),
+                Gap(),
+                NormalContent(
+                    'Nếu bạn nhận được thông tin liên lạc qua email như vậy không làm theo. Vui lòng liên hệ với chúng tôi qua địa chỉ email rankyouruni@outlook.com'),
+                Gap(),
+                TitleContent(
+                    '9. Chính sách bảo mật này giải thích các Rank Your UNi thu thập, sử dụng, chia sẻ dữ liệu cá nhân của bạn khi sử dụng trang web của chúng tôi hoặc tương tác với website. Dữ liệu cá nhân là bất kì thông tin nào về người dùng dùng để nhận dạng. Bao gồm các thông tin như:'),
+                Gap(),
+                DotLine('Tên, địa chỉ email'),
+                Gap(),
+                DotLine(
+                    'Thông tin về thiết bị đăng nhập (IP, mã quốc gia, khu vực thành phố)'),
+                Gap(),
+                DotLine(
+                    'Thông tin liên quan tới cách người dùng sử dụng hoặc tương tác với trang web và dịch vụ được cung cấp bởi chúng tôi'),
+                Gap(),
+                DotLine(
+                    'Đối với những trường hợp liên kết tới các trang web hoặc ứng dụng không phải của Rank Your UNi, người dùng nên đọc chính sách bảo mật của riêng chúng'),
+                Gap(),
+                TitleContent('10. Các điều khoản phù hợp khác'),
+                Gap(),
+                DotLine(
+                    'Thay đổi chính sách và quyền riêng tư. Chúng tôi hoàn toàn có quyền thay đổi, sửa đổi chính sách quyền riêng tư này bất kì lúc nào vì bất kì lý do gì mà không cần cập nhập hoặc thông báo trước cho người dùng. Những sửa đổi như vậy sẽ có hiệu lực ngay khi đăng và áp dụng với người dùng'),
+                Gap(),
+                DotLine(
+                    'Chúng tôi sẽ hiển thị những thông báo về những thay đổi quan trọng trên trang chủ hoặc trang web hoặc email để thông báo cho người dùng đã được đăng kí về những thay đổi này'),
+                Gap(),
+                DotLine(
+                    'Chúng tôi khuyến khích người dùng thường xuyên ghé thăm chính sách quyền riêng tư và thoả thuận điều khoản sử dụng để cập nhật những thông tin mới nhất'),
+                Gap(),
+                NormalContent(
+                    'Có hiệu lực kể từ ngày 8, tháng 12, năm 2023'),
               ],
             ),
           ),
         ),
-        Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: Public.laptopSize),
-            child: const Text('''
-    
-                5.2.1. Từ chối các công nghệ theo dõi từ bên thứ ba, các nhà dịch vụ cung cấp dịch vụ khác. Các phầm mềm từ bên thứ ba, nhà cung cấp dịch vụ có thể thu thập thông tin về bạn khi truy cập trang chúng tôi và nhấn vào quảng cáo. Thông tin được sử dụng để tuỳ chỉnh nhằm xác địch các sản phẩm mà người dùng có thể quan tâm hoặc phù hợp với người dùng. Các tuỳ chọn về việc từ chối của người dùng liên quan tới việc này được mô tả ở dưới sau đây:
-                
-                - Người dùng có thể sử dụng các công cụ từ chối như ở một vài bên thứ ba ví dụ như DoubleClick tool tại https://www.google.com/intl/en/policies/privacy/#infochoices. Lưu ý nếu cookie trình duyệt của bên thứ ba bị vô hiệu hoá (dù tự khởi động bởi trình duyệt hoặc thiết bị, hoặc xoá cookie trình duyệt bởi người dùng ), các sự lựa chọn từ chối từ trước đó có thể không hoạt động và người dùng cần bật cookie của bên thứ ba, hoặc từ chối lại để các sự lựa chọn từ chối hoạt động.
-                - Người dùng cũng có thể từ chối bằng việc thay đổi ở trong phần cài đặt của thiết bị trình duyệt (IE, Chrome, Safari, Firefox) để kiểm soát thông tin cookie.
-                
-                Thông tin thêm về việc kiểm soát cookies:
-                
-                - Người dùng có thể tham khảo thêm về việc kiểm soát Cookie bằng cách ngăn chặn hoặc thực hiện các lựa chọn liên quan tới Cookie cho trình duyệt mà họ đang sử dụng (IE, Chrome, Safari, FireFox)
-                - Nếu trình duyệt internet của người dùng không được liệt kê ở trên, họ có thể:
-                    - Xoá Cookie trình duyệt hiện có, thông qua “Tuỳ chọn internet”, “Cài đặt”, hoặc bất kì các sự lựa chọn nào tương tự trong menu cài đặt của trình duyệt. Tất cả cookie của trình duyệt sẽ được xoá nhưng không đồng nghĩa với việc cookie sẽ không được sử dụng trong tương lai.
-                    - Sử dụng thiết bị cảnh báo người dùng mỗi khi truy cập trang web để cảnh báo họ về việc sử dụng cookie.
-                    - Tìm kiếm thêm thông tin bổ sung từ nhà cung cấp trình duyệt.
-         
-                
-                6.1 Việc chia sẽ và sử dụng thông tin. Chúng tôi có thể chia sẻ thông tin cá nhân của người dùng đối với bên thứ ba dưới một vài trường hợp sau đây:
-                
-                6.1.1 Chia sẻ và sử dụng cho việc marketing. Thông tin có thể được tiết lộ với mục đích marketing, quản lí và mục đích khác. Người dùng có thể lựa chọn huỷ bằng các phương pháp đã được nêu ở mục 5.0
-                
-                6.1.2. Chia sẻ và sử dụng cho một vài thông tin hiện trên trang. Một số thông tin cá nhân liên quan tới việc đánh giá có thể sẽ được tiết lộ (ví dụ: đánh giá, tên tài khoản đánh giá, ngày tháng..)
-                
-                6.1.3. Chia sẻ và sử dụng các dịch vụ và tính năng bên thứ ba - đồng thương hiệu. Trang web cũng có thể cung cấp các dịch vụ và tính năng ví dụ như sự kiện hoặc khuyến mãi mà chúng tôi kết hợp với bên thứ ba và có thể được lưu trữ và trên trang web và tổ chức bởi đối tác cùng nhãn hiệu. Đối tác cùng nhãn hiệu có trách nhiệm thông báo phương thức để người dùng có sự lựa chọn về việc không tham gia việc sử dụng thông tin cá nhân. Người dùng cần liên hệ trực tiếp đến các bên đồng thương hiệu và tuân thủ các chính sách mà bên thứ ba thiết lập.
-                
-                Về việc sử dụng thông tin, bên thứ ba có thể sử dụng thông tin cá nhân để liên hệ với người dùng trong trường hợp cần xác minh và điều kiện nếu người dùng là một trong những người chiến thắng trong các chương trình mà chúng tôi và bên thứ ba tổ chức.
-                
-                6.1.4 Chia sẻ cho các nhà cung cấp dịch vụ vận hành trang. Chúng tôi có quyền chia sẻ thông tin dữ liệu cho các nhà cung cấp dịch vụ web (Operational Service Providers) với mục đích quản lý và vận hành trang web. Chúng tôi sử dụng các nhà cung cấp dịch vụ web cho mục đích xây dựng trang, vận hành nội dung, hoạt động, xây dựng tính năng và các dịch vụ khác mà chúng tôi mang tới người dùng.
-                
-                6.1.5 Chia sẻ cho một vài bên thứ ba nhất định. Bổ sung về việc chia sẻ thông tin, chúng tôi sẽ cung cấp thông tin cá nhân của người dùng cho một số bên thứ ba nhất định trong các trường hợp hạn chế sau:
-                
-                - Khi chúng tôi được yêu cầu bởi cơ quan chính phủ, toà án hoặc tổ chức có thẩm quyền của đất nước Việt Nam, nhằm đáp ứng phục vụ việc hầu toà, lệnh của toà án hoặc các thủ tục pháp lý như một phần của yêu cầu điều tra.
-                - Nếu chúng tôi tin rằng hành động của bạn vi phạm bất kỳ luật, quy tắc, quy định nào hoặc thỏa thuận điều khoản sử dụng, bao gồm nhưng không giới hạn ở chính sách quyền riêng tư này hoặc điều khoản bổ sung mà chúng tôi đưa ra.
-                - Liên quan đến chương trình khuyến mãi, khi cần thiết để quản lý chương trình khuyến mãi hoặc theo yêu cầu của luật, quy tắc hoặc quy định hiện hành (ví dụ: để cung cấp danh sách người chiến thắng hoặc lập hồ sơ cần thiết nếu thích hợp).
-                - Nếu bạn đồng ý chia sẻ Thông tin cá nhân của mình hoặc tiết lộ cho bên thứ ba để tiếp thị hoặc cho các mục đích khác, trong trường hợp đó, việc bên thứ ba sử dụng Thông tin cá nhân của bạn phải tuân theo chính sách quyền riêng tư của bên thứ ba.
-                - Nếu, theo quyết định riêng của chúng tôi và chúng tôi tin rằng việc tiết lộ đó là cần thiết hoặc phù hợp:
-                    - để điều tra hoặc giải quyết các vấn đề hoặc thắc mắc có thể xảy ra;
-                    - để bảo vệ hoạt động kinh doanh và tài sản của chúng tôi hoặc các quyền, tài sản hoặc sự an toàn của Rank Your UNi hoặc bất kỳ nhà cung cấp dịch vụ vận hành, người cấp phép, nhà cung cấp, Nhà quảng cáo, khách hàng, người dùng hoặc bất kỳ bên nào khác;
-                    - để hạn chế trách nhiệm pháp lý của chúng tôi;
-                    - để bảo vệ lợi ích của chúng tôi;
-                    - để thực thi chính sách quyền riêng tư này hoặc thỏa thuận điều khoản sử dụng hoặc để tuân thủ các nghĩa vụ pháp lý, quy định, kiểm toán và tuân thủ của chúng tôi hoặc các yêu cầu của cơ quan thực thi pháp luật hoặc các cơ quan chính phủ khác
-                    - Trong trường hợp phá sản, sáp nhập, mua lại, bán, chuyển giao quyền kiểm soát, liên doanh hoặc kết hợp kinh doanh khác liên quan đến chúng tôi.
-                    
-                    6.1.6 Tiết lộ cho các danh nghiệp tiếp thị liên kết. Chúng tôi có thể chia sẻ thông tin với các doanh nghiệp tiếp thị liên kết hoặc cơ sở kinh doanh khác của Rank Your UNi. Chúng tôi làm điều này để cung cấp hoặc cải thiện dịch vụ
-                    
-                
-                6.2 Chia sẻ và tiết lộ thông tin không được xác định danh tính. Chúng tôi có thể chia sẻ Thông tin không xác định với hoặc tiết lộ Thông tin không xác định cho các bên thứ ba, nhưng chúng tôi không tiết lộ Thông tin cá nhân cho họ ngoại trừ những thông tin được mô tả trong Chính sách quyền riêng tư này. 
-                
-            
-            7. Chỉnh sửa, xoá một số thông tin, dữ liệu nhất định.
-            
-            7.1 Đăng kí tài khoản. Nếu người dùng đăng kí tài khoản để sử dụng trang web của chúng tôi. Việc đăng kí tài khoản giúp người dùng có thể dễ dàng cập nhật hoặc xoá một số thông tin nhất định được cung cấp bởi người dùng tới trang web. Tuy nhiên, sẽ có một vài thông tin cá nhân cần thiết được sử dụng để kiểm tra rằng người dùng đủ điều kiện (ví dụ: ngày sinh, tuổi) sẽ không thể bị xoá nhưng có thể được sửa đổi khi thông tin được xác minh đầy đủ và chính xác.
-            
-            7.2. Các sự lựa chọn khác. Đối với các tải khoản đăng kí của người dùng, với tư cách là thành viên đăng kí của RYU, chúng tôi có thể cung cấp các sự lựa chọn về việc họ nhận được một số thông báo nhất định và các có thể chia sẻ các hoạt động người dùng tham gia trên trang web.
-            
-            7.3 Hạn chế. Một số thông tin nhất định được thu thập trong lúc người dùng tham gia vào các chương trình khuyến mãi hoặc dịch vụ của chúng tôi sẽ phải tuân theo các yêu cầu về việc lưu trữ thông tin, hồ sơ của người dùng và sẽ không bị xoá theo yêu câu của người dùng, trừ khi người dùng dưới 16 tuổi hoặc các trường hợp nhất định khác.
-            
-            7.4 Những đối tượng không được khuyến khích sử dụng trang. Người dùng của chúng tôi được khuyến cáo phải ít nhất từ 17 tuổi để sử dụng trang. Nếu chúng tôi vô tình gửi email hoặc tin nhắn văn bản cho một số người dùng không đáp ứng về các yêu cầu về độ tuổi hoặc các điều kiện khác (người dưới 17 tuổi). Người bảo hộ (ví dụ: phụ huynh), có thể huỷ đăng kí hoặc lựa chọn không tham gia nhận email thông qua cơ chế huỷ đăng kí trong email hoặc tin nhắn hoặc các quy trình huỷ đăng kí tương tự mà chúng tôi nêu ở phía trên.
-            
-            Ngoài ra, việc chấm dứt tư cách thành viên do không đủ điều kiện về độ tuổi. Người dùng cần sử dụng thẻ căn cước để xác minh quyền truy cập trực tiếp vào tài khoản và làm theo các quy trình. Hãy liên hệ với chúng tôi qua trang web, tại phần liên hệ.
-            
-    
-    1. Bảo vệ thông tin
-            
-            Mặc dù các thông tin về dữ liệu trên mạng là không an toàn 100%, nhưng chúng tôi vẫn sử dụng các dịch vụ bảo vệ về mặt vật lý, điện tử, dữ liệu và các hoạt động thương mại để bảo vệ thông tin của bạn. Tuy nhiên, bất kể nỗ lực của chúng tôi và thiết bị người dùng sử dụng để truy cập trang đều có thể có khả năng bị tấn công với mục đích xấu từ bên thứ ba. Nhưng chúng tôi đảm bảo rằng các liên quan tới giao dịch online đều được bảo vệ.
-            
-            Hơn nữa, chúng tôi hạn chế quyền truy cập của nhân viên đối với trang web của chúng tôi. Những cá nhân được uỷ quyền cho việc xử lý thông tin sẽ chịu trách nhiệm về pháp luật hoặc bất kì các hình phạt khác nếu bị phát hiện vi phạm các tiêu chuẩn yêu cầu về bảo mật chúng tôi. Và chúng tôi yêu cầu các nhà cung cấp dịch vụ vận hành của chúng tôi tuân theo các tiêu chuẩn tương tự về bảo mật
-            
-            Thuật ngữ Phishing:
-            
-            - Là hình thức tấn công mạng mà kẻ tấn công giả mạo chúng tôi (RYU) để lừa đảo người dùng cung cấp thông tin cá nhân cho kẻ lừa đảo. Phương thức này thường được tin tặc thực hiện thông qua email và tin nhắn. Người dùng khi mở các email, hoặc đường link giả mạo này có thể sẽ được yêu cầu cung cấp các thông tin cá nhân nhạy cảm như: tài khoản & mật khẩu, mật khẩu giao dịch, thẻ tín dụng hoặc các thông tin quý giá khác.
-                
-                CHÚNG TÔI KHÔNG GỬI EMAIL YÊU CẦU BẠN CUNG CẤP HOẶC XÁC NHẬN CÁC THÔNG TIN LIÊN QUAN TỚI SỐ THẺ TÍN DỤNG, MẬT KHẨU CỦA NGƯỜI DÙNG!
-                
-                Nếu bạn nhận được thông tin liên lạc qua email như vậy không làm theo. Vui lòng liên hệ với chúng tôi qua địa chỉ email rankyouruni@outlook.com.
-                
-
-Chính sách bảo mật này giải thích các Rank Your UNi thu thập, sử dụng, chia sẻ dữ liệu cá nhân của bạn khi sử dụng trang web của chúng tôi hoặc tương tác với website. Dữ liệu cá nhân là bất kì thông tin nào về người dùng dùng để nhận dạng. Bao gồm các thông tin như:
-
-- Tên, địa chỉ email
-    - Thông tin về thiết bị đăng nhập (IP, mã quốc gia, khu vực thành phố)
-    - Thông tin liên quan tới cách người dùng sử dụng hoặc tương tác với trang web và dịch vụ được cung cấp bởi chúng tôi.
-    - Đối với những trường hợp liên kết tới các trang web hoặc ứng dụng không phải của Rank Your UNi, người dùng nên đọc chính sách bảo mật của riêng chúng.
-
-1. Các điều khoản phù hợp khác.
-    
-    10.1. Thay đổi chính sách và quyền riêng tư. Chúng tôi hoàn toàn có quyền thay đổi, sửa đổi chính sách quyền riêng tư này bất kì lúc nào vì bất kì lý do gì mà không cần cập nhập hoặc thông báo trước cho người dùng. Những sửa đổi như vậy sẽ có hiệu lực ngay khi đăng và áp dụng với người dùng.
-    
-    Chúng tôi sẽ hiển thị những thông báo về những thay đổi quan trọng trên trang chủ hoặc trang web hoặc email để thông báo cho người dùng đã được đăng kí về những thay đổi này. 
-    
-    Chúng tôi khuyến khích người dùng thường xuyên ghé thăm chính sách quyền riêng tư và thoả thuận điều khoản sử dụng để cập nhật những thông tin mới nhất.
-    
-
-Có hiệu lực kể từ ngày 8, tháng 12, năm 2023.
-            '''),
-          ),
-        )
       ],
     );
   }
