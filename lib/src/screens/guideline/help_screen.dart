@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
-import 'package:template/global/style/app_colors.dart';
-import 'package:template/global/style/app_images.dart';
+import 'package:template/global/style/styles.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/guideline/widgets/question_item.dart';
+import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/help_cubit.dart';
 
 class HelpScreen extends StatelessWidget {
@@ -52,8 +52,8 @@ class _HelpViewState extends State<HelpView> {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () => context.goNamed(RouteKey.home),
-                child:
-                    SizedBox(height: 35, child: Image.asset(AppImages.iHomeLogo)),
+                child: SizedBox(
+                    height: 35, child: Image.asset(AppImages.iHomeLogo)),
               ),
             ),
           ],
@@ -65,55 +65,30 @@ class _HelpViewState extends State<HelpView> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BlocBuilder<HelpCubit, HelpState>(
-              builder: (context, state) {
-                return (state.categories ?? []).isEmpty
-                    ? const SizedBox(width: 1)
-                    : Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              state.categories?.length ?? 0,
-                              (index) => MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _controller.jumpToPage(index);
-                                  },
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 30, vertical: 10),
-                                      child: Text(
-                                        (state.categories ?? [])[index].title ??
-                                            '',
-                                        style: state.currentCategory == index
-                                            ? theme
-                                                .primaryTextTheme.displaySmall
-                                                ?.copyWith(
-                                                    color: Colors.blue.shade300,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w700)
-                                            : theme
-                                                .primaryTextTheme.displaySmall
-                                                ?.copyWith(
-                                                    color: AppColors.black,
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                      ),
-                                    ),
-                                  ),
+            ResponsiveBuilder(
+              smallView: const SizedBox.shrink(),
+              child: BlocBuilder<HelpCubit, HelpState>(
+                builder: (context, state) {
+                  return (state.categories ?? []).isEmpty
+                      ? const SizedBox(width: 1)
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                state.categories?.length ?? 0,
+                                (index) => _categoryOpion(
+                                  index,
+                                  state,
+                                  theme,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-              },
+                          ],
+                        );
+                },
+              ),
             ),
             Expanded(
               child: BlocBuilder<HelpCubit, HelpState>(
@@ -180,6 +155,62 @@ class _HelpViewState extends State<HelpView> {
                                                     ?.length,
                                           ),
                                         ),
+                                  ResponsiveBuilder(
+                                    smallView: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 1,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(height: 30),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 30,
+                                          ),
+                                          child: Text(
+                                            AppLocalizations.of(context)!
+                                                .seeMore,
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .labelLarge
+                                                ?.copyWith(
+                                                  color: AppColors.primary,
+                                                ),
+                                          ),
+                                        ),
+                                        BlocBuilder<HelpCubit, HelpState>(
+                                          builder: (context, state) {
+                                            return (state.categories ?? [])
+                                                    .isEmpty
+                                                ? const SizedBox(width: 1)
+                                                : Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: List.generate(
+                                                      state.categories
+                                                              ?.length ??
+                                                          0,
+                                                      (index) => Visibility(
+                                                        visible: index !=
+                                                            state
+                                                                .currentCategory,
+                                                        child: _categoryOpion(
+                                                          index,
+                                                          state,
+                                                          theme,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    child: const SizedBox.shrink(),
+                                  ),
                                 ],
                               ),
                             );
@@ -190,6 +221,40 @@ class _HelpViewState extends State<HelpView> {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  MouseRegion _categoryOpion(int index, HelpState state, ThemeData theme) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          _controller.jumpToPage(index);
+        },
+        child: Container(
+          color: Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 10,
+            ),
+            child: Text(
+              (state.categories ?? [])[index].title ?? '',
+              style: state.currentCategory == index
+                  ? theme.primaryTextTheme.displaySmall?.copyWith(
+                      color: Colors.blue.shade300,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    )
+                  : theme.primaryTextTheme.displaySmall?.copyWith(
+                      color: AppColors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+            ),
+          ),
         ),
       ),
     );

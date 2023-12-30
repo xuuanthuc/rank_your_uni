@@ -33,7 +33,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 NormalContent(
                     'Rank Your UNi là trang web trực tuyến lớn nhất dành cho sinh viên nghiên cứu và đánh giá các trường đại học và giảng viên trên toàn vùng lãnh thổ Việt Nam. Mục đích của chúng tôi là cung cấp một diễn đàn an toàn để chia sẻ kinh nghiệm học tập nhằm giúp các sinh viên đưa ra những sự lựa chọn đúng đắn về mặt giáo dục, cũng như góp phần cải thiện và nâng cao hệ thống giáo dục nước nhà.'),
                 SizedBox(height: 20),
-                Title('WEBSITE'),
+                TitleContent('WEBSITE'),
                 NormalContent(
                     'Trang web RankYourUNi (www.rankyouruni.com) cho phép người dùng phản hồi về lối sống và cơ sở vật chất của các trường cao đẳng và đại học và tạo ra đánh giá về phương pháp giảng dạy của giảng viên và các khóa học tương ứng của họ.'),
                 Gap(),
@@ -43,7 +43,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 NormalContent(
                     'RankYourUNi KHÔNG phải là nơi để báo cáo các hành vi nguy hiểm, bất hợp pháp. Nếu bạn tin rằng bạn và các sinh viên khác đang gặp nguy hiểm, chúng tôi khuyên bạn nên báo cáo những trường hợp đó trực tiếp cho trường hoặc các cơ quan có thẩm quyền'),
                 SizedBox(height: 20),
-                Title('CÁCH CHÚNG TÔI VẬN HÀNH TRANG WEB'),
+                TitleContent('CÁCH CHÚNG TÔI VẬN HÀNH TRANG WEB'),
                 Gap(),
                 NormalContent(
                     'Tất cả các đánh giá trên Rank Your UNi được review bởi các quản trị viên. Thêm vào đó hướng dẫn sử dụng trang được đưa ra nhằm đảm bảo bất kì người dùng nào sử dụng trang web này đúng mục đích và sứ mệnh mà nhóm chúng tôi đã đề ra. Bất kì đánh giá nào mang tính xúc phạm hoặc vi phạm hướng dẫn sử dụng trang sẽ bị xoá.'),
@@ -51,9 +51,9 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 NormalContent(
                     'Tất cả những đánh giá được giơ cờ sẽ được thông báo trực tiếp tới quản trị trang và được chúng tôi review cũng như xoá khỏi đánh giá nếu là cần thiết. Chúng tôi cam kết đánh giá của bạn sẽ không bị chỉnh sửa bởi chúng tôi.'),
                 SizedBox(height: 40),
-                Title('HƯỚNG DẪN SỬ DỤNG TRANG WEB'),
+                TitleContent('HƯỚNG DẪN SỬ DỤNG TRANG WEB'),
                 Gap(),
-                Title('Hướng dẫn sử dụng trang cho sinh viên:'),
+                TitleContent('Hướng dẫn sử dụng trang cho sinh viên:'),
                 Gap(),
                 DotLine(
                     'Đánh giá đúng sự thật bởi chính bạn cũng sẽ mong muốn các đánh giá tới từ những sinh viên khác là đúng sự thật.'),
@@ -79,7 +79,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 DotLine(
                     'Khi đọc các bài đánh giá của bạn học, chúng tôi khuyến khích bạn đưa ra quyết định dựa trên nhiều đánh giá khác bởi mục tiêu của Rank Your UNi là nguồn tài nguyên giúp các bạn sinh viên đưa ra các quyết định đúng đắn trên con đường học vấn của chính mình'),
                 SizedBox(height: 30),
-                Title('Các nội dung cấm!!!'),
+                TitleContent('Các nội dung cấm!!!'),
                 Gap(),
                 DotLine(
                     'Những đánh giá thô tục, xúc phạm, liên quan tới tôn giáo, sắc tộc, giới tính, ngoại hình, tuổi tác và kỳ thị người khuyết tật sẽ được quản trị viên xoá ngay lập tức.'),
@@ -101,12 +101,12 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 Gap(),
                 DotLine('Mã link độc'),
                 SizedBox(height: 30),
-                Title('BÁO CÁO ĐÁNH GIÁ'),
+                TitleContent('BÁO CÁO ĐÁNH GIÁ'),
                 Gap(),
                 NormalContent(
                     'Nếu bạn nhận thấy các đánh giá đang vi phạm hướng dẫn sử dụng Rank Your UNi, xin hãy nhấn “báo cáo” ở dưới mỗi đánh giá và mô tả mức độ vi phạm cũng như quan điểm của bạn về các đánh giá đó. Hạn chế báo cáo chỉ vì bạn không thích hoặc không cùng quan điểm với các đánh giá đó'),
                 SizedBox(height: 30),
-                Title('MỘT VÀI TIÊU ĐIỂM VỀ PHÁP LÝ'),
+                TitleContent('MỘT VÀI TIÊU ĐIỂM VỀ PHÁP LÝ'),
                 Gap(),
                 NormalContent(
                     "Có thể một vài tổ chức cá nhân nhận ra Rank Your UNi là một mối nguy hiểm tới họ. Điều này có thể dẫn tới các hành động liên quan đe doạ hoặc kiện cáo tới Rank Your UNi. Cho tới thời điểm hiện tại, chưa có trường hợp tiền đề nào thành công xảy ra hoặc các liên quan cáo buộc tới trang."),
@@ -117,7 +117,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
                 NormalContent(
                     "Bất kì ai có hành động tấn công hoặc mong muốn cáo buộc liên quan tới các vấn đề pháp lý sẽ chịu trách nhiệm trước pháp luật Việt Nam."),
                 SizedBox(height: 30),
-                Title('QUYỀN CỦA Rank Your UNi'),
+                TitleContent('QUYỀN CỦA Rank Your UNi'),
                 Gap(),
                 NormalContent(
                     "Rank Your UNi có quyền xóa bất kỳ bình luận nào được coi là không phù hợp, bôi nhọ, phỉ báng, không đứng đắn, thô tục hoặc tục tĩu, khiêu dâm, khiêu dâm hoặc khêu gợi tình dục, xúc phạm chủng tộc, văn hóa hoặc sắc tộc, có hại, quấy rối, đe dọa, đe dọa, căm thù, phản cảm , phân biệt đối xử hoặc lạm dụng hoặc có thể mạo danh bất kỳ ai khác hoặc vi phạm hướng dẫn sử dụng trang."),
@@ -143,10 +143,10 @@ class Gap extends StatelessWidget {
   }
 }
 
-class Title extends StatelessWidget {
+class TitleContent extends StatelessWidget {
   final String title;
 
-  const Title(this.title, {Key? key}) : super(key: key);
+  const TitleContent(this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

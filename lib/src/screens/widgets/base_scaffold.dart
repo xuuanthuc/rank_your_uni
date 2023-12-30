@@ -11,13 +11,13 @@ import 'footer_common.dart';
 class AppScaffold extends StatefulWidget {
   final List<Widget> children;
   final String? keyword;
-  final bool? needToHome;
+  final bool? requireAuthenticated;
 
   const AppScaffold({
     super.key,
     required this.children,
     this.keyword,
-    this.needToHome,
+    this.requireAuthenticated,
   });
 
   @override
@@ -40,12 +40,10 @@ class _AppScaffoldState extends State<AppScaffold> {
       listener: (context, state) {
         if (state.isSuccess == true) {
           context.read<AppSettingsBloc>().add(GetUserProfileEvent());
-        }
-        if (state.status == AuthenticationStatus.unauthenticated &&
-            state.action == AuthenticationAction.refreshToken &&
+        } else if (state.status == AuthenticationStatus.unauthenticated &&
             state.isLoading == false &&
             state.isSuccess == false &&
-            widget.needToHome == true) {
+            widget.requireAuthenticated == true) {
           context.goNamed(RouteKey.home);
         }
       },

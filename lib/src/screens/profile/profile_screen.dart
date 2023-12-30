@@ -64,7 +64,7 @@ class _ProfileViewState extends State<ProfileView>
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return AppScaffold(
-      needToHome: true,
+      requireAuthenticated: true,
       children: [
         BlocListener<AppSettingsBloc, AppSettingsState>(
           listener: (context, state) {
