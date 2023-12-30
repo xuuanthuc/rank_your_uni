@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:template/global/storage/storage_keys.dart';
 import 'package:template/global/storage/storage_provider.dart';
-import 'package:template/src/models/request/profile_request.dart';
 import 'package:template/src/models/response/profile.dart';
 import '../../global/utilities/static_variable.dart';
 import '../models/request/sign_in_with_email_request.dart';
@@ -44,9 +43,11 @@ class AuthRepository {
         final data = await _apiProvider.get("${ApiEndpoint.profile}/$username");
         return RYUResponse(isSuccess: true, data: Profile.fromJson(data));
       } else {
+        await StorageProvider.instance.deleteAll();
         return const RYUResponse(isSuccess: false, errorMessage: "", code: 400);
       }
     } on ResponseException catch (e) {
+      await StorageProvider.instance.deleteAll();
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }

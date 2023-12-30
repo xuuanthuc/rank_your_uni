@@ -45,11 +45,11 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     UpdateUserProfileEvent event,
     Emitter<AppSettingsState> emit,
   ) async {
+    if (event.profile.id == -1 || event.profile.username.isEmpty) return;
     emit(state.copyWith(
       status: AppSettingStatus.loading,
       action: AppSettingAction.updateProfile,
     ));
-    if (event.profile.id == -1 || event.profile.username.isEmpty) return;
     final res = await _userRepository.updateUser(event.profile);
     if (res.isSuccess) {
       emit(state.copyWith(

@@ -22,7 +22,7 @@ class StorageProvider {
     await _storage.delete(key: key);
   }
 
-  Future<void> deleteAll(String key) async {
+  Future<void> deleteAll() async {
     await _storage.deleteAll();
   }
 }

@@ -10,6 +10,7 @@ import 'package:template/src/screens/authentication/widgets/sign_up_form.dart';
 import 'package:template/src/screens/authentication/widgets/update_user_profile_form.dart';
 import 'package:template/src/screens/widgets/expandable_page_view.dart';
 
+import '../../../global/validators/validators.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
 import 'bloc/auth_form_cubit.dart';
 
@@ -75,29 +76,30 @@ class _AuthFormState extends State<AuthForm> {
               children: [
                 SignInForm(
                   goSignUp: () {
-                    context
-                        .read<AuthFormCubit>()
-                        .showError();
+                    context.read<AuthFormCubit>().showError();
                     _pageController.jumpToPage(1);
                   },
                 ),
                 SignUpEmailForm(
                   goSignIn: () {
-                    context
-                        .read<AuthFormCubit>()
-                        .showError();
+                    context.read<AuthFormCubit>().showError();
                     _pageController.jumpToPage(0);
                   },
                   continueSignUp: (email) {
-                    _emailRegister = email;
-                    context
-                        .read<AuthFormCubit>()
-                        .showError();
-                    _pageController.animateToPage(
-                      2,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
-                    );
+                    final text = AppLocalizations.of(context)!;
+                    if (TextFieldValidator.emailValidator(email) != null) {
+                      context
+                          .read<AuthFormCubit>()
+                          .showError(error: text.invalidEmail);
+                    } else {
+                      _emailRegister = email;
+                      context.read<AuthFormCubit>().showError();
+                      _pageController.animateToPage(
+                        2,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    }
                   },
                 ),
                 SignUpPasswordForm(
@@ -116,9 +118,7 @@ class _AuthFormState extends State<AuthForm> {
                         ));
                   },
                   onPrevious: () {
-                    context
-                        .read<AuthFormCubit>()
-                        .showError();
+                    context.read<AuthFormCubit>().showError();
                     _pageController.animateToPage(
                       1,
                       duration: const Duration(milliseconds: 300),
@@ -126,9 +126,7 @@ class _AuthFormState extends State<AuthForm> {
                     );
                   },
                 ),
-                UpdateUserProfileForm(
-                  onComplete: () {},
-                ),
+                const UpdateUserProfileForm()
               ],
             ),
           ),

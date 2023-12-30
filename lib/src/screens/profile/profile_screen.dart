@@ -11,7 +11,6 @@ import 'package:template/src/screens/profile/edit_profile.dart';
 import 'package:template/src/screens/profile/your_rating.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../global/validators/validators.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -65,6 +64,7 @@ class _ProfileViewState extends State<ProfileView>
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return AppScaffold(
+      needToHome: true,
       children: [
         BlocListener<AppSettingsBloc, AppSettingsState>(
           listener: (context, state) {
@@ -93,16 +93,19 @@ class _ProfileViewState extends State<ProfileView>
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                          builder: (context, state) {
-                            return Text(
-                              text.hey(
-                                  "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
-                              style: theme.primaryTextTheme.displayLarge,
-                            );
-                          },
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 40),
+                          child:
+                              BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                            builder: (context, state) {
+                              return Text(
+                                text.hey(
+                                    "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
+                                style: theme.primaryTextTheme.displayLarge,
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],

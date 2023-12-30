@@ -99,6 +99,9 @@ class _SignUpEmailFormState extends State<SignUpEmailForm> {
               text: text,
               hintText: text.enterEmail,
               controller: _emailController,
+              onEditingComplete: (){
+                widget.continueSignUp(_emailController.text.trim());
+              },
             ),
             SizedBox(
               height: 55,
@@ -119,14 +122,7 @@ class _SignUpEmailFormState extends State<SignUpEmailForm> {
             ),
             PrimaryButton(
               onTap: () {
-                if (TextFieldValidator.emailValidator(_emailController.text) !=
-                    null) {
-                  context
-                      .read<AuthFormCubit>()
-                      .showError(error: text.invalidEmail);
-                } else {
-                  widget.continueSignUp(_emailController.text.trim());
-                }
+                widget.continueSignUp(_emailController.text.trim());
               },
               title: text.continueText,
               height: 46,
@@ -242,6 +238,19 @@ class _SignUpPasswordFormState extends State<SignUpPasswordForm> {
                   text: text,
                   hintText: text.enterPassword,
                   controller: _passwordController,
+                  onEditingComplete: (){
+                    if (TextFieldValidator.passValidator(
+                        _passwordController.text) !=
+                        null) {
+                      context
+                          .read<AuthFormCubit>()
+                          .showError(error: text.invalidPassword);
+                    } else {
+                      widget.onRegister(
+                        _passwordController.text.trim(),
+                      );
+                    }
+                  },
                 ),
                 const SizedBox(height: 8),
                 Text(

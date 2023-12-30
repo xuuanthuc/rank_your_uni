@@ -9,6 +9,7 @@ class AuthTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final bool obscureText;
+  final Function? onEditingComplete;
 
   const AuthTextField.email({
     super.key,
@@ -18,6 +19,7 @@ class AuthTextField extends StatefulWidget {
     required this.controller,
     this.textInputType = TextInputType.emailAddress,
     this.obscureText = false,
+    this.onEditingComplete,
   });
 
   const AuthTextField.password({
@@ -28,6 +30,7 @@ class AuthTextField extends StatefulWidget {
     required this.controller,
     this.textInputType = TextInputType.visiblePassword,
     this.obscureText = true,
+    this.onEditingComplete,
   });
 
   const AuthTextField.normal({
@@ -38,6 +41,7 @@ class AuthTextField extends StatefulWidget {
     required this.controller,
     this.textInputType = TextInputType.text,
     this.obscureText = false,
+    this.onEditingComplete,
   });
 
   @override
@@ -68,6 +72,12 @@ class _AuthTextFieldState extends State<AuthTextField> {
       controller: widget.controller,
       keyboardType: widget.textInputType,
       obscureText: _obscureText,
+      onEditingComplete: widget.onEditingComplete != null
+          ? () {
+              FocusManager.instance.primaryFocus?.unfocus();
+              widget.onEditingComplete!();
+            }
+          : null,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: widget.theme.primaryTextTheme.bodyLarge

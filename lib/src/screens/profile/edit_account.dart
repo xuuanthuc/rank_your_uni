@@ -28,7 +28,9 @@ class _EditAccountState extends State<EditAccount> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = BlocProvider.of<AppSettingsBloc>(context).state;
+      final state = BlocProvider
+          .of<AppSettingsBloc>(context)
+          .state;
       _emailController.text = state.profileAuthenticated?.username ?? '';
     });
   }
@@ -37,132 +39,139 @@ class _EditAccountState extends State<EditAccount> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
 
-    return SingleChildScrollView(
-      child: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-          margin: EdgeInsets.symmetric(
-            horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                  height: ResponsiveBuilder.setHorizontalPadding(context)),
-              EditButton(onTap: () {}),
-              const SizedBox(height: 25),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    RowInfoField(
-                      label: text.email,
-                      hintText: text.enterEmail,
-                      controller: _emailController,
-                      validator: TextFieldValidator.emailValidator,
-                    ),
-                    const SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                          builder: (context, state) {
-                            return LoadingPrimaryButton<AppSettingsBloc,
-                                AppSettingsState>(
-                              onTap: () {
-                                if (_formKey.currentState!.validate()) {
-                                  ProfileRaw profile = ProfileRaw(
-                                    id: state.profileAuthenticated?.id ?? -1,
-                                    username: _emailController.text,
-                                    firstName:
-                                    state.profileAuthenticated?.firstName ??
-                                        '',
-                                    lastName:
-                                    state.profileAuthenticated?.lastName ??
-                                        '',
-                                    university:
-                                    state.profileAuthenticated?.university ??
-                                        '',
-                                    email: _emailController.text,
-                                  );
-                                  context
-                                      .read<AppSettingsBloc>()
-                                      .add(UpdateUserProfileEvent(profile));
-                                }
-                              },
-                              label: text.updateAccount,
-                              buttonWidth: 250,
-                              updateLoading: (state) {
-                                return (state).status ==
-                                    AppSettingStatus.loading &&
-                                    state.action ==
-                                        AppSettingAction.updateProfile;
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 50),
-              Form(
-                key: _formKeyPass,
-                child: Column(
-                  children: [
-                    RowInfoField(
-                      label: text.password,
-                      hintText: text.enterPassword,
-                      controller: _passwordController,
-                      validator: TextFieldValidator.passValidator,
-                      obscureText: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    const SizedBox(height: 25),
-                    RowInfoField(
-                      label: text.newPassword,
-                      hintText: text.enterPassword,
-                      controller: _newPasswordController,
-                      validator: TextFieldValidator.passValidator,
-                      obscureText: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                    builder: (context, state) {
-                      return LoadingPrimaryButton<AppSettingsBloc,
-                          AppSettingsState>(
-                        onTap: () {
-                          if (_formKeyPass.currentState!.validate()) {
-                            PasswordRaw password = PasswordRaw(
-                              currentPassword: _passwordController.text,
-                              newPassword: _newPasswordController.text,
-                            );
-                            context
-                                .read<AppSettingsBloc>()
-                                .add(UpdatePasswordEvent(password));
-                          }
-                        },
-                        label: text.updatePassword,
-                        buttonWidth: 250,
-                        updateLoading: (state) {
-                          return state.status == AppSettingStatus.loading &&
-                              state.action ==
-                                  AppSettingAction.changePassword;
-                        },
-                      );
-                    },
+    return BlocListener<AppSettingsBloc, AppSettingsState>(
+      listener: (context, state) {
+        if (state.status == AppSettingStatus.success) {
+          _emailController.text = state.profileAuthenticated?.username ?? '';
+        }
+      },
+      child: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: Public.tabletSize),
+            margin: EdgeInsets.symmetric(
+              horizontal: ResponsiveBuilder.setHorizontalPadding(context),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                    height: ResponsiveBuilder.setHorizontalPadding(context)),
+                EditButton(onTap: () {}),
+                const SizedBox(height: 25),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      RowInfoField(
+                        label: text.email,
+                        hintText: text.enterEmail,
+                        controller: _emailController,
+                        validator: TextFieldValidator.emailValidator,
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                            builder: (context, state) {
+                              return LoadingPrimaryButton<AppSettingsBloc,
+                                  AppSettingsState>(
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    ProfileRaw profile = ProfileRaw(
+                                      id: state.profileAuthenticated?.id ?? -1,
+                                      username: _emailController.text,
+                                      firstName:
+                                      state.profileAuthenticated?.firstName ??
+                                          '',
+                                      lastName:
+                                      state.profileAuthenticated?.lastName ??
+                                          '',
+                                      university:
+                                      state.profileAuthenticated?.university ??
+                                          '',
+                                      email: _emailController.text,
+                                    );
+                                    context
+                                        .read<AppSettingsBloc>()
+                                        .add(UpdateUserProfileEvent(profile));
+                                  }
+                                },
+                                label: text.updateAccount,
+                                buttonWidth: 250,
+                                updateLoading: (state) {
+                                  return (state).status ==
+                                      AppSettingStatus.loading &&
+                                      state.action ==
+                                          AppSettingAction.updateProfile;
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 200),
-            ],
+                ),
+                const SizedBox(height: 50),
+                Form(
+                  key: _formKeyPass,
+                  child: Column(
+                    children: [
+                      RowInfoField(
+                        label: text.password,
+                        hintText: text.enterPassword,
+                        controller: _passwordController,
+                        validator: TextFieldValidator.passValidator,
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                      ),
+                      const SizedBox(height: 25),
+                      RowInfoField(
+                        label: text.newPassword,
+                        hintText: text.enterPassword,
+                        controller: _newPasswordController,
+                        validator: TextFieldValidator.passValidator,
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                      builder: (context, state) {
+                        return LoadingPrimaryButton<AppSettingsBloc,
+                            AppSettingsState>(
+                          onTap: () {
+                            if (_formKeyPass.currentState!.validate()) {
+                              PasswordRaw password = PasswordRaw(
+                                currentPassword: _passwordController.text,
+                                newPassword: _newPasswordController.text,
+                              );
+                              context
+                                  .read<AppSettingsBloc>()
+                                  .add(UpdatePasswordEvent(password));
+                            }
+                          },
+                          label: text.updatePassword,
+                          buttonWidth: 250,
+                          updateLoading: (state) {
+                            return state.status == AppSettingStatus.loading &&
+                                state.action ==
+                                    AppSettingAction.changePassword;
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 200),
+              ],
+            ),
           ),
         ),
       ),

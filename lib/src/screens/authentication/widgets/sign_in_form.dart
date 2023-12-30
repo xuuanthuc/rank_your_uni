@@ -26,9 +26,17 @@ class _SignInFormState extends State<SignInForm> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _onSignIn(BuildContext context, SignInWithEmailRaw signInRequest) {
-    context
-        .read<AuthenticationBloc>()
-        .add(OnSignInWithEmailEvent(signInRequest));
+    final text = AppLocalizations.of(context)!;
+    if (TextFieldValidator.emailValidator(_emailController.text) != null) {
+      context.read<AuthFormCubit>().showError(error: text.invalidEmail);
+    } else if (TextFieldValidator.passValidator(_passwordController.text) !=
+        null) {
+      context.read<AuthFormCubit>().showError(error: text.invalidPassword);
+    } else {
+      context
+          .read<AuthenticationBloc>()
+          .add(OnSignInWithEmailEvent(signInRequest));
+    }
   }
 
   void _onSignGoogleSignIn(BuildContext context) {
@@ -98,6 +106,15 @@ class _SignInFormState extends State<SignInForm> {
             text: text,
             hintText: text.enterEmail,
             controller: _emailController,
+            onEditingComplete: (){
+              _onSignIn(
+                context,
+                SignInWithEmailRaw(
+                  username: _emailController.text,
+                  password: _passwordController.text,
+                ),
+              );
+            },
           ),
           const SizedBox(height: 26),
           AuthFormLabel(
@@ -109,6 +126,15 @@ class _SignInFormState extends State<SignInForm> {
             text: text,
             hintText: text.enterPassword,
             controller: _passwordController,
+            onEditingComplete: (){
+              _onSignIn(
+                context,
+                SignInWithEmailRaw(
+                  username: _emailController.text,
+                  password: _passwordController.text,
+                ),
+              );
+            },
           ),
           const SizedBox(height: 14),
           Row(
@@ -155,26 +181,13 @@ class _SignInFormState extends State<SignInForm> {
           ),
           LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
             onTap: () {
-              if (TextFieldValidator.emailValidator(_emailController.text) !=
-                  null) {
-                context
-                    .read<AuthFormCubit>()
-                    .showError(error: text.invalidEmail);
-              } else if (TextFieldValidator.passValidator(
-                      _passwordController.text) !=
-                  null) {
-                context
-                    .read<AuthFormCubit>()
-                    .showError(error: text.invalidPassword);
-              } else {
-                _onSignIn(
-                  context,
-                  SignInWithEmailRaw(
-                    username: _emailController.text,
-                    password: _passwordController.text,
-                  ),
-                );
-              }
+              _onSignIn(
+                context,
+                SignInWithEmailRaw(
+                  username: _emailController.text,
+                  password: _passwordController.text,
+                ),
+              );
             },
             label: text.signIn,
             updateLoading: (state) {

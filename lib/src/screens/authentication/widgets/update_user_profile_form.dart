@@ -11,12 +11,7 @@ import '../../widgets/responsive_builder.dart';
 import 'auth_field_label.dart';
 
 class UpdateUserProfileForm extends StatefulWidget {
-  const UpdateUserProfileForm({
-    super.key,
-    required this.onComplete,
-  });
-
-  final Function onComplete;
+  const UpdateUserProfileForm({super.key});
 
   @override
   State<UpdateUserProfileForm> createState() => _UpdateUserProfileFormState();
