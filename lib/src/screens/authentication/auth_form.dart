@@ -149,23 +149,26 @@ class _AuthFormState extends State<AuthForm> {
             ),
             Visibility(
               visible: MediaQuery.sizeOf(context).width <= Public.tabletSize,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: IconButton(
-                      onPressed: () => context.pop(),
-                      icon: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: SvgPicture.asset(
-                          AppImages.iSheetClose,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: Public.mobileSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: IconButton(
+                        onPressed: () => context.pop(),
+                        icon: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: SvgPicture.asset(
+                            AppImages.iSheetClose,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],
