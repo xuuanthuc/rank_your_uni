@@ -54,174 +54,169 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: 35,
-          horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            text.signIn,
-            style: theme.primaryTextTheme.displayLarge,
-          ),
-          const SizedBox(height: 45),
-          AuthWithGoogleButton(
-            theme: theme,
-            text: text.signInWithGoogle,
-            onAuthWithGoogle: () => _onSignGoogleSignIn(context),
-          ),
-          const SizedBox(height: 26),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: AppColors.grey,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                text.orSignInWithEmail,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: AppColors.grey,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 26),
-          AuthFormLabel(
-            theme,
-            text: text.email,
-          ),
-          AuthTextField.email(
-            theme: theme,
-            text: text,
-            hintText: text.enterEmail,
-            controller: _emailController,
-            onEditingComplete: (){
-              _onSignIn(
-                context,
-                SignInWithEmailRaw(
-                  username: _emailController.text,
-                  password: _passwordController.text,
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 26),
-          AuthFormLabel(
-            theme,
-            text: text.password,
-          ),
-          AuthTextField.password(
-            theme: theme,
-            text: text,
-            hintText: text.enterPassword,
-            controller: _passwordController,
-            onEditingComplete: (){
-              _onSignIn(
-                context,
-                SignInWithEmailRaw(
-                  username: _emailController.text,
-                  password: _passwordController.text,
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              PrimaryButton(
-                onTap: () {},
-                hasBorder: false,
-                title: text.forgetPassword,
-                isOutline: true,
-                titleTextStyleColor: theme.primaryColor,
-                padding: EdgeInsets.zero,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 55,
-            child: BlocListener<AuthenticationBloc, AuthenticationState>(
-              listenWhen: (prev, cur) =>
-                  prev.isError != cur.isError &&
-                  cur.action == AuthenticationAction.signIn,
-              listener: (context, state) {
-                if (state.isError == true &&
-                    state.action == AuthenticationAction.signIn) {
-                  context
-                      .read<AuthFormCubit>()
-                      .showError(error: text.invalidLoginCredentials);
-                }
-              },
-              child: BlocBuilder<AuthFormCubit, AuthFormState>(
-                builder: (context, state) {
-                  if (state.error != null) {
-                    return Center(
-                      child: Text(
-                        state.error ?? '',
-                        style: theme.primaryTextTheme.labelLarge
-                            ?.copyWith(color: AppColors.error),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          text.signIn,
+          style: theme.primaryTextTheme.displayLarge,
+        ),
+        const SizedBox(height: 45),
+        AuthWithGoogleButton(
+          theme: theme,
+          text: text.signInWithGoogle,
+          onAuthWithGoogle: () => _onSignGoogleSignIn(context),
+        ),
+        const SizedBox(height: 26),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: Container(
+                height: 1,
+                color: AppColors.grey,
               ),
             ),
-          ),
-          LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
-            onTap: () {
-              _onSignIn(
-                context,
-                SignInWithEmailRaw(
-                  username: _emailController.text,
-                  password: _passwordController.text,
-                ),
-              );
-            },
-            label: text.signIn,
-            updateLoading: (state) {
-              return (state).isLoading ?? false;
-            },
-          ),
-          const SizedBox(height: 26),
-          Text(
-            text.authNotice,
-            textAlign: TextAlign.center,
-            style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
-          ),
-          const SizedBox(height: 26),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '${text.notHaveAccount} ',
-                style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+            const SizedBox(width: 4),
+            Text(
+              text.orSignInWithEmail,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Container(
+                height: 1,
+                color: AppColors.grey,
               ),
-              PrimaryButton(
-                onTap: () {
-                  widget.goSignUp();
-                },
-                hasBorder: false,
-                title: text.signUp,
-                isOutline: true,
-                titleTextStyleColor: theme.primaryColor,
-                padding: EdgeInsets.zero,
+            ),
+          ],
+        ),
+        const SizedBox(height: 26),
+        AuthFormLabel(
+          theme,
+          text: text.email,
+        ),
+        AuthTextField.email(
+          theme: theme,
+          text: text,
+          hintText: text.enterEmail,
+          controller: _emailController,
+          onEditingComplete: (){
+            _onSignIn(
+              context,
+              SignInWithEmailRaw(
+                username: _emailController.text,
+                password: _passwordController.text,
               ),
-            ],
-          )
-        ],
-      ),
+            );
+          },
+        ),
+        const SizedBox(height: 26),
+        AuthFormLabel(
+          theme,
+          text: text.password,
+        ),
+        AuthTextField.password(
+          theme: theme,
+          text: text,
+          hintText: text.enterPassword,
+          controller: _passwordController,
+          onEditingComplete: (){
+            _onSignIn(
+              context,
+              SignInWithEmailRaw(
+                username: _emailController.text,
+                password: _passwordController.text,
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            PrimaryButton(
+              onTap: () {},
+              hasBorder: false,
+              title: text.forgetPassword,
+              isOutline: true,
+              titleTextStyleColor: theme.primaryColor,
+              padding: EdgeInsets.zero,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 55,
+          child: BlocListener<AuthenticationBloc, AuthenticationState>(
+            listenWhen: (prev, cur) =>
+                prev.isError != cur.isError &&
+                cur.action == AuthenticationAction.signIn,
+            listener: (context, state) {
+              if (state.isError == true &&
+                  state.action == AuthenticationAction.signIn) {
+                context
+                    .read<AuthFormCubit>()
+                    .showError(error: text.invalidLoginCredentials);
+              }
+            },
+            child: BlocBuilder<AuthFormCubit, AuthFormState>(
+              builder: (context, state) {
+                if (state.error != null) {
+                  return Center(
+                    child: Text(
+                      state.error ?? '',
+                      style: theme.primaryTextTheme.labelLarge
+                          ?.copyWith(color: AppColors.error),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
+        ),
+        LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
+          onTap: () {
+            _onSignIn(
+              context,
+              SignInWithEmailRaw(
+                username: _emailController.text,
+                password: _passwordController.text,
+              ),
+            );
+          },
+          label: text.signIn,
+          updateLoading: (state) {
+            return (state).isLoading ?? false;
+          },
+        ),
+        const SizedBox(height: 26),
+        Text(
+          text.authNotice,
+          textAlign: TextAlign.center,
+          style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+        ),
+        const SizedBox(height: 26),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '${text.notHaveAccount} ',
+              style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+            ),
+            PrimaryButton(
+              onTap: () {
+                widget.goSignUp();
+              },
+              hasBorder: false,
+              title: text.signUp,
+              isOutline: true,
+              titleTextStyleColor: theme.primaryColor,
+              padding: EdgeInsets.zero,
+            ),
+          ],
+        )
+      ],
     );
   }
 }

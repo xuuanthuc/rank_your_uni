@@ -36,88 +36,82 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 35,
-        horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            text.updateProfile,
-            style: theme.primaryTextTheme.displayLarge,
-          ),
-          const SizedBox(height: 51),
-          AuthFormLabel(
-            theme,
-            text: text.lastName,
-          ),
-          AuthTextField.normal(
-            theme: theme,
-            text: text,
-            hintText: text.enterLastName,
-            controller: _lastNameController,
-          ),
-          const SizedBox(height: 25),
-          AuthFormLabel(
-            theme,
-            text: text.firstName,
-          ),
-          AuthTextField.normal(
-            theme: theme,
-            text: text,
-            hintText: text.enterFirstName,
-            controller: _firstNameController,
-          ),
-          const SizedBox(height: 25),
-          AuthFormLabel(
-            theme,
-            text: text.universityName,
-          ),
-          AuthTextField.normal(
-            theme: theme,
-            text: text,
-            hintText: text.whatIsYourUniversity,
-            controller: _universityController,
-          ),
-          const SizedBox(height: 30),
-          LoadingPrimaryButton<AppSettingsBloc, AppSettingsState>(
-            onTap: () {
-              final state = BlocProvider.of<AppSettingsBloc>(context).state;
-              ProfileRaw profile = ProfileRaw(
-                id: state.profileAuthenticated?.id ?? -1,
-                username: state.profileAuthenticated?.username ?? '',
-                firstName: _firstNameController.text,
-                lastName: _lastNameController.text,
-                university: _universityController.text,
-                email: state.profileAuthenticated?.email ?? '',
-              );
-              context
-                  .read<AppSettingsBloc>()
-                  .add(UpdateUserProfileEvent(profile));
-              context.pop();
-            },
-            label: text.completeRegister,
-            updateLoading: (state) {
-              return state.status == AppSettingStatus.loading;
-            },
-          ),
-          const SizedBox(height: 25),
-          PrimaryButton(
-            onTap: () {
-              context.pop();
-            },
-            hasBorder: false,
-            title: text.skipForNow,
-            isOutline: true,
-            titleTextStyleColor: theme.primaryColor,
-            padding: EdgeInsets.zero,
-          ),
-          const SizedBox(height: 25),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          text.updateProfile,
+          style: theme.primaryTextTheme.displayLarge,
+        ),
+        const SizedBox(height: 51),
+        AuthFormLabel(
+          theme,
+          text: text.lastName,
+        ),
+        AuthTextField.normal(
+          theme: theme,
+          text: text,
+          hintText: text.enterLastName,
+          controller: _lastNameController,
+        ),
+        const SizedBox(height: 25),
+        AuthFormLabel(
+          theme,
+          text: text.firstName,
+        ),
+        AuthTextField.normal(
+          theme: theme,
+          text: text,
+          hintText: text.enterFirstName,
+          controller: _firstNameController,
+        ),
+        const SizedBox(height: 25),
+        AuthFormLabel(
+          theme,
+          text: text.universityName,
+        ),
+        AuthTextField.normal(
+          theme: theme,
+          text: text,
+          hintText: text.whatIsYourUniversity,
+          controller: _universityController,
+        ),
+        const SizedBox(height: 30),
+        LoadingPrimaryButton<AppSettingsBloc, AppSettingsState>(
+          onTap: () {
+            final state = BlocProvider.of<AppSettingsBloc>(context).state;
+            ProfileRaw profile = ProfileRaw(
+              id: state.profileAuthenticated?.id ?? -1,
+              username: state.profileAuthenticated?.username ?? '',
+              firstName: _firstNameController.text,
+              lastName: _lastNameController.text,
+              university: _universityController.text,
+              email: state.profileAuthenticated?.email ?? '',
+            );
+            context
+                .read<AppSettingsBloc>()
+                .add(UpdateUserProfileEvent(profile));
+            context.pop();
+          },
+          label: text.completeRegister,
+          updateLoading: (state) {
+            return state.status == AppSettingStatus.loading;
+          },
+        ),
+        const SizedBox(height: 25),
+        PrimaryButton(
+          onTap: () {
+            context.pop();
+          },
+          hasBorder: false,
+          title: text.skipForNow,
+          isOutline: true,
+          titleTextStyleColor: theme.primaryColor,
+          padding: EdgeInsets.zero,
+        ),
+        const SizedBox(height: 25),
+      ],
     );
   }
 }

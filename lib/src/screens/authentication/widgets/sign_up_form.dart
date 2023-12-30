@@ -46,116 +46,110 @@ class _SignUpEmailFormState extends State<SignUpEmailForm> {
     final theme = Theme.of(context);
     return Form(
       key: _formKey,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-          vertical: 35,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              text.signUp,
-              style: theme.primaryTextTheme.displayLarge,
-            ),
-            const SizedBox(height: 45),
-            AuthWithGoogleButton(
-              theme: theme,
-              text: text.signUpWithGoogle,
-              onAuthWithGoogle: () => _onSignGoogleSignIn(context),
-            ),
-            const SizedBox(height: 26),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: AppColors.grey,
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            text.signUp,
+            style: theme.primaryTextTheme.displayLarge,
+          ),
+          const SizedBox(height: 45),
+          AuthWithGoogleButton(
+            theme: theme,
+            text: text.signUpWithGoogle,
+            onAuthWithGoogle: () => _onSignGoogleSignIn(context),
+          ),
+          const SizedBox(height: 26),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: AppColors.grey,
                 ),
-                const SizedBox(width: 4),
-                Text(
-                  text.orSignUpWithEmail,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: AppColors.grey,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 26),
-            AuthFormLabel(
-              theme,
-              text: text.email,
-            ),
-            AuthTextField.email(
-              theme: theme,
-              text: text,
-              hintText: text.enterEmail,
-              controller: _emailController,
-              onEditingComplete: (){
-                widget.continueSignUp(_emailController.text.trim());
-              },
-            ),
-            SizedBox(
-              height: 55,
-              child: BlocBuilder<AuthFormCubit, AuthFormState>(
-                builder: (context, state) {
-                  if (state.error != null) {
-                    return Center(
-                      child: Text(
-                        state.error ?? '',
-                        style: theme.primaryTextTheme.labelLarge
-                            ?.copyWith(color: AppColors.error),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
               ),
-            ),
-            PrimaryButton(
-              onTap: () {
-                widget.continueSignUp(_emailController.text.trim());
+              const SizedBox(width: 4),
+              Text(
+                text.orSignUpWithEmail,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: AppColors.grey,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 26),
+          AuthFormLabel(
+            theme,
+            text: text.email,
+          ),
+          AuthTextField.email(
+            theme: theme,
+            text: text,
+            hintText: text.enterEmail,
+            controller: _emailController,
+            onEditingComplete: (){
+              widget.continueSignUp(_emailController.text.trim());
+            },
+          ),
+          SizedBox(
+            height: 55,
+            child: BlocBuilder<AuthFormCubit, AuthFormState>(
+              builder: (context, state) {
+                if (state.error != null) {
+                  return Center(
+                    child: Text(
+                      state.error ?? '',
+                      style: theme.primaryTextTheme.labelLarge
+                          ?.copyWith(color: AppColors.error),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
               },
-              title: text.continueText,
-              height: 46,
             ),
-            const SizedBox(height: 26),
-            Text(
-              text.authNotice,
-              textAlign: TextAlign.center,
-              style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
-            ),
-            const SizedBox(height: 26),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${text.alreadyHaveAccount} ',
-                  style:
-                      theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
-                ),
-                PrimaryButton(
-                  onTap: () {
-                    widget.goSignIn();
-                  },
-                  hasBorder: false,
-                  title: text.signIn,
-                  isOutline: true,
-                  titleTextStyleColor: theme.primaryColor,
-                  padding: EdgeInsets.zero,
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+          PrimaryButton(
+            onTap: () {
+              widget.continueSignUp(_emailController.text.trim());
+            },
+            title: text.continueText,
+            height: 46,
+          ),
+          const SizedBox(height: 26),
+          Text(
+            text.authNotice,
+            textAlign: TextAlign.center,
+            style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+          ),
+          const SizedBox(height: 26),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${text.alreadyHaveAccount} ',
+                style:
+                    theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+              ),
+              PrimaryButton(
+                onTap: () {
+                  widget.goSignIn();
+                },
+                hasBorder: false,
+                title: text.signIn,
+                isOutline: true,
+                titleTextStyleColor: theme.primaryColor,
+                padding: EdgeInsets.zero,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

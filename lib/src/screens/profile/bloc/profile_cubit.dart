@@ -24,7 +24,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   void getMyReview() async {
     emit(state.copyWith(status: ProfileStatus.loading));
     final res = await _userRepository.getMyReviews();
-    await Future.delayed(const Duration(seconds: 2));
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ProfileStatus.success,
