@@ -23,10 +23,10 @@ class UserRepository {
     }
   }
 
-  Future<RYUResponse> getMyReviews() async {
+  Future<RYUResponse> getMyReviews(String id) async {
     try {
       List<Review> reviews = [];
-      final data = await _apiProvider.get(ApiEndpoint.myReviews);
+      final data = await _apiProvider.get("${ApiEndpoint.myReviews}/$id");
       for (var element in (data['listItem'] as List<dynamic>)) {
         reviews.add(Review.fromJson(element));
       }

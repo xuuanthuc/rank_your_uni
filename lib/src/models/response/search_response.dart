@@ -23,7 +23,7 @@ class SearchModel {
     if (json['content'] != null) {
       json['content'].forEach((v) {
         final university = University.fromSearchJson(v);
-        if(university.status == null){
+        if(university.status == 1){
           universities.add(university);
         }
       });

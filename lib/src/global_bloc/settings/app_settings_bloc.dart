@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -31,6 +33,8 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     if (username == null) return;
     final data = await _userRepository.getUserProfile(username);
     if (data.isSuccess) {
+      await StorageProvider.instance
+          .save(StorageKeys.user, jsonEncode((data.data as Profile).toJson()));
       emit(state.copyWith(
         isSuccess: true,
         status: AppSettingStatus.success,
@@ -51,6 +55,8 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
       action: AppSettingAction.updateProfile,
     ));
     final res = await _userRepository.updateUser(event.profile);
+    await StorageProvider.instance
+        .save(StorageKeys.user, (res.data as Profile).toJson() as String);
     if (res.isSuccess) {
       emit(state.copyWith(
         status: AppSettingStatus.success,

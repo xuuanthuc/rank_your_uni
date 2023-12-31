@@ -36,4 +36,16 @@ class Profile {
       activated: activated,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['email'] = email;
+    data['firstName'] = firstName;
+    data['university'] = university;
+    data['lastName'] = lastName;
+    data['activated'] = activated;
+    data['login'] = username;
+    return data;
+  }
 }

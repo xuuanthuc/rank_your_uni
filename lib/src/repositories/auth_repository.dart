@@ -106,6 +106,7 @@ class AuthRepository {
   Future<bool> onSignOut() async {
     await StorageProvider.instance.delete(StorageKeys.token);
     await StorageProvider.instance.delete(StorageKeys.username);
+    await StorageProvider.instance.delete(StorageKeys.user);
     StaticVariable.tokenIsNotChecked = true;
     return true;
   }

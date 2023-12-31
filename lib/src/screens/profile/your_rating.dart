@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/screens/profile/bloc/profile_cubit.dart';
-
 import '../../../global/utilities/public.dart';
 import '../../di/dependencies.dart';
 import '../detail/bloc/review_item_cubit.dart';
@@ -19,7 +18,7 @@ class _YourRatingsState extends State<YourRatings> {
   @override
   void initState() {
     super.initState();
-    context.read<ProfileCubit>().getMyReview();
+    context.read<ProfileCubit>().getMyReview(context);
   }
 
   @override
