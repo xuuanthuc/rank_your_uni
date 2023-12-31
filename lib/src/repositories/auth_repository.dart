@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:template/global/storage/storage_keys.dart';
 import 'package:template/global/storage/storage_provider.dart';
+import 'package:template/src/models/request/reset_password_request.dart';
+import 'package:template/src/models/response/password.dart';
 import 'package:template/src/models/response/profile.dart';
 import '../../global/utilities/static_variable.dart';
 import '../models/request/sign_in_with_email_request.dart';
@@ -58,11 +60,48 @@ class AuthRepository {
         ApiEndpoint.forgotPassword,
         params: {"email": email},
       );
-      return RYUResponse(isSuccess: true, data: data);
+      final result = ResetPassword.fromJson(data);
+      if (result.status == "OK") {
+        return RYUResponse(
+          isSuccess: true,
+          data: result,
+        );
+      } else {
+        return RYUResponse(
+          isSuccess: false,
+          errorMessage: result.message ?? '',
+          code: 200,
+        );
+      }
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
+
+  Future<RYUResponse> onResetPassword(ResetPasswordRaw reset) async {
+    try {
+      final data = await _apiProvider.post(
+        ApiEndpoint.resetPassword,
+        params: reset.toJson(),
+      );
+      final result = ResetPassword.fromJson(data);
+      if (result.status == "OK") {
+        return RYUResponse(
+          isSuccess: true,
+          data: result,
+        );
+      } else {
+        return RYUResponse(
+          isSuccess: false,
+          errorMessage: result.message ?? '',
+          code: 200,
+        );
+      }
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
 
   Future<bool> onSignOut() async {
     await StorageProvider.instance.delete(StorageKeys.token);

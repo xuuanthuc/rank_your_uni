@@ -5,7 +5,7 @@ import 'package:template/src/screens/authentication/widgets/text_field_auth.dart
 import '../../../../global/style/styles.dart';
 import '../../../../global/validators/validators.dart';
 import '../../../global_bloc/authentication/authentication_bloc.dart';
-import '../../widgets/primary_button.dart';
+import '../../widgets/loading_primary_button.dart';
 import '../bloc/auth_form_cubit.dart';
 import 'auth_field_label.dart';
 
@@ -87,10 +87,12 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               },
             ),
           ),
-          PrimaryButton(
+          LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
             onTap: () => _forgotPassword(context),
-            title: text.continueText,
-            height: 46,
+            label: text.resetPassword,
+            updateLoading: (state) {
+              return (state).isLoading ?? false;
+            },
           ),
           const SizedBox(height: 26),
           Text(

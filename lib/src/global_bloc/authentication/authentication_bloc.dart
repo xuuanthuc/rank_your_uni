@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
 import 'package:template/global/utilities/static_variable.dart';
+import 'package:template/src/models/request/reset_password_request.dart';
 import '../../../global/storage/storage_keys.dart';
 import '../../../global/storage/storage_provider.dart';
 import '../../models/request/sign_in_with_email_request.dart';
@@ -57,11 +58,12 @@ class AuthenticationBloc
       } else {
         emit(
           state.copyWith(
-            isError: false,
+            isError: true,
             status: AuthenticationStatus.unauthenticated,
             action: AuthenticationAction.forgotPassword,
             isLoading: false,
             isSuccess: false,
+            errorMessage: res.errorMessage,
           ),
         );
       }

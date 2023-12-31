@@ -1,8 +1,18 @@
 part of 'authentication_bloc.dart';
 
-enum AuthenticationAction { init, signIn, signUp, signOut, refreshToken, forgotPassword }
+enum AuthenticationAction {
+  init,
+  signIn,
+  signUp,
+  signOut,
+  refreshToken,
+  forgotPassword,
+}
 
-enum AuthenticationStatus { unauthenticated, authenticated }
+enum AuthenticationStatus {
+  unauthenticated,
+  authenticated,
+}
 
 @injectable
 class AuthenticationState extends Equatable {

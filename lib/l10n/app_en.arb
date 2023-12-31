@@ -177,5 +177,11 @@
   "newPassword": "Mật khẩu mới",
   "updatePassword": "Cập nhật mật khẩu",
   "abbrevia": "Tên viết tắt của trường",
-  "enterYourEmailToResetPassword": "Đừng lo, điền địa chỉ email của bạn vào đây và chúng tôi sẽ giúp bạn"
+  "enterYourEmailToResetPassword": "Đừng lo, điền địa chỉ email của bạn vào đây và chúng tôi sẽ giúp bạn",
+  "resetPasswordSuccess": "Thay đổi mật khẩu thành công",
+  "checkYourEmail": "Hãy kiểm tra email của bạn",
+  "resetPassword": "Cài lại mật khẩu",
+  "enterNewPassword": "Nhập mật khẩu mới của bạn và tiếp tục trải nghiệm RYU nào",
+  "expiredUrl": "Đường dẫn đã hết hạn",
+  "submitSuccess": "Xác nhận thành công"
 }

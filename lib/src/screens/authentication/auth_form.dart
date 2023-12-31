@@ -62,6 +62,21 @@ class _AuthFormState extends State<AuthForm> {
             message: AppLocalizations.of(context)!.somethingWrong,
             subMessage: state.errorMessage,
           );
+        } else if (state.action == AuthenticationAction.forgotPassword &&
+            state.isError == true) {
+          appToast(
+            context,
+            message: AppLocalizations.of(context)!.somethingWrong,
+            subMessage: state.errorMessage,
+          );
+        } else if (state.action == AuthenticationAction.forgotPassword &&
+            state.isSuccess == true){
+          appToast(
+            context,
+            message: AppLocalizations.of(context)!.submitSuccess,
+            subMessage: AppLocalizations.of(context)!.checkYourEmail,
+            type: ToastType.success
+          );
         }
       },
       child: Dialog(

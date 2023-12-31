@@ -8,6 +8,7 @@ import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
+import 'package:template/src/screens/reset/reset_password_screen.dart';
 import 'package:template/src/screens/blank/blank_screen.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
@@ -114,6 +115,20 @@ class MyApp extends StatelessWidget {
                 universityId: data['id'] as String,
                 compareWithUniversityId: data['withUniId'] as String,
                 universityInitial: university,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/account/reset/finish',
+          name: RouteKey.resetPassword,
+          pageBuilder: (context, state) {
+            final data = state.uri.queryParameters;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ResetPasswordScreen(
+                resetKey: data['key'] as String,
               ),
             );
           },
