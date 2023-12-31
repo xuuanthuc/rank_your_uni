@@ -57,7 +57,7 @@ class _AddUniversityViewState extends State<AddUniversityView> {
 
   final TextEditingController _websiteController = TextEditingController();
 
-  final TextEditingController _creatorEmailController = TextEditingController();
+  final TextEditingController _abbreviaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +104,10 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                           controller: _nameController,
                         ),
                         TextAddField(
+                          label: text.abbrevia,
+                          controller: _abbreviaController,
+                        ),
+                        TextAddField(
                           label: text.cityOrProvince,
                           readOnly: true,
                           onTap: () => _selectProvince(context),
@@ -118,10 +122,6 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                         TextAddField(
                           label: text.website,
                           controller: _websiteController,
-                        ),
-                        TextAddField(
-                          label: text.yourEmail,
-                          controller: _creatorEmailController,
                         ),
                         Row(
                           children: [
@@ -166,7 +166,7 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                                     .submitAddUniversity(
                                       name: _nameController.text,
                                       website: _websiteController.text,
-                                      email: _creatorEmailController.text,
+                                      code: _abbreviaController.text,
                                     );
                               },
                               label: text.addUniversity,

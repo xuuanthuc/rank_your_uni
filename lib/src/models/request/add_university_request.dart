@@ -2,25 +2,28 @@ import 'package:template/src/models/response/province.dart';
 
 class AddUniversityRaw {
   String? name;
+  String? code;
   Province? province;
   Districts? districts;
   String? website;
-  String? creatorEmail;
+  int? status;
 
   AddUniversityRaw({
     this.name,
+    this.code,
     this.province,
     this.districts,
     this.website,
-    this.creatorEmail,
+    this.status,
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['contentRated'] = name;
-    data['reputation'] = '${province?.name}, ${districts?.name}';
-    data['internet'] = website;
-    data['reviewDate'] = creatorEmail;
+    data['schoolName'] = name;
+    data['abbrevia'] = code;
+    data['address'] = '${province?.name}, ${districts?.name}';
+    data['website'] = website;
+    data['status'] = status;
     return data;
   }
 }

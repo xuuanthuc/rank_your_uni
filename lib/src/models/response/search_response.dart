@@ -22,7 +22,10 @@ class SearchModel {
     final universities = <University>[];
     if (json['content'] != null) {
       json['content'].forEach((v) {
-        universities.add(University.fromSearchJson(v));
+        final university = University.fromSearchJson(v);
+        if(university.status == null){
+          universities.add(university);
+        }
       });
     }
     return SearchModel(

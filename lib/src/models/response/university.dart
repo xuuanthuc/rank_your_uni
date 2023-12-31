@@ -18,6 +18,7 @@ class University {
   final double? favoriteAvg;
   final double? competitionLevelAvg;
   final int? totalReviews;
+  final int? status;
 
   const University(
     this.id, {
@@ -37,6 +38,7 @@ class University {
     this.favoriteAvg,
     this.competitionLevelAvg,
     this.totalReviews,
+    this.status,
   });
 
   factory University.fromSearchJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class University {
     final website = json['website'];
     final address = json['address'];
     final totalReviews = json['totalReview'];
+    final status = json['status'];
     final averagePointAllReviews =
         double.tryParse(json['averagePointAllReviews'] ?? "") ?? 0.0;
     final phone = json['phone'];
@@ -75,6 +78,7 @@ class University {
       clubsAvg: clubsAvg,
       favoriteAvg: favoriteAvg,
       competitionLevelAvg: competitionLevelAvg,
+      status: status,
     );
   }
 
@@ -84,6 +88,7 @@ class University {
     final abbrevia = json['abbrevia'];
     final website = json['website'];
     final address = json['address'];
+    final status = json['status'];
     final totalReviews = json['totalReview'];
     final reputationAvg = double.tryParse(json['reputationAvg'] ?? "") ?? 0.0;
     final internetAvg = double.tryParse(json['internetAvg'] ?? "") ?? 0.0;
@@ -121,6 +126,7 @@ class University {
       favoriteAvg: favoriteAvg,
       competitionLevelAvg: competitionLevelAvg,
       totalReviews: totalReviews,
+      status: status,
     );
   }
 
@@ -143,6 +149,7 @@ class University {
       favoriteAvg: favoriteAvg,
       competitionLevelAvg: competitionLevelAvg,
       totalReviews: totalReviews,
+      status: status,
     );
   }
 }

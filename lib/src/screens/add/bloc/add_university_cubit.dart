@@ -28,15 +28,16 @@ class AddUniversityCubit extends Cubit<AddUniversityState> {
   void submitAddUniversity({
     required String name,
     required String website,
-    required String email,
+    required String code,
   }) async {
-    if(state.acceptPrivacy != true) return;
+    if (state.acceptPrivacy != true) return;
     emit(state.copyWith(
       status: AddUniStatus.loading,
       addUniversityRaw: state.addUniversityRaw
-        ?..creatorEmail = email
+        ?..code = code
         ..website = website
-        ..name = name,
+        ..name = name
+        ..status = 0,
     ));
     await Future.delayed(const Duration(seconds: 3));
     emit(state.copyWith(status: AddUniStatus.success));

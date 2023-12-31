@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:template/src/models/request/add_university_request.dart';
 import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
 import 'package:template/src/models/response/response.dart';
@@ -95,6 +96,19 @@ class DetailRepository {
           "id": id,
           "userId": userId,
         },
+      );
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> addUniversity(AddUniversityRaw university) async {
+    //cancel like, dislike
+    try {
+      final res = await _apiProvider.post(
+        ApiEndpoint.search,
+        params: university.toJson(),
       );
       return RYUResponse(isSuccess: true, data: Review.fromJson(res));
     } on ResponseException catch (e) {

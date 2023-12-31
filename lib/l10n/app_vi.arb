@@ -175,5 +175,6 @@
   "skipForNow": "Không muốn? Tạm thời bỏ qua",
   "currentPassword": "Mật khẩu",
   "newPassword": "Mật khẩu mới",
-  "updatePassword": "Cập nhật mật khẩu"
+  "updatePassword": "Cập nhật mật khẩu",
+  "abbrevia": "Tên viết tắt của trường"
 }
