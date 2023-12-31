@@ -33,7 +33,7 @@ class _HomeDescriptionState extends State<HomeDescription> {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => getIt.get<AuthFormCubit>(),
-          child: const AuthForm(pageIndex: 1),
+          child: const AuthForm(pageIndex: PageIndex.signUpEmail),
         );
       },
     ).then((value) => _updateUserProfile(context));

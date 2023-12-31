@@ -42,6 +42,7 @@ class _UpdateUserProfileFormState extends State<UpdateUserProfileForm> {
         Text(
           text.updateProfile,
           style: theme.primaryTextTheme.displayLarge,
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 51),
         AuthFormLabel(

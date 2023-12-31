@@ -176,5 +176,6 @@
   "currentPassword": "Mật khẩu",
   "newPassword": "Mật khẩu mới",
   "updatePassword": "Cập nhật mật khẩu",
-  "abbrevia": "Tên viết tắt của trường"
+  "abbrevia": "Tên viết tắt của trường",
+  "enterYourEmailToResetPassword": "Đừng lo, điền địa chỉ email của bạn vào đây và chúng tôi sẽ giúp bạn"
 }

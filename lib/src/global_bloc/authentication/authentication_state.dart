@@ -1,6 +1,6 @@
 part of 'authentication_bloc.dart';
 
-enum AuthenticationAction { init, signIn, signUp, signOut, refreshToken }
+enum AuthenticationAction { init, signIn, signUp, signOut, refreshToken, forgotPassword }
 
 enum AuthenticationStatus { unauthenticated, authenticated }
 

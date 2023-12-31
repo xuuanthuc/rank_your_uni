@@ -52,6 +52,18 @@ class AuthRepository {
     }
   }
 
+  Future<RYUResponse> onForgotPassword(String email) async {
+    try {
+      final data = await _apiProvider.post(
+        ApiEndpoint.forgotPassword,
+        params: {"email": email},
+      );
+      return RYUResponse(isSuccess: true, data: data);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
   Future<bool> onSignOut() async {
     await StorageProvider.instance.delete(StorageKeys.token);
     await StorageProvider.instance.delete(StorageKeys.username);

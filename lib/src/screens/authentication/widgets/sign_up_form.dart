@@ -203,6 +203,7 @@ class _SignUpPasswordFormState extends State<SignUpPasswordForm> {
                 Text(
                   text.createPassword,
                   style: theme.primaryTextTheme.displayLarge,
+                  textAlign: TextAlign.center,
                 ),
                 Opacity(
                   opacity: 0,

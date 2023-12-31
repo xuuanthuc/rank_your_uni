@@ -6,6 +6,7 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/models/request/sign_up_with_email_request.dart';
+import 'package:template/src/screens/authentication/widgets/forgot_password_form.dart';
 import 'package:template/src/screens/authentication/widgets/sign_in_form.dart';
 import 'package:template/src/screens/authentication/widgets/sign_up_form.dart';
 import 'package:template/src/screens/authentication/widgets/update_user_profile_form.dart';
@@ -49,7 +50,7 @@ class _AuthFormState extends State<AuthForm> {
             state.status == AuthenticationStatus.authenticated) {
           context.read<AppSettingsBloc>().add(GetUserProfileEvent());
           _pageController.animateToPage(
-            3,
+            PageIndex.updateProfile,
             duration: const Duration(milliseconds: 300),
             curve: Curves.ease,
           );
@@ -91,13 +92,17 @@ class _AuthFormState extends State<AuthForm> {
                       SignInForm(
                         goSignUp: () {
                           context.read<AuthFormCubit>().showError();
-                          _pageController.jumpToPage(1);
+                          _pageController.jumpToPage(PageIndex.signUpEmail);
+                        },
+                        goToForgotPassword: () {
+                          context.read<AuthFormCubit>().showError();
+                          _pageController.jumpToPage(PageIndex.forgotPassword);
                         },
                       ),
                       SignUpEmailForm(
                         goSignIn: () {
                           context.read<AuthFormCubit>().showError();
-                          _pageController.jumpToPage(0);
+                          _pageController.jumpToPage(PageIndex.signIn);
                         },
                         continueSignUp: (email) {
                           final text = AppLocalizations.of(context)!;
@@ -110,7 +115,7 @@ class _AuthFormState extends State<AuthForm> {
                             _emailRegister = email;
                             context.read<AuthFormCubit>().showError();
                             _pageController.animateToPage(
-                              2,
+                              PageIndex.signUpPassword,
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
@@ -135,13 +140,14 @@ class _AuthFormState extends State<AuthForm> {
                         onPrevious: () {
                           context.read<AuthFormCubit>().showError();
                           _pageController.animateToPage(
-                            1,
+                            PageIndex.signUpEmail,
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.ease,
                           );
                         },
                       ),
-                      const UpdateUserProfileForm()
+                      const UpdateUserProfileForm(),
+                      const ForgotPasswordForm(),
                     ],
                   ),
                 ),

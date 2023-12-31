@@ -24,7 +24,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => getIt.get<AuthFormCubit>(),
-          child: const AuthForm(pageIndex: 1),
+          child: const AuthForm(pageIndex: PageIndex.signUpEmail),
         );
       },
     ).then((value) => _updateUserProfile(context));
@@ -37,7 +37,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => getIt.get<AuthFormCubit>(),
-          child: const AuthForm(pageIndex: 0),
+          child: const AuthForm(pageIndex: PageIndex.signIn),
         );
       },
     ).then((value) => _updateUserProfile(context));

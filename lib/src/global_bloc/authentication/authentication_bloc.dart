@@ -32,6 +32,47 @@ class AuthenticationBloc
     on<OnSignUpWithEmailEvent>(onSignUpWithEmail);
     on<OnGoogleSignInEvent>(onGoogleSignIn);
     on<OnGoogleSignUpEvent>(onGoogleSignUp);
+    on<OnForgotPasswordEvent>(onForgotPassword);
+  }
+
+  void onForgotPassword(
+    OnForgotPasswordEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(state.copyWith(
+      status: AuthenticationStatus.unauthenticated,
+      action: AuthenticationAction.forgotPassword,
+      isSuccess: false,
+      isLoading: true,
+    ));
+    try {
+      final res = await _authRepository.onForgotPassword(event.email);
+      if (res.isSuccess) {
+        emit(state.copyWith(
+          isSuccess: true,
+          status: AuthenticationStatus.unauthenticated,
+          action: AuthenticationAction.forgotPassword,
+          isLoading: false,
+        ));
+      } else {
+        emit(
+          state.copyWith(
+            isError: false,
+            status: AuthenticationStatus.unauthenticated,
+            action: AuthenticationAction.forgotPassword,
+            isLoading: false,
+            isSuccess: false,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isError: true,
+        status: AuthenticationStatus.unauthenticated,
+        action: AuthenticationAction.forgotPassword,
+        isLoading: false,
+      ));
+    }
   }
 
   void onCheckToken(

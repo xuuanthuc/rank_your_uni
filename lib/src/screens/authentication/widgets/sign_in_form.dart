@@ -12,9 +12,14 @@ import 'auth_field_label.dart';
 import 'google_auth_button.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({super.key, required this.goSignUp});
+  const SignInForm({
+    super.key,
+    required this.goSignUp,
+    required this.goToForgotPassword,
+  });
 
   final Function goSignUp;
+  final Function goToForgotPassword;
 
   @override
   State<SignInForm> createState() => _SignInFormState();
@@ -60,6 +65,7 @@ class _SignInFormState extends State<SignInForm> {
         Text(
           text.signIn,
           style: theme.primaryTextTheme.displayLarge,
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 45),
         AuthWithGoogleButton(
@@ -101,7 +107,7 @@ class _SignInFormState extends State<SignInForm> {
           text: text,
           hintText: text.enterEmail,
           controller: _emailController,
-          onEditingComplete: (){
+          onEditingComplete: () {
             _onSignIn(
               context,
               SignInWithEmailRaw(
@@ -121,7 +127,7 @@ class _SignInFormState extends State<SignInForm> {
           text: text,
           hintText: text.enterPassword,
           controller: _passwordController,
-          onEditingComplete: (){
+          onEditingComplete: () {
             _onSignIn(
               context,
               SignInWithEmailRaw(
@@ -135,7 +141,7 @@ class _SignInFormState extends State<SignInForm> {
         Row(
           children: [
             PrimaryButton(
-              onTap: () {},
+              onTap: () => widget.goToForgotPassword(),
               hasBorder: false,
               title: text.forgetPassword,
               isOutline: true,
