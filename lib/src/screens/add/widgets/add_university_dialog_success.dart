@@ -36,8 +36,10 @@ class _AddUniversityDialogSuccessState
       ),
       child: Container(
         constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-        padding:
-            EdgeInsets.all(ResponsiveBuilder.setHorizontalPadding(context)),
+        padding: EdgeInsets.symmetric(
+          horizontal: ResponsiveBuilder.setHorizontalPadding(context),
+          vertical: 10
+        ),
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
