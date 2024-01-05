@@ -29,7 +29,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   void getMyReview(BuildContext context) async {
     emit(state.copyWith(status: ProfileStatus.loading));
     final userJson = await StorageProvider.instance.get(StorageKeys.user);
-    if(userJson == null) return;
+    if (userJson == null) return;
     final user = Profile.fromJson(jsonDecode(userJson));
     if (user.id == null) return;
     final res = await _userRepository.getMyReviews(user.id.toString());
@@ -37,6 +37,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(state.copyWith(
         status: ProfileStatus.success,
         reviews: res.data,
+        userAuthenticated: user,
       ));
     } else {
       emit(state.copyWith(status: ProfileStatus.error));

@@ -55,8 +55,7 @@ class _YourRatingsState extends State<YourRatings> {
                       create: (context) => getIt.get<ReviewItemCubit>(),
                       child: ReviewItem(
                         review: (state.reviews ?? [])[index],
-                        //TODO add current user
-                        // currentUser: ,
+                        currentUser: state.userAuthenticated,
                         onUpdateReviewIndex: (review) {
                           (state.reviews ?? [])[index] = review;
                         },
