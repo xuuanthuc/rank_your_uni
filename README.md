@@ -4,7 +4,7 @@ Website review all universities in Viet Nam
 
 # URL
 
-[<img src="assets/images/i_home_logo.png"  style="width:100px";>](https://rankyouruni.com/)
+[<img src="assets/images/i_home_logo.png"  style="width:100px">](https://rankyouruni.com/)
 
 [Rank Your UNi](https://rankyouruni.com/)
 
