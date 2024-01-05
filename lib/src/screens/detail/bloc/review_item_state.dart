@@ -13,18 +13,26 @@ class ReviewItemState extends Equatable {
   final ReviewItemStatus? status;
   final ReviewItemAction? action;
   final Review? review;
+  final Profile? userAuthenticated;
 
-  const ReviewItemState({this.status, this.review, this.action});
+  const ReviewItemState({
+    this.status,
+    this.review,
+    this.action,
+    this.userAuthenticated,
+  });
 
   ReviewItemState copyWith({
     ReviewItemStatus? status,
     Review? review,
     ReviewItemAction? action,
+    Profile? userAuthenticated,
   }) {
     return ReviewItemState(
       status: status ?? this.status,
       review: review ?? this.review,
       action: action ?? this.action,
+      userAuthenticated: userAuthenticated ?? this.userAuthenticated,
     );
   }
 
@@ -33,5 +41,6 @@ class ReviewItemState extends Equatable {
         status,
         review,
         action,
+        userAuthenticated,
       ];
 }

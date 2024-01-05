@@ -21,7 +21,7 @@ class AddUniversityRaw {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['schoolName'] = name;
     data['abbrevia'] = code;
-    data['address'] = '${province?.name}, ${districts?.name}';
+    data['address'] = '${districts?.name}, ${province?.name}';
     data['website'] = website;
     data['status'] = status;
     return data;

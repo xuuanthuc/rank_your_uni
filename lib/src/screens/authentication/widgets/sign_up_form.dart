@@ -182,127 +182,117 @@ class _SignUpPasswordFormState extends State<SignUpPasswordForm> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 35),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () => widget.onPrevious(),
-                  icon: SvgPicture.asset(
-                    AppImages.iBack,
-                  ),
-                ),
-                Text(
-                  text.createPassword,
-                  style: theme.primaryTextTheme.displayLarge,
-                  textAlign: TextAlign.center,
-                ),
-                Opacity(
-                  opacity: 0,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      AppImages.iBack,
-                    ),
-                  ),
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IconButton(
+              onPressed: () => widget.onPrevious(),
+              icon: SvgPicture.asset(
+                AppImages.iBack,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveBuilder.setHorizontalPadding(context)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 93),
-                AuthFormLabel(
-                  theme,
-                  text: text.password,
+            Text(
+              text.createPassword,
+              style: theme.primaryTextTheme.displayLarge,
+              textAlign: TextAlign.center,
+            ),
+            Opacity(
+              opacity: 0,
+              child: IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  AppImages.iBack,
                 ),
-                AuthTextField.password(
-                  theme: theme,
-                  text: text,
-                  hintText: text.enterPassword,
-                  controller: _passwordController,
-                  onEditingComplete: (){
-                    if (TextFieldValidator.passValidator(
+              ),
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 93),
+            AuthFormLabel(
+              theme,
+              text: text.password,
+            ),
+            AuthTextField.password(
+              theme: theme,
+              text: text,
+              hintText: text.enterPassword,
+              controller: _passwordController,
+              onEditingComplete: (){
+                if (TextFieldValidator.passValidator(
+                    _passwordController.text) !=
+                    null) {
+                  context
+                      .read<AuthFormCubit>()
+                      .showError(error: text.invalidPassword);
+                } else {
+                  widget.onRegister(
+                    _passwordController.text.trim(),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+            Text(
+              text.passwordAtLeast,
+              style: theme.primaryTextTheme.bodyLarge?.copyWith(
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 35),
+            Text(
+              text.createPasswordDescription,
+              textAlign: TextAlign.center,
+              style:
+                  theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+            ),
+            SizedBox(
+              height: 55,
+              child: BlocBuilder<AuthFormCubit, AuthFormState>(
+                builder: (context, state) {
+                  if (state.error != null) {
+                    return Center(
+                      child: Text(
+                        state.error ?? '',
+                        style: theme.primaryTextTheme.labelLarge
+                            ?.copyWith(color: AppColors.error),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+            LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
+              onTap: () {
+                if (TextFieldValidator.passValidator(
                         _passwordController.text) !=
-                        null) {
-                      context
-                          .read<AuthFormCubit>()
-                          .showError(error: text.invalidPassword);
-                    } else {
-                      widget.onRegister(
-                        _passwordController.text.trim(),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  text.passwordAtLeast,
-                  style: theme.primaryTextTheme.bodyLarge?.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 35),
-                Text(
-                  text.createPasswordDescription,
-                  textAlign: TextAlign.center,
-                  style:
-                      theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
-                ),
-                SizedBox(
-                  height: 55,
-                  child: BlocBuilder<AuthFormCubit, AuthFormState>(
-                    builder: (context, state) {
-                      if (state.error != null) {
-                        return Center(
-                          child: Text(
-                            state.error ?? '',
-                            style: theme.primaryTextTheme.labelLarge
-                                ?.copyWith(color: AppColors.error),
-                          ),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ),
-                LoadingPrimaryButton<AuthenticationBloc, AuthenticationState>(
-                  onTap: () {
-                    if (TextFieldValidator.passValidator(
-                            _passwordController.text) !=
-                        null) {
-                      context
-                          .read<AuthFormCubit>()
-                          .showError(error: text.invalidPassword);
-                    } else {
-                      widget.onRegister(
-                        _passwordController.text.trim(),
-                      );
-                    }
-                  },
-                  label: text.continueText,
-                  updateLoading: (state) {
-                    return (state).isLoading ?? false;
-                  },
-                ),
-                const SizedBox(height: 40),
-              ],
+                    null) {
+                  context
+                      .read<AuthFormCubit>()
+                      .showError(error: text.invalidPassword);
+                } else {
+                  widget.onRegister(
+                    _passwordController.text.trim(),
+                  );
+                }
+              },
+              label: text.continueText,
+              updateLoading: (state) {
+                return (state).isLoading ?? false;
+              },
             ),
-          )
-        ],
-      ),
+            const SizedBox(height: 40),
+          ],
+        )
+      ],
     );
   }
 }

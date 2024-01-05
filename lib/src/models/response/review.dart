@@ -1,5 +1,8 @@
 class Review {
   final int id;
+  final int? userId;
+  final int? schoolId;
+  final String? schoolName;
   final String? content;
   final double? reputation;
   final double? competition;
@@ -29,10 +32,16 @@ class Review {
     this.averagePointPerReview,
     this.liked,
     this.likedStatus,
+    this.userId,
+    this.schoolId,
+    this.schoolName,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) {
     final id = json["id"];
+    final userId = json["userId"];
+    final schoolId = json["schoolId"];
+    final schoolName = json["schoolName"];
     final content = json["contentRated"];
     final reputation = json["reputation"];
     final competition = json["competitionLevel"];
@@ -68,6 +77,9 @@ class Review {
       averagePointPerReview: averagePointPerReview,
       liked: liked,
       likedStatus: likedStatus,
+      userId: userId,
+      schoolId: schoolId,
+      schoolName: schoolName,
     );
   }
 }

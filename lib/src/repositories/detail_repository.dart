@@ -70,7 +70,7 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> dislikeReview(int id,int userId) async {
+  Future<RYUResponse> dislikeReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -104,13 +104,13 @@ class DetailRepository {
   }
 
   Future<RYUResponse> addUniversity(AddUniversityRaw university) async {
-    //cancel like, dislike
     try {
       final res = await _apiProvider.post(
         ApiEndpoint.search,
         params: university.toJson(),
+        needToken: false,
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: res);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

@@ -35,6 +35,12 @@ class _SelectProvinceDialogState extends State<SelectProvinceDialog> {
   }
 
   @override
+  void dispose() {
+    _editingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final text = AppLocalizations.of(context)!;

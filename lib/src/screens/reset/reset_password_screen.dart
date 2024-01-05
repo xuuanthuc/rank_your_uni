@@ -60,6 +60,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordView> {
   }
 
   @override
+  void dispose() {
+    _editingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);

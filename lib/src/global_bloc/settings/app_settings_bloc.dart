@@ -56,7 +56,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     ));
     final res = await _userRepository.updateUser(event.profile);
     await StorageProvider.instance
-        .save(StorageKeys.user, (res.data as Profile).toJson() as String);
+        .save(StorageKeys.user, jsonEncode((res.data as Profile).toJson()));
     if (res.isSuccess) {
       emit(state.copyWith(
         status: AppSettingStatus.success,

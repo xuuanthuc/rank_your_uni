@@ -75,17 +75,19 @@ class NoticeMustLoginDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
+      insetPadding: const EdgeInsets.all(10),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0))),
       child: Container(
         constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-        padding: const EdgeInsets.all(30),
+        padding: EdgeInsets.all(ResponsiveBuilder.setHorizontalPadding(context)),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Text(
                 text.createAnAccount,
                 style: theme.primaryTextTheme.displayLarge,
+                textAlign: TextAlign.center,
               ),
               Padding(
                 padding:

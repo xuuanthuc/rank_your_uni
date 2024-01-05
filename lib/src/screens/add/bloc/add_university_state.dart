@@ -1,6 +1,6 @@
 part of 'add_university_cubit.dart';
 
-enum AddUniStatus { loading, success, error }
+enum AddUniStatus { loading, changed, error, success }
 
 @immutable
 class AddUniversityState extends Equatable {

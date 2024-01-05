@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
 import 'package:template/src/screens/detail/widgets/overall.dart';
@@ -46,20 +47,36 @@ class _UniversityViewState extends State<UniversityView> {
   @override
   void initState() {
     super.initState();
-    context.read<DetailCubit>().getDetailUniversity(widget.id, widget.university);
+    context.read<DetailCubit>().getDetailUniversity(
+          widget.id,
+          widget.university,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DetailCubit, DetailState>(
-      listenWhen: (_, cur) => cur.status == DetailStatus.error,
-      listener: (context, state) {
-        appToast(
-          context,
-          message: AppLocalizations.of(context)!.somethingWrong,
-          subMessage: AppLocalizations.of(context)!.tryAgainLater,
-        );
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<DetailCubit, DetailState>(
+          listenWhen: (_, cur) => cur.status == DetailStatus.error,
+          listener: (context, state) {
+            appToast(
+              context,
+              message: AppLocalizations.of(context)!.somethingWrong,
+              subMessage: AppLocalizations.of(context)!.tryAgainLater,
+            );
+          },
+        ),
+        BlocListener<AppSettingsBloc, AppSettingsState>(
+          listenWhen: (prev, curr) =>
+              curr.action == AppSettingAction.updateProfile,
+          listener: (context, state) {
+            context
+                .read<DetailCubit>()
+                .updateCurrentUser(state.profileAuthenticated);
+          },
+        ),
+      ],
       child: SelectionArea(
         child: AppScaffold(
           children: [

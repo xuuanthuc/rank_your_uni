@@ -25,6 +25,12 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
   final TextEditingController _editingController = TextEditingController();
 
   @override
+  void dispose() {
+    _editingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final text = AppLocalizations.of(context)!;

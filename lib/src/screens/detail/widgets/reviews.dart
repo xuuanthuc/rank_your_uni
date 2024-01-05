@@ -17,7 +17,7 @@ import 'package:template/src/screens/widgets/required_login_dialog.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
-import '../../../global_bloc/settings/app_settings_bloc.dart';
+import '../../../models/response/profile.dart';
 
 class ReviewsBuilder extends StatelessWidget {
   const ReviewsBuilder({super.key});
@@ -101,6 +101,7 @@ class ReviewsBuilder extends StatelessWidget {
                       child: BlocProvider(
                         create: (context) => getIt.get<ReviewItemCubit>(),
                         child: ReviewItem(
+                          currentUser: state.userAuthenticated,
                           review: (state.university?.reviews ?? [])[index],
                           onUpdateReviewIndex: (review) =>
                               state.university?.reviews?[index] = review,
@@ -198,10 +199,12 @@ class SortButton extends StatelessWidget {
 
 class ReviewItem extends StatefulWidget {
   final Review review;
+  final Profile? currentUser;
   final Function(Review) onUpdateReviewIndex;
 
   const ReviewItem({
     super.key,
+    this.currentUser,
     required this.review,
     required this.onUpdateReviewIndex,
   });
@@ -227,7 +230,17 @@ class _ReviewItemState extends State<ReviewItem> {
   @override
   void initState() {
     super.initState();
-    context.read<ReviewItemCubit>().onInitReviewUI(widget.review);
+    context
+        .read<ReviewItemCubit>()
+        .onInitReviewUI(widget.review, widget.currentUser);
+  }
+
+  @override
+  void didUpdateWidget(covariant ReviewItem oldWidget) {
+    context
+        .read<ReviewItemCubit>()
+        .onInitReviewUI(widget.review, widget.currentUser);
+    super.didUpdateWidget(oldWidget);
   }
 
   void _likeReview(BuildContext context, Review review, int? userId) async {
@@ -290,10 +303,11 @@ class _ReviewItemState extends State<ReviewItem> {
               child: ResponsiveBuilder(
                 mediumView: Column(
                   children: [
-                    // const MyReview(),
+                    MyReview(state: state),
                     OverallPoint(review: state.review!),
                     const SizedBox(height: 15),
                     ReviewContent(
+                      state: state,
                       onReport: () => _onReport(context),
                       onLike: (userId) => _likeReview(
                         context,
@@ -311,7 +325,7 @@ class _ReviewItemState extends State<ReviewItem> {
                 ),
                 child: Column(
                   children: [
-                    // const MyReview(),
+                    MyReview(state: state),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -319,6 +333,7 @@ class _ReviewItemState extends State<ReviewItem> {
                         const SizedBox(width: 35),
                         Expanded(
                           child: ReviewContent(
+                            state: state,
                             onReport: () => _onReport(context),
                             onLike: (userId) => _likeReview(
                               context,
@@ -347,20 +362,25 @@ class _ReviewItemState extends State<ReviewItem> {
 }
 
 class MyReview extends StatelessWidget {
-  const MyReview({super.key});
+  final ReviewItemState state;
+
+  const MyReview({
+    super.key,
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Visibility(
-      visible: true,
+      visible: state.userAuthenticated?.id == state.review?.userId,
       child: Column(
         children: [
           Row(
             children: [
               Expanded(
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                  state.review?.schoolName ?? '_',
                   style: theme.primaryTextTheme.labelLarge,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -397,8 +417,12 @@ class MyReview extends StatelessWidget {
 }
 
 class DashLine extends StatelessWidget {
-  const DashLine({Key? key, this.height = 1, this.color = Colors.black})
-      : super(key: key);
+  const DashLine({
+    Key? key,
+    this.height = 1,
+    this.color = Colors.black,
+  }) : super(key: key);
+
   final double height;
   final Color color;
 
@@ -431,12 +455,14 @@ class DashLine extends StatelessWidget {
 class ReviewContent extends StatelessWidget {
   final Review review;
   final Function onReport;
+  final ReviewItemState state;
   final Function(int?) onLike;
   final Function(int?) onDislike;
 
   const ReviewContent({
     super.key,
     required this.onReport,
+    required this.state,
     required this.review,
     required this.onLike,
     required this.onDislike,
@@ -542,101 +568,96 @@ class ReviewContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        BlocBuilder<AppSettingsBloc, AppSettingsState>(
-          builder: (context, setting) {
-            return Row(
-              children: [
-                Tooltip(
-                  message: text.helpful,
-                  child: IconButton(
-                    onPressed: () => onLike(setting.profileAuthenticated?.id),
-                    icon: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
-                        buildWhen: (_, cur) =>
-                            cur.action == ReviewItemAction.like ||
-                            cur.status == ReviewItemStatus.success,
-                        builder: (context, state) {
-                          if (state.status == ReviewItemStatus.loading) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: PrimaryCircularLoading(
-                                state.status == ReviewItemStatus.loading,
-                                strokeWidth: 5,
-                                strokeColor: AppColors.black,
-                              ),
-                            );
-                          }
-                          return (state.review?.liked?.userLiked ?? [])
-                                  .contains(setting.profileAuthenticated?.id ?? -1)
-                              ? SvgPicture.asset(AppImages.iLiked)
-                              : SvgPicture.asset(AppImages.iLike);
-                        },
-                      ),
-                    ),
+        Row(
+          children: [
+            Tooltip(
+              message: text.helpful,
+              child: IconButton(
+                onPressed: () => onLike(state.userAuthenticated?.id),
+                icon: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
+                    builder: (context, state) {
+                      if (state.status == ReviewItemStatus.loading &&
+                          state.action == ReviewItemAction.like) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: PrimaryCircularLoading(
+                            state.status == ReviewItemStatus.loading,
+                            strokeWidth: 5,
+                            strokeColor: AppColors.black,
+                          ),
+                        );
+                      }
+                      return (state.review?.liked?.userLiked ?? [])
+                              .contains(state.userAuthenticated?.id ?? -1)
+                          ? SvgPicture.asset(AppImages.iLiked)
+                          : SvgPicture.asset(AppImages.iLike);
+                    },
                   ),
                 ),
-                const SizedBox(width: 2),
-                SizedBox(
-                  width: 50,
-                  child: Text(
-                    (review.liked?.userLiked?.length ?? 0).toString(),
-                    style: theme.primaryTextTheme.labelLarge,
+              ),
+            ),
+            const SizedBox(width: 2),
+            SizedBox(
+              width: 50,
+              child: Text(
+                (review.liked?.userLiked?.length ?? 0).toString(),
+                style: theme.primaryTextTheme.labelLarge,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Tooltip(
+              message: text.notHelpful,
+              child: IconButton(
+                onPressed: () => onDislike(state.userAuthenticated?.id),
+                icon: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
+                    builder: (context, state) {
+                      if (state.status == ReviewItemStatus.loading &&
+                          state.action == ReviewItemAction.dislike) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: PrimaryCircularLoading(
+                            state.status == ReviewItemStatus.loading,
+                            strokeWidth: 5,
+                            strokeColor: AppColors.black,
+                          ),
+                        );
+                      }
+                      return (state.review?.liked?.userDisLiked ?? [])
+                              .contains(state.userAuthenticated?.id ?? -1)
+                          ? SvgPicture.asset(AppImages.iDisliked)
+                          : SvgPicture.asset(AppImages.iDislike);
+                    },
                   ),
                 ),
-                const SizedBox(width: 10),
-                Tooltip(
-                  message: text.notHelpful,
-                  child: IconButton(
-                    onPressed: () => onDislike(setting.profileAuthenticated?.id),
-                    icon: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: BlocBuilder<ReviewItemCubit, ReviewItemState>(
-                        buildWhen: (_, cur) =>
-                            cur.action == ReviewItemAction.dislike ||
-                            cur.status == ReviewItemStatus.success,
-                        builder: (context, state) {
-                          if (state.status == ReviewItemStatus.loading) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: PrimaryCircularLoading(
-                                state.status == ReviewItemStatus.loading,
-                                strokeWidth: 5,
-                                strokeColor: AppColors.black,
-                              ),
-                            );
-                          }
-                          return (state.review?.liked?.userDisLiked ?? [])
-                                  .contains(setting.profileAuthenticated?.id ?? -1)
-                              ? SvgPicture.asset(AppImages.iDisliked)
-                              : SvgPicture.asset(AppImages.iDislike);
-                        },
-                      ),
-                    ),
+              ),
+            ),
+            const SizedBox(width: 2),
+            Text(
+              (review.liked?.userDisLiked?.length ?? 0).toString(),
+              style: theme.primaryTextTheme.labelLarge,
+            ),
+            const Spacer(),
+            Visibility(
+              visible: state.userAuthenticated?.id != state.review?.userId,
+              child: Tooltip(
+                message: text.report,
+                child: IconButton(
+                  onPressed: () => onReport(),
+                  icon: SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: SvgPicture.asset(AppImages.iFlag),
                   ),
                 ),
-                const SizedBox(width: 2),
-                Text(
-                  (review.liked?.userDisLiked?.length ?? 0).toString(),
-                  style: theme.primaryTextTheme.labelLarge,
-                ),
-                const Spacer(),
-                Tooltip(
-                  message: text.report,
-                  child: IconButton(
-                    onPressed: () => onReport(),
-                    icon: SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: SvgPicture.asset(AppImages.iFlag),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         )
       ],
     );
@@ -653,9 +674,8 @@ class ReviewDescription extends StatelessWidget {
     final theme = Theme.of(context);
     return Text(
       review.content ?? '',
-      style: theme.primaryTextTheme.bodyMedium?.copyWith(
-        fontWeight: FontWeight.w500
-      ),
+      style: theme.primaryTextTheme.bodyMedium
+          ?.copyWith(fontWeight: FontWeight.w500),
     );
   }
 }

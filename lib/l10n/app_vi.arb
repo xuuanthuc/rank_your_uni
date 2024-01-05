@@ -183,5 +183,15 @@
   "resetPassword": "Cài lại mật khẩu",
   "enterNewPassword": "Nhập mật khẩu mới của bạn và tiếp tục trải nghiệm RYU nào",
   "expiredUrl": "Đường dẫn đã hết hạn",
-  "submitSuccess": "Xác nhận thành công"
+  "submitSuccess": "Xác nhận thành công",
+  "thankForAddUniversity": "Cảm ơn bạn đã thêm {university}",
+  "@thankForAddUniversity": {
+    "placeholders": {
+      "university": {
+        "type": "String"
+      }
+    }
+  },
+  "yourUniversityUnderReview": "Chúng tôi đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
+  "close": "Đóng"
 }
