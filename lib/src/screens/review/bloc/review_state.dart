@@ -2,9 +2,15 @@ part of 'review_cubit.dart';
 
 enum ReviewStatus { success, error, loading }
 
+enum ReviewAction { delete, update }
+
+enum ReviewMode { create, edit }
+
 @immutable
 class ReviewState extends Equatable {
   final ReviewStatus? status;
+  final ReviewAction? action;
+  final ReviewMode? mode;
   final University? university;
   final String? contentRated;
   final int? reputation;
@@ -28,10 +34,14 @@ class ReviewState extends Equatable {
     this.competition,
     this.status,
     this.university,
+    this.mode,
+    this.action,
   });
 
   ReviewState copyWith({
     ReviewStatus? status,
+    ReviewAction? action,
+    ReviewMode? mode,
     University? university,
     String? contentRated,
     int? reputation,
@@ -56,6 +66,8 @@ class ReviewState extends Equatable {
       facilities: facilities ?? this.facilities,
       food: food ?? this.food,
       favorite: favorite ?? this.favorite,
+      mode: mode ?? this.mode,
+      action: action,
     );
   }
 
@@ -72,5 +84,7 @@ class ReviewState extends Equatable {
         favorite,
         competition,
         status,
+        mode,
+        action,
       ];
 }

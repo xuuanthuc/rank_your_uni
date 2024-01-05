@@ -9,7 +9,6 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/reset/reset_password_screen.dart';
-import 'package:template/src/screens/blank/blank_screen.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
 import 'package:template/src/screens/guideline/guideline_screen.dart';
@@ -23,6 +22,8 @@ import 'package:template/src/screens/term_and_policy/privacy_policy_screen.dart'
 import 'package:template/src/screens/term_and_policy/terms_of_services.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'models/request/edit_review_param.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -59,6 +60,14 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/search/school',
           name: RouteKey.search,
+          redirect: (BuildContext context, GoRouterState state) {
+            final data = state.uri.queryParameters;
+            if ((data['q'] ?? '').isEmpty) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
           pageBuilder: (context, state) {
             final data = state.uri.queryParameters;
             return buildPageWithDefaultTransition<void>(
@@ -82,6 +91,32 @@ class MyApp extends StatelessWidget {
               child: ReviewForm(
                 universityId: data['id'] as String,
                 university: university,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/edit-review/university/:uniId/:reviewId',
+          name: RouteKey.editReview,
+          redirect: (BuildContext context, GoRouterState state) {
+            EditReviewParam? param = state.extra as EditReviewParam?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            EditReviewParam? param = state.extra as EditReviewParam?;
+            param ??= const EditReviewParam();
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ReviewForm(
+                universityId: data['uniId'] as String,
+                university: param.university,
+                review: param.review,
               ),
             );
           },
@@ -122,6 +157,14 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/account/reset/finish',
           name: RouteKey.resetPassword,
+          redirect: (BuildContext context, GoRouterState state) {
+            final data = state.uri.queryParameters;
+            if (data['key'] == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
           pageBuilder: (context, state) {
             final data = state.uri.queryParameters;
             return buildPageWithDefaultTransition<void>(
@@ -147,14 +190,22 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/review-university/success',
           name: RouteKey.reviewSuccess,
+          redirect: (BuildContext context, GoRouterState state) {
+            University? param = state.extra as University?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
           pageBuilder: (context, state) {
-            final university = state.extra;
+            final university = state.extra as University;
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: university == null
-                  ? const BlankScreen()
-                  : ReviewSuccessScreen(university: university as University),
+              child: ReviewSuccessScreen(
+                university: university,
+              ),
             );
           },
         ),

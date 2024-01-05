@@ -193,5 +193,6 @@
     }
   },
   "yourUniversityUnderReview": "Chúng tôi đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
-  "close": "Đóng"
+  "close": "Đóng",
+  "deleteReview": "Xoá đánh giá"
 }

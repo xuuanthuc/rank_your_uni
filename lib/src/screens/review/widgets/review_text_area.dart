@@ -9,7 +9,12 @@ import '../../../../global/style/styles.dart';
 import '../../widgets/primary_button.dart';
 
 class ReviewArea extends StatelessWidget {
-  const ReviewArea({super.key});
+  final TextEditingController controller;
+
+  const ReviewArea({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +110,9 @@ class ReviewArea extends StatelessWidget {
             TextField(
               maxLines: 7,
               maxLength: 500,
+              controller: controller,
               onChanged: (value) {
-                if(value.length > 500) return;
+                if (value.length > 500) return;
                 context.read<ReviewCubit>().updateContent(value);
               },
               decoration: InputDecoration(

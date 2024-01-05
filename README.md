@@ -39,7 +39,8 @@ However, as for local bloc, the event and state are in the same screen, so it re
   - build flavor: prod
   - file: main_prod.dart
 
-##terminal 📁
+## Terminal 📁
+
 - flutter build android flavor dev -t lib/main_dev.dart
 - flutter gen-l10n
 - flutter packages pub run build_runner build

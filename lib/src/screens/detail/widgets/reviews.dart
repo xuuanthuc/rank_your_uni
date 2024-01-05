@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/utilities/format.dart';
@@ -15,9 +16,12 @@ import 'package:template/src/screens/widgets/loading.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/required_login_dialog.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../../../global/routes/route_keys.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
+import '../../../models/request/edit_review_param.dart';
 import '../../../models/response/profile.dart';
+import '../../../models/response/university.dart';
 
 class ReviewsBuilder extends StatelessWidget {
   const ReviewsBuilder({super.key});
@@ -102,6 +106,7 @@ class ReviewsBuilder extends StatelessWidget {
                         create: (context) => getIt.get<ReviewItemCubit>(),
                         child: ReviewItem(
                           currentUser: state.userAuthenticated,
+                          university: state.university ?? const University(-1),
                           review: (state.university?.reviews ?? [])[index],
                           onUpdateReviewIndex: (review) =>
                               state.university?.reviews?[index] = review,
@@ -200,11 +205,13 @@ class SortButton extends StatelessWidget {
 class ReviewItem extends StatefulWidget {
   final Review review;
   final Profile? currentUser;
+  final University? university;
   final Function(Review) onUpdateReviewIndex;
 
   const ReviewItem({
     super.key,
     this.currentUser,
+    this.university,
     required this.review,
     required this.onUpdateReviewIndex,
   });
@@ -273,6 +280,27 @@ class _ReviewItemState extends State<ReviewItem> {
     );
   }
 
+  void _openEditReviewForm(
+    BuildContext context,
+    Review review, {
+    University? university,
+  }) async {
+    final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (!context.mounted) return;
+    if (token == null) {
+      _showNoticeMustLoginDialog(context);
+    } else {
+      context.goNamed(
+        RouteKey.editReview,
+        pathParameters: {
+          "uniId": "${review.schoolId}",
+          "reviewId": "${review.id}",
+        },
+        extra: EditReviewParam(university: university, review: review),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -303,7 +331,14 @@ class _ReviewItemState extends State<ReviewItem> {
               child: ResponsiveBuilder(
                 mediumView: Column(
                   children: [
-                    MyReview(state: state),
+                    MyReview(
+                      state: state,
+                      onEditReview: () => _openEditReviewForm(
+                        context,
+                        widget.review,
+                        university: widget.university,
+                      ),
+                    ),
                     OverallPoint(review: state.review!),
                     const SizedBox(height: 15),
                     ReviewContent(
@@ -325,7 +360,14 @@ class _ReviewItemState extends State<ReviewItem> {
                 ),
                 child: Column(
                   children: [
-                    MyReview(state: state),
+                    MyReview(
+                      state: state,
+                      onEditReview: () => _openEditReviewForm(
+                        context,
+                        widget.review,
+                        university: widget.university,
+                      ),
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -363,10 +405,12 @@ class _ReviewItemState extends State<ReviewItem> {
 
 class MyReview extends StatelessWidget {
   final ReviewItemState state;
+  final Function onEditReview;
 
   const MyReview({
     super.key,
     required this.state,
+    required this.onEditReview,
   });
 
   @override
@@ -390,7 +434,7 @@ class MyReview extends StatelessWidget {
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () => onEditReview(),
                     child: Row(
                       children: [
                         SvgPicture.asset(AppImages.iEdit),

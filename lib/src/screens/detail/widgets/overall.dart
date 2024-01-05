@@ -25,8 +25,13 @@ class UniversityOverview extends StatelessWidget {
     if (token == null) {
       _showNoticeMustLoginDialog(context);
     } else {
-      context.goNamed(RouteKey.review,
-          pathParameters: {"id": "${university.id}"}, extra: university);
+      context.goNamed(
+        RouteKey.review,
+        pathParameters: {
+          "id": "${university.id}",
+        },
+        extra: university,
+      );
     }
   }
 

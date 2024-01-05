@@ -7,6 +7,8 @@ import 'package:template/src/models/request/review_request.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/item_criteria_cubit.dart';
 import '../../../../global/enum/criteria.dart';
+import '../../../models/response/response.dart';
+import '../../../models/response/review.dart';
 import '../../../repositories/detail_repository.dart';
 
 part 'review_state.dart';
@@ -17,8 +19,14 @@ class ReviewCubit extends Cubit<ReviewState> {
 
   ReviewCubit(this._detailRepository) : super(const ReviewState());
 
-  void getDetailUniversity(int id, University? university) async {
+  void getDetailUniversity(
+      int id, University? university, Review? review) async {
     if (id == -1) return;
+    if (review != null) {
+      initEditReviewMode(review);
+    } else {
+      emit(state.copyWith(mode: ReviewMode.create));
+    }
     if (university != null) {
       emit(state.copyWith(university: university));
     } else {
@@ -31,7 +39,38 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void onSubmitReview(int schoolId, int userId) async {
+  void initEditReviewMode(Review review) {
+    emit(state.copyWith(
+        reputation: parsePoint(review.reputation),
+        contentRated: review.content,
+        competition: parsePoint(review.competition),
+        location: parsePoint(review.location),
+        internet: parsePoint(review.internet),
+        favorite: parsePoint(review.favourite),
+        facilities: parsePoint(review.facilities),
+        clubs: parsePoint(review.clubs),
+        food: parsePoint(review.food),
+        mode: ReviewMode.edit));
+  }
+
+  int parsePoint(double? point) {
+    return int.tryParse(point.toString()) ?? 0;
+  }
+
+  void onDeleteReview(int id) async {
+    emit(state.copyWith(
+      status: ReviewStatus.loading,
+      action: ReviewAction.delete,
+    ));
+    final res = await _detailRepository.deleteReview(id);
+    if (res.isSuccess) {
+      emit(state.copyWith(status: ReviewStatus.success));
+    } else {
+      emit(state.copyWith(status: ReviewStatus.error));
+    }
+  }
+
+  void onSubmitReview(int schoolId, int userId, {Review? review}) async {
     if (state.internet == null ||
         state.location == null ||
         state.status == ReviewStatus.loading ||
@@ -57,9 +96,17 @@ class ReviewCubit extends Cubit<ReviewState> {
       reviewDate: DateFormat("yyyy-MM-dd'T'hh:mm+07:00").format(DateTime.now()),
       userId: userId,
     );
-    emit(state.copyWith(status: ReviewStatus.loading));
-    final res = await _detailRepository.reviewUniversity(reviewRaw);
-    if (res.isSuccess) {
+    emit(state.copyWith(
+      status: ReviewStatus.loading,
+      action: ReviewAction.update,
+    ));
+    RYUResponse? res;
+    if (state.mode == ReviewMode.create) {
+      res = await _detailRepository.reviewUniversity(reviewRaw);
+    } else if (state.mode == ReviewMode.edit && review != null) {
+      res = await _detailRepository.updateReview(reviewRaw, review.id);
+    }
+    if (res != null && res.isSuccess) {
       emit(state.copyWith(status: ReviewStatus.success));
     } else {
       emit(state.copyWith(status: ReviewStatus.error));

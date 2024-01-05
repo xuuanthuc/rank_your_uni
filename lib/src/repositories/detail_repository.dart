@@ -38,6 +38,30 @@ class DetailRepository {
     }
   }
 
+  Future<RYUResponse> updateReview(ReviewRaw review, int id) async {
+    try {
+      Map<String, dynamic> data = <String, dynamic>{};
+      data = review.toJson();
+      data['id'] = id;
+      final res = await _apiProvider.put(
+        '${ApiEndpoint.reviews}/$id',
+        params: data,
+      );
+      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> deleteReview(int id) async {
+    try {
+      final res = await _apiProvider.delete('${ApiEndpoint.reviews}/$id');
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
   Future<bool> reportReview(ReportRaw report) async {
     try {
       final res = await _apiProvider.post(
