@@ -2,7 +2,6 @@
 enum Flavor {
   development,
   release,
-  admin,
 }
 
 class AppFlavor {

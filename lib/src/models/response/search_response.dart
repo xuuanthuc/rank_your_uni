@@ -23,9 +23,29 @@ class SearchModel {
     if (json['content'] != null) {
       json['content'].forEach((v) {
         final university = University.fromSearchJson(v);
-        if(university.status == 1){
+        if (university.status == 1) {
           universities.add(university);
         }
+      });
+    }
+    return SearchModel(
+      universities: universities,
+      totalPages: totalPages,
+      pageable: pageable,
+      totalElements: totalElements,
+    );
+  }
+
+  factory SearchModel.fromAdminJson(Map<String, dynamic> json) {
+    final totalPages = json['totalPages'];
+    final totalElements = json['totalElements'];
+    final pageable = Pageable.fromJson(json['pageable']);
+
+    final universities = <University>[];
+    if (json['content'] != null) {
+      json['content'].forEach((v) {
+        final university = University.fromSearchJson(v);
+        universities.add(university);
       });
     }
     return SearchModel(

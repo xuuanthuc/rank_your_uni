@@ -194,5 +194,13 @@
   },
   "yourUniversityUnderReview": "Chúng tôi đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
   "close": "Đóng",
-  "deleteReview": "Xoá đánh giá"
+  "deleteReview": "Xoá đánh giá",
+  "university": "Trường Đại học/ Cao đẳng",
+  "status": "Trạng thái",
+  "account": "Tài khoản",
+  "approved": "Đã duyệt",
+  "requesting": "Đang đợi",
+  "delete": "Xoá",
+  "reject": "Từ chối",
+  "approve": "Duyệt"
 }
