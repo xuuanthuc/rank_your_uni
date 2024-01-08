@@ -56,6 +56,28 @@ However, as for local bloc, the event and state are in the same screen, so it re
   "site": "admin-rankyouruni",
 ```
 
+Example
+
+```bash
+  {
+    "hosting": {
+      "site": "admin-rankyouruni",
+      "public": "build/web",
+      "ignore": [
+          "firebase.json",
+          "**/.*",
+          "**/node_modules/**"
+        ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  }
+```
+
 - run cmd
 
 ```bash
