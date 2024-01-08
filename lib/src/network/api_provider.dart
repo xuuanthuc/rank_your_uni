@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/storage/storage_keys.dart';
 import 'package:template/global/storage/storage_provider.dart';
+import 'package:template/global/utilities/static_variable.dart';
 import '../../global/flavor/app_flavor.dart';
 import '../../global/utilities/logger.dart';
 import 'error_code.dart';
@@ -35,9 +36,14 @@ class ApiProvider {
     RequestInterceptorHandler handler, {
     bool? needToken,
   }) async {
+    String? token;
+    if (needToken ?? true && AppFlavor.appFlavor != Flavor.admin) {
+      token = await StorageProvider.instance.get(StorageKeys.token);
+    } else if (needToken ?? true && AppFlavor.appFlavor == Flavor.admin) {
+      token = StaticVariable.dashboardToken;
+    }
     LoggerUtils.i(options.uri);
-    if (needToken ?? true) {
-      final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (token != null) {
       LoggerUtils.i(token);
       options.headers.addAll({'Authorization': 'Bearer $token'});
     }

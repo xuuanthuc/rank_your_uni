@@ -202,5 +202,6 @@
   "requesting": "Đang đợi",
   "delete": "Xoá",
   "reject": "Từ chối",
-  "approve": "Duyệt"
+  "approve": "Duyệt",
+  "id": "ID"
 }

@@ -3,6 +3,6 @@ import './../../global/flavor/app_flavor.dart';
 import 'initial_app.dart';
 
 void main() {
-  AppFlavor.appFlavor = Flavor.release;
+  AppFlavor.appFlavor = Flavor.admin;
   initialApp(() => const MyAdmin());
 }

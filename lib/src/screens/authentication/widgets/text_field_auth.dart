@@ -11,7 +11,7 @@ class AuthTextField extends StatefulWidget {
   final bool obscureText;
   final Function? onEditingComplete;
   final int? maxLength;
-
+  final String? Function(String?)? validator;
 
   const AuthTextField.email({
     super.key,
@@ -23,6 +23,7 @@ class AuthTextField extends StatefulWidget {
     this.obscureText = false,
     this.onEditingComplete,
     this.maxLength = 80,
+    this.validator,
   });
 
   const AuthTextField.password({
@@ -35,6 +36,7 @@ class AuthTextField extends StatefulWidget {
     this.obscureText = true,
     this.onEditingComplete,
     this.maxLength = 80,
+    this.validator,
   });
 
   const AuthTextField.normal({
@@ -47,6 +49,7 @@ class AuthTextField extends StatefulWidget {
     this.obscureText = false,
     this.onEditingComplete,
     this.maxLength = 100,
+    this.validator,
   });
 
   @override
@@ -77,6 +80,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       controller: widget.controller,
       keyboardType: widget.textInputType,
       obscureText: _obscureText,
+      validator: widget.validator,
       onEditingComplete: widget.onEditingComplete != null
           ? () {
               FocusManager.instance.primaryFocus?.unfocus();

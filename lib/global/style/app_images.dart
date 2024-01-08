@@ -54,4 +54,6 @@ abstract class AppImages {
   static const String iCalendar           = "${releasePath}images/i_calendar.svg";
   static const String iHide           = "${releasePath}images/i_hide_password.svg";
   static const String iShow           = "${releasePath}images/i_show_password.svg";
+  static const String bgDashboardLogin = "${releasePath}images/bg_dashboard_login.png";
+  static const String bgDashboardLoginMp4 = "${releasePath}images/bg_dashboard.mp4";
 }

@@ -17,6 +17,8 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
 abstract class RouteKey {
   static const String search = "search";
   static const String home = "home";
+  static const String dashboard = "dashboard";
+  static const String authDashboard = "auth_dashboard";
   static const String university = "university";
   static const String review = "review";
   static const String editReview = "edit_review";
