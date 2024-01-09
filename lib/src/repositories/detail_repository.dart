@@ -43,8 +43,7 @@ class DetailRepository {
       Map<String, dynamic> data = <String, dynamic>{};
       data = review.toJson();
       data['id'] = id;
-      print(data);
-      final res = await _apiProvider.put(
+      final res = await _apiProvider.patch(
         '${ApiEndpoint.reviews}/$id',
         params: data,
       );
