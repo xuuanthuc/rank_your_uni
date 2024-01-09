@@ -72,34 +72,31 @@ class _ContactUsViewState extends State<ContactUsView> {
             }
           },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                text.addAUniversity,
+                text.contactUs,
                 style: theme.primaryTextTheme.displayLarge,
               ),
-              const SizedBox(height: 20),
-              Text(
-                text.addAUniversityWarning,
-                style: theme.primaryTextTheme.bodyMedium
-                    ?.copyWith(fontStyle: FontStyle.italic),
-              ),
               const SizedBox(height: 30),
-              TextAddField(
+              ContactField(
                 label: text.enterFullName,
                 controller: _fullNameController,
               ),
-              TextAddField(
+              ContactField(
                 label: text.email,
+                keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
               ),
-              TextAddField(
+              ContactField(
                 label: text.phone,
                 controller: _phoneController,
+                keyboardType: TextInputType.phone,
               ),
-              TextAddField(
-                label: text.contact,
+              ContactField(
+                label: text.message,
+                maxLines: 5,
                 controller: _messageController,
               ),
               const SizedBox(height: 30),
@@ -111,7 +108,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {}
                     },
-                    label: text.addUniversity,
+                    label: text.send,
                     updateLoading: (state) {
                       return (state).status == HelpStatus.loading;
                     },
@@ -126,71 +123,62 @@ class _ContactUsViewState extends State<ContactUsView> {
   }
 }
 
-class TextAddField extends StatelessWidget {
+class ContactField extends StatelessWidget {
   final String label;
-  final bool readOnly;
-  final Function? onTap;
+  final int maxLines;
+  final TextInputType keyboardType;
   final TextEditingController controller;
 
-  const TextAddField({
+  const ContactField({
     super.key,
     required this.label,
-    this.readOnly = false,
-    this.onTap,
+    this.maxLines = 1,
+    this.keyboardType = TextInputType.text,
     required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: theme.primaryTextTheme.labelLarge,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        style: theme.primaryTextTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.w500,
         ),
-        const SizedBox(height: 4),
-        TextFormField(
-          style: theme.primaryTextTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.w500,
+        validator: TextFieldValidator.notEmptyValidator,
+        controller: controller,
+        maxLines: maxLines,
+        keyboardType: keyboardType,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          hintText: label,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.grey),
           ),
-          validator: TextFieldValidator.notEmptyValidator,
-          controller: controller,
-          readOnly: readOnly,
-          onTap: () {
-            if (onTap == null) return;
-            onTap!();
-          },
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 1, color: AppColors.grey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 1, color: AppColors.grey),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 1, color: AppColors.grey),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 1, color: AppColors.grey),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 1, color: AppColors.grey),
-            ),
-            hoverColor: Colors.transparent,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            isDense: true,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.grey),
           ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.grey),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.grey),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.grey),
+          ),
+          hoverColor: Colors.transparent,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          isDense: true,
         ),
-        const SizedBox(height: 25),
-      ],
+      ),
     );
   }
 }

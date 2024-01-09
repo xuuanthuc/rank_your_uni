@@ -88,6 +88,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
             }
           : null,
       maxLength: widget.maxLength,
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         hintText: widget.hintText,
         counterText: "",

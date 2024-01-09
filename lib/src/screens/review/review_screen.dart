@@ -200,41 +200,44 @@ class _ReviewViewState extends State<ReviewView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Flexible(
-                            child: Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: LoadingPrimaryButton<ReviewCubit,
-                                  ReviewState>(
-                                onTap: () {
-                                  onSubmitReview(
-                                    context,
-                                    setting.profileAuthenticated,
-                                  );
-                                },
-                                label: text.submitReview,
-                                updateLoading: (state) {
-                                  return state.status == ReviewStatus.loading &&
-                                      state.action == ReviewAction.update;
-                                },
-                                updateColor: (state) {
-                                  if (state.internet == null ||
-                                      state.location == null ||
-                                      (state.status == ReviewStatus.loading &&
-                                          state.action ==
-                                              ReviewAction.update) ||
-                                      state.reputation == null ||
-                                      state.favorite == null ||
-                                      state.food == null ||
-                                      state.facilities == null ||
-                                      state.competition == null ||
-                                      (state.contentRated ?? "")
-                                          .trim()
-                                          .isEmpty ||
-                                      state.clubs == null) {
-                                    return AppColors.grey;
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                            child: Visibility(
+                              visible: widget.review?.id == null,
+                              child: Container(
+                                constraints: const BoxConstraints(maxWidth: 250),
+                                child: LoadingPrimaryButton<ReviewCubit,
+                                    ReviewState>(
+                                  onTap: () {
+                                    onSubmitReview(
+                                      context,
+                                      setting.profileAuthenticated,
+                                    );
+                                  },
+                                  label: text.submitReview,
+                                  updateLoading: (state) {
+                                    return state.status == ReviewStatus.loading &&
+                                        state.action == ReviewAction.update;
+                                  },
+                                  updateColor: (state) {
+                                    if (state.internet == null ||
+                                        state.location == null ||
+                                        (state.status == ReviewStatus.loading &&
+                                            state.action ==
+                                                ReviewAction.update) ||
+                                        state.reputation == null ||
+                                        state.favorite == null ||
+                                        state.food == null ||
+                                        state.facilities == null ||
+                                        state.competition == null ||
+                                        (state.contentRated ?? "")
+                                            .trim()
+                                            .isEmpty ||
+                                        state.clubs == null) {
+                                      return AppColors.grey;
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
                               ),
                             ),
                           ),

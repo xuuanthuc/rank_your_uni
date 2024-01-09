@@ -22,6 +22,7 @@ import '../../../../global/storage/storage_provider.dart';
 import '../../../models/request/edit_review_param.dart';
 import '../../../models/response/profile.dart';
 import '../../../models/response/university.dart';
+import '../../widgets/primary_button.dart';
 
 class ReviewsBuilder extends StatelessWidget {
   const ReviewsBuilder({super.key});
@@ -340,6 +341,12 @@ class _ReviewItemState extends State<ReviewItem> {
                             widget.review,
                             university: widget.university,
                           ),
+                      onGoToSchool: () => context.goNamed(
+                        RouteKey.university,
+                        pathParameters: {
+                          "id": "${widget.review.schoolId}"
+                        },
+                      ),
                     ),
                     OverallPoint(review: state.review!),
                     const SizedBox(height: 15),
@@ -372,6 +379,12 @@ class _ReviewItemState extends State<ReviewItem> {
                             widget.review,
                             university: widget.university,
                           ),
+                      onGoToSchool: () => context.goNamed(
+                        RouteKey.university,
+                        pathParameters: {
+                          "id": "${widget.review.schoolId}"
+                        },
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -413,11 +426,13 @@ class _ReviewItemState extends State<ReviewItem> {
 class MyReview extends StatelessWidget {
   final ReviewItemState state;
   final Function onEditReview;
+  final Function onGoToSchool;
 
   const MyReview({
     super.key,
     required this.state,
     required this.onEditReview,
+    required this.onGoToSchool,
   });
 
   @override
@@ -429,14 +444,18 @@ class MyReview extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(
-                child: Text(
-                  state.review?.schoolName ?? '_',
-                  style: theme.primaryTextTheme.labelLarge,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: PrimaryButton(
+                  alignment: Alignment.centerLeft,
+                  onTap: () => onGoToSchool(),
+                  hasBorder: false,
+                  title: state.review?.schoolName ?? '',
+                  isOutline: true,
+                  titleTextStyleColor: AppColors.black,
+                  padding: EdgeInsets.zero,
                 ),
               ),
+              const SizedBox(width: 4),
               SelectionContainer.disabled(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,

@@ -71,13 +71,13 @@ class ResponsiveBuilder extends StatelessWidget {
       return 35;
     } else if (MediaQuery.sizeOf(context).width > Public.tabletSize &&
         MediaQuery.sizeOf(context).width < Public.laptopSize) {
-      return 50;
+      return 40;
     } else if (MediaQuery.sizeOf(context).width > Public.laptopSize &&
         MediaQuery.sizeOf(context).width < Public.desktopSize) {
-      return 60;
+      return 50;
     } else if (MediaQuery.sizeOf(context).width > Public.desktopSize) {
-      return 70;
+      return 60;
     }
-    return 70;
+    return 60;
   }
 }

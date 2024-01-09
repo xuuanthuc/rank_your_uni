@@ -291,6 +291,7 @@ class TextAddField extends StatelessWidget {
             if (onTap == null) return;
             onTap!();
           },
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

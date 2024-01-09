@@ -14,6 +14,7 @@ class PrimaryButton extends StatefulWidget {
   final Widget? child;
   final FontWeight? fontWeight;
   final double? fontSize;
+  final Alignment alignment;
 
   const PrimaryButton({
     super.key,
@@ -21,6 +22,7 @@ class PrimaryButton extends StatefulWidget {
     required this.title,
     this.isOutline = false,
     this.hasBorder = true,
+    this.alignment = Alignment.center,
     this.titleTextStyle,
     this.titleTextStyleColor,
     this.backgroundColor,
@@ -91,7 +93,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                 horizontal: 20,
                 vertical: 10,
               ),
-          child: Center(
+          child: Align(
+            alignment: widget.alignment,
             child: widget.child ??
                 Text(
                   widget.title,

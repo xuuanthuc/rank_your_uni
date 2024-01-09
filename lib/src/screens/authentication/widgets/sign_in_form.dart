@@ -107,15 +107,6 @@ class _SignInFormState extends State<SignInForm> {
           text: text,
           hintText: text.enterEmail,
           controller: _emailController,
-          onEditingComplete: () {
-            _onSignIn(
-              context,
-              SignInWithEmailRaw(
-                username: _emailController.text,
-                password: _passwordController.text,
-              ),
-            );
-          },
         ),
         const SizedBox(height: 26),
         AuthFormLabel(

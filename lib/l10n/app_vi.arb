@@ -213,5 +213,8 @@
   "clubsSubDescription": "Chất lượng các câu lạc bộ và tổ chức các hoạt động ngoại khoá",
   "foodSubDescription": "Chất lượng và sự đa dạng về đồ ăn trong trường lẫn khu vực xung quanh",
   "fulname": "Họ và tên",
-  "phone": "Số điện thoại"
+  "phone": "Số điện thoại",
+  "send": "Gửi",
+  "contactUs": "Liên hệ với chúng tôi",
+  "message": "Tin nhắn"
 }
