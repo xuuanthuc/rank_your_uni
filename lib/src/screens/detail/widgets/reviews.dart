@@ -109,7 +109,7 @@ class ReviewsBuilder extends StatelessWidget {
                           university: state.university ?? const University(-1),
                           review: (state.university?.reviews ?? [])[index],
                           onUpdateReviewIndex: (review) =>
-                              state.university?.reviews?[index] = review,
+                          state.university?.reviews?[index] = review,
                         ),
                       ),
                     );
@@ -118,7 +118,9 @@ class ReviewsBuilder extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 30),
                 ),
               if ((state.university?.reviews ?? []).isEmpty)
-                SizedBox(height: MediaQuery.sizeOf(context).width * 0.5),
+                SizedBox(height: MediaQuery
+                    .sizeOf(context)
+                    .width * 0.5),
               const SizedBox(height: 75),
               // SizedBox(
               //   width: 250,
@@ -163,7 +165,7 @@ class SortButton extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color:
-                  type == currentType ? AppColors.level5 : Colors.transparent,
+              type == currentType ? AppColors.level5 : Colors.transparent,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
@@ -280,11 +282,10 @@ class _ReviewItemState extends State<ReviewItem> {
     );
   }
 
-  void _openEditReviewForm(
-    BuildContext context,
-    Review review, {
-    University? university,
-  }) async {
+  void _openEditReviewForm(BuildContext context,
+      Review review, {
+        University? university,
+      }) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null) {
@@ -333,27 +334,30 @@ class _ReviewItemState extends State<ReviewItem> {
                   children: [
                     MyReview(
                       state: state,
-                      onEditReview: () => _openEditReviewForm(
-                        context,
-                        widget.review,
-                        university: widget.university,
-                      ),
+                      onEditReview: () =>
+                          _openEditReviewForm(
+                            context,
+                            widget.review,
+                            university: widget.university,
+                          ),
                     ),
                     OverallPoint(review: state.review!),
                     const SizedBox(height: 15),
                     ReviewContent(
                       state: state,
                       onReport: () => _onReport(context),
-                      onLike: (userId) => _likeReview(
-                        context,
-                        state.review!,
-                        userId,
-                      ),
-                      onDislike: (userId) => _dislikeReview(
-                        context,
-                        state.review!,
-                        userId,
-                      ),
+                      onLike: (userId) =>
+                          _likeReview(
+                            context,
+                            state.review!,
+                            userId,
+                          ),
+                      onDislike: (userId) =>
+                          _dislikeReview(
+                            context,
+                            state.review!,
+                            userId,
+                          ),
                       review: state.review!,
                     ),
                   ],
@@ -362,11 +366,12 @@ class _ReviewItemState extends State<ReviewItem> {
                   children: [
                     MyReview(
                       state: state,
-                      onEditReview: () => _openEditReviewForm(
-                        context,
-                        widget.review,
-                        university: widget.university,
-                      ),
+                      onEditReview: () =>
+                          _openEditReviewForm(
+                            context,
+                            widget.review,
+                            university: widget.university,
+                          ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,16 +382,18 @@ class _ReviewItemState extends State<ReviewItem> {
                           child: ReviewContent(
                             state: state,
                             onReport: () => _onReport(context),
-                            onLike: (userId) => _likeReview(
-                              context,
-                              state.review!,
-                              userId,
-                            ),
-                            onDislike: (userId) => _dislikeReview(
-                              context,
-                              state.review!,
-                              userId,
-                            ),
+                            onLike: (userId) =>
+                                _likeReview(
+                                  context,
+                                  state.review!,
+                                  userId,
+                                ),
+                            onDislike: (userId) =>
+                                _dislikeReview(
+                                  context,
+                                  state.review!,
+                                  userId,
+                                ),
                             review: state.review!,
                           ),
                         ),
@@ -635,7 +642,7 @@ class ReviewContent extends StatelessWidget {
                         );
                       }
                       return (state.review?.liked?.userLiked ?? [])
-                              .contains(state.userAuthenticated?.id ?? -1)
+                          .contains(state.userAuthenticated?.id ?? -1)
                           ? SvgPicture.asset(AppImages.iLiked)
                           : SvgPicture.asset(AppImages.iLike);
                     },
@@ -673,7 +680,7 @@ class ReviewContent extends StatelessWidget {
                         );
                       }
                       return (state.review?.liked?.userDisLiked ?? [])
-                              .contains(state.userAuthenticated?.id ?? -1)
+                          .contains(state.userAuthenticated?.id ?? -1)
                           ? SvgPicture.asset(AppImages.iDisliked)
                           : SvgPicture.asset(AppImages.iDislike);
                     },

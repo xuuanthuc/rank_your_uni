@@ -40,7 +40,6 @@ extension CriteriaName on Criteria {
 
   String description(BuildContext context) {
     final text = AppLocalizations.of(context)!;
-
     switch (this) {
       case Criteria.competition:
         return text.competitionDescription;
@@ -58,6 +57,30 @@ extension CriteriaName on Criteria {
         return text.clubsDescription;
       case Criteria.food:
         return text.foodDescription;
+      default:
+        return '';
+    }
+  }
+
+  String subDescription(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+    switch (this) {
+      case Criteria.competition:
+        return text.competitionSubDescription;
+      case Criteria.reputation:
+        return text.reputationSubDescription;
+      case Criteria.location:
+        return text.locationSubDescription;
+      case Criteria.internet:
+        return text.internetSubDescription;
+      case Criteria.favorite:
+        return text.favoriteSubDescription;
+      case Criteria.infrastructure:
+        return text.infrastructureSubDescription;
+      case Criteria.clubs:
+        return text.clubsSubDescription;
+      case Criteria.food:
+        return text.foodSubDescription;
       default:
         return '';
     }

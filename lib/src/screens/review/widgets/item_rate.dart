@@ -87,7 +87,7 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20).copyWith(bottom: 0),
               child: Row(
                 children: [
                   Flexible(
@@ -103,6 +103,19 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
                       color: Colors.red,
                     ),
                   )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20).copyWith(top: 8),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      widget.criteria.subDescription(context),
+                      style: theme.primaryTextTheme.bodyMedium,
+                    ),
+                  ),
                 ],
               ),
             ),

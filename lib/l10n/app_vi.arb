@@ -100,7 +100,7 @@
     }
   },
   "reputationDescription": "Danh tiếng",
-  "competitionDescription": "Độ cạnh tranh (tuyển sinh, điểm số, học bổng)",
+  "competitionDescription": "Độ cạnh tranh",
   "locationDescription": "Vị trí thuận tiện để di chuyển",
   "internetDescription": "Chất lượng Internet",
   "favoriteDescription": "Độ yêu thích của sinh viên",
@@ -203,5 +203,13 @@
   "delete": "Xoá",
   "reject": "Từ chối",
   "approve": "Duyệt",
-  "id": "ID"
+  "id": "ID",
+  "reputationSubDescription": "Mức độ danh tiếng và uy tín của trường",
+  "competitionSubDescription": "Mức độ tuyển sinh và tỷ lệ trúng tuyển vào trường",
+  "locationSubDescription": "Liên quan đến vị trí trường học, dễ dàng và thuận lợi cho việc di chuyển",
+  "internetSubDescription": "Tốc độ truy cập mạng",
+  "favoriteSubDescription": "Độ yêu thích của bạn đối với trường học",
+  "infrastructureSubDescription": "Chất lượng cơ sở vật chất và không gian học tập",
+  "clubsSubDescription": "Chất lượng các câu lạc bộ và tổ chức các hoạt động ngoại khoá",
+  "foodSubDescription": "Chất lượng và sự đa dạng về đồ ăn trong trường lẫn khu vực xung quanh"
 }
