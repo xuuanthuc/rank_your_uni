@@ -82,6 +82,7 @@
         onEntrypointLoaded: function(engineInitializer) {
           let config = {
             renderer: useHtml ? "html" : "canvaskit",
+            useColorEmoji: true,
           };
           engineInitializer.initializeEngine(config).then(function(appRunner) {
             appRunner.runApp();
