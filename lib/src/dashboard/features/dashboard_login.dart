@@ -30,15 +30,14 @@ class _DashboardLoginState extends State<DashboardLogin> {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 
-  Future<bool> started() async {
-    await _controller.setLooping(true);
-    await _controller.initialize();
-    await _controller.play();
-    return true;
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashboardAuthenticationCubit>().onStartBackground(_controller);
   }
 
   @override
@@ -48,23 +47,19 @@ class _DashboardLoginState extends State<DashboardLogin> {
     return Scaffold(
       body: Stack(
         children: [
-          FutureBuilder<bool>(
-            future: started(),
-            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              if (snapshot.data ?? false) {
-                return SizedBox.expand(
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: _controller.value.size.width,
-                      height: _controller.value.size.height,
-                      child: VideoPlayer(_controller),
-                    ),
+          BlocBuilder<DashboardAuthenticationCubit,
+              DashboardAuthenticationState>(
+            builder: (context, state) {
+              return SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: _controller.value.size.width,
+                    height: _controller.value.size.height,
+                    child: VideoPlayer(_controller),
                   ),
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
+                ),
+              );
             },
           ),
           BlocBuilder<DashboardAuthenticationCubit,

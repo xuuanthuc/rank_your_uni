@@ -7,15 +7,17 @@ class DashboardAuthenticationState extends Equatable {
   final DashboardAuthenticationStatus? status;
   final String? errorMessage;
   final bool? isHovering;
+  final VideoPlayerController? videoPlayerController;
 
-  const DashboardAuthenticationState({
-    this.status,
-    this.errorMessage,
-    this.isHovering,
-  });
+  const DashboardAuthenticationState(
+      {this.status,
+      this.errorMessage,
+      this.isHovering,
+      this.videoPlayerController});
 
   DashboardAuthenticationState copyWith({
     DashboardAuthenticationStatus? status,
+    VideoPlayerController? videoPlayerController,
     String? errorMessage,
     bool? isHovering,
   }) {
@@ -23,6 +25,8 @@ class DashboardAuthenticationState extends Equatable {
       status: status ?? this.status,
       errorMessage: errorMessage,
       isHovering: isHovering ?? this.isHovering,
+      videoPlayerController:
+          videoPlayerController ?? this.videoPlayerController,
     );
   }
 
@@ -31,5 +35,6 @@ class DashboardAuthenticationState extends Equatable {
         status,
         errorMessage,
         isHovering,
+        videoPlayerController,
       ];
 }
