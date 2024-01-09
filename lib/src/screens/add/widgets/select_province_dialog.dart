@@ -7,6 +7,7 @@ import 'package:template/src/models/response/province.dart';
 import 'package:template/src/screens/add/widgets/districts_page.dart';
 import 'package:template/src/screens/add/widgets/provinces_page.dart';
 import '../../../../global/style/styles.dart';
+import '../../widgets/base_dialog.dart';
 import '../bloc/select_province_cubit.dart';
 
 class SelectProvinceDialog extends StatefulWidget {
@@ -62,144 +63,136 @@ class _SelectProvinceDialogState extends State<SelectProvinceDialog> {
           );
         }
       },
-      child: Dialog(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0))),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: Public.mobileSize),
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20)
-                .copyWith(top: 15),
-            child: Column(
+      child: BaseDialog(
+        hasScrollBody: false,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
-                      builder: (context, state) {
-                        return Opacity(
-                          opacity: state.provinceSelected == null ? 0 : 1,
-                          child: IconButton(
-                            onPressed: () => _onBackToProvince(context),
-                            icon: SvgPicture.asset(
-                              AppImages.iBack,
-                              colorFilter: ColorFilter.mode(
-                                theme.primaryColor,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Expanded(
-                      child:
-                          BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
-                        builder: (context, state) {
-                          return AutoSizeText(
-                            state.provinceSelected == null
-                                ? text.cityOrProvince
-                                : text.stateOrWard,
-                            style: theme.primaryTextTheme.labelLarge,
-                            minFontSize: 12,
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                          );
-                        },
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => context.pop(),
-                      icon: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: SvgPicture.asset(
-                          AppImages.iSheetClose,
+                BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
+                  builder: (context, state) {
+                    return Opacity(
+                      opacity: state.provinceSelected == null ? 0 : 1,
+                      child: IconButton(
+                        onPressed: () => _onBackToProvince(context),
+                        icon: SvgPicture.asset(
+                          AppImages.iBack,
                           colorFilter: ColorFilter.mode(
                             theme.primaryColor,
                             BlendMode.srcIn,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
-                  builder: (context, state) {
-                    return TextField(
-                      controller: _editingController,
-                      onChanged: (value) => state.provinceSelected == null
-                          ? context
-                              .read<SelectProvinceCubit>()
-                              .filterProvince(value)
-                          : context
-                              .read<SelectProvinceCubit>()
-                              .filterDistrics(value),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            width: 1,
-                            color: AppColors.grey,
-                          ),
-                        ),
-                        hintText: text.search,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            width: 1,
-                            color: AppColors.grey,
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hoverColor: Colors.transparent,
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                      ),
                     );
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Divider(
-                    color: AppColors.grey,
+                Expanded(
+                  child: BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
+                    builder: (context, state) {
+                      return AutoSizeText(
+                        state.provinceSelected == null
+                            ? text.cityOrProvince
+                            : text.stateOrWard,
+                        style: theme.primaryTextTheme.labelLarge,
+                        minFontSize: 12,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                      );
+                    },
                   ),
                 ),
-                Expanded(
-                  child: PageView(
-                    controller: _controller,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      ProvincesPage(
-                        onSelect: (province) =>
-                            _onSelectProvince(context, province),
+                Opacity(
+                  opacity: 0,
+                  child: IconButton(
+                    onPressed: () => context.pop(),
+                    icon: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: SvgPicture.asset(
+                        AppImages.iSheetClose,
+                        colorFilter: ColorFilter.mode(
+                          theme.primaryColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                      DistrictsPage(
-                        onSelect: (province, district) {
-                          if (province == null) {
-                            context.pop();
-                          } else {
-                            context.pop({
-                              "province": province,
-                              "district": district,
-                            });
-                          }
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
+            const SizedBox(height: 10),
+            BlocBuilder<SelectProvinceCubit, SelectProvinceState>(
+              builder: (context, state) {
+                return TextField(
+                  controller: _editingController,
+                  onChanged: (value) => state.provinceSelected == null
+                      ? context
+                          .read<SelectProvinceCubit>()
+                          .filterProvince(value)
+                      : context
+                          .read<SelectProvinceCubit>()
+                          .filterDistrics(value),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                    hintText: text.search,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hoverColor: Colors.transparent,
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Divider(
+                color: AppColors.grey,
+              ),
+            ),
+            Expanded(
+              child: PageView(
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  ProvincesPage(
+                    onSelect: (province) =>
+                        _onSelectProvince(context, province),
+                  ),
+                  DistrictsPage(
+                    onSelect: (province, district) {
+                      if (province == null) {
+                        context.pop();
+                      } else {
+                        context.pop({
+                          "province": province,
+                          "district": district,
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

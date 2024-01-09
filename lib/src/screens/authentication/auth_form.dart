@@ -14,6 +14,7 @@ import 'package:template/src/screens/widgets/expandable_page_view.dart';
 
 import '../../../global/validators/validators.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
+import '../widgets/base_dialog.dart';
 import '../widgets/responsive_builder.dart';
 import 'bloc/auth_form_cubit.dart';
 
@@ -79,119 +80,70 @@ class _AuthFormState extends State<AuthForm> {
           );
         }
       },
-      child: Dialog(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(0),
-          ),
-        ),
-        insetPadding: const EdgeInsets.all(10),
-        child: Stack(
+      child: BaseDialog(
+        child: ExpandablePageView(
+          pageController: _pageController,
+          pageIndex: widget.pageIndex,
           children: [
-            Container(
-              constraints: const BoxConstraints(maxWidth: Public.mobileSize),
-              padding: EdgeInsets.symmetric(
-                vertical: ResponsiveBuilder.setHorizontalPadding(context),
-              ),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-                  ),
-                  child: ExpandablePageView(
-                    pageController: _pageController,
-                    pageIndex: widget.pageIndex,
-                    children: [
-                      SignInForm(
-                        goSignUp: () {
-                          context.read<AuthFormCubit>().showError();
-                          _pageController.jumpToPage(PageIndex.signUpEmail);
-                        },
-                        goToForgotPassword: () {
-                          context.read<AuthFormCubit>().showError();
-                          _pageController.jumpToPage(PageIndex.forgotPassword);
-                        },
-                      ),
-                      SignUpEmailForm(
-                        goSignIn: () {
-                          context.read<AuthFormCubit>().showError();
-                          _pageController.jumpToPage(PageIndex.signIn);
-                        },
-                        continueSignUp: (email) {
-                          final text = AppLocalizations.of(context)!;
-                          if (TextFieldValidator.emailValidator(email) !=
-                              null) {
-                            context
-                                .read<AuthFormCubit>()
-                                .showError(error: text.invalidEmail);
-                          } else {
-                            _emailRegister = email;
-                            context.read<AuthFormCubit>().showError();
-                            _pageController.animateToPage(
-                              PageIndex.signUpPassword,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          }
-                        },
-                      ),
-                      SignUpPasswordForm(
-                        onRegister: (password) {
-                          _passwordRegister = password;
-                          context
-                              .read<AuthenticationBloc>()
-                              .add(OnSignUpWithEmailEvent(
-                                SignUpWithEmailRaw(
-                                  firstName: '',
-                                  lastName: '',
-                                  login: _emailRegister,
-                                  email: _emailRegister,
-                                  password: _passwordRegister,
-                                ),
-                              ));
-                        },
-                        onPrevious: () {
-                          context.read<AuthFormCubit>().showError();
-                          _pageController.animateToPage(
-                            PageIndex.signUpEmail,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease,
-                          );
-                        },
-                      ),
-                      const UpdateUserProfileForm(),
-                      const ForgotPasswordForm(),
-                    ],
-                  ),
-                ),
-              ),
+            SignInForm(
+              goSignUp: () {
+                context.read<AuthFormCubit>().showError();
+                _pageController.jumpToPage(PageIndex.signUpEmail);
+              },
+              goToForgotPassword: () {
+                context.read<AuthFormCubit>().showError();
+                _pageController.jumpToPage(PageIndex.forgotPassword);
+              },
             ),
-            Visibility(
-              visible: MediaQuery.sizeOf(context).width <= Public.tabletSize,
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: Public.mobileSize),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: IconButton(
-                        onPressed: () => context.pop(),
-                        icon: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: SvgPicture.asset(
-                            AppImages.iSheetClose,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+            SignUpEmailForm(
+              goSignIn: () {
+                context.read<AuthFormCubit>().showError();
+                _pageController.jumpToPage(PageIndex.signIn);
+              },
+              continueSignUp: (email) {
+                final text = AppLocalizations.of(context)!;
+                if (TextFieldValidator.emailValidator(email) !=
+                    null) {
+                  context
+                      .read<AuthFormCubit>()
+                      .showError(error: text.invalidEmail);
+                } else {
+                  _emailRegister = email;
+                  context.read<AuthFormCubit>().showError();
+                  _pageController.animateToPage(
+                    PageIndex.signUpPassword,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
+                }
+              },
             ),
+            SignUpPasswordForm(
+              onRegister: (password) {
+                _passwordRegister = password;
+                context
+                    .read<AuthenticationBloc>()
+                    .add(OnSignUpWithEmailEvent(
+                      SignUpWithEmailRaw(
+                        firstName: '',
+                        lastName: '',
+                        login: _emailRegister,
+                        email: _emailRegister,
+                        password: _passwordRegister,
+                      ),
+                    ));
+              },
+              onPrevious: () {
+                context.read<AuthFormCubit>().showError();
+                _pageController.animateToPage(
+                  PageIndex.signUpEmail,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                );
+              },
+            ),
+            const UpdateUserProfileForm(),
+            const ForgotPasswordForm(),
           ],
         ),
       ),

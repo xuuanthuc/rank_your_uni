@@ -7,6 +7,7 @@ import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
+import '../widgets/base_dialog.dart';
 import '../widgets/loading_primary_button.dart';
 
 class ReportReviewForm extends StatefulWidget {
@@ -50,148 +51,98 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
           );
         }
       },
-      child: Dialog(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(10),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0))),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-          child: Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: ResponsiveBuilder.setHorizontalPadding(context),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              text.reportReview,
-                              style: theme.primaryTextTheme.labelLarge,
-                            ),
-                            const SizedBox(height: 14),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.level4.withOpacity(0.15),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            text.youAreReportingReview,
-                                            style: theme.primaryTextTheme.labelLarge,
-                                          ),
-                                          const SizedBox(height: 6),
-                                          Text(
-                                            widget.review.content ?? '',
-                                            style: theme.primaryTextTheme.bodyMedium,
-                                          ),
-                                          const SizedBox(height: 25),
-                                          Text(
-                                            text.whatIsMatter,
-                                            style: theme.primaryTextTheme.labelLarge,
-                                          ),
-                                          const SizedBox(height: 6),
-                                          Text(
-                                            text.whatIsMatterDescription,
-                                            style: theme.primaryTextTheme.bodyMedium,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 14),
-                            TextField(
-                              maxLines: 4,
-                              maxLength: 250,
-                              controller: _editingController,
-                              onChanged: (value) {
-                                context
-                                    .read<ReportCubit>()
-                                    .updateReason(_editingController.text);
-                              },
-                              decoration: InputDecoration(
-                                hintText: text.reportContent,
-                                hintStyle:
-                                    theme.primaryTextTheme.bodyMedium?.copyWith(
-                                  color: AppColors.textGrey,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                        color: theme.primaryColor, width: 1)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                        color: theme.primaryColor, width: 1)),
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                            LoadingPrimaryButton<ReportCubit, ReportState>(
-                              onTap: () {
-                                if (_editingController.text.trim().isNotEmpty) {
-                                  context.read<ReportCubit>().reportReview(
-                                      widget.review, _editingController.text);
-                                }
-                              },
-                              label: text.report,
-                              buttonWidth: 250,
-                              updateLoading: (state) {
-                                return (state).status == ReportStatus.loading;
-                              },
-                              updateColor: (state) {
-                                return _editingController.text.trim().isEmpty
-                                    ? AppColors.grey
-                                    : null;
-                              },
-                            ),
-                            const SizedBox(height: 45),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      onPressed: () => context.pop(),
-                      icon: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: SvgPicture.asset(
-                          AppImages.iSheetClose,
-                        ),
+      child: BaseDialog(
+        child: Column(
+          children: [
+            Text(
+              text.reportReview,
+              style: theme.primaryTextTheme.labelLarge,
+            ),
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.level4.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            text.youAreReportingReview,
+                            style: theme.primaryTextTheme.labelLarge,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            widget.review.content ?? '',
+                            style: theme.primaryTextTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 25),
+                          Text(
+                            text.whatIsMatter,
+                            style: theme.primaryTextTheme.labelLarge,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            text.whatIsMatterDescription,
+                            style: theme.primaryTextTheme.bodyMedium,
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            TextField(
+              maxLines: 4,
+              maxLength: 250,
+              controller: _editingController,
+              onChanged: (value) {
+                context
+                    .read<ReportCubit>()
+                    .updateReason(_editingController.text);
+              },
+              decoration: InputDecoration(
+                hintText: text.reportContent,
+                hintStyle: theme.primaryTextTheme.bodyMedium?.copyWith(
+                  color: AppColors.textGrey,
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        BorderSide(color: theme.primaryColor, width: 1)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        BorderSide(color: theme.primaryColor, width: 1)),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 30),
+            LoadingPrimaryButton<ReportCubit, ReportState>(
+              onTap: () {
+                if (_editingController.text.trim().isNotEmpty) {
+                  context.read<ReportCubit>().reportReview(
+                      widget.review, _editingController.text);
+                }
+              },
+              label: text.report,
+              buttonWidth: 250,
+              updateLoading: (state) {
+                return (state).status == ReportStatus.loading;
+              },
+              updateColor: (state) {
+                return _editingController.text.trim().isEmpty
+                    ? AppColors.grey
+                    : null;
+              },
+            ),
+          ],
         ),
       ),
     );

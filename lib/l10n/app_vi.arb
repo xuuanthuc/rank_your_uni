@@ -211,5 +211,7 @@
   "favoriteSubDescription": "Độ yêu thích của bạn đối với trường học",
   "infrastructureSubDescription": "Chất lượng cơ sở vật chất và không gian học tập",
   "clubsSubDescription": "Chất lượng các câu lạc bộ và tổ chức các hoạt động ngoại khoá",
-  "foodSubDescription": "Chất lượng và sự đa dạng về đồ ăn trong trường lẫn khu vực xung quanh"
+  "foodSubDescription": "Chất lượng và sự đa dạng về đồ ăn trong trường lẫn khu vực xung quanh",
+  "fulname": "Họ và tên",
+  "phone": "Số điện thoại"
 }

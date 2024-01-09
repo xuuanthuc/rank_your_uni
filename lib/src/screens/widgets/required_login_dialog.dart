@@ -8,6 +8,7 @@ import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../di/dependencies.dart';
 import '../authentication/auth_form.dart';
 import '../authentication/bloc/auth_form_cubit.dart';
+import 'base_dialog.dart';
 
 enum NoticeAbout { manager, private, vote }
 
@@ -15,7 +16,6 @@ class NoticeMustLoginDialog extends StatelessWidget {
   final NoticeAbout about;
 
   const NoticeMustLoginDialog({super.key, this.about = NoticeAbout.manager});
-
 
   Future<void> _showSignUpDialog(BuildContext context) {
     return showDialog<void>(
@@ -72,98 +72,86 @@ class NoticeMustLoginDialog extends StatelessWidget {
       );
     }
 
-    return Dialog(
-      backgroundColor: Colors.white,
-      surfaceTintColor: Colors.transparent,
-      insetPadding: const EdgeInsets.all(10),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(0))),
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-        padding: EdgeInsets.all(ResponsiveBuilder.setHorizontalPadding(context)),
-        child: SingleChildScrollView(
-          child: Column(
+    return BaseDialog(
+      maxWidth: Public.tabletSize,
+      child: Column(
+        children: [
+          Text(
+            text.createAnAccount,
+            style: theme.primaryTextTheme.displayLarge,
+            textAlign: TextAlign.center,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            child: Text(
+              text.youNeedAnAccout,
+              style: theme.primaryTextTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w500),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          ResponsiveBuilder(
+            smallView: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [item],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ItemDescription(
+                  text: text.managerAndEditYourRate,
+                  image: AppImages.iHomeManager,
+                ),
+                ItemDescription(
+                  text: text.likeOrDislike,
+                  image: AppImages.iHomeLike,
+                ),
+                ItemDescription(
+                  text: text.yourRateAlwaysAnonymous,
+                  image: AppImages.iHomePrivate,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                text.createAnAccount,
-                style: theme.primaryTextTheme.displayLarge,
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                child: Text(
-                  text.youNeedAnAccout,
-                  style: theme.primaryTextTheme.bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
+              PrimaryButton(
+                onTap: () {
+                  context.pop();
+                  _showSignUpDialog(context);
+                },
+                title: text.signUp,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 10,
                 ),
               ),
-              ResponsiveBuilder(
-                smallView: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [item],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ItemDescription(
-                      text: text.managerAndEditYourRate,
-                      image: AppImages.iHomeManager,
-                    ),
-                    ItemDescription(
-                      text: text.likeOrDislike,
-                      image: AppImages.iHomeLike,
-                    ),
-                    ItemDescription(
-                      text: text.yourRateAlwaysAnonymous,
-                      image: AppImages.iHomePrivate,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  PrimaryButton(
-                    onTap: () {
-                      context.pop();
-                      _showSignUpDialog(context);
-                    },
-                    title: text.signUp,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 10,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${text.alreadyHaveAccount} ',
-                    style: theme.primaryTextTheme.bodyLarge
-                        ?.copyWith(fontSize: 14),
-                  ),
-                  PrimaryButton(
-                    onTap: () {
-                      context.pop();
-                      _showSignInDialog(context);
-                    },
-                    hasBorder: false,
-                    title: text.signIn,
-                    isOutline: true,
-                    titleTextStyleColor: theme.primaryColor,
-                    padding: EdgeInsets.zero,
-                  ),
-                ],
-              )
             ],
           ),
-        ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${text.alreadyHaveAccount} ',
+                style: theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+              ),
+              PrimaryButton(
+                onTap: () {
+                  context.pop();
+                  _showSignInDialog(context);
+                },
+                hasBorder: false,
+                title: text.signIn,
+                isOutline: true,
+                titleTextStyleColor: theme.primaryColor,
+                padding: EdgeInsets.zero,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
