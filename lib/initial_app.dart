@@ -40,6 +40,5 @@ Future<void> initialApp(FutureOr<Widget> Function() builder) async {
       projectId: "rankyouruni",
     ),
   );
-  FirebaseAnalytics.instance;
   runApp(await builder());
 }
