@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,5 +40,6 @@ Future<void> initialApp(FutureOr<Widget> Function() builder) async {
       projectId: "rankyouruni",
     ),
   );
+  FirebaseAnalytics.instance;
   runApp(await builder());
 }
