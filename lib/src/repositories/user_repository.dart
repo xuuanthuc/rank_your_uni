@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:template/src/models/request/password_request.dart';
 import 'package:template/src/models/request/profile_request.dart';
 import 'package:template/src/models/response/review.dart';
@@ -30,10 +32,23 @@ class UserRepository {
       for (var element in (data['listItem'] as List<dynamic>)) {
         reviews.add(Review.fromJson(element));
       }
+      await compute(sortReviewByDate, reviews);
       return RYUResponse(isSuccess: true, data: reviews);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
+  }
+
+  List<Review> sortReviewByDate(List<Review> reviews) {
+    reviews.sort(
+      (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+              .parse(second.reviewDate ?? '', true)
+              .toUtc())
+          .compareTo(DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+              .parse(first.reviewDate ?? '', true)
+              .toUtc()),
+    );
+    return reviews;
   }
 
   Future<RYUResponse> updateUser(ProfileRaw profileRaw) async {

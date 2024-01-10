@@ -53,7 +53,7 @@ class _AppScaffoldState extends State<AppScaffold> {
           appBar: AppbarCommon(keyword: widget.keyword),
           floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             child: FloatingActionButton(
               onPressed: () {
                 showDialog<void>(

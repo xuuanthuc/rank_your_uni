@@ -111,18 +111,6 @@ class _FooterCommonState extends State<FooterCommon> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 40),
-                            FooterCategoryTitle(text: text.aboutMe),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                FooterOptionButton(
-                                  label: text.contact,
-                                  onTap: () => context.goNamed(RouteKey.terms),
-                                ),
-                              ],
-                            ),
                           ],
                         )
                       : Container(),
@@ -208,31 +196,6 @@ class _FooterCommonState extends State<FooterCommon> {
                                           label: text.privacyPolicy,
                                           onTap: () =>
                                               context.goNamed(RouteKey.policy),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 50),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FooterCategoryTitle(text: text.aboutMe),
-                                        const SizedBox(height: 20),
-                                        FooterOptionButton(
-                                          label: text.contact,
-                                          onTap: () =>
-                                              context.goNamed(RouteKey.terms),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Opacity(
-                                          opacity: 0,
-                                          child: FooterOptionButton(
-                                            label: text.contact,
-                                            onTap: () =>
-                                                context.goNamed(RouteKey.terms),
-                                          ),
                                         ),
                                       ],
                                     ),
