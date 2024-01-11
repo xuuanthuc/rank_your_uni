@@ -242,6 +242,7 @@ class TextFieldData extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final bool readOnly;
 
   const TextFieldData(
     this.hint,
@@ -251,6 +252,7 @@ class TextFieldData extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     this.maxLength,
+    this.readOnly = false,
   });
 
   @override
@@ -263,6 +265,7 @@ class TextFieldData extends StatelessWidget {
       obscureText: obscureText,
       keyboardType: keyboardType,
       maxLength: maxLength,
+      readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hint,
         counterText: "",
@@ -302,6 +305,7 @@ class RowInfoField extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final bool readOnly;
 
   const RowInfoField({
     super.key,
@@ -310,6 +314,7 @@ class RowInfoField extends StatelessWidget {
     required this.controller,
     this.validator = TextFieldValidator.notEmptyValidator,
     this.obscureText = false,
+    this.readOnly = false,
     this.keyboardType,
     this.maxLength,
   });
@@ -330,6 +335,7 @@ class RowInfoField extends StatelessWidget {
               obscureText: obscureText,
               keyboardType: keyboardType,
               maxLength: maxLength,
+              readOnly: readOnly,
             ),
           )
         ],
@@ -346,6 +352,7 @@ class RowInfoField extends StatelessWidget {
               obscureText: obscureText,
               keyboardType: keyboardType,
               maxLength: maxLength,
+              readOnly: readOnly,
             ),
           )
         ],

@@ -24,7 +24,7 @@ class TermsOfServiceScreen extends StatelessWidget {
                 Gap(),
                 Gap(),
                 Gap(),
-                NormalContent("Điều Khoản Sử Dụng"),
+                TitleContent("Điều Khoản Sử Dụng"),
                 Gap(),
                 NormalContent(
                     "Điều khoản này chứa điều khoản trọng tài và các điều khoản khước từ. Bằng cách sử dụng trang web này, người dùng được cho rằng là đồng ý với tất cả các điều khoản sử dụng của chúng tôi."),

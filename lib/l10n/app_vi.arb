@@ -150,7 +150,7 @@
       }
     }
   },
-  "yourReviewAreSubmitting": "Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn \uD83D\uDC9A. Chúng tôi hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm hướng dẫn sử dụng trang sẽ có thể bị ẩn bởi chúng tôi nhằm mục đích đảm bảo các nguyên tắc trang \uD83D\uDC40. ",
+  "yourReviewAreSubmitting": "Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn \uD83D\uDC9A. Chúng tôi hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng tôi nhằm mục đích đảm bảo các nguyên tắc trang \uD83D\uDC40. ",
   "seeReview": "Xem đánh giá",
   "findUniversityName": "Tìm tên trường học",
   "goToUniversityPage": "Đến trang trường này",
@@ -215,5 +215,7 @@
   "phone": "Số điện thoại",
   "send": "Gửi",
   "contactUs": "Liên hệ với chúng tôi",
-  "message": "Tin nhắn"
+  "message": "Tin nhắn",
+  "sendSuccess": "Gửi thành công!",
+  "weWillResponseSoon": "Chúng tôi sẽ phản hồi sớm"
 }

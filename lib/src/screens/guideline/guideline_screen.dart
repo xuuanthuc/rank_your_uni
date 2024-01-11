@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../global/style/app_colors.dart';
 import '../../../global/utilities/public.dart';
 import '../widgets/base_scaffold.dart';
 import '../widgets/responsive_builder.dart';
@@ -25,17 +28,17 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 40),
-                NormalContent('Hướng dẫn sử dụng trang'),
+                TitleContent('Hướng dẫn sử dụng trang'),
                 SizedBox(height: 40),
                 NormalContent(
-                    'Dưới đây là bản hướng dẫn sử dụng trang cho www.rankyouruni.vn. Website được tạo, sử dụng và cung cấp bởi ….. Bản hướng dẫn sử dụng này là điều khoản bổ sung theo thoả thuận điều khoản sử dụng của chúng tôi.'),
+                    'Dưới đây là bản hướng dẫn sử dụng trang cho [Rank Your UNi](https://www.rankyouruni.com). Website được tạo, sử dụng và cung cấp bởi RYU Bản hướng dẫn sử dụng này là điều khoản bổ sung theo thoả thuận [điều khoản sử dụng](https://rankyouruni.com/terms) của chúng tôi.'),
                 Gap(),
                 NormalContent(
                     'Rank Your UNi là trang web trực tuyến lớn nhất dành cho sinh viên nghiên cứu và đánh giá các trường đại học và giảng viên trên toàn vùng lãnh thổ Việt Nam. Mục đích của chúng tôi là cung cấp một diễn đàn an toàn để chia sẻ kinh nghiệm học tập nhằm giúp các sinh viên đưa ra những sự lựa chọn đúng đắn về mặt giáo dục, cũng như góp phần cải thiện và nâng cao hệ thống giáo dục nước nhà.'),
                 SizedBox(height: 20),
                 TitleContent('WEBSITE'),
                 NormalContent(
-                    'Trang web RankYourUNi (www.rankyouruni.com) cho phép người dùng phản hồi về lối sống và cơ sở vật chất của các trường cao đẳng và đại học và tạo ra đánh giá về phương pháp giảng dạy của giảng viên và các khóa học tương ứng của họ.'),
+                    'Trang web [RankYourUNi](https://www.rankyouruni.com) cho phép người dùng phản hồi về lối sống và cơ sở vật chất của các trường cao đẳng và đại học và tạo ra đánh giá về phương pháp giảng dạy của giảng viên và các khóa học tương ứng của họ.'),
                 Gap(),
                 NormalContent(
                     'Xếp hạng trường học chỉ nên được đăng bởi các sinh viên đã theo học hoặc hiện đang theo học những khoá học cụ thể tại trường. Tương tự với việc xếp hạng giảng viên, người dùng chỉ nên đánh giá các giảng viên khi đã tham gia lớp học của giảng viên hoặc hiện đang theo khoá học cụ thể tại trường đang theo học.'),
@@ -166,7 +169,24 @@ class NormalContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Text(text, style: theme.primaryTextTheme.bodyMedium,);
+    return MarkdownBody(
+      data: text,
+      selectable: true,
+      onTapLink: (t, u, c) async {
+        if (u != null) {
+          if (!await launchUrl(Uri.parse(u))) {
+            throw Exception('Could not launch $u');
+          }
+        }
+      },
+      styleSheet: MarkdownStyleSheet(
+        a: theme.primaryTextTheme.bodyMedium?.copyWith(
+          fontWeight: FontWeight.w500,
+          color: AppColors.info,
+        ),
+        p: theme.primaryTextTheme.bodyMedium,
+      ),
+    );
   }
 }
 

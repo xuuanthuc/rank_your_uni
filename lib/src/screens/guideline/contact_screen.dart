@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/global/validators/validators.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/models/request/contact.dart';
 import 'package:template/src/screens/guideline/bloc/help_cubit.dart';
 import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
@@ -57,18 +59,24 @@ class _ContactUsViewState extends State<ContactUsView> {
         child: BlocListener<HelpCubit, HelpState>(
           listener: (context, state) {
             if (state.status == HelpStatus.success) {
-              appToast(
-                context,
-                type: ToastType.success,
-                message: AppLocalizations.of(context)!.somethingWrong,
-                subMessage: AppLocalizations.of(context)!.tryAgainLater,
-              );
+              if (context.mounted) {
+                appToast(
+                  context,
+                  type: ToastType.success,
+                  message: AppLocalizations.of(context)!.sendSuccess,
+                  subMessage: AppLocalizations.of(context)!.weWillResponseSoon,
+                );
+                context.pop();
+              }
             } else if (state.status == HelpStatus.error) {
-              appToast(
-                context,
-                message: AppLocalizations.of(context)!.somethingWrong,
-                subMessage: AppLocalizations.of(context)!.tryAgainLater,
-              );
+              if (context.mounted) {
+                appToast(
+                  context,
+                  message: AppLocalizations.of(context)!.somethingWrong,
+                  subMessage: AppLocalizations.of(context)!.tryAgainLater,
+                );
+                context.pop();
+              }
             }
           },
           child: Column(
@@ -106,11 +114,20 @@ class _ContactUsViewState extends State<ContactUsView> {
                   LoadingPrimaryButton<HelpCubit, HelpState>(
                     buttonWidth: 270,
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        context.read<HelpCubit>().sentMessageContact(
+                              ContactRaw(
+                                fullName: _fullNameController.text.trim(),
+                                email: _emailController.text.trim(),
+                                phone: _phoneController.text.trim(),
+                                message: _messageController.text.trim(),
+                              ),
+                            );
+                      }
                     },
                     label: text.send,
                     updateLoading: (state) {
-                      return (state).status == HelpStatus.loading;
+                      return state.status == HelpStatus.loading;
                     },
                   ),
                 ],

@@ -25,7 +25,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 Gap(),
                 Gap(),
                 Gap(),
-                NormalContent("Chính Sách Bảo Mật"),
+                TitleContent("Chính Sách Bảo Mật"),
                 Gap(),
                 NormalContent(
                     "Đây là chính sách bảo mật nơi mà chúng tôi mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [http://www.rankyouruni.com] được sở hữu và vận hành bởi các quản trị viên của chúng tôi"),

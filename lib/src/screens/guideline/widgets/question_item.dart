@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:template/global/style/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../bloc/help_cubit.dart';
 
 class QuestionItem extends StatelessWidget {
@@ -31,13 +34,13 @@ class QuestionItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  ((state.categories ?? [])[pageIndex].questions ?? [])[questionIndex]
+                  ((state.categories ?? [])[pageIndex].questions ??
+                          [])[questionIndex]
                       .question,
                   style: theme.primaryTextTheme.displaySmall?.copyWith(
-                    color: Colors.blue.shade300,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700
-                  ),
+                      color: Colors.blue.shade300,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             ),
@@ -51,12 +54,25 @@ class QuestionItem extends StatelessWidget {
               return SizedBox(
                 height: state.currentShowIndex != questionIndex ? 0 : null,
                 child: SelectionArea(
-                  child: Text(
-                    ((state.categories ?? [])[pageIndex].questions ??
+                  child: MarkdownBody(
+                    data: ((state.categories ?? [])[pageIndex].questions ??
                             [])[questionIndex]
                         .answer,
-                    style: theme.primaryTextTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
+                    selectable: true,
+                    onTapLink: (t, u, c) async {
+                      if (u != null) {
+                        if (!await launchUrl(Uri.parse(u))) {
+                          throw Exception('Could not launch $u');
+                        }
+                      }
+                    },
+                    styleSheet: MarkdownStyleSheet(
+                      a: theme.primaryTextTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.info,
+                      ),
+                      p: theme.primaryTextTheme.labelLarge
+                          ?.copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),

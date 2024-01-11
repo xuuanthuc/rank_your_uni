@@ -57,6 +57,24 @@ class _ReviewSuccessScreenState extends State<ReviewSuccessScreen> {
                         style: theme.primaryTextTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
+                      // MarkdownBody(
+                      //   data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng tôi hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng tôi nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
+                      //   selectable: true,
+                      //   onTapLink: (t, u, c) async {
+                      //     if (u != null) {
+                      //       if (!await launchUrl(Uri.parse(u))) {
+                      //         throw Exception('Could not launch $u');
+                      //       }
+                      //     }
+                      //   },
+                      //   styleSheet: MarkdownStyleSheet(
+                      //     a: theme.primaryTextTheme.bodyMedium?.copyWith(
+                      //       fontWeight: FontWeight.w500,
+                      //       color: AppColors.info,
+                      //     ),
+                      //     p: theme.primaryTextTheme.bodyMedium,
+                      //   ),
+                      // ),
                       const SizedBox(height: 40),
                       SizedBox(
                         width: 200,

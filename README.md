@@ -1,12 +1,12 @@
 # Website review all universities in Viet Nam 🥰
 
-[<img src="assets/images/i_home_background.png">](https://rankyouruni.com/)
+[<img src="assets/images/i_home_background.png">](https://www.rankyouruni.com/)
 
 # Website 💻
 
-[<img src="assets/images/i_home_logo.png"  style="width:300px">](https://rankyouruni.com/)
+[<img src="assets/images/i_home_logo.png"  style="width:300px">](https://www.rankyouruni.com/)
 
-[Rank Your UNi](https://rankyouruni.com/)
+[Rank Your UNi](https://www.rankyouruni.com/)
 
 
 
@@ -50,7 +50,7 @@ However, as for local bloc, the event and state are in the same screen, so it re
 
 ## Deploy ✈️
 
-### Admin
+### Dashboard
 
 - add below code in **firebase.json**
 
@@ -87,7 +87,7 @@ Example
   firebase deploy --only hosting:admin-rankyouruni
 ```
 
-### Normal
+### End user
 
 ```bash
   flutter build web --release -t lib/main_prod.dart

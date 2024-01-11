@@ -27,18 +27,27 @@ void appToast(
           IntrinsicWidth(
             child: Container(
               width: 20,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8),
                   bottomLeft: Radius.circular(8),
                 ),
-                color: AppColors.level2,
+                color: type == ToastType.error
+                    ? AppColors.level2
+                    : AppColors.level3,
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: SvgPicture.asset(AppImages.iWarning),
+            child: SvgPicture.asset(type == ToastType.error
+                ? AppImages.iWarning
+                : AppImages.iReputation,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

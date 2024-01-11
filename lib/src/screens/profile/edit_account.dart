@@ -7,7 +7,6 @@ import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/profile/widgets/edit_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
-import '../../models/request/profile_request.dart';
 import '../widgets/loading_primary_button.dart';
 
 class EditAccount extends StatefulWidget {
@@ -18,7 +17,6 @@ class EditAccount extends StatefulWidget {
 }
 
 class _EditAccountState extends State<EditAccount> {
-  final _formKey = GlobalKey<FormState>();
   final _formKeyPass = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -58,63 +56,15 @@ class _EditAccountState extends State<EditAccount> {
                     height: ResponsiveBuilder.setHorizontalPadding(context)),
                 EditButton(onTap: () {}),
                 const SizedBox(height: 25),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      RowInfoField(
-                        label: text.email,
-                        hintText: text.enterEmail,
-                        controller: _emailController,
-                        validator: TextFieldValidator.emailValidator,
-                        maxLength: 80,
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                            builder: (context, state) {
-                              return LoadingPrimaryButton<AppSettingsBloc,
-                                  AppSettingsState>(
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    ProfileRaw profile = ProfileRaw(
-                                      id: state.profileAuthenticated?.id ?? -1,
-                                      username: _emailController.text,
-                                      firstName:
-                                      state.profileAuthenticated?.firstName ??
-                                          '',
-                                      lastName:
-                                      state.profileAuthenticated?.lastName ??
-                                          '',
-                                      university:
-                                      state.profileAuthenticated?.university ??
-                                          '',
-                                      email: _emailController.text,
-                                    );
-                                    context
-                                        .read<AppSettingsBloc>()
-                                        .add(UpdateUserProfileEvent(profile));
-                                  }
-                                },
-                                label: text.updateAccount,
-                                buttonWidth: 250,
-                                updateLoading: (state) {
-                                  return (state).status ==
-                                      AppSettingStatus.loading &&
-                                      state.action ==
-                                          AppSettingAction.updateProfile;
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                RowInfoField(
+                  label: text.email,
+                  hintText: text.enterEmail,
+                  controller: _emailController,
+                  readOnly: true,
+                  validator: TextFieldValidator.emailValidator,
+                  maxLength: 80,
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
                 Form(
                   key: _formKeyPass,
                   child: Column(
@@ -182,7 +132,6 @@ class _EditAccountState extends State<EditAccount> {
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
     _passwordController.dispose();
     _newPasswordController.dispose();
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:template/src/models/request/contact.dart';
 import 'package:template/src/models/request/password_request.dart';
 import 'package:template/src/models/request/profile_request.dart';
 import 'package:template/src/models/response/review.dart';
@@ -70,6 +71,15 @@ class UserRepository {
         params: passwordRaw.toJson(),
       );
       return RYUResponse(isSuccess: true, data: data);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> sentContactMessage(ContactRaw contact) async {
+    try {
+      await Future.delayed(Duration(seconds: 2));
+      return RYUResponse(isSuccess: true, data: '');
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

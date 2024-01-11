@@ -4,13 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import '../../../models/request/contact.dart';
 import '../../../models/response/question.dart';
+import '../../../repositories/user_repository.dart';
 
 part 'help_state.dart';
 
 @injectable
 class HelpCubit extends Cubit<HelpState> {
-  HelpCubit() : super(const HelpState(currentCategory: 0));
+  final UserRepository _userRepository;
+  HelpCubit(this._userRepository) : super(const HelpState(currentCategory: 0));
 
   Future<void> getQuestions() async {
     List<QuestionCategories> categories = [];
@@ -29,5 +32,15 @@ class HelpCubit extends Cubit<HelpState> {
 
   void showAnswer(int currentIndex) {
     emit(state.copyWith(currentShowIndex: currentIndex));
+  }
+
+  void sentMessageContact(ContactRaw contact) async {
+    emit(state.copyWith(status: HelpStatus.loading));
+    final res = await _userRepository.sentContactMessage(contact);
+    if(res.isSuccess){
+      emit(state.copyWith(status: HelpStatus.success));
+    } else {
+      emit(state.copyWith(status: HelpStatus.error));
+    }
   }
 }
