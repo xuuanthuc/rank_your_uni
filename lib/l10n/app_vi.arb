@@ -172,7 +172,7 @@
   "updateSuccess": "Cập nhật thành công",
   "yourInfoWillPrivate": "Thông tin của bạn sẽ được bảo mật",
   "skipForNow": "Không muốn? Tạm thời bỏ qua",
-  "currentPassword": "Mật khẩu",
+  "currentPassword": "Mật khẩu cũ",
   "newPassword": "Mật khẩu mới",
   "updatePassword": "Cập nhật mật khẩu",
   "abbrevia": "Tên viết tắt của trường",
@@ -217,5 +217,7 @@
   "contactUs": "Liên hệ với chúng tôi",
   "message": "Tin nhắn",
   "sendSuccess": "Gửi thành công!",
-  "weWillResponseSoon": "Chúng tôi sẽ phản hồi sớm"
+  "weWillResponseSoon": "Chúng tôi sẽ phản hồi sớm",
+  "deleteSuccess": "Đánh giá của bạn đã được xoá",
+  "deleteSuccessDescription": "Chúng tôi hi vọng sẽ tiếp tục nhận được đánh giá của bạn trong tương lai"
 }

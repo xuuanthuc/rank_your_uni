@@ -64,7 +64,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     ));
     final res = await _detailRepository.deleteReview(id);
     if (res.isSuccess) {
-      emit(state.copyWith(status: ReviewStatus.success));
+      emit(state.copyWith(status: ReviewStatus.deleteSuccess));
     } else {
       emit(state.copyWith(status: ReviewStatus.error));
     }

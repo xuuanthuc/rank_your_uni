@@ -490,7 +490,7 @@ class DashLine extends StatelessWidget {
   const DashLine({
     Key? key,
     this.height = 1,
-    this.color = Colors.black,
+    this.color = Colors.grey,
   }) : super(key: key);
 
   final double height;

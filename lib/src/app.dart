@@ -15,6 +15,7 @@ import 'package:template/src/screens/guideline/guideline_screen.dart';
 import 'package:template/src/screens/guideline/help_screen.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
+import 'package:template/src/screens/review/delete_review_success.dart';
 import 'package:template/src/screens/review/review_screen.dart';
 import 'package:template/src/screens/review/review_success.dart';
 import 'package:template/src/screens/search/search_screen.dart';
@@ -204,6 +205,28 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: ReviewSuccessScreen(
+                university: university,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review-university/delete',
+          name: RouteKey.deteleSuccess,
+          redirect: (BuildContext context, GoRouterState state) {
+            University? param = state.extra as University?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final university = state.extra as University;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ReviewDeletedSuccessScreen(
                 university: university,
               ),
             );

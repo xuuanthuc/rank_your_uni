@@ -70,7 +70,7 @@ class _EditAccountState extends State<EditAccount> {
                   child: Column(
                     children: [
                       RowInfoField(
-                        label: text.password,
+                        label: text.currentPassword,
                         hintText: text.enterPassword,
                         controller: _passwordController,
                         validator: TextFieldValidator.passValidator,

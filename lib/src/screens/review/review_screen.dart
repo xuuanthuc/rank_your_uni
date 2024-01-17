@@ -18,6 +18,7 @@ import '../widgets/base_scaffold.dart';
 import '../widgets/loading_primary_button.dart';
 import 'bloc/item_criteria_cubit.dart';
 import 'widgets/review_text_area.dart';
+import 'dart:html' as html;
 
 class ReviewForm extends StatelessWidget {
   final String universityId;
@@ -114,6 +115,8 @@ class _ReviewViewState extends State<ReviewView> {
           );
         } else if (state.status == ReviewStatus.success) {
           context.goNamed(RouteKey.reviewSuccess, extra: state.university);
+        } else if (state.status == ReviewStatus.deleteSuccess) {
+          context.goNamed(RouteKey.deteleSuccess, extra: state.university);
         }
         // if (state.mode == ReviewMode.edit) {
         //   context.read<ReviewCubit>().initEditReviewMode(widget.review!);

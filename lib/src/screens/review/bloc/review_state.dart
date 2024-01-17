@@ -1,6 +1,6 @@
 part of 'review_cubit.dart';
 
-enum ReviewStatus { success, error, loading }
+enum ReviewStatus { success, error, loading, deleteSuccess }
 
 enum ReviewAction { delete, update }
 

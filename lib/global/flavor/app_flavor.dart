@@ -15,7 +15,7 @@ class AppFlavor {
       case Flavor.development:
         return 'https://api.rankyouruni.com/api';
       default:
-        return 'http://api.rankyouruni.com/api';
+        return 'https://api.rankyouruni.com/api';
     }
   }
 }

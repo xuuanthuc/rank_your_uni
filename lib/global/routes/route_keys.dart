@@ -32,6 +32,7 @@ abstract class RouteKey {
   static const String helps = "helps";
   static const String addUniversity = "add_university";
   static const String reviewSuccess = "review_success";
+  static const String deteleSuccess = "delete_success";
   static const String terms = "terms_of_service";
   static const String policy = "privacy_policy";
   static const String resetPassword = "reset_password";
