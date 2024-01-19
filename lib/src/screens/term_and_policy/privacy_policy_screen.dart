@@ -17,7 +17,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         TitleContent("Chính Sách Bảo Mật"),
         Gap(),
         NormalContent(
-            "Đây là chính sách bảo mật nơi mà chúng mình mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [http://www.rankyouruni.com] được sở hữu và vận hành bởi các quản trị viên của chúng tôi"),
+            "Đây là chính sách bảo mật nơi mà chúng mình mô tả các biện pháp bảo mật thông tin đối với trang web và các dịch vụ tương tác khác. Trang web [http://www.rankyouruni.com] được sở hữu và vận hành bởi các quản trị viên của chúng mình"),
         Gap(),
         TitleContent(
             "Chính sách bảo mật nay bao gồm những mục lục sau:"),
@@ -52,7 +52,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Cho dù người dùng đang truy cập trang web với tư cách là người dùng đã đăng kí hoặc chưa đăng kí"),
         Gap(),
         DotLine(
-            "Đối với tất cả những từ ngữ, thuật ngữ được định nghĩa bên dưới, thu thập bởi chúng tôi"),
+            "Đối với tất cả những từ ngữ, thuật ngữ được định nghĩa bên dưới, thu thập bởi chúng mình"),
         Gap(),
         DotLine(
             "Đối với các thông tin, nhóm thông tin được chúng mình thu thập từ các nguồn khác. Ví dụ như thông tin về địa chỉ và IP đăng nhập được nhận bởi google với mục đích quảng cáo"),
@@ -102,7 +102,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Trang website, ứng dụng và các dịch vụ tương tác khác có thể có những yêu cầu riêng biệt với một số người dùng nhất định. Ví dụ như yêu cầu tối thiểu về độ tuổi đối với người dùng"),
         Gap(),
         NormalContent(
-            " Hơn nữa, vì quyền riêng tư của người dùng là cần thiết, chúng mình khuyên rằng nếu thiết bị của bạn có thể truy cập từ người khác, xin hãy đăng xuất sau trang web hoặc các dịch vụ khác được cung cấp bởi chúng tôi"),
+            " Hơn nữa, vì quyền riêng tư của người dùng là cần thiết, chúng mình khuyên rằng nếu thiết bị của bạn có thể truy cập từ người khác, xin hãy đăng xuất sau trang web hoặc các dịch vụ khác được cung cấp bởi chúng mình"),
         DotLine(
             "Việc liên quan tới các tính năng và chức năng nhất định"),
         Gap(),
@@ -121,7 +121,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         TitleContent(
             "Các thông tin được thu thập qua việc sử dụng Cookies hoặc các công nghệ theo dõi người dùng khác"),
         NormalContent(
-            'Trang web của chúng tôi, hoặc gắn từ bên thứ ba có thể sử dụng Cookies, Web Beacons hoặc những phần mềm tương tự để tự động thu thập thông tin, dữ liệu người dùng'),
+            'Trang web của chúng mình, hoặc gắn từ bên thứ ba có thể sử dụng Cookies, Web Beacons hoặc những phần mềm tương tự để tự động thu thập thông tin, dữ liệu người dùng'),
         Gap(),
         TitleContent('Định nghĩa:'),
         Gap(),
@@ -138,10 +138,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Cách website sử dụng các công nghệ thu thập dữ liệu data của người dùng"),
         Gap(),
         NormalContent(
-            "Bằng cách truy cập vào trang web của chúng tôi, đăng nhập hoặc không đăng nhập tài khoản, người dùng hiểu rằng bạn đang cho phép chúng mình theo dõi các hoạt động sử dụng trang và sự tương tác của bạn đối với các dịch vụ chúng mình hoặc bên thứ 3 cung cấp"),
+            "Bằng cách truy cập vào trang web của chúng mình, đăng nhập hoặc không đăng nhập tài khoản, người dùng hiểu rằng bạn đang cho phép chúng mình theo dõi các hoạt động sử dụng trang và sự tương tác của bạn đối với các dịch vụ chúng mình hoặc bên thứ 3 cung cấp"),
         Gap(),
         NormalContent(
-            "Chúng mình sử dụng các phần mềm theo dõi người dùng giúp chúng mình thu thập và theo dõi dữ liệu (được mô tả ở mục 4.2 dưới). Ví dụ, chúng mình có thể sử dụng phần mềm theo dõi người dùng để ngăn người dùng cùng nhìn thấy một hoặc nhiều quảng cáo quá nhiều lần. Để điều chỉnh trải nghiệm của người dùng trên web, chúng mình sẽ cá nhân hoá, điều chỉnh tiếp thị quảng cáo, email và nội dung khác, hoặc được sử dụng các lựa chọn ngưng nhận quảng cáo qua cơ chế từ mail, để chúng mình biết rằng bạn không muốn nhận các quảng cáo được cá nhân hoá từ chúng tôi"),
+            "Chúng mình sử dụng các phần mềm theo dõi người dùng giúp chúng mình thu thập và theo dõi dữ liệu (được mô tả ở mục 4.2 dưới). Ví dụ, chúng mình có thể sử dụng phần mềm theo dõi người dùng để ngăn người dùng cùng nhìn thấy một hoặc nhiều quảng cáo quá nhiều lần. Để điều chỉnh trải nghiệm của người dùng trên web, chúng mình sẽ cá nhân hoá, điều chỉnh tiếp thị quảng cáo, email và nội dung khác, hoặc được sử dụng các lựa chọn ngưng nhận quảng cáo qua cơ chế từ mail, để chúng mình biết rằng bạn không muốn nhận các quảng cáo được cá nhân hoá từ chúng mình"),
         Gap(),
         DotLine(
             "Cách các bên thứ 3 sử dụng phần mềm để thu thập dữ liệu"),
@@ -150,7 +150,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             " Trang web của chúng mình có thể sử dụng các phần mềm từ bên thứ ba để trao đổi dữ liệu, quản lý dữ liệu, đo lường lượng truy cập và cung cấp hoặc trao đổi các dịch vụ quảng cáo, phân tích tiếp thị, tạo điều kiện cho việc cá nhân hoá các dịch vụ marketings. Giúp bạn tìm tới những sản phẩm và dịch vụ mà bạn quan tâm"),
         Gap(),
         DotLine(
-            "Bên thứ ba và các nhà quảng cáo khác có thể tự thiết lập các phần mềm, công nghệ được phê duyệt đảm bảo tính bảo mật để truy cập thông tin và các hoạt động trực tuyến của bạn theo thời gian thực khi bạn sử dụng trang web của chúng tôi"),
+            "Bên thứ ba và các nhà quảng cáo khác có thể tự thiết lập các phần mềm, công nghệ được phê duyệt đảm bảo tính bảo mật để truy cập thông tin và các hoạt động trực tuyến của bạn theo thời gian thực khi bạn sử dụng trang web của chúng mình"),
         Gap(),
         DotLine(
             "Chúng mình có thể can thiệp để hỗ trợ nhà cung cấp dịch vụ từ bên thứ ba để trang web có thể thiết lập công nghệ theo dõi. Ví dụ trong phạm vi cần thiết để cung cấp các dịch vụ phục vụ quảng cáo cơ bản như kiểm soát tần suất bạn xem quảng cáo hoặc đảm bảo bạn không xem một quảng cáo quá nhiều lần, chúng mình có thể tranh thủ sự trợ giúp của bên thứ ba để tạo, tuỳ chỉnh hoặc sửa đổi các công nghệ mà trang web thiết lập"),
@@ -202,14 +202,14 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Sử dụng để đánh giá, report liên quan tới dữ liệu thống kê về việc sử dụng của người dùng"),
         Gap(),
         DotLine(
-            "Phân tích, sử dụng phương pháp A/B testing để xác định hoặc dự đoán những tính năng, trang web, sản phẩm và dịch vụ mà người dùng thích nhất. Nhằm mong muốn nâng cao và cải thiện các dịch vụ, ứng dụng. Ví dụ như việc người dùng nhấn vào quảng cáo được gửi qua email của chúng tôi"),
+            "Phân tích, sử dụng phương pháp A/B testing để xác định hoặc dự đoán những tính năng, trang web, sản phẩm và dịch vụ mà người dùng thích nhất. Nhằm mong muốn nâng cao và cải thiện các dịch vụ, ứng dụng. Ví dụ như việc người dùng nhấn vào quảng cáo được gửi qua email của chúng mình"),
         Gap(),
         DotLine("Địa chỉ IP"),
         Gap(),
         DotLine("Quốc gia, thành phố"),
         Gap(),
         DotLine(
-            "Lịch sử duyệt web ở trên trang web của chúng tôi, bao gồm cả việc cách bạn được giới thiệu tới trang web của chúng tôi"),
+            "Lịch sử duyệt web ở trên trang web của chúng mình, bao gồm cả việc cách bạn được giới thiệu tới trang web của chúng mình"),
         Gap(),
         DotLine("Thông tin về thiết bị được sử dụng để đăng nhập"),
         Gap(),
@@ -223,13 +223,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Thông tin được thu thập bởi các dịch vụ được cung cấp bởi bên thứ ba"),
         Gap(),
         DotLine(
-            "Việc sử dụng các công nghệ theo dõi của nhà cung cấp dịch vụ quảng cáo từ bên thứ ba nằm trong tầm kiểm soát của họ chứ không phải của chúng tôi. Ngay cả khi chúng mình có mối quan hệ với nhà cung cấp các dịch vụ quảng cáo. Chúng mình không kiểm soát trang web, ứng dụng hoặc dịch vụ tương tác khác của bên thứ ba, cũng như các chính sách và hoạt động liên quan tới việc sử dụng dữ liệu của người dùng"),
+            "Việc sử dụng các công nghệ theo dõi của nhà cung cấp dịch vụ quảng cáo từ bên thứ ba nằm trong tầm kiểm soát của họ chứ không phải của chúng mình. Ngay cả khi chúng mình có mối quan hệ với nhà cung cấp các dịch vụ quảng cáo. Chúng mình không kiểm soát trang web, ứng dụng hoặc dịch vụ tương tác khác của bên thứ ba, cũng như các chính sách và hoạt động liên quan tới việc sử dụng dữ liệu của người dùng"),
         Gap(),
         DotLine(
             "Người dùng nên biết rằng các thông tin, dữ liệu của họ được áp dụng bởi các quy tắc khác nhau mà có thể được đề xuất bởi bên thứ ba"),
         Gap(),
         DotLine(
-            "Việc sử dụng hoặc tiết lộ thông tin của bạn bởi bên thứ ba liên quan tới quảng cáo, khuyến mãi và các dịch vụ khác trong ứng dụng hoặc tương tác trên internet sẽ không nằm trong chính sách của chúng tôi"),
+            "Việc sử dụng hoặc tiết lộ thông tin của bạn bởi bên thứ ba liên quan tới quảng cáo, khuyến mãi và các dịch vụ khác trong ứng dụng hoặc tương tác trên internet sẽ không nằm trong chính sách của chúng mình"),
         Gap(),
         DotLine(
             "Tuy nhiên, người dùng có thể tham khảo phần “lựa chọn của bạn” để biết thêm thông tin về cách từ chối thu thập và sử dụng thông tin từ bên cung cấp dịch vụ thứ ba"),
@@ -249,7 +249,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             "Ngay cả khi tài khoản được người dùng huỷ kích hoạt, người dùng vẫn sẽ nhận được email từ chúng mình trừ khi người dùng thực hiện các tuỳ chọn từ chối mà chúng mình đề cập ở trên. Ngay cả khi bạn thực hiện các quyền từ chối được mô tả ở trên, chúng mình vẫn có thể tiếp tục liên hệ với các bạn vì các mục đích khác được mô tả trong mục 4"),
         Gap(),
         NormalContent(
-            'Các sự lựa chọn ở trên đã bao gồm cookie trình duyệt do trang web của chúng tôi. Các cookie khác không được kiểm soát (hay còn được gọi là cookie của bên thứ 3) sẽ không do chúng mình kiểm soát và sẽ không chịu trách nhiệm về việc vận hành của các cookie của các trình duyệt khác'),
+            'Các sự lựa chọn ở trên đã bao gồm cookie trình duyệt do trang web của chúng mình. Các cookie khác không được kiểm soát (hay còn được gọi là cookie của bên thứ 3) sẽ không do chúng mình kiểm soát và sẽ không chịu trách nhiệm về việc vận hành của các cookie của các trình duyệt khác'),
         Gap(),
         DotLine(
             'Các công cụ dựa vào cookie trình duyệt internet để ghi nhớ các sự lựa chọn của người dùng. Nếu người dùng lựa chọn xoá hoặc chỉnh sửa cookie ở trong trình duyệt web, người dùng có thể phải chỉnh sửa, xoá hoặt thiết lập lại các sự lựa chọn cookie cá nhân khi có những sự thay đổi mới ở trong tương lai'),
@@ -261,7 +261,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             'Một vài trình duyệt có thể mặc định vô hiệu hoá Cookie (VD: Safari). Điều này có thể ảnh hưởng đến dịch vụ tương tác hoặc các dịch vụ khác mà chúng mình hoặc bên thứ ba mang lại (VD: quảng cáo)'),
         Gap(),
         DotLine(
-            'Người dùng vẫn có thể nhìn thấy quảng cáo trên trang Web của chúng tôi. Việc vô hiệu hoá cookie không đồng nghĩa là người dùng sẽ không còn nhìn thấy quảng cáo của chúng tôi. Việc xoá cookie chỉ có nghĩa là những quảng cảo trên trang web của chúng mình sẽ không được điều chỉnh để phù hợp với sở thích hoặc thói quen của bạn nữa và người dùng có thể sẽ nhìn thấy những quảng cáo lặp đi lặp lại của chúng tôi'),
+            'Người dùng vẫn có thể nhìn thấy quảng cáo trên trang Web của chúng mình. Việc vô hiệu hoá cookie không đồng nghĩa là người dùng sẽ không còn nhìn thấy quảng cáo của chúng mình. Việc xoá cookie chỉ có nghĩa là những quảng cảo trên trang web của chúng mình sẽ không được điều chỉnh để phù hợp với sở thích hoặc thói quen của bạn nữa và người dùng có thể sẽ nhìn thấy những quảng cáo lặp đi lặp lại của chúng mình'),
         Gap(),
         TitleContent('6. Chia sẻ và sử dụng thông tin'),
         Gap(),
@@ -316,15 +316,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
                         "để bảo vệ hoạt động kinh doanh và tài sản của chúng mình hoặc các quyền, tài sản hoặc sự an toàn của Rank Your UNi hoặc bất kỳ nhà cung cấp dịch vụ vận hành, người cấp phép, nhà cung cấp, Nhà quảng cáo, khách hàng, người dùng hoặc bất kỳ bên nào khác"),
                     Gap(),
                     DotLine(
-                        "để hạn chế trách nhiệm pháp lý của chúng tôi"),
+                        "để hạn chế trách nhiệm pháp lý của chúng mình"),
                     Gap(),
-                    DotLine("để bảo vệ lợi ích của chúng tôi"),
+                    DotLine("để bảo vệ lợi ích của chúng mình"),
                     Gap(),
                     DotLine(
                         "để thực thi chính sách quyền riêng tư này hoặc thỏa thuận điều khoản sử dụng hoặc để tuân thủ các nghĩa vụ pháp lý, quy định, kiểm toán và tuân thủ của chúng mình hoặc các yêu cầu của cơ quan thực thi pháp luật hoặc các cơ quan chính phủ khác"),
                     Gap(),
                     DotLine(
-                        "Trong trường hợp phá sản, sáp nhập, mua lại, bán, chuyển giao quyền kiểm soát, liên doanh hoặc kết hợp kinh doanh khác liên quan đến chúng tôi"),
+                        "Trong trường hợp phá sản, sáp nhập, mua lại, bán, chuyển giao quyền kiểm soát, liên doanh hoặc kết hợp kinh doanh khác liên quan đến chúng mình"),
                     Gap(),
                   ],
                 ),
@@ -343,7 +343,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             '7. Chỉnh sửa, xoá một số thông tin, dữ liệu nhất định'),
         Gap(),
         DotLine(
-            'Đăng kí tài khoản. Nếu người dùng đăng kí tài khoản để sử dụng trang web của chúng tôi. Việc đăng kí tài khoản giúp người dùng có thể dễ dàng cập nhật hoặc xoá một số thông tin nhất định được cung cấp bởi người dùng tới trang web. Tuy nhiên, sẽ có một vài thông tin cá nhân cần thiết được sử dụng để kiểm tra rằng người dùng đủ điều kiện (ví dụ: ngày sinh, tuổi) sẽ không thể bị xoá nhưng có thể được sửa đổi khi thông tin được xác minh đầy đủ và chính xác'),
+            'Đăng kí tài khoản. Nếu người dùng đăng kí tài khoản để sử dụng trang web của chúng mình. Việc đăng kí tài khoản giúp người dùng có thể dễ dàng cập nhật hoặc xoá một số thông tin nhất định được cung cấp bởi người dùng tới trang web. Tuy nhiên, sẽ có một vài thông tin cá nhân cần thiết được sử dụng để kiểm tra rằng người dùng đủ điều kiện (ví dụ: ngày sinh, tuổi) sẽ không thể bị xoá nhưng có thể được sửa đổi khi thông tin được xác minh đầy đủ và chính xác'),
         Gap(),
         DotLine(
             'Các sự lựa chọn khác. Đối với các tải khoản đăng kí của người dùng, với tư cách là thành viên đăng kí của RYU, chúng mình có thể cung cấp các sự lựa chọn về việc họ nhận được một số thông báo nhất định và các có thể chia sẻ các hoạt động người dùng tham gia trên trang web'),
@@ -363,7 +363,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             'Mặc dù các thông tin về dữ liệu trên mạng là không an toàn 100%, nhưng chúng mình vẫn sử dụng các dịch vụ bảo vệ về mặt vật lý, điện tử, dữ liệu và các hoạt động thương mại để bảo vệ thông tin của bạn. Tuy nhiên, bất kể nỗ lực của chúng mình và thiết bị người dùng sử dụng để truy cập trang đều có thể có khả năng bị tấn công với mục đích xấu từ bên thứ ba. Nhưng chúng mình đảm bảo rằng các liên quan tới giao dịch online đều được bảo vệ'),
         Gap(),
         NormalContent(
-            'Hơn nữa, chúng mình hạn chế quyền truy cập của nhân viên đối với trang web của chúng tôi. Những cá nhân được uỷ quyền cho việc xử lý thông tin sẽ chịu trách nhiệm về pháp luật hoặc bất kì các hình phạt khác nếu bị phát hiện vi phạm các tiêu chuẩn yêu cầu về bảo mật chúng tôi. Và chúng mình yêu cầu các nhà cung cấp dịch vụ vận hành của chúng mình tuân theo các tiêu chuẩn tương tự về bảo mật'),
+            'Hơn nữa, chúng mình hạn chế quyền truy cập của nhân viên đối với trang web của chúng mình. Những cá nhân được uỷ quyền cho việc xử lý thông tin sẽ chịu trách nhiệm về pháp luật hoặc bất kì các hình phạt khác nếu bị phát hiện vi phạm các tiêu chuẩn yêu cầu về bảo mật chúng mình. Và chúng mình yêu cầu các nhà cung cấp dịch vụ vận hành của chúng mình tuân theo các tiêu chuẩn tương tự về bảo mật'),
         Gap(),
         NormalContent('Thuật ngữ Phishing:'),
         Gap(),
@@ -385,7 +385,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             'Thông tin về thiết bị đăng nhập (IP, mã quốc gia, khu vực thành phố)'),
         Gap(),
         DotLine(
-            'Thông tin liên quan tới cách người dùng sử dụng hoặc tương tác với trang web và dịch vụ được cung cấp bởi chúng tôi'),
+            'Thông tin liên quan tới cách người dùng sử dụng hoặc tương tác với trang web và dịch vụ được cung cấp bởi chúng mình'),
         Gap(),
         DotLine(
             'Đối với những trường hợp liên kết tới các trang web hoặc ứng dụng không phải của Rank Your UNi, người dùng nên đọc chính sách bảo mật của riêng chúng'),

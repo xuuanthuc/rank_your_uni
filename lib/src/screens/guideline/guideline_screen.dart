@@ -17,11 +17,11 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
     return const AppScaffold(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 40),
-        TitleContent('Hướng dẫn sử dụng trang'),
-        SizedBox(height: 40),
+        SizedBox(height: 20),
+        TitleContent('HƯỚNG DẪN SỬ DỤNG TRANG'),
+        SizedBox(height: 20),
         NormalContent(
-            'Dưới đây là bản hướng dẫn sử dụng trang cho [Rank Your UNi](https://www.rankyouruni.com). Website được tạo, sử dụng và cung cấp bởi RYU Bản hướng dẫn sử dụng này là điều khoản bổ sung theo thoả thuận [điều khoản sử dụng](https://rankyouruni.com/terms) của chúng tôi.'),
+            'Dưới đây là bản hướng dẫn sử dụng trang cho [Rank Your UNi](https://www.rankyouruni.com). Website được tạo, sử dụng và cung cấp bởi RYU Bản hướng dẫn sử dụng này là điều khoản bổ sung theo thoả thuận [điều khoản sử dụng](https://rankyouruni.com/terms) của chúng mình.'),
         Gap(),
         NormalContent(
             'Rank Your UNi là trang web trực tuyến lớn nhất dành cho sinh viên nghiên cứu và đánh giá các trường đại học và giảng viên trên toàn vùng lãnh thổ Việt Nam. Mục đích của chúng mình là cung cấp một diễn đàn an toàn để chia sẻ kinh nghiệm học tập nhằm giúp các sinh viên đưa ra những sự lựa chọn đúng đắn về mặt giáo dục, cũng như góp phần cải thiện và nâng cao hệ thống giáo dục nước nhà.'),
@@ -36,14 +36,22 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
         NormalContent(
             'RankYourUNi KHÔNG phải là nơi để báo cáo các hành vi nguy hiểm, bất hợp pháp. Nếu bạn tin rằng bạn và các sinh viên khác đang gặp nguy hiểm, chúng mình khuyên bạn nên báo cáo những trường hợp đó trực tiếp cho trường hoặc các cơ quan có thẩm quyền'),
         SizedBox(height: 20),
-        TitleContent('CÁCH CHÚNG MÌNH VẬN HÀNH TRANG WEB'),
+        TitleContent('PHƯƠNG THỨC ĐƯỢC SỬ DỤNG ĐỂ ĐÁNH GIÁ'),
+        TitleContent('Lưu ý: mọi đánh giá chỉ mang tính chất tham khảo'),
+        NormalContent('Các trường học của được đánh giá theo các 8 tiêu chí như sau:'),
+        DotLine('Danh tiếng: mức độ danh tiếng và uy tín của trường.'),
+        DotLine('Độ cạnh tranh: mức độ tuyển sinh hoặc tỷ lệ trúng tuyển vào trường.'),
+        DotLine('Internet: mức độ truy cập mạng và độ ổn định.'),
+        DotLine('Vị trí: mức độ liên quan đến vị trí trường học, dễ dàng và thuận lợi cho việc di chuyển.'),
+        DotLine('Độ yêu thích: mức độ yêu thích của bạn đối với trường.'),
+        DotLine('Cơ sở vật chất: mức độ cơ sở vật chất, không gian học tập, sinh hoạt.'),
+        DotLine('CLB/ ngoại khoá: mức độ tổ chức các câu lạc bộ và hoạt động ngoại khoá.'),
+        DotLine('Đồ ăn: mức độ chất lượng và đa dạng về đồ ăn trong trường lẫn khu vực xung quanh.'),
         Gap(),
-        NormalContent(
-            'Tất cả các đánh giá trên Rank Your UNi được review bởi các quản trị viên. Thêm vào đó hướng dẫn sử dụng trang được đưa ra nhằm đảm bảo bất kì người dùng nào sử dụng trang web này đúng mục đích và sứ mệnh mà nhóm chúng mình đã đề ra. Bất kì đánh giá nào mang tính xúc phạm hoặc vi phạm hướng dẫn sử dụng trang sẽ bị xoá.'),
+        NormalContent('Với các thang điểm sao từ 1-5, thể hiện các cấp bậc liên quan tới chất lượng của mỗi tiêu chí theo cấp độ tăng dần. Sau đó điểm tổng sẽ được chia đều và sử dụng bằng cách tính trung bình tổng của cả 8 tiêu chí cho một đánh giá của học sinh/sinh viên.'),
         Gap(),
-        NormalContent(
-            'Tất cả những đánh giá được giơ cờ sẽ được thông báo trực tiếp tới quản trị trang và được chúng mình review cũng như xoá khỏi đánh giá nếu là cần thiết. Chúng mình cam kết đánh giá của bạn sẽ không bị chỉnh sửa bởi chúng tôi.'),
-        SizedBox(height: 40),
+        NormalContent('Điểm tổng của trường sẽ được tính bằng trung bình cộng của tất cả các đánh giá của các học sinh/sinh viên khác.'),
+        SizedBox(height: 20),
         TitleContent('HƯỚNG DẪN SỬ DỤNG TRANG WEB'),
         Gap(),
         TitleContent('Hướng dẫn sử dụng trang cho sinh viên:'),
@@ -71,7 +79,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
         Gap(),
         DotLine(
             'Khi đọc các bài đánh giá của bạn học, chúng mình khuyến khích bạn đưa ra quyết định dựa trên nhiều đánh giá khác bởi mục tiêu của Rank Your UNi là nguồn tài nguyên giúp các bạn sinh viên đưa ra các quyết định đúng đắn trên con đường học vấn của chính mình'),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         TitleContent('Các nội dung cấm!!!'),
         Gap(),
         DotLine(
@@ -91,12 +99,12 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
             'Đánh giá cáo buộc rằng trường hoặc các giảng viên đang tự đánh giá cho chính họ.'),
         Gap(),
         DotLine('Mã link độc'),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         TitleContent('BÁO CÁO ĐÁNH GIÁ'),
         Gap(),
         NormalContent(
             'Nếu bạn nhận thấy các đánh giá đang vi phạm hướng dẫn sử dụng Rank Your UNi, xin hãy nhấn “báo cáo” ở dưới mỗi đánh giá và mô tả mức độ vi phạm cũng như quan điểm của bạn về các đánh giá đó. Hạn chế báo cáo chỉ vì bạn không thích hoặc không cùng quan điểm với các đánh giá đó'),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         TitleContent('MỘT VÀI TIÊU ĐIỂM VỀ PHÁP LÝ'),
         Gap(),
         NormalContent(
@@ -107,7 +115,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
         Gap(),
         NormalContent(
             "Bất kì ai có hành động tấn công hoặc mong muốn cáo buộc liên quan tới các vấn đề pháp lý sẽ chịu trách nhiệm trước pháp luật Việt Nam."),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         TitleContent('QUYỀN CỦA Rank Your UNi'),
         Gap(),
         NormalContent(
@@ -115,7 +123,7 @@ class _GuidelinesScreenState extends State<GuidelinesScreen> {
         Gap(),
         NormalContent(
             "Rank Your UNi có quyền xóa, cung cấp cho cơ quan chức năng hoặc thực hiện hành động thích hợp đối với các bình luận đe dọa bạo lực hoặc gây tổn hại cơ thể cho người dùng hoặc giảng viên khác, bao gồm nhưng không giới hạn ở việc thông báo cho cơ quan chức năng về địa chỉ IP của bạn, nếu thực sự cần thiết."),
-        SizedBox(height: 50),
+        SizedBox(height: 20),
       ],
     );
   }

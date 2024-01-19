@@ -14,16 +14,15 @@ class TermsOfServiceScreen extends StatelessWidget {
       children: [
         Gap(),
         Gap(),
-        Gap(),
-        TitleContent("Điều Khoản Sử Dụng"),
+        TitleContent("ĐIỀU KHOẢN SỬ DỤNG"),
         Gap(),
         NormalContent(
-            "Điều khoản này chứa điều khoản trọng tài và các điều khoản khước từ. Bằng cách sử dụng trang web này, người dùng được cho rằng là đồng ý với tất cả các điều khoản sử dụng của chúng tôi."),
+            "Điều khoản này chứa điều khoản trọng tài và các điều khoản khước từ. Bằng cách sử dụng trang web này, người dùng được cho rằng là đồng ý với tất cả các điều khoản sử dụng của chúng mình."),
         Gap(),
         TitleContent("Các điều khoản sử dụng chính"),
         Gap(),
         NormalContent(
-            "Nhằm mang lạ sự tiện lợi trong việc sử dụng web của chúng tôi. Sau đây là bản tóm tắt nhanh về thoả thuận điều khoản sử dụng. Người dùng vui lòng đọc toàn bộ thoả thuận điều khoản sử dụng để biết thêm thông tin chi tiết. Nếu có bất kì sư thắc mắc nào. Xin liên hệ với chúng mình tại phần liên hệ."),
+            "Nhằm mang lạ sự tiện lợi trong việc sử dụng web của chúng mình. Sau đây là bản tóm tắt nhanh về thoả thuận điều khoản sử dụng. Người dùng vui lòng đọc toàn bộ thoả thuận điều khoản sử dụng để biết thêm thông tin chi tiết. Nếu có bất kì sư thắc mắc nào. Xin liên hệ với chúng mình tại phần liên hệ."),
         Gap(),
         TitleContent(
             "Liên quan tới các thoả thuận, phạm vi và các điều khoản bổ sung:"),
@@ -38,7 +37,7 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent("Liên quan tới sửa đổi về điều khoản sử dụng"),
         Gap(),
         NormalContent(
-            'Theo thời gian, các chính sách liên quan tới điều khoản sử dụng có thể có những sự thay đổi. Những thông tin quan trọng liên quan tới điều này sẽ được thông báo qua màn hình trang chủ của hoặc email mà người dùng đăng kí với chúng tôi. Những điều khoản mới sẽ có hiệu lực tức thì tại thời điểm mà chúng mình cập nhật tại phần điều khoản sử dụng.'),
+            'Theo thời gian, các chính sách liên quan tới điều khoản sử dụng có thể có những sự thay đổi. Những thông tin quan trọng liên quan tới điều này sẽ được thông báo qua màn hình trang chủ của hoặc email mà người dùng đăng kí với chúng mình. Những điều khoản mới sẽ có hiệu lực tức thì tại thời điểm mà chúng mình cập nhật tại phần điều khoản sử dụng.'),
         Gap(),
         TitleContent('Liên quan tới quy tắc sử dụng'),
         Gap(),
@@ -53,7 +52,7 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent('Liên quan tới đánh giá, nội dung bài đăng'),
         Gap(),
         NormalContent(
-            'Người dùng chịu trách nhiệm về bất kì nội dung nào mà họ đăng (hoặc dưới tên người dùng) trên hoặc thông qua trang web). Người dùng cũng chấp nhận rằng tất cả nội dung được cung cấp trong lúc sử dụng web sẽ được quản lý bởi chúng tôi. Chúng mình có quyền đánh giá, chỉnh sửa và giám sát trong việc sàng lọc nội dung nếu nội dung của người dùng vi phạm điều khoản sử dụng của chúng tôi. Hơn nữa, chúng mình cũng có quyền tước quyền sử dụng tài khoản của người dùng để đảm bảo chính sách này được thực thi.'),
+            'Người dùng chịu trách nhiệm về bất kì nội dung nào mà họ đăng (hoặc dưới tên người dùng) trên hoặc thông qua trang web). Người dùng cũng chấp nhận rằng tất cả nội dung được cung cấp trong lúc sử dụng web sẽ được quản lý bởi chúng mình. Chúng mình có quyền đánh giá, chỉnh sửa và giám sát trong việc sàng lọc nội dung nếu nội dung của người dùng vi phạm điều khoản sử dụng của chúng mình. Hơn nữa, chúng mình cũng có quyền tước quyền sử dụng tài khoản của người dùng để đảm bảo chính sách này được thực thi.'),
         Gap(),
         TitleContent(
             'Liên quan tới việc miễn trừ trách nhiệm và giới hạn trách nhiệm pháp lý'),
@@ -100,10 +99,10 @@ class TermsOfServiceScreen extends StatelessWidget {
             'Chúng mình cũng có thể cung cấp cho người dùng mật khẩu mới hoặc mật khẩu bổ sung'),
         Gap(),
         DotLine(
-            'Xin vui lòng đọc chính sách quyền riêng tư của chúng tôi, nơi mà chúng mình giải thích các thông tin mà chúng mình thu thập, chia sẻ, quản lý, và lưu trữ'),
+            'Xin vui lòng đọc chính sách quyền riêng tư của chúng mình, nơi mà chúng mình giải thích các thông tin mà chúng mình thu thập, chia sẻ, quản lý, và lưu trữ'),
         Gap(),
         DotLine(
-            'Thông tin tài khoản đăng nhập là riêng tư với người dùng. Người dùng không được phép chia sẻ hoặc tiết lộ với bất kì người nào khác. Trong trường hợp thông tin tài khoản đăng nhập được tiết lộ. Chúng mình không chịu trách nhiệm về bất kì tổn hại nào gây ra hoặc liên quan đến hành vi trộm cắp hoặc chiếm dụng tài khoản hoặc uỷ quyền. Người dùng đồng ý thông báo ngay cho chúng mình nếu họ tin rằng có thể có bất kì hành vi sử dụng trái phép nào gây tổn hại tới họ. Người dùng có thể liên hệ chúng mình qua rankyouruni@outlook.com để huỷ kích hoạt tài khoản trong trường hợp lo ngại về bảo mật'),
+            'Thông tin tài khoản đăng nhập là riêng tư với người dùng. Người dùng không được phép chia sẻ hoặc tiết lộ với bất kì người nào khác. Trong trường hợp thông tin tài khoản đăng nhập được tiết lộ. Chúng mình không chịu trách nhiệm về bất kì tổn hại nào gây ra hoặc liên quan đến hành vi trộm cắp hoặc chiếm dụng tài khoản hoặc uỷ quyền. Người dùng đồng ý thông báo ngay cho chúng mình nếu họ tin rằng có thể có bất kì hành vi sử dụng trái phép nào gây tổn hại tới họ. Người dùng có thể liên hệ chúng mình qua tại phần liên hệ ở trang chủ để huỷ kích hoạt tài khoản trong trường hợp lo ngại về bảo mật'),
         Gap(),
         TitleContent('3. Sửa đổi và điều khoản sử dụng'),
         Gap(),
@@ -119,13 +118,13 @@ class TermsOfServiceScreen extends StatelessWidget {
             'Trang web chỉ được sử dụng cho mục đích sử dụng cá nhân có giới hạn, phi thương mại, không độc quyền, không thể chuyển nhượng và không có mục đích nào khác. Người dùng không được che giấu bất ki bản quyền hoặc thông báo nào khác có trên trang web, bao gồm thông báo về bất kì tài liệu mà họ được phép tải xuống'),
         Gap(),
         DotLine(
-            'Người dùng cũng sẽ không được phép chia sẻ cho bên thứ ba (liên quan tới bất kì lợi ích cá nhân nào về việc sao chép, sửa đổi hoặc tạo sản phấm nhái theo ý tưởng của chúng tôi)'),
+            'Người dùng cũng sẽ không được phép chia sẻ cho bên thứ ba (liên quan tới bất kì lợi ích cá nhân nào về việc sao chép, sửa đổi hoặc tạo sản phấm nhái theo ý tưởng của chúng mình)'),
         Gap(),
         DotLine(
             'Bất kì việc sử dụng trái phép hoặc bị cấm đối với bất kì tài liệu nào đều có thể khiến người dùng chịu trách nhiệm dân sự, truy tố hình sự dựa theo luật hiện hành của pháp luật Việt Nam'),
         Gap(),
         DotLine(
-            'Chúng mình yêu cầu người dùng tôn trọng bản quyền, nhãn hiệu và các quyền sở hữu trí tuệ khác của chúng tôi. Ngược lại chúng mình cũng tôn trọng các tài sản trí tuệ của người dung'),
+            'Chúng mình yêu cầu người dùng tôn trọng bản quyền, nhãn hiệu và các quyền sở hữu trí tuệ khác của chúng mình. Ngược lại chúng mình cũng tôn trọng các tài sản trí tuệ của người dung'),
         Gap(),
         DotLine(
             'Trong trường hợp được thông báo, chúng mình sẽ hành động nhanh chóng để xoá nội dung trên trang web mà vi phạm quyền bản quyền của người khác, đồng thời vô hiệu hoá quyền truy cập vào trang web và các dịch vụ vi phạm quyền sở hữu trí tuệ của người khác'),
@@ -133,7 +132,7 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent('5. Các hoạt động quảng cáo'),
         Gap(),
         DotLine(
-            'Bằng cách sử dụng trang của chúng tôi, người dùng có thể tương tác, hoặc chuyển hướng đến hoặc tham gia các dịch vụ từ các bên thứ ba (gọi chung là “nhà quảng cáo”). Tất cả các thông tin liên lạc, tương tác và tham gia giữa người dùng và nhà quảng cáo nằm ở trong phạm vi mà phát luật cho phép và chúng mình KHÔNG CHỊU trách nhiệm, hoặc nghĩa vụ pháp lý với người dùng dưới bất kì hình thức nào liên quan tới các hoạt động giao dịch, giao ước, hợp đồng hoặc các điều kiện khác giữa họ và nhà quảng cáo'),
+            'Bằng cách sử dụng trang của chúng mình, người dùng có thể tương tác, hoặc chuyển hướng đến hoặc tham gia các dịch vụ từ các bên thứ ba (gọi chung là “nhà quảng cáo”). Tất cả các thông tin liên lạc, tương tác và tham gia giữa người dùng và nhà quảng cáo nằm ở trong phạm vi mà phát luật cho phép và chúng mình KHÔNG CHỊU trách nhiệm, hoặc nghĩa vụ pháp lý với người dùng dưới bất kì hình thức nào liên quan tới các hoạt động giao dịch, giao ước, hợp đồng hoặc các điều kiện khác giữa họ và nhà quảng cáo'),
         Gap(),
         TitleContent('6. Quy tắc ứng xử'),
         Gap(),
@@ -153,7 +152,7 @@ class TermsOfServiceScreen extends StatelessWidget {
             'Gửi email, tin nhắn với mục đích lừa đảo hoặc mạo danh chúng mình với mục đích trái phép'),
         Gap(),
         DotLine(
-            'Sử dụng trang web, dịch vụ với mục đích thương mại hoặc kinh doan, không giới hạn, tiếp thị với bất kì mục đích tài chính, thương mại mà không có sự cho phép tới từ chúng tôi'),
+            'Sử dụng trang web, dịch vụ với mục đích thương mại hoặc kinh doan, không giới hạn, tiếp thị với bất kì mục đích tài chính, thương mại mà không có sự cho phép tới từ chúng mình'),
         Gap(),
         DotLine(
             'Tải lên các chương trình, tài liệu có chứa mã độc có khả năng gây hại tới Rank Your UNi'),
@@ -166,7 +165,7 @@ class TermsOfServiceScreen extends StatelessWidget {
             'Đăng nhập trái phép, sử dụng chức năng và dữ liệu cá nhân từ mọi thiết bị'),
         Gap(),
         DotLine(
-            'Tấn công trang web bằng cách sửa đổi, làm gián đoạn hoạt động và việc vận hành trang web của chúng tôi'),
+            'Tấn công trang web bằng cách sửa đổi, làm gián đoạn hoạt động và việc vận hành trang web của chúng mình'),
         Gap(),
         DotLine('Lấy dữ liệu, hay crawl data từ trang web'),
         Gap(),
@@ -176,7 +175,7 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent('7. Giao dịch mua bán online'),
         Gap(),
         DotLine(
-            'Trong trường hợp chúng mình cung cấp một số dịch vụ thương mại điện tử nhất định, cho phép người dùng giao dịch, mua bán hàng hoá thông qua trang web của chúng tôi, các điều khoản bổ sung sẽ được áp dụng cho việc sử dụng dịch vụ này'),
+            'Trong trường hợp chúng mình cung cấp một số dịch vụ thương mại điện tử nhất định, cho phép người dùng giao dịch, mua bán hàng hoá thông qua trang web của chúng mình, các điều khoản bổ sung sẽ được áp dụng cho việc sử dụng dịch vụ này'),
         Gap(),
         DotLine(
             'Người dùng có thể sử dụng các điều khoản có sẵn trên, hoặc thông quá các liên kết tới từ người bán hàng để biết thêm thông tin chi tiết'),
@@ -184,17 +183,17 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent('8. Nội dung và đánh giá'),
         Gap(),
         DotLine(
-            'Nhận xét, đề xuất và và thông tin của người dùng là rất quan trọng đối với chúng tôi. Một phần trang web của chúng mình có thể mang lại cho người dùng các cơ hội tham gia vào các diễn đàn, cộng đồng, blog, và các phương tiện liên lạc để trao đổi thông tin, ý tưởng, ý kiến (gọi chung là bài đăng). Với điều kiện chúng tuân thu các thoả thuận, chính sách mà chúng mình đưa ra'),
+            'Nhận xét, đề xuất và và thông tin của người dùng là rất quan trọng đối với chúng mình. Một phần trang web của chúng mình có thể mang lại cho người dùng các cơ hội tham gia vào các diễn đàn, cộng đồng, blog, và các phương tiện liên lạc để trao đổi thông tin, ý tưởng, ý kiến (gọi chung là bài đăng). Với điều kiện chúng tuân thu các thoả thuận, chính sách mà chúng mình đưa ra'),
         Gap(),
         TitleContent('9. Các chương trình khuyến mại, cuộc thi'),
         Gap(),
         DotLine(
-            'Chúng tối có thể tiến hành tổ chức các chương trình khuyến mãi thông qua trang web. Mỗi chương trình sẽ có thể có điều khoản bổ sung, quy tắc quản lý. Các nguyên tắc này sẽ được thông báo tới người dùng qua trang chủ và được coi là các điều khoản bổ sung và là một phần của thoả thuận của chúng tôi'),
+            'Chúng tối có thể tiến hành tổ chức các chương trình khuyến mãi thông qua trang web. Mỗi chương trình sẽ có thể có điều khoản bổ sung, quy tắc quản lý. Các nguyên tắc này sẽ được thông báo tới người dùng qua trang chủ và được coi là các điều khoản bổ sung và là một phần của thoả thuận của chúng mình'),
         Gap(),
         TitleContent('10. HyperLinks dẫn tới website của bên thứ ba'),
         Gap(),
         DotLine(
-            'Chúng tôi, những người quản lý, thuộc bộ phận quản lý của trang web Rank Your UNi, không chịu trách nhiệm với việc người dùng sử dụng URLs của bên thứ ba trong việc tham gia các hoạt động, dịch vụ mà bên thứ ba cung cấp. Chúng mình không có bất kì trách nhiệm nào với bên thứ ba và các hoạt động kinh doanh của họ (bao gồm cả chính sách bảo mật) ngay cả khi Rank Your UNi hợp tác, nhận sự tài trợ như một phần của thoả thuận giữa chúng mình (Rank Your UNi) và bên thứ ba'),
+            'Chúng mình, những người quản lý, thuộc bộ phận quản lý của trang web Rank Your UNi, không chịu trách nhiệm với việc người dùng sử dụng URLs của bên thứ ba trong việc tham gia các hoạt động, dịch vụ mà bên thứ ba cung cấp. Chúng mình không có bất kì trách nhiệm nào với bên thứ ba và các hoạt động kinh doanh của họ (bao gồm cả chính sách bảo mật) ngay cả khi Rank Your UNi hợp tác, nhận sự tài trợ như một phần của thoả thuận giữa chúng mình (Rank Your UNi) và bên thứ ba'),
         Gap(),
         DotLine(
             'Vui lòng đọc chính sách bảo mật của chúng mình để hiểu rõ về việc chúng mình thu thập và chia sẻ dữ liệu cá nhân của người dùng'),
@@ -233,15 +232,15 @@ class TermsOfServiceScreen extends StatelessWidget {
         TitleContent('14. Quảng cáo và các phần mềm độc hại'),
         Gap(),
         DotLine(
-            'Chúng tôi, những người quản lý Rank Your UNi, tự hào và luôn quan tâm tới cộng đồng học sinh, sinh viên Việt Nam, cũng như việc vận hành trang web này. Chúng mình luôn nâng cao cảnh giác cùng với các biện pháp đề phòng trục trặc kỹ thuật có thể ảnh hưởng trực tiếp tới cách hoạt động của trang web. Trong trường hợp các lỗ hổng được tìm thấy, chúng mình sẽ sửa chúng. Trong trường hợp lỗi được tìm thấy trên thiết bị của người dùng hoặc tới từ thiết bị người dùng, điều đó là nằm ngoài tầm kiểm soát của chúng mình và chúng mình rất tiếc rằng điều đó có thể sẽ không được khắc phục bởi chúng tôi'),
+            'Chúng mình, những người quản lý Rank Your UNi, tự hào và luôn quan tâm tới cộng đồng học sinh, sinh viên Việt Nam, cũng như việc vận hành trang web này. Chúng mình luôn nâng cao cảnh giác cùng với các biện pháp đề phòng trục trặc kỹ thuật có thể ảnh hưởng trực tiếp tới cách hoạt động của trang web. Trong trường hợp các lỗ hổng được tìm thấy, chúng mình sẽ sửa chúng. Trong trường hợp lỗi được tìm thấy trên thiết bị của người dùng hoặc tới từ thiết bị người dùng, điều đó là nằm ngoài tầm kiểm soát của chúng mình và chúng mình rất tiếc rằng điều đó có thể sẽ không được khắc phục bởi chúng mình'),
         Gap(),
         DotLine(
-            'Nếu người dùng gặp bất kì hành vi hoặc nội dung quảng cáo nào bất thường trên trang web của chúng tôi, đó có thể là kết quả của phần mềm độc hại trên máy tính của họ. Điều này có thể tạo ra các lỗ hổng bảo mật và gây nguy hại cho người dùng bằng cách sử dụng thông tin cá nhân cho mục đích xấu. Do đó chúng mình khuyên người dùng nên thực hiện các hành động như cài đặt các phần mềm chống viruss để có thể giám sát hoặc ngăn chặn các phần mềm độc hại trong tương lai'),
+            'Nếu người dùng gặp bất kì hành vi hoặc nội dung quảng cáo nào bất thường trên trang web của chúng mình, đó có thể là kết quả của phần mềm độc hại trên máy tính của họ. Điều này có thể tạo ra các lỗ hổng bảo mật và gây nguy hại cho người dùng bằng cách sử dụng thông tin cá nhân cho mục đích xấu. Do đó chúng mình khuyên người dùng nên thực hiện các hành động như cài đặt các phần mềm chống viruss để có thể giám sát hoặc ngăn chặn các phần mềm độc hại trong tương lai'),
         Gap(),
         TitleContent('15. Chính sách bảo mật'),
         Gap(),
         DotLine(
-            'Chúng mình luôn tôn trọng quyền riêng tư cũng như sử dụng và bảo vệ thông tin của người dùng. Người cùng vui lòng xem Chính sách quyền riêng tư của chúng mình để biết thông tin quan trọng và các tiết lộ liên quan tới việc thu thập và sử dụng thông tin của họ liên quan đến việc sử dụng trang web của chúng tôi'),
+            'Chúng mình luôn tôn trọng quyền riêng tư cũng như sử dụng và bảo vệ thông tin của người dùng. Người cùng vui lòng xem Chính sách quyền riêng tư của chúng mình để biết thông tin quan trọng và các tiết lộ liên quan tới việc thu thập và sử dụng thông tin của họ liên quan đến việc sử dụng trang web của chúng mình'),
         Gap(),
         TitleContent('16. Các điều khoản khác'),
         Gap(),
