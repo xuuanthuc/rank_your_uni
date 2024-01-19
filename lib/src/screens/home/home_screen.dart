@@ -23,20 +23,21 @@ class HomeScreen extends StatelessWidget {
           create: (context) => getIt.get<AutocompletionCubit>(),
         ),
       ],
-      child: SelectionArea(
-        child: AppScaffold(
-          children: [
-            LandingView(
-              onSearch: (keyword) {
-                context.goNamed(
-                  RouteKey.search,
-                  queryParameters: {"q": keyword},
-                );
-              },
-            ),
-            const HomeDescription(),
-          ],
-        ),
+      child: AppScaffold(
+        maxWidth: MediaQuery.sizeOf(context).width,
+        maxContentWidth: MediaQuery.sizeOf(context).width,
+        margin: EdgeInsets.zero,
+        children: [
+          LandingView(
+            onSearch: (keyword) {
+              context.goNamed(
+                RouteKey.search,
+                queryParameters: {"q": keyword},
+              );
+            },
+          ),
+          const HomeDescription(),
+        ],
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'package:template/src/screens/guideline/bloc/help_cubit.dart';
 import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
-import '../widgets/base_dialog.dart';
+import '../widgets/primary_dialog.dart';
 
 class ContactUsDialog extends StatelessWidget {
   const ContactUsDialog({super.key});
@@ -53,7 +53,7 @@ class _ContactUsViewState extends State<ContactUsView> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return BaseDialog(
+    return PrimaryDialog(
       child: Form(
         key: _formKey,
         child: BlocListener<HelpCubit, HelpState>(

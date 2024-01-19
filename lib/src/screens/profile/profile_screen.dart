@@ -64,6 +64,7 @@ class _ProfileViewState extends State<ProfileView>
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return AppScaffold(
+      maxContentWidth: Public.tabletSize,
       requireAuthenticated: true,
       children: [
         BlocListener<AppSettingsBloc, AppSettingsState>(
@@ -83,77 +84,69 @@ class _ProfileViewState extends State<ProfileView>
               );
             }
           },
-          child: Center(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-              margin: EdgeInsets.symmetric(
-                horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-              ),
-              child: Column(
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 40),
-                          child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                            builder: (context, state) {
-                              return Text(
-                                text.hey(
-                                    "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
-                                style: theme.primaryTextTheme.displayLarge,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  BlocBuilder<ProfileCubit, ProfileState>(
-                    builder: (context, state) {
-                      return TabBar(
-                        controller: _tabController,
-                        labelPadding: EdgeInsets.zero,
-                        isScrollable: true,
-                        indicatorColor: Colors.transparent,
-                        dividerColor: Colors.transparent,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        tabs: [
-                          TabProfileItem(
-                            index: 0,
-                            currentIndex: _currentIndex,
-                            label: text.profile,
-                          ),
-                          TabProfileItem(
-                            index: 1,
-                            currentIndex: _currentIndex,
-                            label: text.settingAccount,
-                          ),
-                          TabProfileItem(
-                            index: 2,
-                            currentIndex: _currentIndex,
-                            label: text.yourRating,
-                          ),
-                        ],
-                        onTap: (index) {
-                          if (_currentIndex == index) return;
-                          _currentIndex = index;
-                          context
-                              .read<ProfileCubit>()
-                              .onPageChange(QuickMenu.values[index]);
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                        builder: (context, state) {
+                          return Text(
+                            text.hey(
+                                "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
+                            style: theme.primaryTextTheme.displayLarge,
+                          );
                         },
-                      );
-                    },
-                  ),
-                  Container(
-                    height: 1,
-                    margin: const EdgeInsets.symmetric(vertical: 14),
-                    color: AppColors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  return TabBar(
+                    controller: _tabController,
+                    labelPadding: EdgeInsets.zero,
+                    isScrollable: true,
+                    indicatorColor: Colors.transparent,
+                    dividerColor: Colors.transparent,
+                    overlayColor:
+                        MaterialStateProperty.all(Colors.transparent),
+                    tabs: [
+                      TabProfileItem(
+                        index: 0,
+                        currentIndex: _currentIndex,
+                        label: text.profile,
+                      ),
+                      TabProfileItem(
+                        index: 1,
+                        currentIndex: _currentIndex,
+                        label: text.settingAccount,
+                      ),
+                      TabProfileItem(
+                        index: 2,
+                        currentIndex: _currentIndex,
+                        label: text.yourRating,
+                      ),
+                    ],
+                    onTap: (index) {
+                      if (_currentIndex == index) return;
+                      _currentIndex = index;
+                      context
+                          .read<ProfileCubit>()
+                          .onPageChange(QuickMenu.values[index]);
+                    },
+                  );
+                },
+              ),
+              Container(
+                height: 1,
+                margin: const EdgeInsets.symmetric(vertical: 14),
+                color: AppColors.black,
+              ),
+            ],
           ),
         ),
         BlocBuilder<ProfileCubit, ProfileState>(

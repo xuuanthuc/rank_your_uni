@@ -78,8 +78,12 @@ class UserRepository {
 
   Future<RYUResponse> sentContactMessage(ContactRaw contact) async {
     try {
-      await Future.delayed(Duration(seconds: 2));
-      return RYUResponse(isSuccess: true, data: '');
+      final data = await _apiProvider.post(
+        ApiEndpoint.contact,
+        params: contact.toJson(),
+        needToken: false,
+      );
+      return RYUResponse(isSuccess: true, data: data);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

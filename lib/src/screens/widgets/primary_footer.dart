@@ -7,20 +7,33 @@ import 'package:template/global/style/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../global/routes/route_keys.dart';
 
-class FooterCommon extends StatefulWidget {
-  const FooterCommon({super.key});
+class PrimaryFooter extends StatefulWidget {
+  final ScrollController controller;
+
+  const PrimaryFooter({
+    super.key,
+    required this.controller,
+  });
 
   @override
-  State<FooterCommon> createState() => _FooterCommonState();
+  State<PrimaryFooter> createState() => _PrimaryFooterState();
 }
 
-class _FooterCommonState extends State<FooterCommon> {
+class _PrimaryFooterState extends State<PrimaryFooter> {
   bool _isFull = false;
 
-  void _onToggleFooter() {
+  void _onToggleFooter() async {
     setState(() {
       _isFull = !_isFull;
     });
+    await Future.delayed(const Duration(milliseconds: 400));
+    if (_isFull) {
+      await widget.controller.animateTo(
+        widget.controller.position.maxScrollExtent,
+        curve: Curves.ease,
+        duration: const Duration(milliseconds: 500),
+      );
+    }
   }
 
   void _goToWebsite(Uri url) async {
@@ -149,8 +162,10 @@ class _FooterCommonState extends State<FooterCommon> {
                         alignment: Alignment.center,
                         child: _isFull
                             ? Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 20, top: 60),
+                                padding: const EdgeInsets.only(
+                                  bottom: 20,
+                                  top: 30,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -280,10 +295,8 @@ class FooterCategoryTitle extends StatelessWidget {
     final theme = Theme.of(context);
     return Text(
       text,
-      style: theme.textTheme.labelLarge?.copyWith(
-        color: Colors.white,
-        fontSize: 16
-      ),
+      style: theme.textTheme.labelLarge
+          ?.copyWith(color: Colors.white, fontSize: 16),
     );
   }
 }

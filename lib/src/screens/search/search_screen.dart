@@ -62,6 +62,9 @@ class _SearchViewState extends State<SearchView> {
       },
       child: AppScaffold(
         keyword: widget.keyword,
+        maxContentWidth: Public.tabletSize,
+        alignment: Alignment.topLeft,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextResultUniversities(keyword: widget.keyword),
           const SearchResultsView(),

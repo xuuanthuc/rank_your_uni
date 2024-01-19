@@ -11,7 +11,6 @@ import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
-import '../widgets/responsive_builder.dart';
 
 class AddUniversity extends StatelessWidget {
   const AddUniversity({super.key});
@@ -101,152 +100,133 @@ class _AddUniversityViewState extends State<AddUniversityView> {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return AppScaffold(
+      alignment: Alignment.topLeft,
+      maxContentWidth: Public.tabletSize,
       children: [
-        Center(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              margin: EdgeInsets.all(
-                ResponsiveBuilder.setHorizontalPadding(context),
-              ),
-              constraints: const BoxConstraints(
-                maxWidth: Public.laptopSize,
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: Public.mobileSize,
-                  ),
-                  child: BlocListener<AddUniversityCubit, AddUniversityState>(
-                    listener: (context, state) {
-                      if (state.status == AddUniStatus.success) {
-                        _showNoticeRequestAddUniversitySuccess(
-                          context,
-                          state.addUniversityRaw,
-                        );
-                      } else if (state.status == AddUniStatus.error) {
-                        appToast(
-                          context,
-                          message: AppLocalizations.of(context)!.somethingWrong,
-                          subMessage:
-                              AppLocalizations.of(context)!.tryAgainLater,
-                        );
-                      }
-                    },
-                    child: BlocBuilder<AddUniversityCubit, AddUniversityState>(
-                      builder: (context, state) {
-                        _provinceController.text =
-                            state.addUniversityRaw?.province?.name ?? '';
-                        _districtController.text =
-                            state.addUniversityRaw?.districts?.name ?? '';
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              text.addAUniversity,
-                              style: theme.primaryTextTheme.displayLarge,
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              text.addAUniversityWarning,
-                              style: theme.primaryTextTheme.bodyMedium
-                                  ?.copyWith(fontStyle: FontStyle.italic),
-                            ),
-                            const SizedBox(height: 30),
-                            TextAddField(
-                              label: text.nameOfUniversity,
-                              controller: _nameController,
-                            ),
-                            TextAddField(
-                              label: text.abbrevia,
-                              controller: _abbreviaController,
-                            ),
-                            TextAddField(
-                              label: text.cityOrProvince,
-                              readOnly: true,
-                              onTap: () => _selectProvince(context),
-                              controller: _provinceController,
-                            ),
-                            TextAddField(
-                              label: text.stateOrWard,
-                              readOnly: true,
-                              onTap: () => _selectProvince(context),
-                              controller: _districtController,
-                            ),
-                            TextAddField(
-                              label: text.website,
-                              controller: _websiteController,
-                            ),
-                            Row(
-                              children: [
-                                BlocBuilder<AddUniversityCubit,
-                                    AddUniversityState>(
-                                  builder: (context, state) {
-                                    return Transform.scale(
-                                      scale: 1.5,
-                                      child: Checkbox(
-                                        checkColor: Colors.white,
-                                        activeColor: theme.primaryColor,
-                                        side: const BorderSide(
-                                            color: AppColors.grey, width: 1),
-                                        value: state.acceptPrivacy ?? false,
-                                        onChanged: (bool? value) {
-                                          context
-                                              .read<AddUniversityCubit>()
-                                              .onCheckPrivacy();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                                const SizedBox(width: 20),
-                                Expanded(
-                                  child: Text(
-                                    text.agreeTermsOfUse,
-                                    style: theme.primaryTextTheme.bodyMedium,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 30),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                LoadingPrimaryButton<AddUniversityCubit,
-                                    AddUniversityState>(
-                                  buttonWidth: 270,
-                                  onTap: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      context
-                                          .read<AddUniversityCubit>()
-                                          .submitAddUniversity(
-                                            name: _nameController.text,
-                                            website: _websiteController.text,
-                                            code: _abbreviaController.text,
-                                          );
-                                    }
-                                  },
-                                  label: text.addUniversity,
-                                  updateLoading: (state) {
-                                    return (state).status ==
-                                        AddUniStatus.loading;
-                                  },
-                                  updateColor: (color) {
-                                    return state.acceptPrivacy != true
-                                        ? AppColors.grey
-                                        : null;
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      },
+        Form(
+          key: _formKey,
+          child: BlocListener<AddUniversityCubit, AddUniversityState>(
+            listener: (context, state) {
+              if (state.status == AddUniStatus.success) {
+                _showNoticeRequestAddUniversitySuccess(
+                  context,
+                  state.addUniversityRaw,
+                );
+              } else if (state.status == AddUniStatus.error) {
+                appToast(
+                  context,
+                  message: AppLocalizations.of(context)!.somethingWrong,
+                  subMessage: AppLocalizations.of(context)!.tryAgainLater,
+                );
+              }
+            },
+            child: BlocBuilder<AddUniversityCubit, AddUniversityState>(
+              builder: (context, state) {
+                _provinceController.text =
+                    state.addUniversityRaw?.province?.name ?? '';
+                _districtController.text =
+                    state.addUniversityRaw?.districts?.name ?? '';
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text.addAUniversity,
+                      style: theme.primaryTextTheme.displayLarge,
                     ),
-                  ),
-                ),
-              ),
+                    const SizedBox(height: 20),
+                    Text(
+                      text.addAUniversityWarning,
+                      style: theme.primaryTextTheme.bodyMedium
+                          ?.copyWith(fontStyle: FontStyle.italic),
+                    ),
+                    const SizedBox(height: 30),
+                    TextAddField(
+                      label: text.nameOfUniversity,
+                      controller: _nameController,
+                    ),
+                    TextAddField(
+                      label: text.abbrevia,
+                      controller: _abbreviaController,
+                    ),
+                    TextAddField(
+                      label: text.cityOrProvince,
+                      readOnly: true,
+                      onTap: () => _selectProvince(context),
+                      controller: _provinceController,
+                    ),
+                    TextAddField(
+                      label: text.stateOrWard,
+                      readOnly: true,
+                      onTap: () => _selectProvince(context),
+                      controller: _districtController,
+                    ),
+                    TextAddField(
+                      label: text.website,
+                      controller: _websiteController,
+                    ),
+                    Row(
+                      children: [
+                        BlocBuilder<AddUniversityCubit, AddUniversityState>(
+                          builder: (context, state) {
+                            return Transform.scale(
+                              scale: 1.5,
+                              child: Checkbox(
+                                checkColor: Colors.white,
+                                activeColor: theme.primaryColor,
+                                side: const BorderSide(
+                                    color: AppColors.grey, width: 1),
+                                value: state.acceptPrivacy ?? false,
+                                onChanged: (bool? value) {
+                                  context
+                                      .read<AddUniversityCubit>()
+                                      .onCheckPrivacy();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Text(
+                            text.agreeTermsOfUse,
+                            style: theme.primaryTextTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LoadingPrimaryButton<AddUniversityCubit,
+                            AddUniversityState>(
+                          buttonWidth: 270,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              context
+                                  .read<AddUniversityCubit>()
+                                  .submitAddUniversity(
+                                    name: _nameController.text,
+                                    website: _websiteController.text,
+                                    code: _abbreviaController.text,
+                                  );
+                            }
+                          },
+                          label: text.addUniversity,
+                          updateLoading: (state) {
+                            return (state).status == AddUniStatus.loading;
+                          },
+                          updateColor: (color) {
+                            return state.acceptPrivacy != true
+                                ? AppColors.grey
+                                : null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

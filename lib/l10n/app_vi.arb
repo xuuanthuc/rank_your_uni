@@ -124,8 +124,8 @@
   "reportReview": "Báo cáo một đánh giá",
   "youAreReportingReview": "Bạn đang báo cáo đánh giá:",
   "whatIsMatter": "Vấn đề là gì?",
-  "whatIsMatterDescription": "Nếu bạn cho rằng nhận xét này không phù hợp với Nguyên tắc đánh giá của trang chúng tôi, hãy báo cáo nhận xét đó và cho chúng tôi biết lý do.",
-  "reportContent": "Hãy cho chúng tôi biết vấn đề của đánh giá này",
+  "whatIsMatterDescription": "Nếu bạn cho rằng nhận xét này không phù hợp với Nguyên tắc đánh giá của trang chúng tôi, hãy báo cáo nhận xét đó và cho chúng mình biết lý do.",
+  "reportContent": "Hãy cho chúng mình biết vấn đề của đánh giá này",
   "nameUniversity": "Tên trường đại học",
   "changeUniversity": "Đổi trường học",
   "shareComparison": "Chia sẻ so sánh",
@@ -150,7 +150,7 @@
       }
     }
   },
-  "yourReviewAreSubmitting": "Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn \uD83D\uDC9A. Chúng tôi hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng tôi nhằm mục đích đảm bảo các nguyên tắc trang \uD83D\uDC40. ",
+  "yourReviewAreSubmitting": "Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn \uD83D\uDC9A. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang \uD83D\uDC40. ",
   "seeReview": "Xem đánh giá",
   "findUniversityName": "Tìm tên trường học",
   "goToUniversityPage": "Đến trang trường này",
@@ -160,7 +160,7 @@
   "privacyPolicy": "Chính sách bảo mật",
   "contact": "Liên hệ",
   "reportSuccess": "Báo cáo thành công",
-  "subtitleReportSuccess": "Chúng tôi sẽ xem sét báo cáo của bạn",
+  "subtitleReportSuccess": "Chúng mình sẽ xem sét báo cáo của bạn",
   "loadingReviews": "Đang tải đánh giá...",
   "newFirst": "Mới nhất",
   "countLikeFirst": "Hữu ích nhất",
@@ -176,7 +176,7 @@
   "newPassword": "Mật khẩu mới",
   "updatePassword": "Cập nhật mật khẩu",
   "abbrevia": "Tên viết tắt của trường",
-  "enterYourEmailToResetPassword": "Đừng lo, điền địa chỉ email của bạn vào đây và chúng tôi sẽ giúp bạn",
+  "enterYourEmailToResetPassword": "Đừng lo, điền địa chỉ email của bạn vào đây và chúng mình sẽ giúp bạn",
   "resetPasswordSuccess": "Thay đổi mật khẩu thành công",
   "checkYourEmail": "Hãy kiểm tra email của bạn",
   "resetPassword": "Cài lại mật khẩu",
@@ -191,7 +191,7 @@
       }
     }
   },
-  "yourUniversityUnderReview": "Chúng tôi đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
+  "yourUniversityUnderReview": "Chúng mình đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
   "close": "Đóng",
   "deleteReview": "Xoá đánh giá",
   "university": "Trường Đại học/ Cao đẳng",
@@ -214,10 +214,12 @@
   "fulname": "Họ và tên",
   "phone": "Số điện thoại",
   "send": "Gửi",
-  "contactUs": "Liên hệ với chúng tôi",
+  "contactUs": "Liên hệ với chúng mình",
   "message": "Tin nhắn",
   "sendSuccess": "Gửi thành công!",
-  "weWillResponseSoon": "Chúng tôi sẽ phản hồi sớm",
+  "weWillResponseSoon": "Chúng mình sẽ phản hồi tới bạn sớm",
   "deleteSuccess": "Đánh giá của bạn đã được xoá",
-  "deleteSuccessDescription": "Chúng tôi hi vọng sẽ tiếp tục nhận được đánh giá của bạn trong tương lai"
+  "deleteSuccessDescription": "Chúng mình hi vọng sẽ tiếp tục nhận được đánh giá của bạn trong tương lai",
+  "confirm": "Đồng ý",
+  "confirmDeleteReview": "Bằng cách bấm vào nút đồng ý. Đánh giá của bạn sẽ bị xoá vĩnh viễn, bạn sẽ không thể khôi phục lại nội dung của đánh giá này"
 }

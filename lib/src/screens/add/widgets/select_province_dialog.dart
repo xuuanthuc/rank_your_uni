@@ -7,7 +7,7 @@ import 'package:template/src/models/response/province.dart';
 import 'package:template/src/screens/add/widgets/districts_page.dart';
 import 'package:template/src/screens/add/widgets/provinces_page.dart';
 import '../../../../global/style/styles.dart';
-import '../../widgets/base_dialog.dart';
+import '../../widgets/primary_dialog.dart';
 import '../bloc/select_province_cubit.dart';
 
 class SelectProvinceDialog extends StatefulWidget {
@@ -63,7 +63,7 @@ class _SelectProvinceDialogState extends State<SelectProvinceDialog> {
           );
         }
       },
-      child: BaseDialog(
+      child: PrimaryDialog(
         hasScrollBody: false,
         padding: const EdgeInsets.all(20),
         child: Column(

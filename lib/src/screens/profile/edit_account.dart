@@ -43,88 +43,78 @@ class _EditAccountState extends State<EditAccount> {
           _emailController.text = state.profileAuthenticated?.username ?? '';
         }
       },
-      child: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-            margin: EdgeInsets.symmetric(
-              horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-            ),
+      child: Column(
+        children: [
+          SizedBox(
+              height: ResponsiveBuilder.setHorizontalPadding(context)),
+          EditButton(onTap: () {}),
+          const SizedBox(height: 25),
+          RowInfoField(
+            label: text.email,
+            hintText: text.enterEmail,
+            controller: _emailController,
+            readOnly: true,
+            validator: TextFieldValidator.emailValidator,
+            maxLength: 80,
+          ),
+          const SizedBox(height: 25),
+          Form(
+            key: _formKeyPass,
             child: Column(
               children: [
-                SizedBox(
-                    height: ResponsiveBuilder.setHorizontalPadding(context)),
-                EditButton(onTap: () {}),
+                RowInfoField(
+                  label: text.currentPassword,
+                  hintText: text.enterPassword,
+                  controller: _passwordController,
+                  validator: TextFieldValidator.passValidator,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
+                ),
                 const SizedBox(height: 25),
                 RowInfoField(
-                  label: text.email,
-                  hintText: text.enterEmail,
-                  controller: _emailController,
-                  readOnly: true,
-                  validator: TextFieldValidator.emailValidator,
-                  maxLength: 80,
+                  label: text.newPassword,
+                  hintText: text.enterPassword,
+                  controller: _newPasswordController,
+                  validator: TextFieldValidator.passValidator,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
-                const SizedBox(height: 25),
-                Form(
-                  key: _formKeyPass,
-                  child: Column(
-                    children: [
-                      RowInfoField(
-                        label: text.currentPassword,
-                        hintText: text.enterPassword,
-                        controller: _passwordController,
-                        validator: TextFieldValidator.passValidator,
-                        obscureText: true,
-                        keyboardType: TextInputType.visiblePassword,
-                      ),
-                      const SizedBox(height: 25),
-                      RowInfoField(
-                        label: text.newPassword,
-                        hintText: text.enterPassword,
-                        controller: _newPasswordController,
-                        validator: TextFieldValidator.passValidator,
-                        obscureText: true,
-                        keyboardType: TextInputType.visiblePassword,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                      builder: (context, state) {
-                        return LoadingPrimaryButton<AppSettingsBloc,
-                            AppSettingsState>(
-                          onTap: () {
-                            if (_formKeyPass.currentState!.validate()) {
-                              PasswordRaw password = PasswordRaw(
-                                currentPassword: _passwordController.text,
-                                newPassword: _newPasswordController.text,
-                              );
-                              context
-                                  .read<AppSettingsBloc>()
-                                  .add(UpdatePasswordEvent(password));
-                            }
-                          },
-                          label: text.updatePassword,
-                          buttonWidth: 250,
-                          updateLoading: (state) {
-                            return state.status == AppSettingStatus.loading &&
-                                state.action ==
-                                    AppSettingAction.changePassword;
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 200),
               ],
             ),
           ),
-        ),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                builder: (context, state) {
+                  return LoadingPrimaryButton<AppSettingsBloc,
+                      AppSettingsState>(
+                    onTap: () {
+                      if (_formKeyPass.currentState!.validate()) {
+                        PasswordRaw password = PasswordRaw(
+                          currentPassword: _passwordController.text,
+                          newPassword: _newPasswordController.text,
+                        );
+                        context
+                            .read<AppSettingsBloc>()
+                            .add(UpdatePasswordEvent(password));
+                      }
+                    },
+                    label: text.updatePassword,
+                    buttonWidth: 250,
+                    updateLoading: (state) {
+                      return state.status == AppSettingStatus.loading &&
+                          state.action ==
+                              AppSettingAction.changePassword;
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 200),
+        ],
       ),
     );
   }

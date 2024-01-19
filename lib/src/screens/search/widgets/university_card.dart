@@ -20,62 +20,53 @@ class UniversityCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: SelectionContainer.disabled(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: GestureDetector(
-            onTap: () => onTap(),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.sizeOf(context).width > Public.laptopSize
-                    ? Public.tabletSize
-                    : Public.laptopSize,
+        child: GestureDetector(
+          onTap: () => onTap(),
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 25 / 2,
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            color: AppColors.primaryShadow,
+            child: ResponsiveBuilder(
+              tinyView: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      RatingQuality(university),
+                    ],
+                  ),
+                  const SizedBox(height: 7),
+                  UniversityName(university: university),
+                  const SizedBox(height: 7),
+                  UniversityAddress(university: university),
+                ],
               ),
-              margin: EdgeInsets.symmetric(
-                vertical: 25 / 2,
-                horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              color: AppColors.primaryShadow,
-              child: ResponsiveBuilder(
-                tinyView: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RatingQuality(university),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RatingQuality(university),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            UniversityAddress(university: university),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        UniversityName(university: university),
                       ],
                     ),
-                    const SizedBox(height: 7),
-                    UniversityName(university: university),
-                    const SizedBox(height: 7),
-                    UniversityAddress(university: university),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RatingQuality(university),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              UniversityAddress(university: university),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          UniversityName(university: university),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ),

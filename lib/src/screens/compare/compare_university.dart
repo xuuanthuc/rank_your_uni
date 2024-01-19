@@ -9,7 +9,6 @@ import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/primary_button.dart';
-import '../widgets/responsive_builder.dart';
 import 'bloc/compare_cubit.dart';
 import 'widgets/compare_criteria.dart';
 import 'widgets/no_uni_for_compare.dart';
@@ -38,12 +37,10 @@ class CompareScreen extends StatelessWidget {
           create: (context) => getIt.get<AutocompletionCubit>(),
         ),
       ],
-      child: SelectionArea(
-        child: CompareView(
-          universityId: universityId,
-          compareWithUniversityId: compareWithUniversityId,
-          universityInitial: universityInitial,
-        ),
+      child: CompareView(
+        universityId: universityId,
+        compareWithUniversityId: compareWithUniversityId,
+        universityInitial: universityInitial,
       ),
     );
   }
@@ -120,121 +117,107 @@ class _CompareViewState extends State<CompareView> {
     final theme = Theme.of(context);
     return AppScaffold(
       children: [
-        Center(
-          child: Container(
-            margin: EdgeInsets.all(
-              ResponsiveBuilder.setHorizontalPadding(context),
-            ),
-            constraints: const BoxConstraints(
-              maxWidth: Public.laptopSize,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        text.compareUniversity,
-                        style: theme.primaryTextTheme.displayLarge,
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                text.compareUniversity,
+                style: theme.primaryTextTheme.displayLarge,
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 40),
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              BlocBuilder<CompareCubit, CompareState>(
+                  builder: (context, state) {
+                    if (state.firstUniversity != null) {
+                      return UniversityCompared(
+                        university: state.firstUniversity!,
+                        isFirst: true,
+                        onChange: () {},
+                      );
+                    }
+                    return NoUniversityToCompare(
+                      onCompare: (id) => _goCompare(
+                        context,
+                        id: id.toString(),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 40),
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      BlocBuilder<CompareCubit, CompareState>(
-                          builder: (context, state) {
-                        if (state.firstUniversity != null) {
-                          return UniversityCompared(
-                            university: state.firstUniversity!,
-                            isFirst: true,
-                            onChange: () {},
-                          );
-                        }
-                        return NoUniversityToCompare(
-                          onCompare: (id) => _goCompare(
-                            context,
-                            id: id.toString(),
-                          ),
+                    );
+                  }),
+              const SizedBox(width: 8),
+              BlocBuilder<CompareCubit, CompareState>(
+                builder: (context, state) {
+                  if (state.compareWith != null) {
+                    return UniversityCompared(
+                      university: state.compareWith!,
+                      isFirst: false,
+                      onChange: () => _resetUniversity(
+                        false,
+                        id: state.firstUniversity?.id.toString(),
+                        university: state.firstUniversity,
+                      ),
+                    );
+                  }
+                  return NoUniversityToCompare(
+                    onCompare: (id) {
+                      if (state.firstUniversity == null) {
+                        _goCompare(
+                          context,
+                          id: id.toString(),
                         );
-                      }),
-                      const SizedBox(width: 8),
-                      BlocBuilder<CompareCubit, CompareState>(
-                        builder: (context, state) {
-                          if (state.compareWith != null) {
-                            return UniversityCompared(
-                              university: state.compareWith!,
-                              isFirst: false,
-                              onChange: () => _resetUniversity(
-                                false,
-                                id: state.firstUniversity?.id.toString(),
-                                university: state.firstUniversity,
-                              ),
-                            );
-                          }
-                          return NoUniversityToCompare(
-                            onCompare: (id) {
-                              if (state.firstUniversity == null) {
-                                _goCompare(
-                                  context,
-                                  id: id.toString(),
-                                );
-                              } else {
-                                _goCompare(
-                                  context,
-                                  id: widget.universityId,
-                                  university: widget.universityInitial,
-                                  withUniId: id.toString(),
-                                );
-                              }
-                            },
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 25),
-                const CriteriaItem(
-                  criteria: Criteria.reputation,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.competition,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.internet,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.location,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.favorite,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.infrastructure,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.clubs,
-                ),
-                const CriteriaItem(
-                  criteria: Criteria.food,
-                ),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PrimaryButton(
-                      onTap: () => _resetUniversity(true),
-                      title: text.reset,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      } else {
+                        _goCompare(
+                          context,
+                          id: widget.universityId,
+                          university: widget.universityInitial,
+                          withUniId: id.toString(),
+                        );
+                      }
+                    },
+                  );
+                },
+              )
+            ],
           ),
+        ),
+        const SizedBox(height: 25),
+        const CriteriaItem(
+          criteria: Criteria.reputation,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.competition,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.internet,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.location,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.favorite,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.infrastructure,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.clubs,
+        ),
+        const CriteriaItem(
+          criteria: Criteria.food,
+        ),
+        const SizedBox(height: 40),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PrimaryButton(
+              onTap: () => _resetUniversity(true),
+              title: text.reset,
+            ),
+          ],
         ),
       ],
     );

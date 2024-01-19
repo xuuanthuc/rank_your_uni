@@ -7,7 +7,7 @@ import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
-import '../widgets/base_dialog.dart';
+import '../widgets/primary_dialog.dart';
 import '../widgets/loading_primary_button.dart';
 
 class ReportReviewForm extends StatefulWidget {
@@ -51,7 +51,7 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
           );
         }
       },
-      child: BaseDialog(
+      child: PrimaryDialog(
         child: Column(
           children: [
             Text(

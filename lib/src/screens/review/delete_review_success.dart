@@ -17,65 +17,57 @@ class ReviewDeletedSuccessScreen extends StatefulWidget {
   });
 
   @override
-  State<ReviewDeletedSuccessScreen> createState() => _ReviewDeletedSuccessScreenState();
+  State<ReviewDeletedSuccessScreen> createState() =>
+      _ReviewDeletedSuccessScreenState();
 }
 
-class _ReviewDeletedSuccessScreenState extends State<ReviewDeletedSuccessScreen> {
+class _ReviewDeletedSuccessScreenState
+    extends State<ReviewDeletedSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return AppScaffold(children: [
+    return AppScaffold(maxContentWidth: Public.tabletSize, children: [
       if (widget.university.name != null)
-        Center(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: Public.tabletSize,
-            ),
-            padding: EdgeInsets.all(
-              ResponsiveBuilder.setHorizontalPadding(context),
-            ),
-            child: Stack(
-              children: [
-                SvgPicture.asset(AppImages.iSuccessBg),
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(AppImages.iHandHeart),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          text.deleteSuccess,
-                          style: theme.textTheme.labelLarge,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Text(
-                        text.deleteSuccessDescription,
-                        style: theme.primaryTextTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        width: 200,
-                        child: PrimaryButton(
-                          onTap: () {
-                            context.goNamed(
-                              RouteKey.university,
-                              pathParameters: {"id": "${widget.university.id}"},
-                              extra: widget.university,
-                            );
-                          },
-                          title: text.seeReview,
-                        ),
-                      )
-                    ],
+        Stack(
+          children: [
+            SvgPicture.asset(AppImages.iSuccessBg),
+            Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  SvgPicture.asset(AppImages.iHandHeart),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text(
+                      text.deleteSuccess,
+                      style: theme.textTheme.labelLarge,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                )
-              ],
-            ),
-          ),
+                  Text(
+                    text.deleteSuccessDescription,
+                    style: theme.primaryTextTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    width: 200,
+                    child: PrimaryButton(
+                      onTap: () {
+                        context.goNamed(
+                          RouteKey.university,
+                          pathParameters: {"id": "${widget.university.id}"},
+                          extra: widget.university,
+                        );
+                      },
+                      title: text.seeReview,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
     ]);
   }

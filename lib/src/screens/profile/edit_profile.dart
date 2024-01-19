@@ -45,84 +45,74 @@ class _EditProfileState extends State<EditProfile> {
               state.profileAuthenticated?.university ?? '';
         }
       },
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Center(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: Public.tabletSize),
-              margin: EdgeInsets.symmetric(
-                horizontal: ResponsiveBuilder.setHorizontalPadding(context),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: ResponsiveBuilder.setHorizontalPadding(context),
-                  ),
-                  EditButton(onTap: () {}),
-                  const SizedBox(height: 25),
-                  RowInfoField(
-                    label: text.lastName,
-                    hintText: text.enterLastName,
-                    controller: _lastNameController,
-                    maxLength: 20,
-                  ),
-                  const SizedBox(height: 25),
-                  RowInfoField(
-                    label: text.firstName,
-                    hintText: text.enterFirstName,
-                    controller: _firstNameController,
-                    maxLength: 10,
-                  ),
-                  const SizedBox(height: 25),
-                  RowInfoField(
-                    label: text.universityName,
-                    hintText: text.whatIsYourUniversity,
-                    controller: _universityController,
-                    validator: null,
-                    maxLength: 100,
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                        builder: (context, state) {
-                          return LoadingPrimaryButton<AppSettingsBloc,
-                              AppSettingsState>(
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                ProfileRaw profile = ProfileRaw(
-                                  id: state.profileAuthenticated?.id ?? -1,
-                                  username:
-                                      state.profileAuthenticated?.username ??
-                                          '',
-                                  firstName: _firstNameController.text,
-                                  lastName: _lastNameController.text,
-                                  university: _universityController.text,
-                                  email:
-                                      state.profileAuthenticated?.email ?? '',
-                                );
-                                context
-                                    .read<AppSettingsBloc>()
-                                    .add(UpdateUserProfileEvent(profile));
-                              }
-                            },
-                            label: text.updateProfile,
-                            buttonWidth: 250,
-                            updateLoading: (state) {
-                              return (state).status == AppSettingStatus.loading;
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 200),
-                ],
-              ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(
+              height: ResponsiveBuilder.setHorizontalPadding(context),
             ),
-          ),
+            EditButton(onTap: () {}),
+            const SizedBox(height: 25),
+            RowInfoField(
+              label: text.lastName,
+              hintText: text.enterLastName,
+              controller: _lastNameController,
+              maxLength: 20,
+            ),
+            const SizedBox(height: 25),
+            RowInfoField(
+              label: text.firstName,
+              hintText: text.enterFirstName,
+              controller: _firstNameController,
+              maxLength: 10,
+            ),
+            const SizedBox(height: 25),
+            RowInfoField(
+              label: text.universityName,
+              hintText: text.whatIsYourUniversity,
+              controller: _universityController,
+              validator: null,
+              maxLength: 100,
+            ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                  builder: (context, state) {
+                    return LoadingPrimaryButton<AppSettingsBloc,
+                        AppSettingsState>(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          ProfileRaw profile = ProfileRaw(
+                            id: state.profileAuthenticated?.id ?? -1,
+                            username:
+                                state.profileAuthenticated?.username ??
+                                    '',
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text,
+                            university: _universityController.text,
+                            email:
+                                state.profileAuthenticated?.email ?? '',
+                          );
+                          context
+                              .read<AppSettingsBloc>()
+                              .add(UpdateUserProfileEvent(profile));
+                        }
+                      },
+                      label: text.updateProfile,
+                      buttonWidth: 250,
+                      updateLoading: (state) {
+                        return (state).status == AppSettingStatus.loading;
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 200),
+          ],
         ),
       ),
     );

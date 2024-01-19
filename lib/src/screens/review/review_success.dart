@@ -6,7 +6,6 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
 import '../../../global/routes/route_keys.dart';
-import '../widgets/responsive_builder.dart';
 
 class ReviewSuccessScreen extends StatefulWidget {
   final University university;
@@ -25,77 +24,70 @@ class _ReviewSuccessScreenState extends State<ReviewSuccessScreen> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return AppScaffold(children: [
-      if (widget.university.name != null)
-        Center(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: Public.tabletSize,
-            ),
-            padding: EdgeInsets.all(
-              ResponsiveBuilder.setHorizontalPadding(context),
-            ),
-            child: Stack(
-              children: [
-                SvgPicture.asset(AppImages.iSuccessBg),
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(AppImages.iHandHeart),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          text.thanksForReviewUniversity(
-                              widget.university.name ?? ''),
-                          style: theme.textTheme.labelLarge,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Text(
-                        text.yourReviewAreSubmitting,
-                        style: theme.primaryTextTheme.bodyMedium,
+    return AppScaffold(
+      maxContentWidth: Public.tabletSize,
+      children: [
+        if (widget.university.name != null)
+          Stack(
+            children: [
+              SvgPicture.asset(AppImages.iSuccessBg),
+              Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                  children: [
+                    SvgPicture.asset(AppImages.iHandHeart),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        text.thanksForReviewUniversity(
+                            widget.university.name ?? ''),
+                        style: theme.textTheme.labelLarge,
                         textAlign: TextAlign.center,
                       ),
-                      // MarkdownBody(
-                      //   data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng tôi hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng tôi nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
-                      //   selectable: true,
-                      //   onTapLink: (t, u, c) async {
-                      //     if (u != null) {
-                      //       if (!await launchUrl(Uri.parse(u))) {
-                      //         throw Exception('Could not launch $u');
-                      //       }
-                      //     }
-                      //   },
-                      //   styleSheet: MarkdownStyleSheet(
-                      //     a: theme.primaryTextTheme.bodyMedium?.copyWith(
-                      //       fontWeight: FontWeight.w500,
-                      //       color: AppColors.info,
-                      //     ),
-                      //     p: theme.primaryTextTheme.bodyMedium,
-                      //   ),
-                      // ),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        width: 200,
-                        child: PrimaryButton(
-                          onTap: () {
-                            context.goNamed(
-                              RouteKey.university,
-                              pathParameters: {"id": "${widget.university.id}"},
-                              extra: widget.university,
-                            );
-                          },
-                          title: text.seeReview,
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    ),
+                    Text(
+                      text.yourReviewAreSubmitting,
+                      style: theme.primaryTextTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    // MarkdownBody(
+                    //   data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
+                    //   selectable: true,
+                    //   onTapLink: (t, u, c) async {
+                    //     if (u != null) {
+                    //       if (!await launchUrl(Uri.parse(u))) {
+                    //         throw Exception('Could not launch $u');
+                    //       }
+                    //     }
+                    //   },
+                    //   styleSheet: MarkdownStyleSheet(
+                    //     a: theme.primaryTextTheme.bodyMedium?.copyWith(
+                    //       fontWeight: FontWeight.w500,
+                    //       color: AppColors.info,
+                    //     ),
+                    //     p: theme.primaryTextTheme.bodyMedium,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: 200,
+                      child: PrimaryButton(
+                        onTap: () {
+                          context.goNamed(
+                            RouteKey.university,
+                            pathParameters: {"id": "${widget.university.id}"},
+                            extra: widget.university,
+                          );
+                        },
+                        title: text.seeReview,
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
-        ),
-    ]);
+      ],
+    );
   }
 }

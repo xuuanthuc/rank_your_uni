@@ -4,21 +4,33 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/utilities/static_variable.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/guideline/contact_screen.dart';
+import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../global/routes/route_keys.dart';
+import '../../../global/utilities/public.dart';
 import '../../global_bloc/authentication/authentication_bloc.dart';
 import '../appbar/appbar_common.dart';
-import 'footer_common.dart';
+import 'primary_footer.dart';
 
 class AppScaffold extends StatefulWidget {
   final List<Widget> children;
   final String? keyword;
   final bool? requireAuthenticated;
+  final double maxContentWidth;
+  final double maxWidth;
+  final CrossAxisAlignment crossAxisAlignment;
+  final Alignment alignment;
+  final EdgeInsets? margin;
 
   const AppScaffold({
     super.key,
     required this.children,
     this.keyword,
     this.requireAuthenticated,
+    this.maxContentWidth = Public.laptopSize,
+    this.maxWidth = Public.laptopSize,
+    this.alignment = Alignment.center,
+    this.margin,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   });
 
   @override
@@ -26,6 +38,8 @@ class AppScaffold extends StatefulWidget {
 }
 
 class _AppScaffoldState extends State<AppScaffold> {
+  final ScrollController _controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +65,8 @@ class _AppScaffoldState extends State<AppScaffold> {
       child: SelectionArea(
         child: Scaffold(
           appBar: AppbarCommon(keyword: widget.keyword),
-          floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.startDocked,
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: FloatingActionButton(
@@ -67,22 +82,45 @@ class _AppScaffoldState extends State<AppScaffold> {
               child: const Icon(Icons.question_mark),
             ),
           ),
-          body: CustomScrollView(
-            physics: const ClampingScrollPhysics(),
-            slivers: [
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  widget.children,
+          body: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              controller: _controller,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: widget.margin ?? EdgeInsets.all(
+                          ResponsiveBuilder.setHorizontalPadding(context),
+                        ),
+                        constraints: BoxConstraints(
+                          maxWidth: widget.maxWidth,
+                        ),
+                        child: Align(
+                          alignment: widget.alignment,
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: widget.maxContentWidth,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: widget.crossAxisAlignment,
+                              children: widget.children,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    PrimaryFooter(
+                      controller: _controller,
+                    ),
+                  ],
                 ),
               ),
-              const SliverFillRemaining(
-                hasScrollBody: true,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FooterCommon(),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -16,7 +16,7 @@ class ContactRaw {
     data['fullName'] = fullName;
     data['email'] = email;
     data['phone'] = phone;
-    data['message'] = message;
+    data['content'] = message;
     return data;
   }
 }

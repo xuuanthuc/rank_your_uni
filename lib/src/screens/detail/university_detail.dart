@@ -77,24 +77,23 @@ class _UniversityViewState extends State<UniversityView> {
           },
         ),
       ],
-      child: SelectionArea(
-        child: AppScaffold(
-          children: [
-            Center(
-              child: Stack(
+      child: AppScaffold(
+        maxWidth: MediaQuery.sizeOf(context).width,
+        maxContentWidth: MediaQuery.sizeOf(context).width,
+        margin: EdgeInsets.zero,
+        children: [
+          Stack(
+            children: [
+              Image.asset(AppImages.iDetailBackground),
+              const Column(
                 children: [
-                  Image.asset(AppImages.iDetailBackground),
-                  const Column(
-                    children: [
-                      UniversityOverview(),
-                      ReviewsBuilder(),
-                    ],
-                  ),
+                  UniversityOverview(),
+                  ReviewsBuilder(),
                 ],
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -14,7 +14,7 @@ import 'package:template/src/screens/widgets/expandable_page_view.dart';
 
 import '../../../global/validators/validators.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
-import '../widgets/base_dialog.dart';
+import '../widgets/primary_dialog.dart';
 import '../widgets/responsive_builder.dart';
 import 'bloc/auth_form_cubit.dart';
 
@@ -80,7 +80,7 @@ class _AuthFormState extends State<AuthForm> {
           );
         }
       },
-      child: BaseDialog(
+      child: PrimaryDialog(
         child: ExpandablePageView(
           pageController: _pageController,
           pageIndex: widget.pageIndex,

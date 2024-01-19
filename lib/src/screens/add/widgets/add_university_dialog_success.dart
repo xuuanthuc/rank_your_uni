@@ -7,7 +7,7 @@ import 'package:template/src/screens/widgets/responsive_builder.dart';
 
 import '../../../../global/style/app_images.dart';
 import '../../../../global/utilities/public.dart';
-import '../../widgets/base_dialog.dart';
+import '../../widgets/primary_dialog.dart';
 import '../../widgets/primary_button.dart';
 
 class AddUniversityDialogSuccess extends StatefulWidget {
@@ -26,7 +26,7 @@ class _AddUniversityDialogSuccessState
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return BaseDialog(
+    return PrimaryDialog(
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [

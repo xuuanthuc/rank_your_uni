@@ -8,7 +8,7 @@ import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../di/dependencies.dart';
 import '../authentication/auth_form.dart';
 import '../authentication/bloc/auth_form_cubit.dart';
-import 'base_dialog.dart';
+import 'primary_dialog.dart';
 
 enum NoticeAbout { manager, private, vote }
 
@@ -72,7 +72,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
       );
     }
 
-    return BaseDialog(
+    return PrimaryDialog(
       maxWidth: Public.tabletSize,
       child: Column(
         children: [
