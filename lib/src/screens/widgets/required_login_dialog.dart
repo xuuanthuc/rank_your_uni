@@ -44,6 +44,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
   }
 
   void _updateUserProfile(BuildContext context) {
+    context.pop();
     context.read<AppSettingsBloc>().add(GetUserProfileEvent());
   }
 
@@ -140,7 +141,6 @@ class NoticeMustLoginDialog extends StatelessWidget {
               ),
               PrimaryButton(
                 onTap: () {
-                  context.pop();
                   _showSignInDialog(context);
                 },
                 hasBorder: false,
