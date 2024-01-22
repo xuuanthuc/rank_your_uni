@@ -53,7 +53,7 @@
   "help": "Trợ giúp",
   "side": "Trang web",
   "sideGuidelines": "Hướng dẫn sử dụng RYU",
-  "resultsForSearch": "{total} trường đại học hiển thị với tên \"{university}\"",
+  "resultsForSearch": "Các trường đại học hiển thị với tên \"{university}\"",
   "@resultsForSearch" : {
     "placeholders": {
       "university": {
@@ -191,7 +191,7 @@
       }
     }
   },
-  "yourUniversityUnderReview": "Chúng mình đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét \uD83D\uDC40",
+  "yourUniversityUnderReview": "Chúng mình đã thêm trường học của bạn! Tuy nhiên, trang hồ sơ đang được xem xét. \uD83D\uDC40 Bạn vui lòng quay lại trong vòng 24H tới nhé ",
   "close": "Đóng",
   "deleteReview": "Xoá đánh giá",
   "university": "Trường Đại học/ Cao đẳng",
@@ -221,5 +221,8 @@
   "deleteSuccess": "Đánh giá của bạn đã được xoá",
   "deleteSuccessDescription": "Chúng mình hi vọng sẽ tiếp tục nhận được đánh giá của bạn trong tương lai",
   "confirm": "Đồng ý",
-  "confirmDeleteReview": "Bằng cách bấm vào nút đồng ý. Đánh giá của bạn sẽ bị xoá vĩnh viễn, bạn sẽ không thể khôi phục lại nội dung của đánh giá này"
+  "confirmDeleteReview": "Bằng cách bấm vào nút đồng ý. Đánh giá của bạn sẽ bị xoá vĩnh viễn, bạn sẽ không thể khôi phục lại nội dung của đánh giá này",
+  "findTeacher": "Tôi muốn tìm một giảng viên",
+  "underDevelop": "Tính năng đang phát triển",
+  "goBackLater": "Hãy thử lại sau nhé"
 }

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/global/utilities/toast.dart';
 import '../../../../global/routes/route_keys.dart';
 import '../../widgets/responsive_builder.dart';
 import 'package:template/global/style/styles.dart';
@@ -144,6 +145,30 @@ class LandingContent extends StatelessWidget {
                   ),
                   contentPadding: EdgeInsets.all(contentPadding),
                   isDense: true,
+                ),
+              ),
+            ),
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: SelectionContainer.disabled(
+                child: GestureDetector(
+                  onTap: () {
+                    appToast(
+                      context,
+                      message: text.underDevelop,
+                      subMessage: text.goBackLater,
+                      type: ToastType.success,
+                    );
+                  },
+                  child: AutoSizeText(
+                    text.findTeacher,
+                    minFontSize: 13,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: theme.primaryTextTheme.labelLarge?.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),

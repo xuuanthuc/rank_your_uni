@@ -25,7 +25,9 @@ class TextResultUniversities extends StatelessWidget {
             ),
             child: Text(
               text.resultsForSearch(
-                  keyword ?? "", state.searchModel?.totalElements ?? 0),
+                keyword ?? "",
+                state.searchModel?.totalElements ?? 0,
+              ),
             ),
           ),
         );
