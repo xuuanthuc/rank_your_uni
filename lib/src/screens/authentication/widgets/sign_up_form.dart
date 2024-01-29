@@ -29,7 +29,7 @@ class _SignUpEmailFormState extends State<SignUpEmailForm> {
   final TextEditingController _emailController = TextEditingController();
 
   void _onSignGoogleSignIn(BuildContext context) {
-    context.read<AuthenticationBloc>().add(OnGoogleSignUpEvent());
+    context.read<AuthenticationBloc>().add(OnGoogleSignInEvent());
   }
 
   @override

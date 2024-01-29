@@ -41,11 +41,6 @@ class OnGoogleSignInEvent extends AuthenticationEvent {
   List<Object?> get props => [];
 }
 
-class OnGoogleSignUpEvent extends AuthenticationEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 class OnForgotPasswordEvent extends AuthenticationEvent {
   final String email;
 

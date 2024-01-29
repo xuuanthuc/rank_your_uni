@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
@@ -11,11 +10,9 @@ import 'package:template/src/screens/authentication/widgets/sign_in_form.dart';
 import 'package:template/src/screens/authentication/widgets/sign_up_form.dart';
 import 'package:template/src/screens/authentication/widgets/update_user_profile_form.dart';
 import 'package:template/src/screens/widgets/expandable_page_view.dart';
-
 import '../../../global/validators/validators.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
 import '../widgets/primary_dialog.dart';
-import '../widgets/responsive_builder.dart';
 import 'bloc/auth_form_cubit.dart';
 
 class AuthForm extends StatefulWidget {

@@ -6,6 +6,7 @@ class Profile {
   String? username;
   String? university;
   bool? activated;
+  String? provider;
 
   Profile({
     this.id,
@@ -15,6 +16,7 @@ class Profile {
     this.university,
     this.username,
     this.activated,
+    this.provider,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class Profile {
     final lastName = json["lastName"];
     final activated = json["activated"];
     final username = json["login"];
+    final provider = json["provider"];
 
     return Profile(
       id: id,
@@ -34,6 +37,7 @@ class Profile {
       lastName: lastName,
       username: username,
       activated: activated,
+      provider: provider,
     );
   }
 

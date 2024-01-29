@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/logger.dart';
 import 'package:template/global/utilities/static_variable.dart';
+import 'package:template/src/models/request/sign_in_with_google_request.dart';
 import '../../../global/storage/storage_keys.dart';
 import '../../../global/storage/storage_provider.dart';
 import '../../models/request/sign_in_with_email_request.dart';
@@ -31,7 +32,6 @@ class AuthenticationBloc
     on<OnSignOutEvent>(onSignOut);
     on<OnSignUpWithEmailEvent>(onSignUpWithEmail);
     on<OnGoogleSignInEvent>(onGoogleSignIn);
-    on<OnGoogleSignUpEvent>(onGoogleSignUp);
     on<OnForgotPasswordEvent>(onForgotPassword);
   }
 
@@ -129,10 +129,7 @@ class AuthenticationBloc
     final res =
         await _authRepository.signInWithEmailAndPassword(event.signInRequest);
     if (res.isSuccess) {
-      await StorageProvider.instance
-          .save(StorageKeys.token, res.data["id_token"]);
-      await StorageProvider.instance
-          .save(StorageKeys.username, event.signInRequest.username);
+      await _saveInfo(res.data["id_token"], event.signInRequest.username);
       StaticVariable.tokenIsNotChecked = false;
       emit(state.copyWith(
         isSuccess: true,
@@ -156,11 +153,7 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     try {
-      GoogleSignIn googleSignIn = GoogleSignIn(
-        scopes: [
-          'email',
-        ],
-      );
+      GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
       emit(state.copyWith(
         status: AuthenticationStatus.unauthenticated,
         action: AuthenticationAction.signIn,
@@ -169,21 +162,44 @@ class AuthenticationBloc
       ));
       final auth = await googleSignIn.signIn();
       if (auth != null) {
-        LoggerUtils.i(
-            await auth.authentication.then((value) => value.accessToken));
-        emit(state.copyWith(
-          isSuccess: true,
-          status: AuthenticationStatus.authenticated,
-          action: AuthenticationAction.signIn,
-          isLoading: false,
+        final token = await auth.authentication.then(
+          (value) => value.accessToken,
+        );
+        final res = await _authRepository.signInWithGoogle(SignInWithGoogleRaw(
+          displayName: auth.displayName ?? '',
+          email: auth.email,
+          id: auth.id,
+          accessToken: token ?? '',
         ));
-        googleSignIn.disconnect();
+        if (res.isSuccess) {
+          await _saveInfo(
+            res.data["id_token"],
+            auth.email,
+          );
+          googleSignIn.disconnect();
+          StaticVariable.tokenIsNotChecked = false;
+          emit(state.copyWith(
+            isSuccess: true,
+            status: AuthenticationStatus.authenticated,
+            action: AuthenticationAction.signIn,
+            isLoading: false,
+          ));
+        } else {
+          emit(state.copyWith(
+            isError: true,
+            status: AuthenticationStatus.unauthenticated,
+            action: AuthenticationAction.signIn,
+            isLoading: false,
+            errorMessage: res.errorMessage,
+          ));
+        }
       } else {
         emit(state.copyWith(
-          isSuccess: false,
+          isError: true,
           status: AuthenticationStatus.unauthenticated,
           action: AuthenticationAction.signIn,
           isLoading: false,
+          errorMessage: '',
         ));
       }
     } catch (e) {
@@ -194,25 +210,6 @@ class AuthenticationBloc
         isLoading: false,
       ));
     }
-  }
-
-  void onGoogleSignUp(
-    OnGoogleSignUpEvent event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    // emit(state.copyWith(
-    //   status: AuthenticationStatus.unauthenticated,
-    //   action: AuthenticationAction.signIn,
-    //   isSuccess: false,
-    //   isLoading: true,
-    // ));
-    // await Future.delayed(const Duration(seconds: 1));
-    // emit(state.copyWith(
-    //   isSuccess: true,
-    //   status: AuthenticationStatus.authenticated,
-    //   action: AuthenticationAction.signIn,
-    //   isLoading: false,
-    // ));
   }
 
   void onSignOut(
@@ -261,9 +258,7 @@ class AuthenticationBloc
     final res =
         await _authRepository.signUpWithEmailAndPassword(event.signUpRequest);
     if (res.isSuccess) {
-      await StorageProvider.instance.save(StorageKeys.token, res.data["token"]);
-      await StorageProvider.instance
-          .save(StorageKeys.username, event.signUpRequest.email);
+      await _saveInfo(res.data["token"], event.signUpRequest.email);
       StaticVariable.tokenIsNotChecked = false;
       emit(state.copyWith(
         isLoading: false,
@@ -281,5 +276,10 @@ class AuthenticationBloc
         isError: true,
       ));
     }
+  }
+
+  Future<void> _saveInfo(String token, String email) async {
+    await StorageProvider.instance.save(StorageKeys.token, token);
+    await StorageProvider.instance.save(StorageKeys.username, email);
   }
 }
