@@ -41,6 +41,7 @@ class _EditProfileState extends State<EditProfile> {
     return BlocListener<AppSettingsBloc, AppSettingsState>(
       listener: (context, state) {
         if (state.status == AppSettingStatus.success) {
+          context.read<ProfileCubit>().checkProfile(state.profileAuthenticated);
           _firstNameController.text =
               state.profileAuthenticated?.firstName ?? '';
           _lastNameController.text = state.profileAuthenticated?.lastName ?? '';

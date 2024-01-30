@@ -41,6 +41,7 @@ class _EditAccountState extends State<EditAccount> {
     return BlocListener<AppSettingsBloc, AppSettingsState>(
       listener: (context, state) {
         if (state.status == AppSettingStatus.success) {
+          context.read<ProfileCubit>().checkProfile(state.profileAuthenticated);
           _emailController.text = state.profileAuthenticated?.username ?? '';
         }
       },
