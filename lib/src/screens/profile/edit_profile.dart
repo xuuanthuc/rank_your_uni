@@ -69,6 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: _lastNameController,
                   maxLength: 20,
                   readOnly: !(state.canEdit ?? true),
+                  show: state.canEdit ?? true,
                 ),
                 const SizedBox(height: 25),
                 RowInfoField(
@@ -86,6 +87,7 @@ class _EditProfileState extends State<EditProfile> {
                   validator: null,
                   maxLength: 100,
                   readOnly: !(state.canEdit ?? true),
+                  show: state.canEdit ?? true,
                 ),
                 const SizedBox(height: 40),
                 Row(

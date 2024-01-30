@@ -95,7 +95,7 @@ class _ProfileViewState extends State<ProfileView>
                         builder: (context, state) {
                           return Text(
                             text.hey(
-                                "${state.profileAuthenticated?.lastName ?? '_'} ${state.profileAuthenticated?.firstName ?? ''}"),
+                                "${state.profileAuthenticated?.lastName ?? ''} ${state.profileAuthenticated?.firstName ?? '_'}"),
                             style: theme.primaryTextTheme.displayLarge,
                           );
                         },
@@ -299,6 +299,7 @@ class RowInfoField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLength;
   final bool readOnly;
+  final bool show;
 
   const RowInfoField({
     super.key,
@@ -310,45 +311,49 @@ class RowInfoField extends StatelessWidget {
     this.readOnly = false,
     this.keyboardType,
     this.maxLength,
+    this.show = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      smallView: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LabelField(label),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFieldData(
-              hintText,
-              controller,
-              validator: validator,
-              obscureText: obscureText,
-              keyboardType: keyboardType,
-              maxLength: maxLength,
-              readOnly: readOnly,
-            ),
-          )
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LabelField(label),
-          Expanded(
-            child: TextFieldData(
-              hintText,
-              controller,
-              validator: validator,
-              obscureText: obscureText,
-              keyboardType: keyboardType,
-              maxLength: maxLength,
-              readOnly: readOnly,
-            ),
-          )
-        ],
+    return Visibility(
+      visible: show,
+      child: ResponsiveBuilder(
+        smallView: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            LabelField(label),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextFieldData(
+                hintText,
+                controller,
+                validator: validator,
+                obscureText: obscureText,
+                keyboardType: keyboardType,
+                maxLength: maxLength,
+                readOnly: readOnly,
+              ),
+            )
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            LabelField(label),
+            Expanded(
+              child: TextFieldData(
+                hintText,
+                controller,
+                validator: validator,
+                obscureText: obscureText,
+                keyboardType: keyboardType,
+                maxLength: maxLength,
+                readOnly: readOnly,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -80,6 +80,7 @@ class _EditAccountState extends State<EditAccount> {
                       obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       readOnly: !(state.canEdit ?? true),
+                      show: state.canEdit ?? true,
                     ),
                     const SizedBox(height: 25),
                     RowInfoField(
@@ -90,6 +91,7 @@ class _EditAccountState extends State<EditAccount> {
                       obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       readOnly: !(state.canEdit ?? true),
+                      show: state.canEdit ?? true,
                     ),
                   ],
                 ),
