@@ -224,5 +224,6 @@
   "confirmDeleteReview": "Bằng cách bấm vào nút đồng ý. Đánh giá của bạn sẽ bị xoá vĩnh viễn, bạn sẽ không thể khôi phục lại nội dung của đánh giá này",
   "findTeacher": "Tôi muốn tìm một giảng viên",
   "underDevelop": "Tính năng đang phát triển",
-  "goBackLater": "Hãy thử lại sau nhé"
+  "goBackLater": "Hãy thử lại sau nhé",
+  "cannotEditProfile": "Bạn không thể chỉnh sửa thông tin khi đăng nhập bằng tài khoản Google"
 }

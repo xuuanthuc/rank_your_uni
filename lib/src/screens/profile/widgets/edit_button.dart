@@ -5,10 +5,12 @@ import '../../../../global/style/styles.dart';
 
 class EditButton extends StatelessWidget {
   final Function onTap;
+  final bool canEdit;
 
   const EditButton({
     super.key,
     required this.onTap,
+    required this.canEdit,
   });
 
   @override
@@ -17,13 +19,23 @@ class EditButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment:
+            canEdit ? MainAxisAlignment.end : MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(AppImages.iEdit),
+          Visibility(
+            visible: canEdit,
+            child: SvgPicture.asset(AppImages.iEdit),
+          ),
           const SizedBox(width: 4),
-          Text(
-            AppLocalizations.of(context)!.edit,
-            style: theme.primaryTextTheme.labelLarge,
+          Flexible(
+            child: Text(
+              canEdit
+                  ? AppLocalizations.of(context)!.edit
+                  : AppLocalizations.of(context)!.cannotEditProfile,
+              style: canEdit
+                  ? theme.primaryTextTheme.labelLarge
+                  : theme.primaryTextTheme.bodyMedium,
+            ),
           )
         ],
       ),

@@ -19,7 +19,12 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit(this._userRepository) : super(const ProfileState());
 
-  void getProfile() {}
+  void checkProfile(Profile? profile) async {
+    if (profile == null) return;
+    emit(state.copyWith(
+      canEdit: profile.provider == UserProvider.email,
+    ));
+  }
 
   void onPageChange(QuickMenu menu) async {
     emit(state.copyWith(status: ProfileStatus.loading));

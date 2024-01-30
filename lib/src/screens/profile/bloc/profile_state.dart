@@ -8,12 +8,14 @@ class ProfileState extends Equatable {
   final Profile? userAuthenticated;
   final ProfileStatus? status;
   final List<Review>? reviews;
+  final bool? canEdit;
 
   const ProfileState({
     this.page,
     this.status,
     this.reviews,
     this.userAuthenticated,
+    this.canEdit,
   });
 
   ProfileState copyWith({
@@ -21,11 +23,13 @@ class ProfileState extends Equatable {
     ProfileStatus? status,
     List<Review>? reviews,
     Profile? userAuthenticated,
+    bool? canEdit,
   }) {
     return ProfileState(
       page: page ?? this.page,
       status: status ?? this.status,
       reviews: reviews ?? this.reviews,
+      canEdit: canEdit ?? this.canEdit,
       userAuthenticated: userAuthenticated ?? this.userAuthenticated,
     );
   }
@@ -36,5 +40,6 @@ class ProfileState extends Equatable {
         status,
         reviews,
         userAuthenticated,
+        canEdit,
       ];
 }

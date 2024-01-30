@@ -1,3 +1,5 @@
+enum UserProvider { google, email }
+
 class Profile {
   int? id;
   String? email;
@@ -6,7 +8,7 @@ class Profile {
   String? username;
   String? university;
   bool? activated;
-  String? provider;
+  UserProvider? provider;
 
   Profile({
     this.id,
@@ -27,7 +29,8 @@ class Profile {
     final lastName = json["lastName"];
     final activated = json["activated"];
     final username = json["login"];
-    final provider = json["provider"];
+    final provider =
+        json["provider"] == "GOOGLE" ? UserProvider.google : UserProvider.email;
 
     return Profile(
       id: id,

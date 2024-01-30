@@ -7,7 +7,9 @@ import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/profile/widgets/edit_button.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../global_bloc/settings/app_settings_bloc.dart';
+import '../../models/response/profile.dart';
 import '../widgets/loading_primary_button.dart';
+import 'bloc/profile_cubit.dart';
 
 class EditAccount extends StatefulWidget {
   const EditAccount({super.key});
@@ -26,9 +28,8 @@ class _EditAccountState extends State<EditAccount> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = BlocProvider
-          .of<AppSettingsBloc>(context)
-          .state;
+      final state = BlocProvider.of<AppSettingsBloc>(context).state;
+      context.read<ProfileCubit>().checkProfile(state.profileAuthenticated);
       _emailController.text = state.profileAuthenticated?.username ?? '';
     });
   }
@@ -45,9 +46,15 @@ class _EditAccountState extends State<EditAccount> {
       },
       child: Column(
         children: [
-          SizedBox(
-              height: ResponsiveBuilder.setHorizontalPadding(context)),
-          EditButton(onTap: () {}),
+          SizedBox(height: ResponsiveBuilder.setHorizontalPadding(context)),
+          BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              return EditButton(
+                onTap: () {},
+                canEdit: state.canEdit ?? true,
+              );
+            },
+          ),
           const SizedBox(height: 25),
           RowInfoField(
             label: text.email,
@@ -58,29 +65,35 @@ class _EditAccountState extends State<EditAccount> {
             maxLength: 80,
           ),
           const SizedBox(height: 25),
-          Form(
-            key: _formKeyPass,
-            child: Column(
-              children: [
-                RowInfoField(
-                  label: text.currentPassword,
-                  hintText: text.enterPassword,
-                  controller: _passwordController,
-                  validator: TextFieldValidator.passValidator,
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
+          BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              return Form(
+                key: _formKeyPass,
+                child: Column(
+                  children: [
+                    RowInfoField(
+                      label: text.currentPassword,
+                      hintText: text.enterPassword,
+                      controller: _passwordController,
+                      validator: TextFieldValidator.passValidator,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      readOnly: !(state.canEdit ?? true),
+                    ),
+                    const SizedBox(height: 25),
+                    RowInfoField(
+                      label: text.newPassword,
+                      hintText: text.enterPassword,
+                      controller: _newPasswordController,
+                      validator: TextFieldValidator.passValidator,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      readOnly: !(state.canEdit ?? true),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 25),
-                RowInfoField(
-                  label: text.newPassword,
-                  hintText: text.enterPassword,
-                  controller: _newPasswordController,
-                  validator: TextFieldValidator.passValidator,
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
-                ),
-              ],
-            ),
+              );
+            },
           ),
           const SizedBox(height: 40),
           Row(
@@ -88,26 +101,29 @@ class _EditAccountState extends State<EditAccount> {
             children: [
               BlocBuilder<AppSettingsBloc, AppSettingsState>(
                 builder: (context, state) {
-                  return LoadingPrimaryButton<AppSettingsBloc,
-                      AppSettingsState>(
-                    onTap: () {
-                      if (_formKeyPass.currentState!.validate()) {
-                        PasswordRaw password = PasswordRaw(
-                          currentPassword: _passwordController.text,
-                          newPassword: _newPasswordController.text,
-                        );
-                        context
-                            .read<AppSettingsBloc>()
-                            .add(UpdatePasswordEvent(password));
-                      }
-                    },
-                    label: text.updatePassword,
-                    buttonWidth: 250,
-                    updateLoading: (state) {
-                      return state.status == AppSettingStatus.loading &&
-                          state.action ==
-                              AppSettingAction.changePassword;
-                    },
+                  return Visibility(
+                    visible: state.profileAuthenticated?.provider ==
+                        UserProvider.email,
+                    child:
+                        LoadingPrimaryButton<AppSettingsBloc, AppSettingsState>(
+                      onTap: () {
+                        if (_formKeyPass.currentState!.validate()) {
+                          PasswordRaw password = PasswordRaw(
+                            currentPassword: _passwordController.text,
+                            newPassword: _newPasswordController.text,
+                          );
+                          context
+                              .read<AppSettingsBloc>()
+                              .add(UpdatePasswordEvent(password));
+                        }
+                      },
+                      label: text.updatePassword,
+                      buttonWidth: 250,
+                      updateLoading: (state) {
+                        return state.status == AppSettingStatus.loading &&
+                            state.action == AppSettingAction.changePassword;
+                      },
+                    ),
                   );
                 },
               ),
