@@ -64,20 +64,20 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 const SizedBox(height: 25),
                 RowInfoField(
+                  label: text.firstName,
+                  hintText: text.enterFirstName,
+                  controller: _firstNameController,
+                  maxLength: 10,
+                  readOnly: !(state.canEdit ?? true),
+                ),
+                const SizedBox(height: 25),
+                RowInfoField(
                   label: text.lastName,
                   hintText: text.enterLastName,
                   controller: _lastNameController,
                   maxLength: 20,
                   readOnly: !(state.canEdit ?? true),
                   show: state.canEdit ?? true,
-                ),
-                const SizedBox(height: 25),
-                RowInfoField(
-                  label: text.firstName,
-                  hintText: text.enterFirstName,
-                  controller: _firstNameController,
-                  maxLength: 10,
-                  readOnly: !(state.canEdit ?? true),
                 ),
                 const SizedBox(height: 25),
                 RowInfoField(
