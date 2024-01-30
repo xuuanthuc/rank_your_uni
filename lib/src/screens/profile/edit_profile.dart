@@ -94,7 +94,7 @@ class _EditProfileState extends State<EditProfile> {
                       builder: (context, state) {
                         return Visibility(
                           visible: state.profileAuthenticated?.provider ==
-                              UserProvider.email,
+                              UserProvider.ryu,
                           child: LoadingPrimaryButton<AppSettingsBloc,
                               AppSettingsState>(
                             onTap: () {

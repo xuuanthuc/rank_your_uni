@@ -22,7 +22,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   void checkProfile(Profile? profile) async {
     if (profile == null) return;
     emit(state.copyWith(
-      canEdit: profile.provider == UserProvider.email,
+      canEdit: profile.provider == UserProvider.ryu,
     ));
   }
 

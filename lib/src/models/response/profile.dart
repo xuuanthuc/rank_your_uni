@@ -1,4 +1,4 @@
-enum UserProvider { google, email }
+enum UserProvider { google, ryu }
 
 class Profile {
   int? id;
@@ -30,7 +30,7 @@ class Profile {
     final activated = json["activated"];
     final username = json["login"];
     final provider =
-        json["provider"] == "GOOGLE" ? UserProvider.google : UserProvider.email;
+        json["provider"] == "GOOGLE" ? UserProvider.google : UserProvider.ryu;
 
     return Profile(
       id: id,
