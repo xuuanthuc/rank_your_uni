@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../global/routes/route_keys.dart';
 
 class ReviewSuccessScreen extends StatefulWidget {
@@ -45,29 +47,29 @@ class _ReviewSuccessScreenState extends State<ReviewSuccessScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Text(
-                      text.yourReviewAreSubmitting,
-                      style: theme.primaryTextTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    // MarkdownBody(
-                    //   data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
-                    //   selectable: true,
-                    //   onTapLink: (t, u, c) async {
-                    //     if (u != null) {
-                    //       if (!await launchUrl(Uri.parse(u))) {
-                    //         throw Exception('Could not launch $u');
-                    //       }
-                    //     }
-                    //   },
-                    //   styleSheet: MarkdownStyleSheet(
-                    //     a: theme.primaryTextTheme.bodyMedium?.copyWith(
-                    //       fontWeight: FontWeight.w500,
-                    //       color: AppColors.info,
-                    //     ),
-                    //     p: theme.primaryTextTheme.bodyMedium,
-                    //   ),
+                    // Text(
+                    //   text.yourReviewAreSubmitting,
+                    //   style: theme.primaryTextTheme.bodyMedium,
+                    //   textAlign: TextAlign.center,
                     // ),
+                    MarkdownBody(
+                      data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
+                      selectable: true,
+                      onTapLink: (t, u, c) async {
+                        if (u != null) {
+                          if (!await launchUrl(Uri.parse(u))) {
+                            throw Exception('Could not launch $u');
+                          }
+                        }
+                      },
+                      styleSheet: MarkdownStyleSheet(
+                        a: theme.primaryTextTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.info,
+                        ),
+                        p: theme.primaryTextTheme.bodyMedium,
+                      ),
+                    ),
                     const SizedBox(height: 40),
                     SizedBox(
                       width: 200,

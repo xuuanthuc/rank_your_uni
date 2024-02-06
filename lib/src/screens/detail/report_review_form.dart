@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/src/models/response/review.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
 import '../widgets/primary_dialog.dart';
@@ -87,10 +89,28 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
                             style: theme.primaryTextTheme.labelLarge,
                           ),
                           const SizedBox(height: 6),
-                          Text(
-                            text.whatIsMatterDescription,
-                            style: theme.primaryTextTheme.bodyMedium,
+                          MarkdownBody(
+                            data: 'Nếu bạn cho rằng nhận xét này không phù hợp với [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) chúng mình, hãy báo cáo nhận xét đó và cho chúng mình biết lý do.',
+                            selectable: true,
+                            onTapLink: (t, u, c) async {
+                              if (u != null) {
+                                if (!await launchUrl(Uri.parse(u))) {
+                                  throw Exception('Could not launch $u');
+                                }
+                              }
+                            },
+                            styleSheet: MarkdownStyleSheet(
+                              a: theme.primaryTextTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.info,
+                              ),
+                              p: theme.primaryTextTheme.bodyMedium,
+                            ),
                           ),
+                          // Text(
+                          //   text.whatIsMatterDescription,
+                          //   style: theme.primaryTextTheme.bodyMedium,
+                          // ),
                         ],
                       ),
                     ),
