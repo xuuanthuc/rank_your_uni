@@ -67,6 +67,7 @@ class DetailRepository {
       final res = await _apiProvider.post(
         ApiEndpoint.report,
         params: report.toJson(),
+        needToken: false,
       );
       if (res != null) {
         return true;
