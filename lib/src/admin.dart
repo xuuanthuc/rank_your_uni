@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/global/utilities/static_variable.dart';
-import 'package:template/src/dashboard/bloc/dashboard_authentication_cubit.dart';
+import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart';
 import 'package:template/src/di/dependencies.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,6 +38,13 @@ class MyAdmin extends StatelessWidget {
         GoRoute(
           path: '/dashboard',
           name: RouteKey.dashboard,
+          redirect: (BuildContext context, GoRouterState state) {
+            if (StaticVariable.dashboardToken == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,

@@ -23,3 +23,9 @@ abstract class PageIndex {
   static const int updateProfile = 3;
   static const int forgotPassword = 4;
 }
+
+abstract class UniversityStatus {
+  static const int approved = 1;
+  static const int requesting = 0;
+}
+

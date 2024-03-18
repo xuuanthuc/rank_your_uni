@@ -5,7 +5,7 @@ import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/global/validators/validators.dart';
-import 'package:template/src/dashboard/bloc/dashboard_authentication_cubit.dart';
+import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart';
 import 'package:video_player/video_player.dart';
 import '../../models/request/sign_in_with_email_request.dart';
 import '../../screens/authentication/widgets/auth_field_label.dart';

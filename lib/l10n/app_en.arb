@@ -225,5 +225,8 @@
   "findTeacher": "Bạn muốn tìm một giảng viên",
   "underDevelop": "Tính năng đang phát triển",
   "goBackLater": "Hãy thử lại sau nhé",
-  "cannotEditProfile": "Bạn không thể chỉnh sửa thông tin khi đăng nhập bằng tài khoản Google"
+  "cannotEditProfile": "Bạn không thể chỉnh sửa thông tin khi đăng nhập bằng tài khoản Google",
+  "address": "Địa chỉ",
+  "update": "Cập nhật",
+  "updateUniversity": "Chỉnh sửa trường đại học"
 }

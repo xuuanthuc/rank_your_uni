@@ -40,9 +40,10 @@ void appToast(
           ),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: SvgPicture.asset(type == ToastType.error
-                ? AppImages.iWarning
-                : AppImages.iReputation,
+            child: SvgPicture.asset(
+              type == ToastType.error
+                  ? AppImages.iWarning
+                  : AppImages.iReputation,
               colorFilter: const ColorFilter.mode(
                 Colors.white,
                 BlendMode.srcIn,
@@ -58,11 +59,12 @@ void appToast(
                 style:
                     theme.textTheme.labelLarge?.copyWith(color: Colors.white),
               ),
-              Text(
-                subMessage ?? '',
-                style: theme.primaryTextTheme.bodyLarge
-                    ?.copyWith(color: Colors.white),
-              ),
+              if (subMessage != null)
+                Text(
+                  subMessage,
+                  style: theme.primaryTextTheme.bodyLarge
+                      ?.copyWith(color: Colors.white),
+                ),
             ],
           ),
           const SizedBox(width: 20)
