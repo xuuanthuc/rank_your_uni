@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/dashboard/bloc/university/dashboard_university_item_cubit.dart';
 import 'package:template/src/dashboard/features/widget/dashboard_title.dart';
+import 'package:template/src/dashboard/features/widget/header_line.dart';
 import 'package:template/src/dashboard/features/widget/university_detail_dialog.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/university.dart';
@@ -27,16 +28,13 @@ class DashboardUniversities extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 10),
-              Text(
-                text.universityName,
-                style: theme.primaryTextTheme.labelLarge,
+              Expanded(
+                child: Text(
+                  text.universityName,
+                  style: theme.primaryTextTheme.titleLarge,
+                ),
               ),
-              Container(
-                height: 30,
-                width: 1,
-                color: AppColors.primaryShadow,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-              ),
+              const HeaderLine(),
               Text(
                 text.status,
                 textAlign: TextAlign.center,

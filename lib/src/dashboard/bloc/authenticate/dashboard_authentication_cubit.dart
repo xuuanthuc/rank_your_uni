@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/global/utilities/static_variable.dart';
 import 'package:template/src/models/request/sign_in_with_email_request.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../repositories/dashboard_repository.dart';
 

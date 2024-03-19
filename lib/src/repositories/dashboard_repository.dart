@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:template/src/models/request/add_university_request.dart';
+import 'package:template/src/models/response/contact.dart';
 import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
@@ -35,14 +35,44 @@ class DashboardRepository {
     }
   }
 
+  Future<RYUResponse> getContacts() async {
+    try {
+      final res = await _apiProvider.get(ApiEndpoint.contacts);
+      final List<Contact> contacts = [];
+      for (var element in (res['listItem'] as List<dynamic>)) {
+        contacts.add(Contact.fromJson(element));
+      }
+      return RYUResponse(isSuccess: true, data: contacts);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> resolveContacts(Contact contact) async {
+    try {
+      final res = await _apiProvider.post(
+        "${ApiEndpoint.replyContact}/${contact.id}",
+        params: {
+          "id": contact.id,
+          "content": "Okee?",
+          "resolve": true,
+          "fullName":"Thuc",
+          "phone":"0988950581",
+          "email":"dothuc273@gmail.com",
+        },
+      );
+      return RYUResponse(isSuccess: true, data: Contact.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
   Future<RYUResponse> updateUniversity(
       UpdateUniversityRaw newUniversity, University university) async {
     try {
       final res = await _apiProvider.put(
-        '${ApiEndpoint.search}/${university.id}',
-        params: newUniversity.toJson(),
-        needToken: true
-      );
+          '${ApiEndpoint.search}/${university.id}',
+          params: newUniversity.toJson());
       return RYUResponse(isSuccess: true, data: University.fromSearchJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
@@ -51,10 +81,8 @@ class DashboardRepository {
 
   Future<RYUResponse> deleteUniversity(University university) async {
     try {
-      final res = await _apiProvider.delete(
-        '${ApiEndpoint.search}/${university.id}',
-        needToken: true
-      );
+      final res =
+          await _apiProvider.delete('${ApiEndpoint.search}/${university.id}');
       return RYUResponse(isSuccess: true, data: res);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);

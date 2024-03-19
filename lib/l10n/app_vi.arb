@@ -228,5 +228,8 @@
   "cannotEditProfile": "Bạn không thể chỉnh sửa thông tin khi đăng nhập bằng tài khoản Google",
   "address": "Địa chỉ",
   "update": "Cập nhật",
-  "updateUniversity": "Chỉnh sửa trường đại học"
+  "updateUniversity": "Chỉnh sửa trường đại học",
+  "resolved": "Đã phản hồi",
+  "body": "Nội dung",
+  "reply": "Phản hồi"
 }
