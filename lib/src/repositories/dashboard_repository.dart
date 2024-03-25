@@ -6,6 +6,7 @@ import 'package:template/src/network/exception.dart';
 import '../models/request/sign_in_with_email_request.dart';
 import '../models/request/update_university_request.dart';
 import '../models/response/search_response.dart';
+import '../models/response/updated_university.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -52,14 +53,7 @@ class DashboardRepository {
     try {
       final res = await _apiProvider.post(
         "${ApiEndpoint.replyContact}/${contact.id}",
-        params: {
-          "id": contact.id,
-          "content": "Okee?",
-          "resolve": true,
-          "fullName":"Thuc",
-          "phone":"0988950581",
-          "email":"dothuc273@gmail.com",
-        },
+        params: contact.toJson(),
       );
       return RYUResponse(isSuccess: true, data: Contact.fromJson(res));
     } on ResponseException catch (e) {
@@ -70,10 +64,10 @@ class DashboardRepository {
   Future<RYUResponse> updateUniversity(
       UpdateUniversityRaw newUniversity, University university) async {
     try {
-      final res = await _apiProvider.put(
-          '${ApiEndpoint.search}/${university.id}',
+      final res = await _apiProvider.put('/admin/school/${university.id}',
           params: newUniversity.toJson());
-      return RYUResponse(isSuccess: true, data: University.fromSearchJson(res));
+      return RYUResponse(
+          isSuccess: true, data: UniversityUpdated.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -81,8 +75,7 @@ class DashboardRepository {
 
   Future<RYUResponse> deleteUniversity(University university) async {
     try {
-      final res =
-          await _apiProvider.delete('${ApiEndpoint.search}/${university.id}');
+      final res = await _apiProvider.delete('/admin/schools/${university.id}');
       return RYUResponse(isSuccess: true, data: res);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);

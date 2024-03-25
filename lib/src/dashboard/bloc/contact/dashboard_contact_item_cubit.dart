@@ -18,13 +18,13 @@ class DashboardContactItemCubit extends Cubit<DashboardContactItemState> {
     emit(state.copyWith(contact: contact));
   }
 
-  void resolvedContact() async {
+  void resolvedContact(Contact contactResolved) async {
     if (state.contact != null) {
       emit(state.copyWith(
         status: DashboardContactStatus.loading,
       ));
 
-      final res = await _adminRepository.resolveContacts(state.contact!);
+      final res = await _adminRepository.resolveContacts(contactResolved);
       if (res.isSuccess) {
         emit(state.copyWith(
           status: DashboardContactStatus.success,

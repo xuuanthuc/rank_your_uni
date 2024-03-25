@@ -157,7 +157,7 @@ class ApiProvider {
       method: Method.put,
       url: url,
       data: params,
-      needToken: needToken ?? true,
+      needToken: needToken,
     );
   }
 

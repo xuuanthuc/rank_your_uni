@@ -231,5 +231,8 @@
   "updateUniversity": "Chỉnh sửa trường đại học",
   "resolved": "Đã phản hồi",
   "body": "Nội dung",
-  "reply": "Phản hồi"
+  "reply": "Phản hồi",
+  "universityActived": "Bật/tắt trạng thái đã duyệt",
+  "nonReply": "Chưa phản hồi câu hỏi này",
+  "refresh": "Làm mới"
 }

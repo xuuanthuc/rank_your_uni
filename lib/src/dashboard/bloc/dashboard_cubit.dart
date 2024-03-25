@@ -34,8 +34,27 @@ class DashboardCubit extends Cubit<DashboardState> {
     }
   }
 
-  getAllUniversities() async {
-    if ((state.universities ?? []).isNotEmpty) return;
+  void onRefresh(){
+    switch (state.page) {
+      case DashboardPages.user:
+        break;
+      case DashboardPages.university:
+        getAllUniversities(isRefresh: true);
+        break;
+      case DashboardPages.report:
+        break;
+      case null:
+        break;
+      case DashboardPages.contact:
+        getAllContacts(isRefresh: true);
+        break;
+    }
+  }
+
+  getAllUniversities({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.universities ?? []).isNotEmpty) return;
+    }
     emit(state.copyWith(status: DashboardStatus.loading));
     final List<University> universities = [];
     final res = await _adminRepository.getUniversities('', 0, pageSize: 1000);
@@ -53,8 +72,10 @@ class DashboardCubit extends Cubit<DashboardState> {
     }
   }
 
-  getAllContacts() async {
-    if ((state.contacts ?? []).isNotEmpty) return;
+  getAllContacts({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.contacts ?? []).isNotEmpty) return;
+    }
     emit(state.copyWith(status: DashboardStatus.loading));
     final List<Contact> contacts = [];
     final res = await _adminRepository.getContacts();
@@ -67,7 +88,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     } else {
       emit(state.copyWith(
         status: DashboardStatus.error,
-        universities: [],
+        contacts: [],
       ));
     }
   }

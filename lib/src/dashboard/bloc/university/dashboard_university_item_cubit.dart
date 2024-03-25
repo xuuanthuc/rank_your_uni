@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/response/university.dart';
+import 'package:template/src/models/response/updated_university.dart';
 
 import '../../../models/request/update_university_request.dart';
 import '../../../repositories/dashboard_repository.dart';
@@ -37,8 +38,29 @@ class DashboardUniversityItemCubit extends Cubit<DashboardUniversityItemState> {
         state.university!,
       );
       if (res.isSuccess) {
+        final UniversityUpdated resUni = res.data as UniversityUpdated;
+        final newUni = University(
+          state.university!.id,
+          name: state.university!.name,
+          abbrevia: state.university!.abbrevia,
+          website: state.university!.website,
+          address: state.university!.address,
+          averagePointAllReviews: state.university!.averagePointAllReviews,
+          phone: state.university!.phone,
+          reviews: state.university!.reviews,
+          reputationAvg: state.university!.reputationAvg,
+          internetAvg: state.university!.internetAvg,
+          locationAvg: state.university!.locationAvg,
+          facilitiesAvg: state.university!.facilitiesAvg,
+          foodAvg: state.university!.foodAvg,
+          clubsAvg: state.university!.clubsAvg,
+          favoriteAvg: state.university!.favoriteAvg,
+          competitionLevelAvg: state.university!.competitionLevelAvg,
+          totalReviews: state.university!.totalReviews,
+          status: resUni.status,
+        );
         emit(state.copyWith(
-          university: res.data as University,
+          university: newUni,
           status: DashboardUniversityStatus.success,
         ));
       } else {
@@ -55,16 +77,42 @@ class DashboardUniversityItemCubit extends Cubit<DashboardUniversityItemState> {
       emit(state.copyWith(
         status: DashboardUniversityStatus.loading,
       ));
-      final University university = University(
-        state.university?.id ?? -1,
-        address: newUniversity.address,
-        name: newUniversity.name,
+      final res = await _adminRepository.updateUniversity(
+        newUniversity,
+        state.university!,
       );
-
-      emit(state.copyWith(
-        university: university,
-        status: DashboardUniversityStatus.success,
-      ));
+      if (res.isSuccess) {
+        final UniversityUpdated resUni = res.data as UniversityUpdated;
+        final newUni = University(
+          state.university!.id,
+          name: resUni.name,
+          abbrevia: resUni.abbrevia,
+          website: resUni.website,
+          address: resUni.address,
+          averagePointAllReviews: state.university!.averagePointAllReviews,
+          phone: resUni.phone,
+          reviews: state.university!.reviews,
+          reputationAvg: state.university!.reputationAvg,
+          internetAvg: state.university!.internetAvg,
+          locationAvg: state.university!.locationAvg,
+          facilitiesAvg: state.university!.facilitiesAvg,
+          foodAvg: state.university!.foodAvg,
+          clubsAvg: state.university!.clubsAvg,
+          favoriteAvg: state.university!.favoriteAvg,
+          competitionLevelAvg: state.university!.competitionLevelAvg,
+          totalReviews: state.university!.totalReviews,
+          status: resUni.status,
+        );
+        emit(state.copyWith(
+          university: newUni,
+          status: DashboardUniversityStatus.success,
+        ));
+      } else {
+        emit(state.copyWith(
+          status: DashboardUniversityStatus.error,
+          errorMessage: res.errorMessage,
+        ));
+      }
     }
   }
 
@@ -76,8 +124,9 @@ class DashboardUniversityItemCubit extends Cubit<DashboardUniversityItemState> {
 
       final res = await _adminRepository.deleteUniversity(state.university!);
       if (res.isSuccess) {
-        emit(state.copyWith(
+        emit(const DashboardUniversityItemState(
           status: DashboardUniversityStatus.success,
+          university: null,
         ));
       } else {
         emit(state.copyWith(

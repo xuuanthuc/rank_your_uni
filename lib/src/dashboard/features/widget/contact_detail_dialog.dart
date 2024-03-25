@@ -6,7 +6,7 @@ import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit
 import 'package:template/src/models/response/contact.dart';
 import 'package:template/src/screens/widgets/primary_dialog.dart';
 import '../../../../global/utilities/toast.dart';
-import '../../../screens/add/add_university.dart';
+import '../../../../global/validators/validators.dart';
 import '../../../screens/widgets/loading_primary_button.dart';
 
 class ContactDetailDialog extends StatefulWidget {
@@ -102,11 +102,49 @@ class _ContactDetailDialogState extends State<ContactDetailDialog> {
                   style: theme.primaryTextTheme.titleLarge,
                 ),
                 const SizedBox(height: 20),
-                TextAddField(
-                  label: text.reply,
-                  controller: _replyController,
+                Text(
+                  text.reply,
+                  style: theme.primaryTextTheme.labelLarge,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 4),
+                Text(
+                  state.contact?.contentReply ?? text.nonReply,
+                  style: theme.primaryTextTheme.titleLarge,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  text.reply,
+                  style: theme.primaryTextTheme.labelLarge,
+                ),
+                const SizedBox(height: 4),
+                TextFormField(
+                  style: theme.primaryTextTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 5,
+                  validator: TextFieldValidator.notEmptyValidator,
+                  controller: _replyController,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(width: 1, color: AppColors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(width: 1, color: AppColors.grey),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(width: 1, color: AppColors.grey),
+                    ),
+                    hoverColor: Colors.transparent,
+                    contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    isDense: true,
+                  ),
+                ),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,9 +152,22 @@ class _ContactDetailDialogState extends State<ContactDetailDialog> {
                         DashboardContactItemState>(
                       buttonWidth: 270,
                       onTap: () {
+                        if(_replyController.text.isEmpty) {
+                          appToast(context, message: "Enter data");
+                          return;
+                        }
+                        final Contact contactResolved = Contact(
+                          widget.contact.id,
+                          fullName: widget.contact.fullName,
+                          phone: widget.contact.phone,
+                          email: widget.contact.email,
+                          content: widget.contact.content,
+                          resolve: true,
+                          contentReply: _replyController.text
+                        );
                         context
                             .read<DashboardContactItemCubit>()
-                            .resolvedContact();
+                            .resolvedContact(contactResolved);
                       },
                       label: text.reply,
                       updateLoading: (state) {

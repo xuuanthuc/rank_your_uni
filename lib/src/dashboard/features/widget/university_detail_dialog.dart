@@ -33,9 +33,12 @@ class _UniversityDetailDialogState extends State<UniversityDetailDialog> {
     _addressController.text = widget.university.address ?? "";
     _websiteController.text = widget.university.website ?? "";
     _abbreviaController.text = widget.university.abbrevia ?? "";
+    _isActive = widget.university.status == 1;
   }
 
   final _formKey = GlobalKey<FormState>();
+
+  late bool _isActive;
 
   final TextEditingController _nameController = TextEditingController();
 
@@ -65,11 +68,9 @@ class _UniversityDetailDialogState extends State<UniversityDetailDialog> {
             DashboardUniversityItemState>(
           listener: (context, state) {
             if (state.status == DashboardUniversityStatus.success) {
-              appToast(
-                context,
-                message: AppLocalizations.of(context)!.updateSuccess,
-                type: ToastType.success
-              );
+              appToast(context,
+                  message: AppLocalizations.of(context)!.updateSuccess,
+                  type: ToastType.success);
               context.pop(state.university);
             } else if (state.status == DashboardUniversityStatus.error) {
               appToast(
@@ -106,6 +107,26 @@ class _UniversityDetailDialogState extends State<UniversityDetailDialog> {
                     label: text.website,
                     controller: _websiteController,
                   ),
+                  Row(
+                    children: [
+                      Switch(
+                        // This bool value toggles the switch.
+                        value: _isActive,
+                        activeColor: Colors.red,
+                        onChanged: (bool value) {
+                          // This is called when the user toggles the switch.
+                          setState(() {
+                            _isActive = !_isActive;
+                          });
+                        },
+                      ),
+                      const SizedBox(width: 20),
+                      Text(
+                        text.universityActived,
+                        style: theme.primaryTextTheme.labelLarge,
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,6 +143,7 @@ class _UniversityDetailDialogState extends State<UniversityDetailDialog> {
                                   address: _addressController.text,
                                   website: _websiteController.text,
                                   code: _abbreviaController.text,
+                                  status: _isActive ? 1 : 0,
                                 ));
                           }
                         },

@@ -9,6 +9,7 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/loading.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../../global/utilities/toast.dart';
 import '../../screens/widgets/point_container.dart';
 import '../bloc/dashboard_cubit.dart';
 
@@ -124,56 +125,57 @@ class _ItemUniverSityState extends State<ItemUniverSity> {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return BlocBuilder<DashboardUniversityItemCubit,
+    return BlocListener<DashboardUniversityItemCubit,
         DashboardUniversityItemState>(
-      builder: (context, state) {
-        if (state.university != null) {
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 50,
-                  child: Text(
-                    state.university!.id.toString(),
-                    textAlign: TextAlign.center,
-                    style: theme.primaryTextTheme.titleLarge,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: PointContainer.tiny(
-                    point: state.university!.averagePointAllReviews ?? 0,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    state.university!.name ?? '',
-                  ),
-                ),
-                SizedBox(
-                  width: ResponsiveBuilder.setSize(
-                    context,
-                    extraSize: 110,
-                    smallSize: 20,
-                  ),
-                  child: ResponsiveBuilder(
-                    smallView: Center(
-                      child: Container(
-                        width: 10,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: state.university!.status ==
-                                  UniversityStatus.approved
-                              ? AppColors.success
-                              : AppColors.warning,
-                        ),
-                      ),
+      listener: (context, state) {
+        if (state.status == DashboardUniversityStatus.success) {
+          appToast(context,
+              message: AppLocalizations.of(context)!.updateSuccess,
+              type: ToastType.success);
+        } else if (state.status == DashboardUniversityStatus.error) {
+          appToast(
+            context,
+            message: AppLocalizations.of(context)!.somethingWrong,
+            subMessage: state.errorMessage,
+          );
+        }
+      },
+      child: BlocBuilder<DashboardUniversityItemCubit,
+          DashboardUniversityItemState>(
+        builder: (context, state) {
+         if (state.university != null) {
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 50,
+                    child: Text(
+                      state.university!.id.toString(),
+                      textAlign: TextAlign.center,
+                      style: theme.primaryTextTheme.titleLarge,
                     ),
-                    child: Row(
-                      children: [
-                        Container(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: PointContainer.tiny(
+                      point: state.university!.averagePointAllReviews ?? 0,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      state.university!.name ?? '',
+                    ),
+                  ),
+                  SizedBox(
+                    width: ResponsiveBuilder.setSize(
+                      context,
+                      extraSize: 110,
+                      smallSize: 20,
+                    ),
+                    child: ResponsiveBuilder(
+                      smallView: Center(
+                        child: Container(
                           width: 10,
                           height: 10,
                           decoration: BoxDecoration(
@@ -184,65 +186,82 @@ class _ItemUniverSityState extends State<ItemUniverSity> {
                                 : AppColors.warning,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        Text(
-                          state.university!.status == UniversityStatus.approved
-                              ? text.approved
-                              : text.requesting,
-                        )
-                      ],
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: state.university!.status ==
+                                      UniversityStatus.approved
+                                  ? AppColors.success
+                                  : AppColors.warning,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            state.university!.status ==
+                                    UniversityStatus.approved
+                                ? text.approved
+                                : text.requesting,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 4),
-                PopupMenuButton(
-                  color: Colors.white,
-                  surfaceTintColor: Colors.transparent,
-                  itemBuilder: (context) => [
-                    if (state.university!.status == UniversityStatus.requesting)
+                  const SizedBox(width: 4),
+                  PopupMenuButton(
+                    color: Colors.white,
+                    surfaceTintColor: Colors.transparent,
+                    itemBuilder: (context) => [
+                      if (state.university!.status ==
+                          UniversityStatus.requesting)
+                        PopupMenuItem(
+                          child: Text(
+                            text.approve,
+                            style: theme.primaryTextTheme.titleLarge,
+                          ),
+                          onTap: () {
+                            context
+                                .read<DashboardUniversityItemCubit>()
+                                .approveUniversity();
+                          },
+                        ),
                       PopupMenuItem(
                         child: Text(
-                          text.approve,
+                          text.edit,
+                          style: theme.primaryTextTheme.titleLarge,
+                        ),
+                        onTap: () => _showUniversityDetailDialog(
+                          context,
+                          state.university!,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: Text(
+                          state.university!.status == UniversityStatus.approved
+                              ? text.delete
+                              : text.reject,
                           style: theme.primaryTextTheme.titleLarge,
                         ),
                         onTap: () {
                           context
                               .read<DashboardUniversityItemCubit>()
-                              .approveUniversity();
+                              .deleteUniversity();
                         },
                       ),
-                    PopupMenuItem(
-                      child: Text(
-                        text.edit,
-                        style: theme.primaryTextTheme.titleLarge,
-                      ),
-                      onTap: () => _showUniversityDetailDialog(
-                        context,
-                        state.university!,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      child: Text(
-                        state.university!.status == UniversityStatus.approved
-                            ? text.delete
-                            : text.reject,
-                        style: theme.primaryTextTheme.titleLarge,
-                      ),
-                      onTap: () {
-                        context
-                            .read<DashboardUniversityItemCubit>()
-                            .deleteUniversity();
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
+                    ],
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
