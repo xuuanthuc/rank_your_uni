@@ -9,6 +9,7 @@ abstract class ApiEndpoint{
   static String get password => '/account/change-password';
   static String get contact => '/contact';
   static String get contacts => '/admin/contacts';
+  static String get accounts => '/admin/users';
   static String get replyContact => '/admin/reply-contact';
   static String get myReviews => '/reviews-of-user';
   static String get forgotPassword => '/account/reset-password/init';

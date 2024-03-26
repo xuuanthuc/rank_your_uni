@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/app_colors.dart';
 import 'package:template/global/style/styles.dart';
+import 'package:template/src/dashboard/features/dashboard_account.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/dashboard_cubit.dart';
 import 'features/dashboard_contact.dart';
@@ -41,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     DashboardPage(
       icon: Icons.person,
       title: "Tài khoản",
-      child: Container(),
+      child: const DashboardAccounts(),
       type: DashboardPages.user,
     ),
     DashboardPage(
@@ -53,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     DashboardPage(
       icon: Icons.contact_support_rounded,
       title: "Liên hệ",
-      child: const DashboardContact(),
+      child: const DashboardContacts(),
       type: DashboardPages.contact,
     ),
   ];

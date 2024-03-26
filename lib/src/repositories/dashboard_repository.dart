@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/response/contact.dart';
+import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
@@ -44,6 +45,26 @@ class DashboardRepository {
         contacts.add(Contact.fromJson(element));
       }
       return RYUResponse(isSuccess: true, data: contacts);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> getAccounts() async {
+    try {
+      final res = await _apiProvider.get(
+        ApiEndpoint.accounts,
+        params: {
+          'keyword': "",
+          'pageIndex': 0,
+          'pageSize': 9999,
+        },
+      );
+      final List<Profile> accounts = [];
+      for (var element in (res['listItem'] as List<dynamic>)) {
+        accounts.add(Profile.fromJson(element));
+      }
+      return RYUResponse(isSuccess: true, data: accounts);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

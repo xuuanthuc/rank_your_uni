@@ -12,11 +12,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i21;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:template/global/storage/storage_provider.dart' as _i20;
-import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart'
+import 'package:template/src/dashboard/bloc/account/dashboard_account_item_cubit.dart'
     as _i26;
-import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit.dart'
+import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart'
     as _i27;
-import 'package:template/src/dashboard/bloc/dashboard_cubit.dart' as _i28;
+import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit.dart'
+    as _i28;
+import 'package:template/src/dashboard/bloc/dashboard_cubit.dart' as _i29;
 import 'package:template/src/dashboard/bloc/university/dashboard_university_item_cubit.dart'
     as _i11;
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart'
@@ -38,17 +40,17 @@ import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i6;
 import 'package:template/src/screens/authentication/bloc/auth_form_cubit.dart'
     as _i7;
 import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i25;
-import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i29;
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i30;
 import 'package:template/src/screens/detail/bloc/report_cubit.dart' as _i14;
 import 'package:template/src/screens/detail/bloc/review_item_cubit.dart'
     as _i17;
-import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i30;
+import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i31;
 import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i13;
-import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i31;
+import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i32;
 import 'package:template/src/screens/reset/bloc/reset_password_cubit.dart'
     as _i15;
 import 'package:template/src/screens/review/bloc/review_cubit.dart' as _i16;
-import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i32;
+import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i33;
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart'
     as _i24;
 
@@ -115,19 +117,21 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i24.AutocompletionCubit(gh<_i18.SearchRepository>()));
     gh.factory<_i25.CompareCubit>(
         () => _i25.CompareCubit(gh<_i12.DetailRepository>()));
-    gh.factory<_i26.DashboardAuthenticationCubit>(() =>
-        _i26.DashboardAuthenticationCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i27.DashboardContactItemCubit>(
-        () => _i27.DashboardContactItemCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i28.DashboardCubit>(
-        () => _i28.DashboardCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i29.DetailCubit>(
-        () => _i29.DetailCubit(gh<_i12.DetailRepository>()));
-    gh.factory<_i30.HelpCubit>(() => _i30.HelpCubit(gh<_i22.UserRepository>()));
-    gh.factory<_i31.ProfileCubit>(
-        () => _i31.ProfileCubit(gh<_i22.UserRepository>()));
-    gh.factory<_i32.SearchCubit>(
-        () => _i32.SearchCubit(gh<_i18.SearchRepository>()));
+    gh.factory<_i26.DashboardAccountItemCubit>(
+        () => _i26.DashboardAccountItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i27.DashboardAuthenticationCubit>(() =>
+        _i27.DashboardAuthenticationCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i28.DashboardContactItemCubit>(
+        () => _i28.DashboardContactItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i29.DashboardCubit>(
+        () => _i29.DashboardCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i30.DetailCubit>(
+        () => _i30.DetailCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i31.HelpCubit>(() => _i31.HelpCubit(gh<_i22.UserRepository>()));
+    gh.factory<_i32.ProfileCubit>(
+        () => _i32.ProfileCubit(gh<_i22.UserRepository>()));
+    gh.factory<_i33.SearchCubit>(
+        () => _i33.SearchCubit(gh<_i18.SearchRepository>()));
     return this;
   }
 }

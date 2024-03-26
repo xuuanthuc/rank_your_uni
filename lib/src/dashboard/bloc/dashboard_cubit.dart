@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:template/src/models/response/contact.dart';
+import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/search_response.dart';
 import '../../models/response/university.dart';
 import '../../repositories/dashboard_repository.dart';
@@ -20,6 +21,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(page: page.type));
     switch (state.page) {
       case DashboardPages.user:
+        getAllAccounts();
         break;
       case DashboardPages.university:
         getAllUniversities();
@@ -37,6 +39,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   void onRefresh(){
     switch (state.page) {
       case DashboardPages.user:
+        getAllAccounts(isRefresh: true);
         break;
       case DashboardPages.university:
         getAllUniversities(isRefresh: true);
@@ -89,6 +92,27 @@ class DashboardCubit extends Cubit<DashboardState> {
       emit(state.copyWith(
         status: DashboardStatus.error,
         contacts: [],
+      ));
+    }
+  }
+
+  getAllAccounts({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.accounts ?? []).isNotEmpty) return;
+    }
+    emit(state.copyWith(status: DashboardStatus.loading));
+    final List<Profile> accounts = [];
+    final res = await _adminRepository.getAccounts();
+    if (res.isSuccess) {
+      accounts.addAll(res.data as List<Profile>);
+      emit(state.copyWith(
+        status: DashboardStatus.success,
+        accounts: accounts,
+      ));
+    } else {
+      emit(state.copyWith(
+        status: DashboardStatus.error,
+        accounts: [],
       ));
     }
   }

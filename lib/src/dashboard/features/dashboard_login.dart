@@ -36,6 +36,8 @@ class _DashboardLoginState extends State<DashboardLogin> {
     context.read<DashboardAuthenticationCubit>().signInDashboard(raw);
   }
 
+  var _is18PlusMode = false;
+
   @override
   void dispose() {
     super.dispose();
@@ -46,11 +48,6 @@ class _DashboardLoginState extends State<DashboardLogin> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final text = AppLocalizations.of(context)!;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _controller.play();
-      });
-    });
     return BlocListener<DashboardAuthenticationCubit,
         DashboardAuthenticationState>(
       listener: (context, state) {
@@ -70,13 +67,30 @@ class _DashboardLoginState extends State<DashboardLogin> {
             SizedBox.expand(
               child: FittedBox(
                 fit: BoxFit.cover,
-                child: SizedBox(
-                  width: _controller.value.size.width,
-                  height: _controller.value.size.height,
-                  child: VideoPlayer(_controller),
-                ),
+                child: _is18PlusMode
+                    ? SizedBox(
+                        width: _controller.value.size.width,
+                        height: _controller.value.size.height,
+                        child: VideoPlayer(_controller),
+                      )
+                    : Image.asset(AppImages.bgDashboardLogin),
               ),
             ),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    _is18PlusMode = !_is18PlusMode;
+                    if (_is18PlusMode) {
+                      _controller.play();
+                    } else {
+                      _controller.pause();
+                    }
+                  });
+                },
+                icon: const Icon(
+                  Icons.play_circle_outline,
+                  color: Colors.white,
+                )),
             BlocBuilder<DashboardAuthenticationCubit,
                 DashboardAuthenticationState>(
               builder: (context, state) {

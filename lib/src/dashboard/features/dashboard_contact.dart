@@ -11,8 +11,8 @@ import '../../screens/widgets/responsive_builder.dart';
 import '../bloc/contact/dashboard_contact_item_cubit.dart';
 import '../bloc/dashboard_cubit.dart';
 
-class DashboardContact extends StatelessWidget {
-  const DashboardContact({super.key});
+class DashboardContacts extends StatelessWidget {
+  const DashboardContacts({super.key});
 
   @override
   Widget build(BuildContext context) {
