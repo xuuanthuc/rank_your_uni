@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/search/school',
-          name: RouteKey.search,
+          name: RouteKey.searchUniversity,
           redirect: (BuildContext context, GoRouterState state) {
             final data = state.uri.queryParameters;
             if ((data['q'] ?? '').isEmpty) {

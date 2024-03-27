@@ -40,13 +40,13 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchCubit>().onSearch(widget.keyword ?? "");
+    context.read<SearchCubit>().onSearchUniversities(widget.keyword ?? "");
   }
 
   @override
   void didUpdateWidget(covariant SearchView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    context.read<SearchCubit>().onSearch(widget.keyword ?? "");
+    context.read<SearchCubit>().onSearchUniversities(widget.keyword ?? "");
   }
 
   @override

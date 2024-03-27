@@ -19,10 +19,26 @@ part 'app_settings_state.dart';
 class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
   final UserRepository _userRepository;
 
-  AppSettingsBloc(this._userRepository) : super(const AppSettingsState()) {
+  AppSettingsBloc(this._userRepository)
+      : super(const AppSettingsState(
+          type: SearchType.university,
+        )) {
     on<UpdateUserProfileEvent>(_updateUserProfile);
     on<UpdatePasswordEvent>(_updatePassword);
     on<GetUserProfileEvent>(_getUserProfile);
+    on<ChangeSearchTypeEvent>(_changeSearchType);
+  }
+
+  void _changeSearchType(
+    ChangeSearchTypeEvent event,
+    Emitter<AppSettingsState> emit,
+  ) {
+    emit(state.copyWith(
+      type: state.type == SearchType.university
+          ? SearchType.professor
+          : SearchType.university,
+      action: AppSettingAction.changeSearchType,
+    ));
   }
 
   void _getUserProfile(

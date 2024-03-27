@@ -234,5 +234,8 @@
   "reply": "Phản hồi",
   "universityActived": "Bật/tắt trạng thái đã duyệt",
   "nonReply": "Chưa phản hồi câu hỏi này",
-  "refresh": "Làm mới"
+  "refresh": "Làm mới",
+  "findUniversity": "Bạn muốn tìm một trường",
+  "findYourProfessor": "Tìm giảng viên của bạn",
+  "professorName": "Tên giảng viên"
 }

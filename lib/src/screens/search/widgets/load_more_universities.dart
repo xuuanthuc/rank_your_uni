@@ -52,7 +52,7 @@ class LoadMoreUniversities extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 25),
                           child: PrimaryButton(
                             onTap: () =>
-                                context.read<SearchCubit>().loadMore(),
+                                context.read<SearchCubit>().loadMoreUniversities(),
                             title: text.seeMore,
                           ),
                         );

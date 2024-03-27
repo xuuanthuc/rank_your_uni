@@ -15,7 +15,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchCubit(this._searchRepository) : super(const SearchState());
 
-  onSearch(String keyword) async {
+  onSearchUniversities(String keyword) async {
     final List<University> universities = [];
     emit(state.copyWith(status: SearchStatus.init));
     final res = await _searchRepository.getUniversities(keyword, 0);
@@ -37,7 +37,7 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  loadMore() async {
+  loadMoreUniversities() async {
     if (state.status == SearchStatus.loadingMore ||
         (state.keyword ?? '').isEmpty) return;
     final newPage = (state.currentPage ?? 0) + 1;

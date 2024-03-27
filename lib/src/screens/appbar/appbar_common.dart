@@ -135,8 +135,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                                 AppBarLogo(isHome: isHome),
                                 !isHome
                                     ? AppBarTextField(
-                                        theme: theme,
-                                        text: text,
                                         keyword: keyword,
                                       )
                                     : const Spacer(),
@@ -156,8 +154,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                               return Row(
                                 children: [
                                   AppBarTextField(
-                                    theme: theme,
-                                    text: text,
                                     keyword: keyword,
                                   ),
                                   PrimaryButton(
@@ -214,8 +210,6 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                           AppBarLogo(isHome: isHome),
                           !isHome
                               ? AppBarTextField(
-                                  theme: theme,
-                                  text: text,
                                   keyword: keyword,
                                 )
                               : const Spacer(),

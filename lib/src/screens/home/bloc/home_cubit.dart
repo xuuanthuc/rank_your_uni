@@ -6,6 +6,5 @@ part 'home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
-
   HomeCubit() : super(const HomeState());
 }

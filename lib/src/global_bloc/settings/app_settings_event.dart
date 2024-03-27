@@ -28,3 +28,9 @@ class GetUserProfileEvent extends AppSettingsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ChangeSearchTypeEvent extends AppSettingsEvent {
+
+  @override
+  List<Object?> get props => [];
+}
