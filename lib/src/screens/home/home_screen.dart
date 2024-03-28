@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/di/dependencies.dart';
+import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/home/widgets/home_description.dart';
 import 'package:template/src/screens/home/widgets/landing_view.dart';
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
@@ -31,7 +32,9 @@ class HomeScreen extends StatelessWidget {
           LandingView(
             onSearch: (keyword, type) {
               context.goNamed(
-                RouteKey.searchUniversity,
+                type == SearchType.university
+                    ? RouteKey.searchUniversity
+                    : RouteKey.searchProfessor,
                 queryParameters: {"q": keyword},
               );
             },

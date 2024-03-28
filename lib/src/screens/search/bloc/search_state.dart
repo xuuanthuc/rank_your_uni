@@ -10,10 +10,12 @@ enum SearchStatus {
 @immutable
 class SearchState extends Equatable {
   final List<University>? universities;
+  final List<Professor>? professores;
   final SearchStatus? status;
   final int? currentPage;
   final String? keyword;
   final SearchModel? searchModel;
+  final SearchProfessorModel? searchProfessorModel;
 
   const SearchState({
     this.universities,
@@ -21,6 +23,8 @@ class SearchState extends Equatable {
     this.currentPage,
     this.keyword,
     this.searchModel,
+    this.professores,
+    this.searchProfessorModel,
   });
 
   SearchState copyWith({
@@ -29,6 +33,8 @@ class SearchState extends Equatable {
     int? currentPage,
     String? keyword,
     SearchModel? searchModel,
+    SearchProfessorModel? searchProfessorModel,
+    List<Professor>? professores,
   }) {
     return SearchState(
       universities: universities ?? this.universities,
@@ -36,6 +42,8 @@ class SearchState extends Equatable {
       currentPage: currentPage ?? this.currentPage,
       searchModel: searchModel ?? this.searchModel,
       keyword: keyword ?? this.keyword,
+      professores: professores ?? this.professores,
+      searchProfessorModel: searchProfessorModel ?? this.searchProfessorModel,
     );
   }
 

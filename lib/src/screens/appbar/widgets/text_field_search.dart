@@ -45,7 +45,9 @@ class _AppBarTextFieldState extends State<AppBarTextField> {
               onEditingComplete: () {
                 if (_controller.text.trim().isEmpty) return;
                 context.goNamed(
-                  RouteKey.searchUniversity,
+                  state.type == SearchType.university
+                      ? RouteKey.searchUniversity
+                      : RouteKey.searchProfessor,
                   queryParameters: {"q": _controller.text.trim()},
                 );
               },

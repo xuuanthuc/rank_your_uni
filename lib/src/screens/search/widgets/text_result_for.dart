@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../global/style/styles.dart';
 import '../bloc/search_cubit.dart';
 
-class TextResultUniversities extends StatelessWidget {
+class TextResult extends StatelessWidget {
   final String? keyword;
 
-  const TextResultUniversities({super.key, required this.keyword});
+  const TextResult({super.key, required this.keyword});
 
   @override
   Widget build(BuildContext context) {

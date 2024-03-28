@@ -6,6 +6,7 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
+import 'package:template/src/screens/add/add_professor.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/reset/reset_password_screen.dart';
@@ -18,6 +19,7 @@ import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/delete_review_success.dart';
 import 'package:template/src/screens/review/review_screen.dart';
 import 'package:template/src/screens/review/review_success.dart';
+import 'package:template/src/screens/search/search_professores_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import 'package:template/src/screens/term_and_policy/privacy_policy_screen.dart';
 import 'package:template/src/screens/term_and_policy/terms_of_services.dart';
@@ -75,6 +77,28 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: SearchScreen(
+                keyword: data['q'],
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/search/lecturers',
+          name: RouteKey.searchProfessor,
+          redirect: (BuildContext context, GoRouterState state) {
+            final data = state.uri.queryParameters;
+            if ((data['q'] ?? '').isEmpty) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final data = state.uri.queryParameters;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: SearchProfessorScreen(
                 keyword: data['q'],
               ),
             );
@@ -295,6 +319,17 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: const AddUniversity(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/add/lecturer',
+          name: RouteKey.addProfessor,
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const AddProfessor(),
             );
           },
         ),

@@ -1,25 +1,25 @@
-part of 'add_university_cubit.dart';
+part of 'add_cubit.dart';
 
-enum AddUniStatus { loading, changed, error, success }
+enum AddStatus { loading, changed, error, success }
 
 @immutable
-class AddUniversityState extends Equatable {
-  final AddUniStatus? status;
+class AddState extends Equatable {
+  final AddStatus? status;
   final AddUniversityRaw? addUniversityRaw;
   final bool? acceptPrivacy;
 
-  const AddUniversityState({
+  const AddState({
     this.status,
     this.addUniversityRaw,
     this.acceptPrivacy,
   });
 
-  AddUniversityState copyWith({
-    AddUniStatus? status,
+  AddState copyWith({
+    AddStatus? status,
     AddUniversityRaw? addUniversityRaw,
     bool? acceptPrivacy,
   }) {
-    return AddUniversityState(
+    return AddState(
       status: status ?? this.status,
       addUniversityRaw: addUniversityRaw ?? this.addUniversityRaw,
       acceptPrivacy: acceptPrivacy ?? this.acceptPrivacy,

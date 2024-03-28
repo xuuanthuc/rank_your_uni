@@ -133,7 +133,7 @@
   "edit": "Chỉnh sửa",
   "updateAccount": "Cập nhật tài khoản",
   "addAUniversity":"Thêm một trường đại học",
-  "addAUniversityWarning":"Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng trường đó chưa tồn tại.",
+  "addAUniversityWarning":"Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng trường bạn muốn thêm chưa tồn tại.",
   "nameOfUniversity":"Tên trường đại học",
   "stateOrWard":"Quận/Huyện",
   "cityOrProvince":"Tỉnh/Thành Phố",
@@ -237,5 +237,13 @@
   "refresh": "Làm mới",
   "findUniversity": "Bạn muốn tìm một trường",
   "findYourProfessor": "Tìm giảng viên của bạn",
-  "professorName": "Tên giảng viên"
+  "professorName": "Tên giảng viên",
+  "noResultForProfessor" : "Không tìm thấy tên giảng viên bạn đang tìm kiếm?",
+  "addProfessor": "Thêm giảng viên",
+  "addAProfessor": "Thêm một giảng viên",
+  "addAProfessorWarning": "Vui lòng sử dụng thanh tìm kiếm ở trên để đảm bảo rằng giảng viên bạn muốn thêm chưa tồn tại.",
+  "universityOfProfessor" : "Tên trường học",
+  "fullName" : "Tên đầy đủ",
+  "major": "Chuyên ngành giảng dạy",
+  "searchUniversities": "Tìm trường học"
 }

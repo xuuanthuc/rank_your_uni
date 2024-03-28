@@ -4,16 +4,15 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
+import 'package:template/src/screens/search/widgets/load_more_professores.dart';
 import 'package:template/src/screens/search/widgets/search_results_list.dart';
 import 'package:template/src/screens/search/widgets/text_result_for.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
-import 'widgets/load_more_universities.dart';
-
-class SearchScreen extends StatelessWidget {
+class SearchProfessorScreen extends StatelessWidget {
   final String? keyword;
 
-  const SearchScreen({super.key, this.keyword});
+  const SearchProfessorScreen({super.key, this.keyword});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +39,13 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchCubit>().onSearchUniversities(widget.keyword ?? "");
+    context.read<SearchCubit>().onSearchProfessores(widget.keyword ?? "");
   }
 
   @override
   void didUpdateWidget(covariant SearchView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    context.read<SearchCubit>().onSearchUniversities(widget.keyword ?? "");
+    context.read<SearchCubit>().onSearchProfessores(widget.keyword ?? "");
   }
 
   @override
@@ -67,8 +66,8 @@ class _SearchViewState extends State<SearchView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextResult(keyword: widget.keyword),
-          const SearchResultsView(),
-          const LoadMoreUniversities(),
+          const SearchProfessorResultsView(),
+          const LoadMoreProfessores(),
         ],
       ),
     );

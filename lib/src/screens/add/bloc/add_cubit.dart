@@ -6,34 +6,34 @@ import 'package:template/src/models/response/province.dart';
 import '../../../models/request/add_university_request.dart';
 import '../../../repositories/detail_repository.dart';
 
-part 'add_university_state.dart';
+part 'add_state.dart';
 
 @injectable
-class AddUniversityCubit extends Cubit<AddUniversityState> {
+class AddCubit extends Cubit<AddState> {
   final DetailRepository _detailRepository;
 
-  AddUniversityCubit(this._detailRepository)
-      : super(const AddUniversityState());
+  AddCubit(this._detailRepository)
+      : super(const AddState());
 
   void onSelectedProvinceDistrict(Province province, Districts districts) {
-    emit(state.copyWith(status: AddUniStatus.loading));
+    emit(state.copyWith(status: AddStatus.loading));
     emit(state.copyWith(
       addUniversityRaw: (state.addUniversityRaw ?? AddUniversityRaw())
         ..province = province
         ..districts = districts,
-      status: AddUniStatus.changed,
+      status: AddStatus.changed,
     ));
   }
 
   void onCheckPrivacy() {
     emit(state.copyWith(
       acceptPrivacy: !(state.acceptPrivacy ?? false),
-      status: AddUniStatus.changed,
+      status: AddStatus.changed,
     ));
   }
 
   void clearAll() {
-    emit(const AddUniversityState());
+    emit(const AddState());
   }
 
   void submitAddUniversity({
@@ -43,7 +43,7 @@ class AddUniversityCubit extends Cubit<AddUniversityState> {
   }) async {
     if (state.acceptPrivacy != true) return;
     emit(state.copyWith(
-      status: AddUniStatus.loading,
+      status: AddStatus.loading,
       addUniversityRaw: state.addUniversityRaw
         ?..code = code
         ..website = website
@@ -54,9 +54,9 @@ class AddUniversityCubit extends Cubit<AddUniversityState> {
     final result =
         await _detailRepository.addUniversity(state.addUniversityRaw!);
     if (result.isSuccess) {
-      emit(state.copyWith(status: AddUniStatus.success));
+      emit(state.copyWith(status: AddStatus.success));
     } else {
-      emit(state.copyWith(status: AddUniStatus.error));
+      emit(state.copyWith(status: AddStatus.error));
     }
   }
 }

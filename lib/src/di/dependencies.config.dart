@@ -32,7 +32,7 @@ import 'package:template/src/repositories/dashboard_repository.dart' as _i10;
 import 'package:template/src/repositories/detail_repository.dart' as _i12;
 import 'package:template/src/repositories/search_repository.dart' as _i18;
 import 'package:template/src/repositories/user_repository.dart' as _i22;
-import 'package:template/src/screens/add/bloc/add_university_cubit.dart'
+import 'package:template/src/screens/add/bloc/add_cubit.dart'
     as _i23;
 import 'package:template/src/screens/add/bloc/select_province_cubit.dart'
     as _i19;
@@ -109,8 +109,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i20.StorageProvider>(
         () => _i20.StorageProvider(gh<_i21.FlutterSecureStorage>()));
     gh.factory<_i22.UserRepository>(() => _i22.UserRepository());
-    gh.factory<_i23.AddUniversityCubit>(
-        () => _i23.AddUniversityCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i23.AddCubit>(
+        () => _i23.AddCubit(gh<_i12.DetailRepository>()));
     gh.factory<_i4.AppSettingsBloc>(
         () => _i4.AppSettingsBloc(gh<_i22.UserRepository>()));
     gh.factory<_i24.AutocompletionCubit>(

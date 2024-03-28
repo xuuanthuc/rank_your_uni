@@ -30,4 +30,24 @@ class SearchRepository {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
+
+  Future<RYUResponse> getProfessores(
+      String keyword,
+      int page, {
+        int? pageSize,
+      }) async {
+    try {
+      final res = await _apiProvider.get(
+        ApiEndpoint.professores,
+        // params: {
+        //   'keyword': keyword,
+        //   'pageIndex': page,
+        //   'pageSize': pageSize ?? 10,
+        // },
+      );
+      return RYUResponse(isSuccess: true, data: SearchProfessorModel.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
 }

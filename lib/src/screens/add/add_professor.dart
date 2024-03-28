@@ -4,73 +4,54 @@ import 'package:template/global/validators/validators.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/request/add_university_request.dart';
 import 'package:template/src/screens/add/bloc/add_cubit.dart';
-import 'package:template/src/screens/add/bloc/select_province_cubit.dart';
 import 'package:template/src/screens/add/widgets/add_university_dialog_success.dart';
-import 'package:template/src/screens/add/widgets/select_province_dialog.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
+import '../widgets/bloc/autocompletion_cubit.dart';
+import '../widgets/text_field_suggestion.dart';
 
-class AddUniversity extends StatelessWidget {
-  const AddUniversity({super.key});
+class AddProfessor extends StatelessWidget {
+  const AddProfessor({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<AddCubit>(),
-      child: const AddUniversityView(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt.get<AutocompletionCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt.get<AddCubit>(),
+        ),
+      ],
+      child: const AddProfessorView(),
     );
   }
 }
 
-class AddUniversityView extends StatefulWidget {
-  const AddUniversityView({super.key});
+class AddProfessorView extends StatefulWidget {
+  const AddProfessorView({super.key});
 
   @override
-  State<AddUniversityView> createState() => _AddUniversityViewState();
+  State<AddProfessorView> createState() => _AddProfessorViewState();
 }
 
-class _AddUniversityViewState extends State<AddUniversityView> {
-  Future<void> _selectProvince(BuildContext context) async {
-    final res = await showDialog<Map<String, dynamic>>(
-      context: context,
-      barrierColor: Colors.black12,
-      builder: (BuildContext context) {
-        return BlocProvider(
-          create: (context) => getIt.get<SelectProvinceCubit>(),
-          child: const SelectProvinceDialog(),
-        );
-      },
-    );
-    if (res != null) {
-      if (!context.mounted) return;
-      context.read<AddCubit>().onSelectedProvinceDistrict(
-            res['province'],
-            res['district'],
-          );
-    }
-  }
-
+class _AddProfessorViewState extends State<AddProfessorView> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
 
-  final TextEditingController _provinceController = TextEditingController();
+  final TextEditingController _universityController = TextEditingController();
 
-  final TextEditingController _districtController = TextEditingController();
-
-  final TextEditingController _websiteController = TextEditingController();
-
-  final TextEditingController _abbreviaController = TextEditingController();
+  final TextEditingController _majorController = TextEditingController();
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _provinceController.dispose();
-    _districtController.dispose();
-    _websiteController.dispose();
-    _abbreviaController.dispose();
+    _fullNameController.dispose();
+    _universityController.dispose();
+    _majorController.dispose();
     super.dispose();
   }
 
@@ -86,11 +67,9 @@ class _AddUniversityViewState extends State<AddUniversityView> {
         return AddUniversityDialogSuccess(university: university);
       },
     ).then((value) {
-      _nameController.clear();
-      _provinceController.clear();
-      _districtController.clear();
-      _websiteController.clear();
-      _abbreviaController.clear();
+      _fullNameController.clear();
+      _universityController.clear();
+      _majorController.clear();
       context.read<AddCubit>().clearAll();
     });
   }
@@ -122,47 +101,67 @@ class _AddUniversityViewState extends State<AddUniversityView> {
             },
             child: BlocBuilder<AddCubit, AddState>(
               builder: (context, state) {
-                _provinceController.text =
-                    state.addUniversityRaw?.province?.name ?? '';
-                _districtController.text =
-                    state.addUniversityRaw?.districts?.name ?? '';
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      text.addAUniversity,
+                      text.addAProfessor,
                       style: theme.primaryTextTheme.displayLarge,
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      text.addAUniversityWarning,
+                      text.addAProfessorWarning,
                       style: theme.primaryTextTheme.bodyMedium
                           ?.copyWith(fontStyle: FontStyle.italic),
                     ),
                     const SizedBox(height: 30),
                     TextAddField(
-                      label: text.nameOfUniversity,
-                      controller: _nameController,
+                      label: text.universityName,
+                      controller: _universityController,
+                    ),
+                    TextFieldAutocompleted(
+                      onSelected: (university) {
+                        _universityController.text = university.name ?? "";
+                      },
+                      inputDecorationCustom: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1, color: AppColors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1, color: AppColors.grey),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1, color: AppColors.grey),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1, color: AppColors.grey),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1, color: AppColors.grey),
+                        ),
+                        hoverColor: Colors.transparent,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        isDense: true,
+                      ),
                     ),
                     TextAddField(
-                      label: text.abbrevia,
-                      controller: _abbreviaController,
+                      label: text.professorName,
+                      controller: _fullNameController,
                     ),
                     TextAddField(
-                      label: text.cityOrProvince,
-                      readOnly: true,
-                      onTap: () => _selectProvince(context),
-                      controller: _provinceController,
-                    ),
-                    TextAddField(
-                      label: text.stateOrWard,
-                      readOnly: true,
-                      onTap: () => _selectProvince(context),
-                      controller: _districtController,
-                    ),
-                    TextAddField(
-                      label: text.website,
-                      controller: _websiteController,
+                      label: text.major,
+                      controller: _majorController,
                     ),
                     Row(
                       children: [
@@ -177,9 +176,7 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                                     color: AppColors.grey, width: 1),
                                 value: state.acceptPrivacy ?? false,
                                 onChanged: (bool? value) {
-                                  context
-                                      .read<AddCubit>()
-                                      .onCheckPrivacy();
+                                  context.read<AddCubit>().onCheckPrivacy();
                                 },
                               ),
                             );
@@ -198,21 +195,12 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        LoadingPrimaryButton<AddCubit,
-                            AddState>(
+                        LoadingPrimaryButton<AddCubit, AddState>(
                           buttonWidth: 270,
                           onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              context
-                                  .read<AddCubit>()
-                                  .submitAddUniversity(
-                                    name: _nameController.text,
-                                    website: _websiteController.text,
-                                    code: _abbreviaController.text,
-                                  );
-                            }
+                            if (_formKey.currentState!.validate()) {}
                           },
-                          label: text.addUniversity,
+                          label: text.addProfessor,
                           updateLoading: (state) {
                             return (state).status == AddStatus.loading;
                           },
