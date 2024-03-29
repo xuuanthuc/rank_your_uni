@@ -6,6 +6,7 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
 import '../models/request/sign_in_with_email_request.dart';
 import '../models/request/update_university_request.dart';
+import '../models/response/report.dart';
 import '../models/response/search_response.dart';
 import '../models/response/updated_university.dart';
 import './../../src/network/endpoint.dart';
@@ -70,6 +71,19 @@ class DashboardRepository {
     }
   }
 
+  Future<RYUResponse> getReports() async {
+    try {
+      final res = await _apiProvider.get(ApiEndpoint.report);
+      final List<Report> reports = [];
+      for (var element in (res['listItem'] as List<dynamic>)) {
+        reports.add(Report.fromJson(element));
+      }
+      return RYUResponse(isSuccess: true, data: reports);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
   Future<RYUResponse> resolveContacts(Contact contact) async {
     try {
       final res = await _apiProvider.post(
@@ -103,6 +117,15 @@ class DashboardRepository {
     }
   }
 
+  Future<RYUResponse> deleteReport(Report report) async {
+    try {
+      final res = await _apiProvider.delete("${ApiEndpoint.report}/${report.id}");
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
   Future<RYUResponse> signInWithEmailAndPassword(
     SignInWithEmailRaw signIn,
   ) async {
@@ -119,6 +142,15 @@ class DashboardRepository {
         code: e.code,
         isSuccess: false,
       );
+    }
+  }
+
+  Future<RYUResponse> deleteReview(int id) async {
+    try {
+      final res = await _apiProvider.delete('${ApiEndpoint.reviews}/$id');
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 }

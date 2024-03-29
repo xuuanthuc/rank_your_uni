@@ -245,5 +245,7 @@
   "universityOfProfessor" : "Tên trường học",
   "fullName" : "Tên đầy đủ",
   "major": "Chuyên ngành giảng dạy",
-  "searchUniversities": "Tìm trường học"
+  "searchUniversities": "Tìm trường học",
+  "acceptReview": "Đánh giá hợp lệ",
+  "reason": "Lý do"
 }

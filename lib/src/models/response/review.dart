@@ -82,6 +82,40 @@ class Review {
       schoolName: schoolName,
     );
   }
+
+  factory Review.fromReportJson(Map<String, dynamic> json) {
+    final id = json["id"];
+    final userId = json["user"]["id"];
+    final schoolId = json["school"]["id"];
+    final schoolName = json["school"]["schoolName"];
+    final content = json["contentRated"];
+    final reputation = json["reputation"];
+    final competition = json["competitionLevel"];
+    final favourite = json["favorite"];
+    final internet = json["internet"];
+    final location = json["location"];
+    final facilities = json["facilities"];
+    final food = json["food"];
+    final clubs = json["clubs"];
+    final reviewDate = json["reviewDate"];
+
+    return Review(
+      id,
+      content: content,
+      reputation: reputation,
+      competition: competition,
+      favourite: favourite,
+      internet: internet,
+      location: location,
+      facilities: facilities,
+      food: food,
+      clubs: clubs,
+      reviewDate: reviewDate,
+      userId: userId,
+      schoolId: schoolId,
+      schoolName: schoolName,
+    );
+  }
 }
 
 class Liked {

@@ -7,7 +7,6 @@ import 'package:template/src/dashboard/bloc/authenticate/dashboard_authenticatio
 import 'package:template/src/di/dependencies.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'dashboard/bloc/dashboard_cubit.dart';
 import 'dashboard/dashboard_root_screen.dart';
 import 'dashboard/features/dashboard_login.dart';

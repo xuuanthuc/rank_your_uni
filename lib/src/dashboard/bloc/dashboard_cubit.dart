@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:template/src/models/response/contact.dart';
 import 'package:template/src/models/response/profile.dart';
+import 'package:template/src/models/response/report.dart';
 import 'package:template/src/models/response/search_response.dart';
 import '../../models/response/university.dart';
 import '../../repositories/dashboard_repository.dart';
@@ -27,6 +28,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         getAllUniversities();
         break;
       case DashboardPages.report:
+        getAllReports();
         break;
       case null:
         break;
@@ -45,6 +47,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         getAllUniversities(isRefresh: true);
         break;
       case DashboardPages.report:
+        getAllReports(isRefresh: true);
         break;
       case null:
         break;
@@ -113,6 +116,27 @@ class DashboardCubit extends Cubit<DashboardState> {
       emit(state.copyWith(
         status: DashboardStatus.error,
         accounts: [],
+      ));
+    }
+  }
+
+  getAllReports({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.reports ?? []).isNotEmpty) return;
+    }
+    emit(state.copyWith(status: DashboardStatus.loading));
+    final List<Report> reports = [];
+    final res = await _adminRepository.getReports();
+    if (res.isSuccess) {
+      reports.addAll(res.data as List<Report>);
+      emit(state.copyWith(
+        status: DashboardStatus.success,
+        reports: reports,
+      ));
+    } else {
+      emit(state.copyWith(
+        status: DashboardStatus.error,
+        reports: [],
       ));
     }
   }

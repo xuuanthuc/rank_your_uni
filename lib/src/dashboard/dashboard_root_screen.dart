@@ -6,6 +6,7 @@ import 'package:template/src/dashboard/features/dashboard_account.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/dashboard_cubit.dart';
 import 'features/dashboard_contact.dart';
+import 'features/dashboard_reports.dart';
 import 'features/dashboard_universities.dart';
 
 class DashboardPage {
@@ -48,7 +49,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     DashboardPage(
       icon: Icons.info,
       title: "Báo cáo",
-      child: Container(),
+      child: const DashboardReports(),
       type: DashboardPages.report,
     ),
     DashboardPage(

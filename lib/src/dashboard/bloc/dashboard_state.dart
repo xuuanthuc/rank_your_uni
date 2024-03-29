@@ -15,6 +15,7 @@ class DashboardState extends Equatable {
   final List<University>? universities;
   final List<Contact>? contacts;
   final List<Profile>? accounts;
+  final List<Report>? reports;
 
   const DashboardState({
     this.status,
@@ -22,6 +23,7 @@ class DashboardState extends Equatable {
     this.universities,
     this.contacts,
     this.accounts,
+    this.reports,
   });
 
   DashboardState copyWith({
@@ -30,6 +32,7 @@ class DashboardState extends Equatable {
     List<University>? universities,
     List<Contact>? contacts,
     List<Profile>? accounts,
+    List<Report>? reports,
   }) {
     return DashboardState(
       status: status ?? this.status,
@@ -37,6 +40,7 @@ class DashboardState extends Equatable {
       universities: universities ?? this.universities,
       contacts: contacts ?? this.contacts,
       accounts: accounts ?? this.accounts,
+      reports: reports ?? this.reports,
     );
   }
 
@@ -47,5 +51,6 @@ class DashboardState extends Equatable {
         universities,
         contacts,
         accounts,
+        reports,
       ];
 }
