@@ -8,17 +8,17 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i21;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i22;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:template/global/storage/storage_provider.dart' as _i20;
+import 'package:template/global/storage/storage_provider.dart' as _i21;
 import 'package:template/src/dashboard/bloc/account/dashboard_account_item_cubit.dart'
-    as _i26;
-import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart'
     as _i27;
-import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit.dart'
+import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart'
     as _i28;
-import 'package:template/src/dashboard/bloc/dashboard_cubit.dart' as _i29;
+import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit.dart'
+    as _i29;
+import 'package:template/src/dashboard/bloc/dashboard_cubit.dart' as _i30;
 import 'package:template/src/dashboard/bloc/university/dashboard_university_item_cubit.dart'
     as _i11;
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart'
@@ -31,28 +31,29 @@ import 'package:template/src/repositories/auth_repository.dart' as _i8;
 import 'package:template/src/repositories/dashboard_repository.dart' as _i10;
 import 'package:template/src/repositories/detail_repository.dart' as _i12;
 import 'package:template/src/repositories/search_repository.dart' as _i18;
-import 'package:template/src/repositories/user_repository.dart' as _i22;
-import 'package:template/src/screens/add/bloc/add_cubit.dart'
-    as _i23;
+import 'package:template/src/repositories/user_repository.dart' as _i23;
+import 'package:template/src/screens/add/bloc/add_cubit.dart' as _i24;
 import 'package:template/src/screens/add/bloc/select_province_cubit.dart'
     as _i19;
+import 'package:template/src/screens/add/bloc/select_university_cubit.dart'
+    as _i20;
 import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i6;
 import 'package:template/src/screens/authentication/bloc/auth_form_cubit.dart'
     as _i7;
-import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i25;
-import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i30;
+import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i26;
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i31;
 import 'package:template/src/screens/detail/bloc/report_cubit.dart' as _i14;
 import 'package:template/src/screens/detail/bloc/review_item_cubit.dart'
     as _i17;
-import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i31;
+import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i32;
 import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i13;
-import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i32;
+import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i33;
 import 'package:template/src/screens/reset/bloc/reset_password_cubit.dart'
     as _i15;
 import 'package:template/src/screens/review/bloc/review_cubit.dart' as _i16;
-import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i33;
+import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i34;
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart'
-    as _i24;
+    as _i25;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -71,6 +72,7 @@ extension GetItInjectableX on _i1.GetIt {
           action: gh<_i4.AppSettingAction>(),
           errorMessage: gh<String>(),
           profileAuthenticated: gh<_i5.Profile>(),
+          type: gh<_i4.SearchType>(),
         ));
     gh.factory<_i6.AppbarCubit>(() => _i6.AppbarCubit());
     gh.factory<_i6.AppbarState>(() => _i6.AppbarState(
@@ -106,32 +108,33 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i17.ReviewItemCubit(gh<_i12.DetailRepository>()));
     gh.factory<_i18.SearchRepository>(() => _i18.SearchRepository());
     gh.factory<_i19.SelectProvinceCubit>(() => _i19.SelectProvinceCubit());
-    gh.lazySingleton<_i20.StorageProvider>(
-        () => _i20.StorageProvider(gh<_i21.FlutterSecureStorage>()));
-    gh.factory<_i22.UserRepository>(() => _i22.UserRepository());
-    gh.factory<_i23.AddCubit>(
-        () => _i23.AddCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i20.SelectUniversityCubit>(
+        () => _i20.SelectUniversityCubit(gh<_i18.SearchRepository>()));
+    gh.lazySingleton<_i21.StorageProvider>(
+        () => _i21.StorageProvider(gh<_i22.FlutterSecureStorage>()));
+    gh.factory<_i23.UserRepository>(() => _i23.UserRepository());
+    gh.factory<_i24.AddCubit>(() => _i24.AddCubit(gh<_i12.DetailRepository>()));
     gh.factory<_i4.AppSettingsBloc>(
-        () => _i4.AppSettingsBloc(gh<_i22.UserRepository>()));
-    gh.factory<_i24.AutocompletionCubit>(
-        () => _i24.AutocompletionCubit(gh<_i18.SearchRepository>()));
-    gh.factory<_i25.CompareCubit>(
-        () => _i25.CompareCubit(gh<_i12.DetailRepository>()));
-    gh.factory<_i26.DashboardAccountItemCubit>(
-        () => _i26.DashboardAccountItemCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i27.DashboardAuthenticationCubit>(() =>
-        _i27.DashboardAuthenticationCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i28.DashboardContactItemCubit>(
-        () => _i28.DashboardContactItemCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i29.DashboardCubit>(
-        () => _i29.DashboardCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i30.DetailCubit>(
-        () => _i30.DetailCubit(gh<_i12.DetailRepository>()));
-    gh.factory<_i31.HelpCubit>(() => _i31.HelpCubit(gh<_i22.UserRepository>()));
-    gh.factory<_i32.ProfileCubit>(
-        () => _i32.ProfileCubit(gh<_i22.UserRepository>()));
-    gh.factory<_i33.SearchCubit>(
-        () => _i33.SearchCubit(gh<_i18.SearchRepository>()));
+        () => _i4.AppSettingsBloc(gh<_i23.UserRepository>()));
+    gh.factory<_i25.AutocompletionCubit>(
+        () => _i25.AutocompletionCubit(gh<_i18.SearchRepository>()));
+    gh.factory<_i26.CompareCubit>(
+        () => _i26.CompareCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i27.DashboardAccountItemCubit>(
+        () => _i27.DashboardAccountItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i28.DashboardAuthenticationCubit>(() =>
+        _i28.DashboardAuthenticationCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i29.DashboardContactItemCubit>(
+        () => _i29.DashboardContactItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i30.DashboardCubit>(
+        () => _i30.DashboardCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i31.DetailCubit>(
+        () => _i31.DetailCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i32.HelpCubit>(() => _i32.HelpCubit(gh<_i23.UserRepository>()));
+    gh.factory<_i33.ProfileCubit>(
+        () => _i33.ProfileCubit(gh<_i23.UserRepository>()));
+    gh.factory<_i34.SearchCubit>(
+        () => _i34.SearchCubit(gh<_i18.SearchRepository>()));
     return this;
   }
 }

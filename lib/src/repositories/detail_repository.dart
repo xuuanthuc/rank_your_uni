@@ -6,6 +6,7 @@ import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
+import '../models/request/add_professor_request.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -133,6 +134,19 @@ class DetailRepository {
       final res = await _apiProvider.post(
         ApiEndpoint.search,
         params: university.toJson(),
+        needToken: false,
+      );
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> addProfessor(AddProfessorRaw professor) async {
+    try {
+      final res = await _apiProvider.post(
+        ApiEndpoint.professor,
+        params: professor.toJson(),
         needToken: false,
       );
       return RYUResponse(isSuccess: true, data: res);

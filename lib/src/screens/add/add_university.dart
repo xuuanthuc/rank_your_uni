@@ -116,7 +116,8 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                 appToast(
                   context,
                   message: AppLocalizations.of(context)!.somethingWrong,
-                  subMessage: AppLocalizations.of(context)!.tryAgainLater,
+                  subMessage: state.message ??
+                      AppLocalizations.of(context)!.tryAgainLater,
                 );
               }
             },
@@ -177,9 +178,7 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                                     color: AppColors.grey, width: 1),
                                 value: state.acceptPrivacy ?? false,
                                 onChanged: (bool? value) {
-                                  context
-                                      .read<AddCubit>()
-                                      .onCheckPrivacy();
+                                  context.read<AddCubit>().onCheckPrivacy();
                                 },
                               ),
                             );
@@ -198,14 +197,11 @@ class _AddUniversityViewState extends State<AddUniversityView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        LoadingPrimaryButton<AddCubit,
-                            AddState>(
+                        LoadingPrimaryButton<AddCubit, AddState>(
                           buttonWidth: 270,
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              context
-                                  .read<AddCubit>()
-                                  .submitAddUniversity(
+                              context.read<AddCubit>().submitAddUniversity(
                                     name: _nameController.text,
                                     website: _websiteController.text,
                                     code: _abbreviaController.text,
