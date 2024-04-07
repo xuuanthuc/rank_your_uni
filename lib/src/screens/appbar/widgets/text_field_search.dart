@@ -34,49 +34,61 @@ class _AppBarTextFieldState extends State<AppBarTextField> {
     final theme = Theme.of(context);
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-          builder: (context, state) {
-            return TextField(
-              controller: _controller,
-              style: theme.primaryTextTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-              onEditingComplete: () {
-                if (_controller.text.trim().isEmpty) return;
-                context.goNamed(
-                  state.type == SearchType.university
-                      ? RouteKey.searchUniversity
-                      : RouteKey.searchProfessor,
-                  queryParameters: {"q": _controller.text.trim()},
-                );
-              },
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: state.type == SearchType.university
-                    ? text.yourUniversity
-                    : text.professorName,
-                hintStyle: theme.primaryTextTheme.bodyLarge
-                    ?.copyWith(color: AppColors.textGrey),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                hoverColor: Colors.transparent,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 12),
-                  child: SvgPicture.asset(AppImages.iStudentCap),
-                ),
-                contentPadding: const EdgeInsets.all(4),
-                isDense: true,
-              ),
-            );
+        padding: const EdgeInsets.symmetric(horizontal: 40).copyWith(left: 10),
+        child: BlocListener<AppSettingsBloc, AppSettingsState>(
+          listener: (context, state) {
+            _controller.clear();
           },
+          listenWhen: (pre, cur) => cur.type != pre.type,
+          child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+            builder: (context, state) {
+              return TextField(
+                controller: _controller,
+                style: theme.primaryTextTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+                onEditingComplete: () {
+                  if (_controller.text.trim().isEmpty) return;
+                  context.goNamed(
+                    state.type == SearchType.university
+                        ? RouteKey.searchUniversity
+                        : RouteKey.searchProfessor,
+                    queryParameters: {"q": _controller.text.trim()},
+                  );
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: state.type == SearchType.university
+                      ? text.yourUniversity
+                      : text.professorName,
+                  hintStyle: theme.primaryTextTheme.bodyLarge
+                      ?.copyWith(color: AppColors.textGrey),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  hoverColor: Colors.transparent,
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 12),
+                    child: SvgPicture.asset(
+                      AppImages.iSearch,
+                      colorFilter: ColorFilter.mode(
+                        theme.primaryColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.all(4),
+                  isDense: true,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

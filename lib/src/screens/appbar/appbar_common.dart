@@ -9,6 +9,7 @@ import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/screens/appbar/menu_form.dart';
 import 'package:template/src/screens/appbar/widgets/logo_appbar.dart';
 import 'package:template/src/screens/appbar/widgets/menu_appbar_icon.dart';
+import 'package:template/src/screens/appbar/widgets/seach_type_button.dart';
 import 'package:template/src/screens/appbar/widgets/text_field_search.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
@@ -134,6 +135,9 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                               children: [
                                 AppBarLogo(isHome: isHome),
                                 !isHome
+                                    ? const SeachTypeButton()
+                                    : const SizedBox.shrink(),
+                                !isHome
                                     ? AppBarTextField(
                                         keyword: keyword,
                                       )
@@ -153,6 +157,7 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                             if (state.onShowSmallTextField == true && !isHome) {
                               return Row(
                                 children: [
+                                  const SeachTypeButton(),
                                   AppBarTextField(
                                     keyword: keyword,
                                   ),
@@ -208,6 +213,9 @@ class AppbarCommon extends StatelessWidget implements PreferredSizeWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AppBarLogo(isHome: isHome),
+                          !isHome
+                              ? const SeachTypeButton()
+                              : const SizedBox.shrink(),
                           !isHome
                               ? AppBarTextField(
                                   keyword: keyword,

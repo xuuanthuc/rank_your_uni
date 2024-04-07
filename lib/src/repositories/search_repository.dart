@@ -40,11 +40,11 @@ class SearchRepository {
     try {
       final res = await _apiProvider.get(
         ApiEndpoint.professores,
-        // params: {
-        //   'keyword': keyword,
-        //   'pageIndex': page,
-        //   'pageSize': pageSize ?? 10,
-        // },
+        params: {
+          'keyword': keyword,
+          'pageIndex': page,
+          'pageSize': pageSize ?? 10,
+        },
       );
       return RYUResponse(
           isSuccess: true, data: SearchProfessorModel.fromJson(res));

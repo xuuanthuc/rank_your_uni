@@ -36,7 +36,7 @@ class NoUniversityToCompare extends StatelessWidget {
                 height: 70,
               ),
               const Spacer(),
-              TextFieldAutocompleted(
+              TextFieldUniversitiesAutocompleted(
                 onSelected: (university) => onCompare(university.id),
               ),
               const SizedBox(height: 20),

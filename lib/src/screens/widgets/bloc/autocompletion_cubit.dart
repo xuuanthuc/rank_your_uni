@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/utilities/logger.dart';
+import 'package:template/src/models/response/professor.dart';
 import '../../../models/response/university.dart';
 import '../../../repositories/search_repository.dart';
 
@@ -14,14 +15,20 @@ const Duration debounceDuration = Duration(milliseconds: 1000);
 @injectable
 class AutocompletionCubit extends Cubit<AutocompletionState> {
   final SearchRepository _searchRepository;
-  late final _Debounceable<Iterable<University>?, String> _debouncedSearch;
+  late final _Debounceable<Iterable<University>?, String>
+      _debouncedSearchUniversities;
+  late final _Debounceable<Iterable<Professor>?, String>
+      _debouncedSearchProfessors;
 
   AutocompletionCubit(this._searchRepository)
       : super(const AutocompletionState()) {
-    _debouncedSearch = _debounce<Iterable<University>?, String>(_searchUni);
+    _debouncedSearchUniversities =
+        _debounce<Iterable<University>?, String>(_searchUniversities);
+    _debouncedSearchProfessors =
+        _debounce<Iterable<Professor>?, String>(_searchProfessors);
   }
 
-  Future<Iterable<University>?> _searchUni(String keyword) async {
+  Future<Iterable<University>?> _searchUniversities(String keyword) async {
     if (keyword.length < 3) return [];
     final res = await _searchRepository.getUniversities(
       keyword,
@@ -35,9 +42,35 @@ class AutocompletionCubit extends Cubit<AutocompletionState> {
     }
   }
 
+  Future<Iterable<Professor>?> _searchProfessors(String keyword) async {
+    if (keyword.length < 3) return [];
+    final res = await _searchRepository.getProfessores(
+      keyword,
+      0,
+      pageSize: 5,
+    );
+    if (res.isSuccess) {
+      return res.data.professores;
+    } else {
+      return [];
+    }
+  }
+
   Future<Iterable<University>> getSuggestUniversity(String keyword) async {
     try {
-      final data = await _debouncedSearch(keyword);
+      final data = await _debouncedSearchUniversities(keyword);
+      if (data!.toList().isNotEmpty) {
+        return data.toList();
+      }
+    } catch (e) {
+      LoggerUtils.d(e);
+    }
+    return [];
+  }
+
+  Future<Iterable<Professor>> getSuggestProfessor(String keyword) async {
+    try {
+      final data = await _debouncedSearchProfessors(keyword);
       if (data!.toList().isNotEmpty) {
         return data.toList();
       }

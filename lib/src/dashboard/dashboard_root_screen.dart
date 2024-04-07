@@ -6,6 +6,7 @@ import 'package:template/src/dashboard/features/dashboard_account.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/dashboard_cubit.dart';
 import 'features/dashboard_contact.dart';
+import 'features/dashboard_professors.dart';
 import 'features/dashboard_reports.dart';
 import 'features/dashboard_universities.dart';
 
@@ -57,6 +58,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       title: "Liên hệ",
       child: const DashboardContacts(),
       type: DashboardPages.contact,
+    ),
+    DashboardPage(
+      icon: Icons.book_outlined,
+      title: "Giảng viên",
+      child: const DashboardProfessors(),
+      type: DashboardPages.professor,
     ),
   ];
 

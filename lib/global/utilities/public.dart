@@ -29,3 +29,8 @@ abstract class UniversityStatus {
   static const int requesting = 0;
 }
 
+abstract class ProfessorStatus {
+  static const bool approved = true;
+  static const bool requesting = false;
+}
+

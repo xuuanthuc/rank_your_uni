@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:template/src/models/request/update_professor_request.dart';
 import 'package:template/src/models/response/contact.dart';
+import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/university.dart';
@@ -33,6 +35,26 @@ class DashboardRepository {
         },
       );
       return RYUResponse(isSuccess: true, data: SearchModel.fromAdminJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> getProfessor(
+      String keyword,
+      int page, {
+        int? pageSize,
+      }) async {
+    try {
+      final res = await _apiProvider.get(
+        ApiEndpoint.professores,
+        params: {
+          'keyword': keyword,
+          'pageIndex': page,
+          'pageSize': pageSize ?? 10,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: SearchProfessorModel.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -103,6 +125,18 @@ class DashboardRepository {
           params: newUniversity.toJson());
       return RYUResponse(
           isSuccess: true, data: UniversityUpdated.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> updateProfessor(
+      UpdateProfessorRaw newProfessor) async {
+    try {
+      final res = await _apiProvider.put('${ApiEndpoint.professor}/${newProfessor.id}',
+          params: newProfessor.toJson());
+      return RYUResponse(
+          isSuccess: true, data: Professor.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

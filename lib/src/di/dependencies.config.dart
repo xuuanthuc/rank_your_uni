@@ -19,8 +19,10 @@ import 'package:template/src/dashboard/bloc/authenticate/dashboard_authenticatio
 import 'package:template/src/dashboard/bloc/contact/dashboard_contact_item_cubit.dart'
     as _i29;
 import 'package:template/src/dashboard/bloc/dashboard_cubit.dart' as _i30;
-import 'package:template/src/dashboard/bloc/report/dashboard_report_item_cubit.dart'
+import 'package:template/src/dashboard/bloc/professor/dashboard_professor_item_cubit.dart'
     as _i31;
+import 'package:template/src/dashboard/bloc/report/dashboard_report_item_cubit.dart'
+    as _i32;
 import 'package:template/src/dashboard/bloc/university/dashboard_university_item_cubit.dart'
     as _i11;
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart'
@@ -43,17 +45,17 @@ import 'package:template/src/screens/appbar/bloc/appbar_cubit.dart' as _i6;
 import 'package:template/src/screens/authentication/bloc/auth_form_cubit.dart'
     as _i7;
 import 'package:template/src/screens/compare/bloc/compare_cubit.dart' as _i26;
-import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i32;
+import 'package:template/src/screens/detail/bloc/detail_cubit.dart' as _i33;
 import 'package:template/src/screens/detail/bloc/report_cubit.dart' as _i14;
 import 'package:template/src/screens/detail/bloc/review_item_cubit.dart'
     as _i17;
-import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i33;
+import 'package:template/src/screens/guideline/bloc/help_cubit.dart' as _i34;
 import 'package:template/src/screens/home/bloc/home_cubit.dart' as _i13;
-import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i34;
+import 'package:template/src/screens/profile/bloc/profile_cubit.dart' as _i35;
 import 'package:template/src/screens/reset/bloc/reset_password_cubit.dart'
     as _i15;
 import 'package:template/src/screens/review/bloc/review_cubit.dart' as _i16;
-import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i35;
+import 'package:template/src/screens/search/bloc/search_cubit.dart' as _i36;
 import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart'
     as _i25;
 
@@ -130,15 +132,17 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i29.DashboardContactItemCubit(gh<_i10.DashboardRepository>()));
     gh.factory<_i30.DashboardCubit>(
         () => _i30.DashboardCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i31.DashboardReportItemCubit>(
-        () => _i31.DashboardReportItemCubit(gh<_i10.DashboardRepository>()));
-    gh.factory<_i32.DetailCubit>(
-        () => _i32.DetailCubit(gh<_i12.DetailRepository>()));
-    gh.factory<_i33.HelpCubit>(() => _i33.HelpCubit(gh<_i23.UserRepository>()));
-    gh.factory<_i34.ProfileCubit>(
-        () => _i34.ProfileCubit(gh<_i23.UserRepository>()));
-    gh.factory<_i35.SearchCubit>(
-        () => _i35.SearchCubit(gh<_i18.SearchRepository>()));
+    gh.factory<_i31.DashboardProfessorItemCubit>(
+        () => _i31.DashboardProfessorItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i32.DashboardReportItemCubit>(
+        () => _i32.DashboardReportItemCubit(gh<_i10.DashboardRepository>()));
+    gh.factory<_i33.DetailCubit>(
+        () => _i33.DetailCubit(gh<_i12.DetailRepository>()));
+    gh.factory<_i34.HelpCubit>(() => _i34.HelpCubit(gh<_i23.UserRepository>()));
+    gh.factory<_i35.ProfileCubit>(
+        () => _i35.ProfileCubit(gh<_i23.UserRepository>()));
+    gh.factory<_i36.SearchCubit>(
+        () => _i36.SearchCubit(gh<_i18.SearchRepository>()));
     return this;
   }
 }

@@ -90,6 +90,34 @@ class LandingContent extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocBuilder<AppSettingsBloc, AppSettingsState>(
       builder: (context, state) {
+        final input = InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: state.type == SearchType.university
+              ? text.yourUniversity
+              : text.professorName,
+          hintStyle: theme.primaryTextTheme.bodyLarge
+              ?.copyWith(color: AppColors.textGrey),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          hoverColor: Colors.transparent,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 12),
+            child: SvgPicture.asset(
+              state.type == SearchType.university
+                  ? AppImages.iStudentCap
+                  : AppImages.iTie,
+            ),
+          ),
+          contentPadding: EdgeInsets.all(contentPadding),
+          isDense: true,
+        );
         return Align(
           alignment: Alignment.center,
           child: Padding(
@@ -118,44 +146,37 @@ class LandingContent extends StatelessWidget {
                 Container(
                   constraints:
                       const BoxConstraints(maxWidth: Public.tabletSize),
-                  child: TextFieldAutocompleted(
-                    onSelected: (university) {
-                      context.goNamed(
-                        RouteKey.university,
-                        pathParameters: {"id": "${university.id}"},
-                        extra: university,
-                      );
-                    },
-                    onEditingComplete: (keyword) {
-                      if (keyword.trim().isEmpty) return;
-                      onSearch(
-                          keyword.trim(), state.type ?? SearchType.university);
-                    },
-                    inputDecorationCustom: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: state.type == SearchType.university
-                          ? text.yourUniversity
-                          : text.professorName,
-                      hintStyle: theme.primaryTextTheme.bodyLarge
-                          ?.copyWith(color: AppColors.textGrey),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      ),
-                      hoverColor: Colors.transparent,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 12),
-                        child: SvgPicture.asset(AppImages.iStudentCap),
-                      ),
-                      contentPadding: EdgeInsets.all(contentPadding),
-                      isDense: true,
-                    ),
-                  ),
+                  child: state.type == SearchType.university
+                      ? TextFieldUniversitiesAutocompleted(
+                          onSelected: (university) {
+                            context.goNamed(
+                              RouteKey.university,
+                              pathParameters: {"id": "${university.id}"},
+                              extra: university,
+                            );
+                          },
+                          onEditingComplete: (keyword) {
+                            if (keyword.trim().isEmpty) return;
+                            onSearch(keyword.trim(),
+                                state.type ?? SearchType.university);
+                          },
+                          inputDecorationCustom: input,
+                        )
+                      : TextFieldProfessorsAutocompleted(
+                          onSelected: (university) {
+                            context.goNamed(
+                              RouteKey.university,
+                              pathParameters: {"id": "${university.id}"},
+                              extra: university,
+                            );
+                          },
+                          onEditingComplete: (keyword) {
+                            if (keyword.trim().isEmpty) return;
+                            onSearch(keyword.trim(),
+                                state.type ?? SearchType.university);
+                          },
+                          inputDecorationCustom: input,
+                        ),
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,

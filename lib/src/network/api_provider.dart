@@ -63,6 +63,8 @@ class ApiProvider {
     var responseJson = {};
     try {
       _addInterceptors(dio, needToken: needToken);
+      LoggerUtils.i(data);
+      LoggerUtils.i(queryParams);
       final response = await dio.request(
         url,
         queryParameters: queryParams,

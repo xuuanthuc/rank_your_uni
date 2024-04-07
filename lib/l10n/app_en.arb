@@ -235,7 +235,7 @@
   "universityActived": "Bật/tắt trạng thái đã duyệt",
   "nonReply": "Chưa phản hồi câu hỏi này",
   "refresh": "Làm mới",
-  "findUniversity": "Bạn muốn tìm một trường",
+  "findUniversity": "Bạn muốn tìm một trường học",
   "findYourProfessor": "Tìm giảng viên của bạn",
   "professorName": "Tên giảng viên",
   "noResultForProfessor": "Không tìm thấy tên giảng viên bạn đang tìm kiếm?",
@@ -247,5 +247,9 @@
   "major": "Chuyên ngành giảng dạy",
   "searchUniversities": "Tìm trường học",
   "acceptReview": "Đánh giá hợp lệ",
-  "reason": "Lý do"
+  "reason": "Lý do",
+  "goToProfessorPage": "Đến trang của giảng viên này",
+  "school": "Trường học",
+  "professor": "Giảng viên",
+  "seachType": "Thể loại tìm kiếm"
 }

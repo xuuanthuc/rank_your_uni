@@ -73,9 +73,9 @@ class SearchProfessorModel {
   });
 
   factory SearchProfessorModel.fromJson(Map<String, dynamic> json) {
-    // final totalPages = json['totalPages'];
-    // final totalElements = json['totalElements'];
-    // final pageable = Pageable.fromJson(json['pageable']);
+    final totalPages = json['totalPages'];
+    final totalElements = json['totalElements'];
+    final pageable = Pageable.fromJson(json['pageable']);
     final professores = <Professor>[];
     if (json['content'] != null) {
       json['content'].forEach((v) {
@@ -86,9 +86,9 @@ class SearchProfessorModel {
     }
     return SearchProfessorModel(
       professores: professores,
-      totalPages: 0,
-      pageable: Pageable(pageNumber: 0, pageSize: 0),
-      totalElements: 10,
+      totalPages: totalPages,
+      pageable: pageable,
+      totalElements: totalElements,
     );
   }
 }

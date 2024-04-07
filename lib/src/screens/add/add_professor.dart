@@ -152,7 +152,7 @@ class _AddProfessorViewState extends State<AddProfessorView> {
                                 style: theme.primaryTextTheme.labelLarge,
                               ),
                               const SizedBox(height: 4),
-                              TextFieldAutocompleted(
+                              TextFieldUniversitiesAutocompleted(
                                 onSelected: (university) {
                                   _universityController.text =
                                       university.name ?? "";

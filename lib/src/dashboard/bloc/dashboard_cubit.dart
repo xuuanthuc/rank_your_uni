@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:template/src/models/response/contact.dart';
+import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/report.dart';
 import 'package:template/src/models/response/search_response.dart';
@@ -35,6 +36,9 @@ class DashboardCubit extends Cubit<DashboardState> {
       case DashboardPages.contact:
         getAllContacts();
         break;
+      case DashboardPages.professor:
+        getAllProfessor();
+        break;
     }
   }
 
@@ -54,6 +58,30 @@ class DashboardCubit extends Cubit<DashboardState> {
       case DashboardPages.contact:
         getAllContacts(isRefresh: true);
         break;
+      case DashboardPages.professor:
+        getAllProfessor(isRefresh: true);
+        break;
+    }
+  }
+
+  getAllProfessor({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.professors ?? []).isNotEmpty) return;
+    }
+    emit(state.copyWith(status: DashboardStatus.loading));
+    final List<Professor> professors = [];
+    final res = await _adminRepository.getProfessor('', 0, pageSize: 1000000);
+    if (res.isSuccess) {
+      professors.addAll((res.data as SearchProfessorModel).professores);
+      emit(state.copyWith(
+        status: DashboardStatus.success,
+        professors: professors,
+      ));
+    } else {
+      emit(state.copyWith(
+        status: DashboardStatus.error,
+        professors: [],
+      ));
     }
   }
 
