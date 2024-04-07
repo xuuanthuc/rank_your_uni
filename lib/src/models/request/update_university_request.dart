@@ -1,5 +1,3 @@
-import 'package:template/src/models/response/province.dart';
-
 class UpdateUniversityRaw {
   String? name;
   String? code;

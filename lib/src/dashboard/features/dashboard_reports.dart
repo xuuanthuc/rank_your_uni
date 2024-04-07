@@ -120,7 +120,6 @@ class _ItemReportState extends State<ItemReport> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return BlocBuilder<DashboardReportItemCubit, DashboardReportItemState>(
       builder: (context, state) {
@@ -156,6 +155,5 @@ class _ItemReportState extends State<ItemReport> {
         );
       },
     );
-    ;
   }
 }

@@ -82,7 +82,7 @@ class SearchProfessorResultsView extends StatelessWidget {
               child: ProfessorCard(
                 professor: (state.professores ?? [])[index],
                 onTap: () {
-                  context.goNamed(RouteKey.university,
+                  context.goNamed(RouteKey.professor,
                       pathParameters: {
                         "id": "${(state.professores ?? [])[index].id}"
                       },

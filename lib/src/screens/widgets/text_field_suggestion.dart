@@ -349,7 +349,7 @@ class TextFieldProfessorsAutocompleted extends StatelessWidget {
                                           ButtonGoToProfessorDetailPage(
                                             onTap: () {
                                               context.goNamed(
-                                                RouteKey.university,
+                                                RouteKey.professor,
                                                 pathParameters: {
                                                   "id": "${professor.id}"
                                                 },
@@ -378,7 +378,7 @@ class TextFieldProfessorsAutocompleted extends StatelessWidget {
                                           ButtonGoToProfessorDetailPage(
                                             onTap: () {
                                               context.goNamed(
-                                                RouteKey.university,
+                                                RouteKey.professor,
                                                 pathParameters: {
                                                   "id": "${professor.id}"
                                                 },
@@ -484,7 +484,7 @@ class ProfessorUniversity extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Text(
-      professor.universityId.toString() ?? '',
+      professor.universityId.toString(),
       style: theme.primaryTextTheme.bodyMedium,
     );
   }

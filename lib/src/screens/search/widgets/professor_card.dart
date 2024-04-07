@@ -1,9 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/models/response/professor.dart';
-import 'package:template/src/models/response/professor.dart';
-import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../widgets/point_container.dart';
 
 class ProfessorCard extends StatelessWidget {
@@ -27,25 +24,9 @@ class ProfessorCard extends StatelessWidget {
             margin: const EdgeInsets.symmetric(
               vertical: 25 / 2,
             ),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.all(20),
             color: AppColors.primaryShadow,
-            child: ResponsiveBuilder(
-              tinyView: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      RatingQuality(professor),
-                    ],
-                  ),
-                  const SizedBox(height: 7),
-                  ProfessorName(professor: professor),
-                  const SizedBox(height: 7),
-                  ProfessorUniversity(professor: professor),
-                ],
-              ),
+            child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,17 +34,14 @@ class ProfessorCard extends StatelessWidget {
                   const SizedBox(width: 20),
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ProfessorUniversity(professor: professor),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
                         ProfessorName(professor: professor),
+                        const SizedBox(height: 12),
+                        ProfessorUniversity(professor: professor),
+                        ProfessorMoreInfomation(professor: professor),
                       ],
                     ),
                   )
@@ -87,8 +65,7 @@ class RatingQuality extends StatelessWidget {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           text.quality,
@@ -96,7 +73,7 @@ class RatingQuality extends StatelessWidget {
             fontSize: 13,
           ),
         ),
-        PointContainer.regular(point: 0),
+        PointContainer.regular(point: professor.averagePointAllReviews ?? 0.0),
         Text(
           text.reviewCount(0),
           style: theme.primaryTextTheme.bodyMedium?.copyWith(
@@ -116,12 +93,11 @@ class ProfessorName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return AutoSizeText(
+    return Text(
       professor.fullName ?? '',
       style: theme.primaryTextTheme.displayMedium
           ?.copyWith(fontWeight: FontWeight.w800, fontSize: 20),
-      maxLines: 3,
-      minFontSize: 14,
+      maxLines: 2,
     );
   }
 }
@@ -133,10 +109,25 @@ class ProfessorUniversity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      professor.universityId.toString() ?? '',
-      maxLines: 1,
-      minFontSize: 10,
+    return Text(
+      professor.universityName ??
+          AppLocalizations.of(context)!.notFoundInformation,
+      maxLines: 2,
+    );
+  }
+}
+
+class ProfessorMoreInfomation extends StatelessWidget {
+  final Professor professor;
+
+  const ProfessorMoreInfomation({super.key, required this.professor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      professor.universityName ??
+          AppLocalizations.of(context)!.notFoundInformation,
+      maxLines: 2,
     );
   }
 }

@@ -39,7 +39,7 @@ class SearchRepository {
   }) async {
     try {
       final res = await _apiProvider.get(
-        ApiEndpoint.professores,
+        ApiEndpoint.professors,
         params: {
           'keyword': keyword,
           'pageIndex': page,

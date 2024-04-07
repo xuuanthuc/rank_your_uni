@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:template/src/models/request/add_university_request.dart';
 import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
+import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/review.dart';
 import 'package:template/src/models/response/university.dart';
@@ -22,6 +23,17 @@ class DetailRepository {
         '${ApiEndpoint.search}/$id',
       );
       return RYUResponse(isSuccess: true, data: University.fromDetailJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> getDetailProfessor(int id) async {
+    try {
+      final res = await _apiProvider.get(
+        '${ApiEndpoint.professors}/$id',
+      );
+      return RYUResponse(isSuccess: true, data: Professor.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

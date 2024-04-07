@@ -131,7 +131,6 @@ class _AccountItemState extends State<AccountItem> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return BlocBuilder<DashboardAccountItemCubit, DashboardAccountItemState>(
       builder: (context, state) {

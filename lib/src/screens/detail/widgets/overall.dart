@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/src/models/response/university.dart';
-import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
+import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
 import 'package:template/src/screens/widgets/point_container.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import '../../../../global/storage/storage_keys.dart';
@@ -58,7 +58,7 @@ class UniversityOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
-      child: BlocBuilder<DetailCubit, DetailState>(
+      child: BlocBuilder<DetailUniversityCubit, DetailUniversityState>(
         builder: (context, state) {
           return Center(
             child: Container(

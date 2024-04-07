@@ -6,7 +6,6 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 import 'package:template/src/screens/widgets/primary_button.dart';
 import '../../../global/routes/route_keys.dart';
-import '../widgets/responsive_builder.dart';
 
 class ReviewDeletedSuccessScreen extends StatefulWidget {
   final University university;

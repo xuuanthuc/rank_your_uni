@@ -2,54 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
-import 'package:template/src/models/response/university.dart';
-import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
-import 'package:template/src/screens/detail/widgets/overall.dart';
-import 'package:template/src/screens/detail/widgets/reviews.dart';
+import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/screens/detail/bloc/detail_professor_cubit.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
 
-class UniversityDetail extends StatelessWidget {
+class ProfessorDetail extends StatelessWidget {
   final int id;
-  final University? university;
+  final Professor? professor;
 
-  const UniversityDetail({super.key, required this.id, this.university});
+  const ProfessorDetail({super.key, required this.id, this.professor});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<DetailUniversityCubit>(),
-      child: UniversityView(
+      create: (context) => getIt.get<DetailProfessorCubit>(),
+      child: ProfessorDetailView(
         id: id,
-        university: university,
+        professor: professor,
       ),
     );
   }
 }
 
-class UniversityView extends StatefulWidget {
+class ProfessorDetailView extends StatefulWidget {
   final int id;
-  final University? university;
+  final Professor? professor;
 
-  const UniversityView({
+  const ProfessorDetailView({
     super.key,
     required this.id,
-    this.university,
+    this.professor,
   });
 
   @override
-  State<UniversityView> createState() => _UniversityViewState();
+  State<ProfessorDetailView> createState() => _ProfessorDetailViewState();
 }
 
-class _UniversityViewState extends State<UniversityView> {
+class _ProfessorDetailViewState extends State<ProfessorDetailView> {
   @override
   void initState() {
     super.initState();
-    context.read<DetailUniversityCubit>().getDetailUniversity(
+    context.read<DetailProfessorCubit>().getDetailProfessor(
           widget.id,
-          widget.university,
+          widget.professor,
         );
   }
 
@@ -57,7 +55,7 @@ class _UniversityViewState extends State<UniversityView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<DetailUniversityCubit, DetailUniversityState>(
+        BlocListener<DetailProfessorCubit, DetailProfessorState>(
           listenWhen: (_, cur) => cur.status == DetailStatus.error,
           listener: (context, state) {
             appToast(
@@ -72,7 +70,7 @@ class _UniversityViewState extends State<UniversityView> {
               curr.action == AppSettingAction.updateProfile,
           listener: (context, state) {
             context
-                .read<DetailUniversityCubit>()
+                .read<DetailProfessorCubit>()
                 .updateCurrentUser(state.profileAuthenticated);
           },
         ),
@@ -86,10 +84,7 @@ class _UniversityViewState extends State<UniversityView> {
             children: [
               Image.asset(AppImages.iDetailBackground),
               const Column(
-                children: [
-                  UniversityOverview(),
-                  ReviewsBuilder(),
-                ],
+                children: [],
               ),
             ],
           ),

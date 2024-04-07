@@ -1,26 +1,26 @@
-part of 'detail_cubit.dart';
+part of 'detail_university_cubit.dart';
 
 enum DetailStatus { loading, success, error }
 
 enum SortType { date, like }
 
 @immutable
-class DetailState extends Equatable {
+class DetailUniversityState extends Equatable {
   final DetailStatus? status;
   final University? university;
   final SortType? sortType;
   final Profile? userAuthenticated;
 
-  const DetailState(
+  const DetailUniversityState(
       {this.status, this.university, this.sortType, this.userAuthenticated});
 
-  DetailState copyWith({
+  DetailUniversityState copyWith({
     DetailStatus? status,
     University? university,
     SortType? sortType,
     Profile? userAuthenticated,
   }) {
-    return DetailState(
+    return DetailUniversityState(
       status: status ?? this.status,
       university: university ?? this.university,
       sortType: sortType ?? this.sortType,

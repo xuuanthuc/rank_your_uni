@@ -26,7 +26,6 @@ class _SelectProvinceDialogState extends State<SelectMajorsDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final text = AppLocalizations.of(context)!;
     return PrimaryDialog(
       hasScrollBody: false,
       padding: const EdgeInsets.all(20),

@@ -136,7 +136,7 @@ class _ItemProfessorState extends State<ItemProfessor> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: PointContainer.tiny(
-                      point: 0,
+                      point: state.professor!.averagePointAllReviews ?? 0.0,
                     ),
                   ),
                   Expanded(

@@ -251,5 +251,6 @@
   "goToProfessorPage": "Đến trang giảng viên này",
   "school": "Trường học",
   "professor": "Giảng viên",
-  "seachType": "Thể loại tìm kiếm"
+  "seachType": "Thể loại tìm kiếm",
+  "notFoundInformation": "Không có thông tin"
 }

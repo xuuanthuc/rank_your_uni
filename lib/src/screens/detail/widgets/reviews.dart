@@ -8,7 +8,7 @@ import 'package:template/global/utilities/format.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/review.dart';
-import 'package:template/src/screens/detail/bloc/detail_cubit.dart';
+import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/detail/bloc/review_item_cubit.dart';
 import 'package:template/src/screens/detail/report_review_form.dart';
@@ -38,7 +38,7 @@ class ReviewsBuilder extends StatelessWidget {
       constraints: const BoxConstraints(
         maxWidth: Public.laptopSize,
       ),
-      child: BlocBuilder<DetailCubit, DetailState>(
+      child: BlocBuilder<DetailUniversityCubit, DetailUniversityState>(
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +76,7 @@ class ReviewsBuilder extends StatelessWidget {
                       label: text.newFirst,
                       icon: AppImages.iCalendar,
                       onTap: () {
-                        context.read<DetailCubit>().changeSort(SortType.date);
+                        context.read<DetailUniversityCubit>().changeSort(SortType.date);
                       },
                       currentType: state.sortType ?? SortType.date,
                       type: SortType.date,
@@ -86,7 +86,7 @@ class ReviewsBuilder extends StatelessWidget {
                       label: text.countLikeFirst,
                       icon: AppImages.iLike,
                       onTap: () {
-                        context.read<DetailCubit>().changeSort(SortType.like);
+                        context.read<DetailUniversityCubit>().changeSort(SortType.like);
                       },
                       currentType: state.sortType ?? SortType.date,
                       type: SortType.like,

@@ -5,10 +5,12 @@ import 'package:template/global/style/app_themes.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/authentication/authentication_bloc.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
+import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_professor.dart';
 import 'package:template/src/screens/add/add_university.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
+import 'package:template/src/screens/detail/professor_detail.dart';
 import 'package:template/src/screens/reset/reset_password_screen.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
@@ -56,6 +58,22 @@ class MyApp extends StatelessWidget {
               child: UniversityDetail(
                 id: int.parse(data["id"] as String),
                 university: university,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/lecturer/:id',
+          name: RouteKey.professor,
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            final Professor? professor = state.extra as Professor?;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ProfessorDetail(
+                id: int.parse(data["id"] as String),
+                professor: professor,
               ),
             );
           },

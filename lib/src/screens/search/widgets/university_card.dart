@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/models/response/university.dart';
@@ -45,28 +44,33 @@ class UniversityCard extends StatelessWidget {
                   UniversityAddress(university: university),
                 ],
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RatingQuality(university),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            UniversityAddress(university: university),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        UniversityName(university: university),
-                      ],
-                    ),
-                  )
-                ],
+              child: IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RatingQuality(university),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              UniversityAddress(university: university),
+                            ],
+                          ),
+                          UniversityName(university: university),
+                          Opacity(
+                            opacity: 0,
+                            child: UniversityAddress(university: university),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -115,12 +119,11 @@ class UniversityName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return AutoSizeText(
+    return Text(
       university.name ?? '',
       style: theme.primaryTextTheme.displayMedium
           ?.copyWith(fontWeight: FontWeight.w800, fontSize: 20),
       maxLines: 3,
-      minFontSize: 14,
     );
   }
 }
@@ -132,10 +135,9 @@ class UniversityAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
+    return Text(
       university.address ?? '',
       maxLines: 1,
-      minFontSize: 10,
     );
   }
 }

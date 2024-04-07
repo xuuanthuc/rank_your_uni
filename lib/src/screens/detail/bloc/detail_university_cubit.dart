@@ -11,13 +11,13 @@ import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
 import '../../../models/response/review.dart';
 
-part 'detail_state.dart';
+part 'detail_university_state.dart';
 
 @injectable
-class DetailCubit extends Cubit<DetailState> {
+class DetailUniversityCubit extends Cubit<DetailUniversityState> {
   final DetailRepository _detailRepository;
 
-  DetailCubit(this._detailRepository) : super(const DetailState());
+  DetailUniversityCubit(this._detailRepository) : super(const DetailUniversityState());
 
   void getDetailUniversity(int id, University? university) async {
     Profile? user;

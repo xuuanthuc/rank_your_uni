@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/src/models/response/review.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
-import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';

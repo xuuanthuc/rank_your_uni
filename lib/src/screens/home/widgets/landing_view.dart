@@ -163,11 +163,11 @@ class LandingContent extends StatelessWidget {
                           inputDecorationCustom: input,
                         )
                       : TextFieldProfessorsAutocompleted(
-                          onSelected: (university) {
+                          onSelected: (professor) {
                             context.goNamed(
-                              RouteKey.university,
-                              pathParameters: {"id": "${university.id}"},
-                              extra: university,
+                              RouteKey.professor,
+                              pathParameters: {"id": "${professor.id}"},
+                              extra: professor,
                             );
                           },
                           onEditingComplete: (keyword) {

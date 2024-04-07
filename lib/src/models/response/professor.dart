@@ -4,6 +4,7 @@ class Professor {
   final int id;
   final int? majorId;
   final int? universityId;
+  final String? universityName;
   final String? fullName;
   final bool? status;
   final double? averagePointAllReviews;
@@ -19,6 +20,7 @@ class Professor {
     this.reviews,
     this.averagePointAllReviews,
     this.totalReviews,
+    this.universityName,
   });
 
   factory Professor.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Professor {
     final id = json['id'];
     final majorId = json['majorId'];
     final universityId = json['universityId'];
+    final universityName = json['universityName'];
     final status = json['status'] ?? false;
     final reviews = <ProfessorReview>[];
     final averagePointAllReviews =
@@ -47,6 +50,7 @@ class Professor {
       averagePointAllReviews: averagePointAllReviews,
       reviews: reviews,
       totalReviews: totalReviews,
+      universityName: universityName,
     );
   }
 }
