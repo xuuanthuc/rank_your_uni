@@ -5,7 +5,7 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/src/dashboard/bloc/report/dashboard_report_item_cubit.dart';
 import 'package:template/src/models/response/report.dart';
 import 'package:template/src/models/response/review.dart';
-import 'package:template/src/screens/detail/widgets/reviews.dart';
+import 'package:template/src/screens/detail/widgets/university_reviews.dart';
 import 'package:template/src/screens/widgets/primary_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../global/utilities/toast.dart';

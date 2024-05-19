@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/screens/profile/bloc/profile_cubit.dart';
 import '../../di/dependencies.dart';
 import '../detail/bloc/review_item_cubit.dart';
-import '../detail/widgets/reviews.dart';
+import '../detail/widgets/university_reviews.dart';
 
 class YourRatings extends StatefulWidget {
   const YourRatings({super.key});

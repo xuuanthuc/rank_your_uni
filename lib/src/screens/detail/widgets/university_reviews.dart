@@ -24,8 +24,8 @@ import '../../../models/response/profile.dart';
 import '../../../models/response/university.dart';
 import '../../widgets/primary_button.dart';
 
-class ReviewsBuilder extends StatelessWidget {
-  const ReviewsBuilder({super.key});
+class UniversityReviewsBuilder extends StatelessWidget {
+  const UniversityReviewsBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,8 @@ import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
-import 'package:template/src/screens/detail/widgets/overall.dart';
-import 'package:template/src/screens/detail/widgets/reviews.dart';
+import 'package:template/src/screens/detail/widgets/university_overall.dart';
+import 'package:template/src/screens/detail/widgets/university_reviews.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
@@ -88,7 +88,7 @@ class _UniversityViewState extends State<UniversityView> {
               const Column(
                 children: [
                   UniversityOverview(),
-                  ReviewsBuilder(),
+                  UniversityReviewsBuilder(),
                 ],
               ),
             ],

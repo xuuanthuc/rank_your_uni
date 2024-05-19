@@ -253,7 +253,18 @@
   "professor": "Giảng viên",
   "seachType": "Thể loại tìm kiếm",
   "notFoundInformation": "Không có thông tin",
-  "wouldTakeAgain": "  sẽ học lại",
+  "wouldTakeAgain": "  Sẽ học lại",
   "levelOfDifficulty": "Cấp độ khó  ",
-  "na": "N/A"
+  "na": "N/A",
+  "professorAt": "Giảng viên khoa {major} tại {university}",
+  "@professorAt": {
+    "placeholders": {
+      "major": {
+        "type": "String"
+      },
+      "university": {
+        "type": "String"
+      }
+    }
+  }
 }
