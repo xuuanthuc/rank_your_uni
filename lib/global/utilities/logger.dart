@@ -1,6 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 class LoggerUtils {
+
+  static const bool _disableDebugLog = false;
+
   static final Logger _logEvent = Logger(
     filter: DevelopmentFilter(), //(-> only log in debug mode)
     printer: PrettyPrinter( // width of the output
@@ -12,22 +16,32 @@ class LoggerUtils {
   );
 
   static void d(messages) {
-    _logEvent.d(messages);
+    if(kDebugMode && _disableDebugLog) {
+      _logEvent.d(messages);
+    }
   }
 
   static void i(messages) {
-    _logEvent.i(messages);
+    if(kDebugMode && _disableDebugLog) {
+      _logEvent.i(messages);
+    }
   }
 
   static void v(messages) {
-    _logEvent.v(messages);
+    if(kDebugMode && _disableDebugLog) {
+      _logEvent.v(messages);
+    }
   }
 
   static void w(messages) {
-    _logEvent.w(messages);
+    if(kDebugMode && _disableDebugLog) {
+      _logEvent.w(messages);
+    }
   }
 
   static void e(messages) {
-    _logEvent.e(messages);
+    if(kDebugMode && _disableDebugLog) {
+      _logEvent.e(messages);
+    }
   }
 }

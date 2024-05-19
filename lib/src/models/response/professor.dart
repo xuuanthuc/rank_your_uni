@@ -6,7 +6,7 @@ class Professor {
   final int? universityId;
   final String? universityName;
   final String? fullName;
-  final bool? status;
+  final int? status;
   final double? averagePointAllReviews;
   final List<ProfessorReview>? reviews;
   final int? totalReviews;

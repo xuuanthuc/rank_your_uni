@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:template/global/utilities/logger.dart';
 import 'package:template/src/models/response/major.dart';
 import 'package:template/src/network/exception.dart';
 import '../models/response/response.dart';
@@ -49,6 +50,7 @@ class SearchRepository {
       return RYUResponse(
           isSuccess: true, data: SearchProfessorModel.fromJson(res));
     } on ResponseException catch (e) {
+      LoggerUtils.e("${e.title}");
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }

@@ -30,7 +30,7 @@ abstract class UniversityStatus {
 }
 
 abstract class ProfessorStatus {
-  static const bool approved = true;
-  static const bool requesting = false;
+  static const int approved = 1;
+  static const int requesting = 0;
 }
 
