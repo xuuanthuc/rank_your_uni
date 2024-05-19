@@ -483,8 +483,9 @@ class ProfessorUniversity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final text = AppLocalizations.of(context)!;
     return Text(
-      professor.universityId.toString(),
+      professor.university?.name ?? text.notFoundInformation,
       style: theme.primaryTextTheme.bodyMedium,
     );
   }

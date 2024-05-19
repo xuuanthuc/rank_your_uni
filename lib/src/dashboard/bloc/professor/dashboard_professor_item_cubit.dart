@@ -29,8 +29,8 @@ class DashboardProfessorItemCubit extends Cubit<DashboardProfessorItemState> {
       final UpdateProfessorRaw newProfessor = UpdateProfessorRaw(
         professor.id,
         fullName: professor.fullName,
-        universityId: professor.universityId,
-        majorId: professor.majorId,
+        universityId: professor.university?.id,
+        majorId: professor.major?.id,
         status: true,
       );
       final res = await _adminRepository.updateProfessor(newProfessor);
@@ -39,8 +39,8 @@ class DashboardProfessorItemCubit extends Cubit<DashboardProfessorItemState> {
         final newProfessor = Professor(
           professor.id,
           fullName: professor.fullName,
-          universityId: professor.universityId,
-          majorId: professor.majorId,
+          university: professor.university,
+          major: professor.major,
           status: resProfessor.status,
         );
         emit(state.copyWith(

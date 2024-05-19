@@ -16,31 +16,31 @@ class LoggerUtils {
   );
 
   static void d(messages) {
-    if(kDebugMode && _disableDebugLog) {
+    if(kDebugMode) {
       _logEvent.d(messages);
     }
   }
 
   static void i(messages) {
-    if(kDebugMode && _disableDebugLog) {
+    if(kDebugMode) {
       _logEvent.i(messages);
     }
   }
 
   static void v(messages) {
-    if(kDebugMode && _disableDebugLog) {
+    if(kDebugMode) {
       _logEvent.v(messages);
     }
   }
 
   static void w(messages) {
-    if(kDebugMode && _disableDebugLog) {
+    if(kDebugMode) {
       _logEvent.w(messages);
     }
   }
 
   static void e(messages) {
-    if(kDebugMode && _disableDebugLog) {
+    if(kDebugMode) {
       _logEvent.e(messages);
     }
   }

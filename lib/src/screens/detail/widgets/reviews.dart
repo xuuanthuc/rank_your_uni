@@ -753,8 +753,7 @@ class ReviewDescription extends StatelessWidget {
     final theme = Theme.of(context);
     return Text(
       review.content ?? '',
-      style: theme.primaryTextTheme.bodyMedium
-          ?.copyWith(fontWeight: FontWeight.w500),
+      style: theme.primaryTextTheme.bodyMedium,
     );
   }
 }

@@ -55,15 +55,11 @@ abstract class AppThemes {
       //button1
 
       bodyLarge: TextStyle(
-        fontSize: 18,
-        color: AppColors.black,
-      ),
+          fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w500),
       //body1
 
       bodyMedium: TextStyle(
-        fontSize: 14,
-        color: AppColors.black,
-      ),
+          fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500),
       //body2
 
       titleMedium: TextStyle(

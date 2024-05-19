@@ -50,7 +50,7 @@ class AutocompletionCubit extends Cubit<AutocompletionState> {
       pageSize: 5,
     );
     if (res.isSuccess) {
-      return res.data.professors;
+      return res.data.professores;
     } else {
       return [];
     }

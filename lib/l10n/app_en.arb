@@ -252,5 +252,8 @@
   "school": "Trường học",
   "professor": "Giảng viên",
   "seachType": "Thể loại tìm kiếm",
-  "notFoundInformation": "Không có thông tin"
+  "notFoundInformation": "Không có thông tin",
+  "wouldTakeAgain": "  sẽ học lại",
+  "levelOfDifficulty": "Cấp độ khó  ",
+  "na": "N/A"
 }

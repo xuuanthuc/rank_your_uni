@@ -86,8 +86,7 @@ class NoticeMustLoginDialog extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             child: Text(
               text.youNeedAnAccout,
-              style: theme.primaryTextTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w500),
+              style: theme.primaryTextTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
           ),
@@ -179,8 +178,7 @@ class ItemDescription extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           text,
-          style: theme.primaryTextTheme.bodyMedium
-              ?.copyWith(fontWeight: FontWeight.w500),
+          style: theme.primaryTextTheme.bodyMedium,
           textAlign: TextAlign.center,
         )
       ],

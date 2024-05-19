@@ -71,8 +71,7 @@ class QuestionItem extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: AppColors.info,
                       ),
-                      p: theme.primaryTextTheme.labelLarge
-                          ?.copyWith(fontWeight: FontWeight.w500),
+                      p: theme.primaryTextTheme.labelLarge,
                     ),
                   ),
                 ),

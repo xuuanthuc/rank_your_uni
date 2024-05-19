@@ -40,7 +40,10 @@ class ProfessorCard extends StatelessWidget {
                       children: [
                         ProfessorName(professor: professor),
                         const SizedBox(height: 12),
+                        ProfessorMajor(professor: professor),
+                        const SizedBox(height: 8),
                         ProfessorUniversity(professor: professor),
+                        const SizedBox(height: 8),
                         ProfessorMoreInfomation(professor: professor),
                       ],
                     ),
@@ -75,7 +78,7 @@ class RatingQuality extends StatelessWidget {
         ),
         PointContainer.regular(point: professor.averagePointAllReviews ?? 0.0),
         Text(
-          text.reviewCount(0),
+          text.reviewCount(professor.totalReviews ?? 0),
           style: theme.primaryTextTheme.bodyMedium?.copyWith(
             fontSize: 13,
           ),
@@ -110,9 +113,29 @@ class ProfessorUniversity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      professor.universityName ??
+      professor.university?.name ??
           AppLocalizations.of(context)!.notFoundInformation,
       maxLines: 2,
+      style: Theme.of(context)
+          .primaryTextTheme
+          .bodyMedium
+          ?.copyWith(color: Colors.grey.shade700),
+    );
+  }
+}
+
+class ProfessorMajor extends StatelessWidget {
+  final Professor professor;
+
+  const ProfessorMajor({super.key, required this.professor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      professor.major?.name ??
+          AppLocalizations.of(context)!.notFoundInformation,
+      maxLines: 2,
+      style: Theme.of(context).primaryTextTheme.bodyMedium,
     );
   }
 }
@@ -124,10 +147,37 @@ class ProfessorMoreInfomation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      professor.universityName ??
-          AppLocalizations.of(context)!.notFoundInformation,
-      maxLines: 2,
+    final text = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Text(
+          professor.reLearnRate != null ? "${professor.reLearnRate}%" : text.na,
+          style: theme.primaryTextTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        Text(
+          text.wouldTakeAgain,
+          style: theme.primaryTextTheme.bodyMedium,
+        ),
+        Container(
+          width: 1,
+          height: 16,
+          color: Colors.black,
+          margin: const EdgeInsets.symmetric(horizontal: 8),
+        ),
+        Text(
+          text.levelOfDifficulty,
+          style: theme.primaryTextTheme.bodyMedium,
+        ),
+        Text(
+          professor.hardAvg.toString(),
+          style: theme.primaryTextTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ],
     );
   }
 }
