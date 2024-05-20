@@ -12,7 +12,7 @@ enum ReviewItemAction { like, dislike }
 class ReviewItemState extends Equatable {
   final ReviewItemStatus? status;
   final ReviewItemAction? action;
-  final Review? review;
+  final UniversityReview? review;
   final Profile? userAuthenticated;
 
   const ReviewItemState({
@@ -24,7 +24,7 @@ class ReviewItemState extends Equatable {
 
   ReviewItemState copyWith({
     ReviewItemStatus? status,
-    Review? review,
+    UniversityReview? review,
     ReviewItemAction? action,
     Profile? userAuthenticated,
   }) {

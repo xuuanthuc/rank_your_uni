@@ -9,7 +9,7 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/repositories/detail_repository.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
-import '../../../models/response/review.dart';
+import '../../../models/response/university_review.dart';
 
 part 'detail_university_state.dart';
 
@@ -65,7 +65,7 @@ class DetailUniversityCubit extends Cubit<DetailUniversityState> {
     ));
   }
 
-  List<Review> sortReviewByDate(List<Review> reviews) {
+  List<UniversityReview> sortReviewByDate(List<UniversityReview> reviews) {
     reviews.sort(
       (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
               .parse(second.reviewDate ?? '', true)
@@ -77,7 +77,7 @@ class DetailUniversityCubit extends Cubit<DetailUniversityState> {
     return reviews;
   }
 
-  List<Review> sortReviewByUseful(List<Review> reviews) {
+  List<UniversityReview> sortReviewByUseful(List<UniversityReview> reviews) {
     reviews.sort(
       (first, second) => (second.liked?.userLiked?.length ?? 0)
           .compareTo(first.liked?.userLiked?.length ?? 0),

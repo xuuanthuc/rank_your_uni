@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:template/src/models/request/contact.dart';
 import 'package:template/src/models/request/password_request.dart';
 import 'package:template/src/models/request/profile_request.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import '../models/response/profile.dart';
 import '../models/response/response.dart';
 import '../network/exception.dart';
@@ -28,10 +28,10 @@ class UserRepository {
 
   Future<RYUResponse> getMyReviews(String id) async {
     try {
-      List<Review> reviews = [];
+      List<UniversityReview> reviews = [];
       final data = await _apiProvider.get("${ApiEndpoint.myReviews}/$id");
       for (var element in (data['listItem'] as List<dynamic>)) {
-        reviews.add(Review.fromJson(element));
+        reviews.add(UniversityReview.fromJson(element));
       }
       await compute(sortReviewByDate, reviews);
       return RYUResponse(isSuccess: true, data: reviews);
@@ -40,7 +40,7 @@ class UserRepository {
     }
   }
 
-  List<Review> sortReviewByDate(List<Review> reviews) {
+  List<UniversityReview> sortReviewByDate(List<UniversityReview> reviews) {
     reviews.sort(
       (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
               .parse(second.reviewDate ?? '', true)

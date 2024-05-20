@@ -1,4 +1,4 @@
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 
 class University {
   final int id;
@@ -8,7 +8,7 @@ class University {
   final String? website;
   final String? phone;
   final double? averagePointAllReviews;
-  final List<Review>? reviews;
+  final List<UniversityReview>? reviews;
   final double? reputationAvg;
   final double? internetAvg;
   final double? locationAvg;
@@ -102,10 +102,10 @@ class University {
     final averagePointAllReviews =
         double.tryParse(json['averagePointAllReviews'] ?? "") ?? 0.0;
     final phone = json['phone'];
-    final reviews = <Review>[];
+    final reviews = <UniversityReview>[];
     if (json['reviews'] != null) {
       json['reviews'].forEach((v) {
-        reviews.add(Review.fromJson(v));
+        reviews.add(UniversityReview.fromJson(v));
       });
     }
     return University(
@@ -130,7 +130,7 @@ class University {
     );
   }
 
-  University copyWith({List<Review>? newReviews}) {
+  University copyWith({List<UniversityReview>? newReviews}) {
     return University(
       id,
       name: name,

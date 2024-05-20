@@ -1,9 +1,9 @@
-import '../response/review.dart';
+import '../response/university_review.dart';
 import '../response/university.dart';
 
 class EditReviewParam {
   final University? university;
-  final Review? review;
+  final UniversityReview? review;
 
   const EditReviewParam({
     this.review,

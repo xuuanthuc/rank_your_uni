@@ -266,5 +266,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "compare": "So sánh",
+  "pedagogical": "Chất lượng sư phạm",
+  "professional": "Chất lượng chuyên môn",
+  "pedagogicalDescription": "Chất lượng sư phạm",
+  "professionalDescription": "Chất lượng chuyên môn",
+  "pedagogicalSubDescription": "Kỹ năng giảng , truyền đạt bài học một cách hiệu quả",
+  "professionalSubDescription": "Kiến thức thực tế và các lĩnh vực liên quan tới chuyên môn của giảng viên",
+  "hardLevel" : "Độ khó",
+  "hardLevelDescription" : "Độ khó của giảng viên",
+  "hardLevelSubDescription" : "Qua môn khó hay dễ?"
 }

@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-import 'package:template/global/utilities/extensions.dart';
 import 'package:template/l10n/l10n.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
-
 import '../../../../global/style/app_colors.dart';
 import '../../../../global/style/app_images.dart';
 import '../../../../global/utilities/public.dart';
+import '../../widgets/primary_button.dart';
 import '../bloc/detail_professor_cubit.dart';
 
 class ProfessorOverall extends StatelessWidget {
@@ -59,6 +58,11 @@ class ProfessorInfomation extends StatelessWidget {
             const SizedBox(height: 28),
             ProfessorMoreInfomation(
               professor: state.professor,
+            ),
+            const SizedBox(height: 28),
+            ActionReviewAndCompare(
+              addReview: () {},
+              compare: () {},
             )
           ],
         );
@@ -74,7 +78,39 @@ class ProfessorAveragePoint extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DetailProfessorCubit, DetailProfessorState>(
       builder: (context, state) {
-        return Container();
+        return Container(
+          height: 800,
+          child: RadarChart(
+            RadarChartData(
+              dataSets: [
+                RadarDataSet(
+                  dataEntries: [
+                    RadarEntry(value: 300),
+                    RadarEntry(value:50 ),
+                    RadarEntry(value: 250)
+                  ]
+                ),
+                RadarDataSet(
+                    dataEntries: [
+                      RadarEntry(value: 250),
+                      RadarEntry(value:100 ),
+                      RadarEntry(value: 200)
+                    ]
+                ),
+                RadarDataSet(
+                    dataEntries: [
+                      RadarEntry(value: 150),
+                      RadarEntry(value: 90 ),
+                      RadarEntry(value: 100)
+                    ]
+                )
+              ]
+              // read about it in the RadarChartData section
+            ),
+            swapAnimationDuration: Duration(milliseconds: 150), // Optional
+            swapAnimationCurve: Curves.linear, // Optional
+          ),
+        );
       },
     );
   }
@@ -205,7 +241,7 @@ class ProfessorMoreInfomation extends StatelessWidget {
         Container(
           width: 1,
           height: 60,
-          color: Colors.black,
+          color: AppColors.primary,
           margin: const EdgeInsets.symmetric(horizontal: 8),
         ),
         Expanded(
@@ -225,6 +261,51 @@ class ProfessorMoreInfomation extends StatelessWidget {
             ],
           ),
         )
+      ],
+    );
+  }
+}
+
+class ActionReviewAndCompare extends StatelessWidget {
+  final Function addReview;
+  final Function compare;
+
+  const ActionReviewAndCompare({
+    super.key,
+    required this.addReview,
+    required this.compare,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: PrimaryButton(
+            onTap: () => addReview(),
+            title: text.review,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 10,
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: PrimaryButton(
+            onTap: () => compare(),
+            title: text.compare,
+            isOutline: true,
+            borderColor: theme.primaryColor,
+            titleTextStyleColor: theme.primaryColor,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 10,
+            ),
+          ),
+        ),
       ],
     );
   }

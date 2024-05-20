@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../global/style/styles.dart';
@@ -11,7 +11,7 @@ import '../widgets/primary_dialog.dart';
 import '../widgets/loading_primary_button.dart';
 
 class ReportReviewForm extends StatefulWidget {
-  final Review review;
+  final UniversityReview review;
 
   const ReportReviewForm({
     super.key,

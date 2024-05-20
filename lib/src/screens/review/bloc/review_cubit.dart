@@ -8,7 +8,7 @@ import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/item_criteria_cubit.dart';
 import '../../../../global/enum/criteria.dart';
 import '../../../models/response/response.dart';
-import '../../../models/response/review.dart';
+import '../../../models/response/university_review.dart';
 import '../../../repositories/detail_repository.dart';
 
 part 'review_state.dart';
@@ -20,7 +20,7 @@ class ReviewCubit extends Cubit<ReviewState> {
   ReviewCubit(this._detailRepository) : super(const ReviewState());
 
   void getDetailUniversity(
-      int id, University? university, Review? review) async {
+      int id, University? university, UniversityReview? review) async {
     if (id == -1) return;
     if (review != null) {
       initEditReviewMode(review);
@@ -39,7 +39,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void initEditReviewMode(Review review) {
+  void initEditReviewMode(UniversityReview review) {
     emit(state.copyWith(
         reputation: parsePoint(review.reputation),
         contentRated: review.content,
@@ -70,7 +70,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void onSubmitReview(int schoolId, int userId, {Review? review}) async {
+  void onSubmitReview(int schoolId, int userId, {UniversityReview? review}) async {
     if (state.internet == null ||
         state.location == null ||
         state.status == ReviewStatus.loading ||

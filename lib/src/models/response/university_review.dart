@@ -1,4 +1,4 @@
-class Review {
+class UniversityReview {
   final int id;
   final int? userId;
   final int? schoolId;
@@ -17,7 +17,7 @@ class Review {
   final Liked? liked;
   final int? likedStatus;
 
-  Review(
+  UniversityReview(
     this.id, {
     this.content,
     this.reputation,
@@ -37,7 +37,7 @@ class Review {
     this.schoolName,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) {
+  factory UniversityReview.fromJson(Map<String, dynamic> json) {
     final id = json["id"];
     final userId = json["userId"];
     final schoolId = json["schoolId"];
@@ -62,7 +62,7 @@ class Review {
             userLiked: [],
           );
 
-    return Review(
+    return UniversityReview(
       id,
       content: content,
       reputation: reputation,
@@ -83,7 +83,7 @@ class Review {
     );
   }
 
-  factory Review.fromReportJson(Map<String, dynamic> json) {
+  factory UniversityReview.fromReportJson(Map<String, dynamic> json) {
     final id = json["id"];
     final userId = json["user"]["id"];
     final schoolId = json["school"]["id"];
@@ -99,7 +99,7 @@ class Review {
     final clubs = json["clubs"];
     final reviewDate = json["reviewDate"];
 
-    return Review(
+    return UniversityReview(
       id,
       content: content,
       reputation: reputation,

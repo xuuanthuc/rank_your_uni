@@ -1,10 +1,10 @@
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 
 class Report {
   final int id;
   final String? reportReason;
   final String? reportDate;
-  final Review? review;
+  final UniversityReview? review;
 
   Report(
     this.id, {
@@ -17,10 +17,10 @@ class Report {
     final id = json["id"];
     final reportReason = json["reportReason"];
     final reportDate = json["reportDate"];
-    Review? review;
+    UniversityReview? review;
 
     if(json["review"] != null) {
-      review = Review.fromReportJson(json["review"]);
+      review = UniversityReview.fromReportJson(json["review"]);
     }
 
     return Report(

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/dashboard/bloc/report/dashboard_report_item_cubit.dart';
 import 'package:template/src/models/response/report.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/screens/detail/widgets/university_reviews.dart';
 import 'package:template/src/screens/widgets/primary_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -94,7 +94,7 @@ class _ReportDetailDialogState extends State<ReportDetailDialog> {
                 ),
                 const SizedBox(height: 4),
                 ReviewItem(
-                  review: state.report?.review ?? Review(-1),
+                  review: state.report?.review ?? UniversityReview(-1),
                   onUpdateReviewIndex: (review) {},
                   isPreview: true,
                 ),

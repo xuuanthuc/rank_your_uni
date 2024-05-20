@@ -9,7 +9,10 @@ enum Criteria {
   favorite,
   infrastructure,
   clubs,
-  food
+  food,
+  pedagogical,
+  professional,
+  hard,
 }
 
 extension CriteriaName on Criteria {
@@ -33,6 +36,12 @@ extension CriteriaName on Criteria {
         return text.clubs;
       case Criteria.food:
         return text.food;
+      case Criteria.pedagogical:
+        return text.pedagogical;
+      case Criteria.professional:
+        return text.professional;
+      case Criteria.hard:
+        return text.hardLevel;
       default:
         return '';
     }
@@ -57,6 +66,12 @@ extension CriteriaName on Criteria {
         return text.clubsDescription;
       case Criteria.food:
         return text.foodDescription;
+      case Criteria.pedagogical:
+        return text.pedagogicalDescription;
+      case Criteria.professional:
+        return text.professionalDescription;
+      case Criteria.hard:
+        return text.hardLevelDescription;
       default:
         return '';
     }
@@ -81,6 +96,12 @@ extension CriteriaName on Criteria {
         return text.clubsSubDescription;
       case Criteria.food:
         return text.foodSubDescription;
+      case Criteria.pedagogical:
+        return text.pedagogicalSubDescription;
+      case Criteria.professional:
+        return text.professionalSubDescription;
+      case Criteria.hard:
+        return text.hardLevelSubDescription;
       default:
         return '';
     }

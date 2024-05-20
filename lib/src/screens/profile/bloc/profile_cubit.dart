@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/response/profile.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/repositories/user_repository.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
 import '../../../../global/storage/storage_keys.dart';

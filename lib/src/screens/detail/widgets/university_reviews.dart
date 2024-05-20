@@ -7,7 +7,7 @@ import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/utilities/format.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/di/dependencies.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:template/src/screens/detail/bloc/review_item_cubit.dart';
@@ -206,10 +206,10 @@ class SortButton extends StatelessWidget {
 }
 
 class ReviewItem extends StatefulWidget {
-  final Review review;
+  final UniversityReview review;
   final Profile? currentUser;
   final University? university;
-  final Function(Review) onUpdateReviewIndex;
+  final Function(UniversityReview) onUpdateReviewIndex;
   final bool? isPreview;
 
   const ReviewItem({
@@ -255,7 +255,7 @@ class _ReviewItemState extends State<ReviewItem> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void _likeReview(BuildContext context, Review review, int? userId) async {
+  void _likeReview(BuildContext context, UniversityReview review, int? userId) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null || userId == null) {
@@ -265,7 +265,7 @@ class _ReviewItemState extends State<ReviewItem> {
     }
   }
 
-  void _dislikeReview(BuildContext context, Review review, int? userId) async {
+  void _dislikeReview(BuildContext context, UniversityReview review, int? userId) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null || userId == null) {
@@ -286,7 +286,7 @@ class _ReviewItemState extends State<ReviewItem> {
   }
 
   void _openEditReviewForm(BuildContext context,
-      Review review, {
+      UniversityReview review, {
         University? university,
       }) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
@@ -527,7 +527,7 @@ class DashLine extends StatelessWidget {
 }
 
 class ReviewContent extends StatelessWidget {
-  final Review review;
+  final UniversityReview review;
   final Function onReport;
   final ReviewItemState state;
   final Function(int?) onLike;
@@ -744,7 +744,7 @@ class ReviewContent extends StatelessWidget {
 }
 
 class ReviewDescription extends StatelessWidget {
-  final Review review;
+  final UniversityReview review;
 
   const ReviewDescription({super.key, required this.review});
 
@@ -759,7 +759,7 @@ class ReviewDescription extends StatelessWidget {
 }
 
 class ReviewDate extends StatelessWidget {
-  final Review review;
+  final UniversityReview review;
 
   const ReviewDate({super.key, required this.review});
 
@@ -779,7 +779,7 @@ class ReviewDate extends StatelessWidget {
 }
 
 class OverallPoint extends StatelessWidget {
-  final Review review;
+  final UniversityReview review;
 
   const OverallPoint({super.key, required this.review});
 
@@ -811,7 +811,7 @@ class OverallPoint extends StatelessWidget {
 
 class CriteriaItem extends StatelessWidget {
   final Criteria criteria;
-  final Review review;
+  final UniversityReview review;
 
   const CriteriaItem({
     super.key,
@@ -875,7 +875,7 @@ class CriteriaItem extends StatelessWidget {
     return color;
   }
 
-  getReviewPoint(Review review, Criteria criteria) {
+  getReviewPoint(UniversityReview review, Criteria criteria) {
     switch (criteria) {
       case Criteria.reputation:
         return review.reputation ?? 0;

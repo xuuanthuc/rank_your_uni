@@ -1,86 +1,92 @@
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 
 class ProfessorReview {
   final int id;
+  final int? teacherId;
   final int? userId;
-  final int? schoolId;
-  final String? schoolName;
-  final String? content;
-  final double? reputation;
-  final double? competition;
-  final double? favourite;
-  final double? internet;
-  final double? location;
-  final double? facilities;
-  final double? food;
-  final double? clubs;
+  final String? courseName;
+  final String? teacherName;
+  final int? pedagogical;
+  final int? professional;
+  final int? hard;
+  final bool? hardAttendance;
+  final bool? reLearn;
+  final String? point;
+  final String? contentRate;
   final String? reviewDate;
-  double? averagePointPerReview;
+  final double? averagePointPerReview;
+  final List<String>? tags;
   final Liked? liked;
   final int? likedStatus;
 
-  ProfessorReview(this.id, {
-    this.content,
-    this.reputation,
-    this.competition,
-    this.favourite,
-    this.internet,
-    this.location,
-    this.facilities,
-    this.food,
-    this.clubs,
+  ProfessorReview(
+    this.id, {
     this.reviewDate,
     this.averagePointPerReview,
     this.liked,
     this.likedStatus,
     this.userId,
-    this.schoolId,
-    this.schoolName,
+    this.contentRate,
+    this.courseName,
+    this.hard,
+    this.hardAttendance,
+    this.pedagogical,
+    this.point,
+    this.professional,
+    this.reLearn,
+    this.tags,
+    this.teacherId,
+    this.teacherName,
   });
 
   factory ProfessorReview.fromJson(Map<String, dynamic> json) {
     final id = json["id"];
     final userId = json["userId"];
-    final schoolId = json["schoolId"];
-    final schoolName = json["schoolName"];
-    final content = json["contentRated"];
-    final reputation = json["reputation"];
-    final competition = json["competitionLevel"];
-    final favourite = json["favorite"];
-    final internet = json["internet"];
-    final location = json["location"];
-    final facilities = json["facilities"];
-    final food = json["food"];
-    final clubs = json["clubs"];
+    final courseName = json["courseName"];
+    final pedagogical = json["pedagogical"];
+    final professional = json["professional"];
+    final hard = json["hard"];
+    final hardAttendance = json["hardAttendance"];
+    final reLearn = json["reLearn"];
+    final point = json["point"];
+    final contentRate = json["contentRate"];
     final reviewDate = json["reviewDate"];
+    final teacherId = json["teacherId"];
+    final teacherName = json["teacherName"];
     final averagePointPerReview =
         double.tryParse(json["averagePointPerReview"] ?? '') ?? 0.0;
     final likedStatus = json['likedStatus'];
+
+    final tags = [];
+    if (json['tags'] != null) {
+      json['tags'].forEach((v) {
+        tags.add(v);
+      });
+    }
     final liked = json['liked'] != null
         ? Liked.fromJson(json['liked'])
         : Liked(
-      userDisLiked: [],
-      userLiked: [],
-    );
+            userDisLiked: [],
+            userLiked: [],
+          );
 
     return ProfessorReview(
       id,
-      content: content,
-      reputation: reputation,
-      competition: competition,
-      favourite: favourite,
-      internet: internet,
-      location: location,
-      facilities: facilities,
-      food: food,
-      clubs: clubs,
       reviewDate: reviewDate,
       averagePointPerReview: averagePointPerReview,
       liked: liked,
       likedStatus: likedStatus,
       userId: userId,
-      schoolId: schoolId,
-      schoolName: schoolName,
+      courseName: courseName,
+      pedagogical: pedagogical,
+      professional: professional,
+      hard: hard,
+      hardAttendance: hardAttendance,
+      reLearn: reLearn,
+      point: point,
+      contentRate: contentRate,
+      teacherId: teacherId,
+      teacherName: teacherName,
     );
   }
 }

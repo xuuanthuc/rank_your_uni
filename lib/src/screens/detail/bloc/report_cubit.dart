@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/request/report_request.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 
 import '../../../repositories/detail_repository.dart';
 
@@ -15,7 +15,7 @@ class ReportCubit extends Cubit<ReportState> {
 
   ReportCubit(this._detailRepository) : super(const ReportState());
 
-  void reportReview(Review review, String reason) async {
+  void reportReview(UniversityReview review, String reason) async {
     final ReportRaw report = ReportRaw(
       reportReason: reason,
       reviewId: review.id,

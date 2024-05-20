@@ -58,6 +58,7 @@ dependencies:
   video_player: ^2.8.2
   firebase_analytics: ^10.10.5
   flutter_markdown: ^0.7.1
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:

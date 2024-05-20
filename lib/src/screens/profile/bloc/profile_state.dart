@@ -7,7 +7,7 @@ class ProfileState extends Equatable {
   final QuickMenu? page;
   final Profile? userAuthenticated;
   final ProfileStatus? status;
-  final List<Review>? reviews;
+  final List<UniversityReview>? reviews;
   final bool? canEdit;
 
   const ProfileState({
@@ -21,7 +21,7 @@ class ProfileState extends Equatable {
   ProfileState copyWith({
     QuickMenu? page,
     ProfileStatus? status,
-    List<Review>? reviews,
+    List<UniversityReview>? reviews,
     Profile? userAuthenticated,
     bool? canEdit,
   }) {

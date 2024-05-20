@@ -4,7 +4,7 @@ import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/response.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
 import '../models/request/add_professor_request.dart';
@@ -45,7 +45,7 @@ class DetailRepository {
         ApiEndpoint.reviews,
         params: review.toJson(),
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: UniversityReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -60,7 +60,7 @@ class DetailRepository {
         '${ApiEndpoint.reviews}/$id',
         params: data,
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: UniversityReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -102,7 +102,7 @@ class DetailRepository {
           "userId": userId,
         },
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: UniversityReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -118,7 +118,7 @@ class DetailRepository {
           "userId": userId,
         },
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: UniversityReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
@@ -135,7 +135,7 @@ class DetailRepository {
           "userId": userId,
         },
       );
-      return RYUResponse(isSuccess: true, data: Review.fromJson(res));
+      return RYUResponse(isSuccess: true, data: UniversityReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

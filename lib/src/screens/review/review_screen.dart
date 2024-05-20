@@ -6,7 +6,7 @@ import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
-import 'package:template/src/models/response/review.dart';
+import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/widgets/item_rate.dart';
@@ -22,7 +22,7 @@ import 'widgets/review_text_area.dart';
 class ReviewForm extends StatelessWidget {
   final String universityId;
   final University? university;
-  final Review? review;
+  final UniversityReview? review;
 
   const ReviewForm({
     super.key,
@@ -47,7 +47,7 @@ class ReviewForm extends StatelessWidget {
 class ReviewView extends StatefulWidget {
   final String universityId;
   final University? university;
-  final Review? review;
+  final UniversityReview? review;
 
   const ReviewView({
     super.key,

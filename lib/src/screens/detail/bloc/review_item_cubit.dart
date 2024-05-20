@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:template/src/models/response/profile.dart';
 import '../../../models/response/response.dart';
-import '../../../models/response/review.dart';
+import '../../../models/response/university_review.dart';
 import '../../../repositories/detail_repository.dart';
 
 part 'review_item_state.dart';
@@ -15,11 +15,11 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
 
   ReviewItemCubit(this._detailRepository) : super(const ReviewItemState());
 
-  void onInitReviewUI(Review review, Profile? currentUser) async {
+  void onInitReviewUI(UniversityReview review, Profile? currentUser) async {
     emit(state.copyWith(review: review, userAuthenticated: currentUser));
   }
 
-  void upVoteReview(Review review, int userId) async {
+  void upVoteReview(UniversityReview review, int userId) async {
     if(state.userAuthenticated == null) return;
     if(state.status == ReviewItemStatus.loading) return;
     if(state.userAuthenticated?.id == state.review?.userId) return;
@@ -33,14 +33,14 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
-        review: (res.data as Review)..averagePointPerReview = state.review?.averagePointPerReview,
+        review: (res.data as UniversityReview)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
       emit(state.copyWith(status: ReviewItemStatus.error));
     }
   }
 
-  void downVoteReview(Review review, int userId) async {
+  void downVoteReview(UniversityReview review, int userId) async {
     if(state.userAuthenticated == null) return;
     if(state.status == ReviewItemStatus.loading) return;
     if(state.userAuthenticated?.id == state.review?.userId) return;
@@ -54,7 +54,7 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ReviewItemStatus.success,
-        review: (res.data as Review)..averagePointPerReview = state.review?.averagePointPerReview,
+        review: (res.data as UniversityReview)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
       emit(state.copyWith(status: ReviewItemStatus.error));
