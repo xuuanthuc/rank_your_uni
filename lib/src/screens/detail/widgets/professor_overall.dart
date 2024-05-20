@@ -27,11 +27,16 @@ class ProfessorOverall extends StatelessWidget {
         padding: const EdgeInsets.only(top: 40),
         child: const ResponsiveBuilder(
           mediumView: Column(
-            children: [ProfessorInfomation(), ProfessorAveragePoint()],
+            children: [
+              ProfessorInfomation(),
+              SizedBox(height: 30),
+              ProfessorAveragePoint(),
+            ],
           ),
           child: Row(
             children: [
               Expanded(child: ProfessorInfomation()),
+              SizedBox(width: 30),
               Expanded(child: ProfessorAveragePoint()),
             ],
           ),
@@ -76,43 +81,98 @@ class ProfessorAveragePoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return BlocBuilder<DetailProfessorCubit, DetailProfessorState>(
       builder: (context, state) {
-        return Container(
-          height: 800,
+        return AspectRatio(
+          aspectRatio: 0.8,
           child: RadarChart(
             RadarChartData(
+              radarBackgroundColor: Colors.transparent,
+              borderData: FlBorderData(
+                  show: false,
+                  border: Border.all(width: 2, color: Colors.green)),
+              radarBorderData: BorderSide(
+                  color: getBackgroundPoint(
+                      state.professor?.averagePointAllReviews ?? 0.0)),
+              titlePositionPercentageOffset: 0.1,
+              radarShape: RadarShape.polygon,
+              tickCount: 100,
+              tickBorderData: const BorderSide(color: Colors.transparent),
+              gridBorderData: BorderSide(
+                  color: getBackgroundPoint(
+                      state.professor?.averagePointAllReviews ?? 0.0),
+                  width: 1),
+              titleTextStyle: Theme.of(context).primaryTextTheme.bodyMedium,
+              ticksTextStyle: const TextStyle(color: Colors.transparent),
               dataSets: [
                 RadarDataSet(
+                  entryRadius: 2,
+                  borderColor: AppColors.level5,
+                  fillColor: AppColors.level5.withOpacity(0.3),
                   dataEntries: [
-                    RadarEntry(value: 300),
-                    RadarEntry(value:50 ),
-                    RadarEntry(value: 250)
-                  ]
+                    RadarEntry(value: state.professor?.pedagogicalAvg ?? 0.0),
+                    RadarEntry(value: state.professor?.professionalAvg ?? 0.0),
+                    RadarEntry(value: state.professor?.hardAvg ?? 0.0),
+                  ],
                 ),
                 RadarDataSet(
-                    dataEntries: [
-                      RadarEntry(value: 250),
-                      RadarEntry(value:100 ),
-                      RadarEntry(value: 200)
-                    ]
+                  fillColor: Colors.transparent,
+                  borderColor: Colors.transparent,
+                  entryRadius: 0,
+                  dataEntries: [
+                    const RadarEntry(value: 5.0),
+                    const RadarEntry(value: 0),
+                    const RadarEntry(value: 0),
+                  ],
                 ),
-                RadarDataSet(
-                    dataEntries: [
-                      RadarEntry(value: 150),
-                      RadarEntry(value: 90 ),
-                      RadarEntry(value: 100)
-                    ]
-                )
-              ]
-              // read about it in the RadarChartData section
+              ],
+              getTitle: (index, angle) {
+                switch (index) {
+                  case 0:
+                    return RadarChartTitle(
+                      text: "${text.pedagogical}: ${state.professor?.pedagogicalAvg ?? 0.0}",
+                    );
+                  case 1:
+                    return RadarChartTitle(
+                      text: "${text.professional}: ${state.professor?.professionalAvg ?? 0.0}",
+                      angle: 300
+                    );
+                  case 2:
+                    return RadarChartTitle(
+                      text: "${text.hardLevel}: ${state.professor?.hardAvg ?? 0.0}",
+                      angle: 60
+                    );
+                  default:
+                    return const RadarChartTitle(text: '');
+                }
+              },
             ),
-            swapAnimationDuration: Duration(milliseconds: 150), // Optional
+            swapAnimationDuration: const Duration(milliseconds: 700),
+            // Optional
             swapAnimationCurve: Curves.linear, // Optional
           ),
         );
       },
     );
+  }
+
+  Color getBackgroundPoint(double point) {
+    Color color = AppColors.level0;
+    if (point >= 5.0) {
+      color = AppColors.level5;
+    } else if (point >= 4.0) {
+      color = AppColors.level4;
+    } else if (point >= 3.0) {
+      color = AppColors.level3;
+    } else if (point >= 2.0) {
+      color = AppColors.level2;
+    } else if (point >= 1.0) {
+      color = AppColors.level1;
+    } else if (point > 0.0) {
+      color = AppColors.level1;
+    }
+    return color;
   }
 }
 

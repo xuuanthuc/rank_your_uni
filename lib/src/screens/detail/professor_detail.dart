@@ -84,9 +84,13 @@ class _ProfessorDetailViewState extends State<ProfessorDetailView> {
           Stack(
             children: [
               Image.asset(AppImages.iDetailBackground),
-              const Column(
+               const Column(
                 children: [
-                  ProfessorOverall()
+                  ProfessorOverall(),
+                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 500,
+                  )
                 ],
               ),
             ],
