@@ -5,6 +5,7 @@ import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/screens/detail/bloc/detail_professor_cubit.dart';
 import 'package:template/src/screens/detail/widgets/professor_overall.dart';
+import 'package:template/src/screens/detail/widgets/professor_reviews.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
 import '../../../global/style/styles.dart';
@@ -87,10 +88,7 @@ class _ProfessorDetailViewState extends State<ProfessorDetailView> {
                const Column(
                 children: [
                   ProfessorOverall(),
-                  SizedBox(height: 50,),
-                  SizedBox(
-                    height: 500,
-                  )
+                  ProfessorReviewsBuilder(),
                 ],
               ),
             ],

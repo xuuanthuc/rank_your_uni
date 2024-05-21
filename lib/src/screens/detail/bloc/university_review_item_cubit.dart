@@ -7,13 +7,13 @@ import '../../../models/response/response.dart';
 import '../../../models/response/university_review.dart';
 import '../../../repositories/detail_repository.dart';
 
-part 'review_item_state.dart';
+part 'university_review_item_state.dart';
 
 @injectable
-class ReviewItemCubit extends Cubit<ReviewItemState> {
+class UniversityReviewItemCubit extends Cubit<UniversityReviewItemState> {
   final DetailRepository _detailRepository;
 
-  ReviewItemCubit(this._detailRepository) : super(const ReviewItemState());
+  UniversityReviewItemCubit(this._detailRepository) : super(const UniversityReviewItemState());
 
   void onInitReviewUI(UniversityReview review, Profile? currentUser) async {
     emit(state.copyWith(review: review, userAuthenticated: currentUser));
@@ -21,10 +21,10 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
 
   void upVoteReview(UniversityReview review, int userId) async {
     if(state.userAuthenticated == null) return;
-    if(state.status == ReviewItemStatus.loading) return;
+    if(state.status == UniversityReviewItemStatus.loading) return;
     if(state.userAuthenticated?.id == state.review?.userId) return;
     RYUResponse res;
-    emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.like));
+    emit(state.copyWith(status: UniversityReviewItemStatus.loading, action: UniversityReviewItemAction.like));
     if((state.review?.liked?.userLiked ?? []).contains(userId)){
       res = await _detailRepository.undoReview(review.id, userId);
     } else {
@@ -32,20 +32,20 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     }
     if (res.isSuccess) {
       emit(state.copyWith(
-        status: ReviewItemStatus.success,
+        status: UniversityReviewItemStatus.success,
         review: (res.data as UniversityReview)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
-      emit(state.copyWith(status: ReviewItemStatus.error));
+      emit(state.copyWith(status: UniversityReviewItemStatus.error));
     }
   }
 
   void downVoteReview(UniversityReview review, int userId) async {
     if(state.userAuthenticated == null) return;
-    if(state.status == ReviewItemStatus.loading) return;
+    if(state.status == UniversityReviewItemStatus.loading) return;
     if(state.userAuthenticated?.id == state.review?.userId) return;
     RYUResponse res;
-    emit(state.copyWith(status: ReviewItemStatus.loading, action: ReviewItemAction.dislike));
+    emit(state.copyWith(status: UniversityReviewItemStatus.loading, action: UniversityReviewItemAction.dislike));
     if((state.review?.liked?.userDisLiked ?? []).contains(userId)){
       res = await _detailRepository.undoReview(review.id, userId);
     } else {
@@ -53,11 +53,11 @@ class ReviewItemCubit extends Cubit<ReviewItemState> {
     }
     if (res.isSuccess) {
       emit(state.copyWith(
-        status: ReviewItemStatus.success,
+        status: UniversityReviewItemStatus.success,
         review: (res.data as UniversityReview)..averagePointPerReview = state.review?.averagePointPerReview,
       ));
     } else {
-      emit(state.copyWith(status: ReviewItemStatus.error));
+      emit(state.copyWith(status: UniversityReviewItemStatus.error));
     }
   }
 }

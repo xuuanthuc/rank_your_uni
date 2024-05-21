@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/global/style/styles.dart';
-import 'package:template/global/enum/criteria.dart';
-import 'package:template/global/utilities/format.dart';
-import 'package:template/global/utilities/toast.dart';
-import 'package:template/src/di/dependencies.dart';
-import 'package:template/src/models/response/university_review.dart';
-import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
-import 'package:template/src/screens/detail/bloc/report_cubit.dart';
-import 'package:template/src/screens/detail/bloc/university_review_item_cubit.dart';
-import 'package:template/src/screens/detail/report_review_form.dart';
-import 'package:template/src/screens/widgets/loading.dart';
-import 'package:template/src/screens/widgets/point_container.dart';
-import 'package:template/src/screens/widgets/required_login_dialog.dart';
-import 'package:template/src/screens/widgets/responsive_builder.dart';
+import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/models/response/professor_review.dart';
+import 'package:template/src/screens/detail/bloc/professor_review_item_cubit.dart';
+import 'package:template/src/screens/detail/widgets/university_reviews.dart';
+import '../../../../global/enum/criteria.dart';
 import '../../../../global/enum/review_sort_type.dart';
 import '../../../../global/routes/route_keys.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
-import '../../../models/request/edit_review_param.dart';
+import '../../../../global/style/styles.dart';
+import '../../../../global/utilities/format.dart';
+import '../../../../global/utilities/toast.dart';
+import '../../../di/dependencies.dart';
 import '../../../models/response/profile.dart';
-import '../../../models/response/university.dart';
+import '../../widgets/loading.dart';
+import '../../widgets/point_container.dart';
 import '../../widgets/primary_button.dart';
+import '../../widgets/required_login_dialog.dart';
+import '../../widgets/responsive_builder.dart';
+import '../bloc/detail_professor_cubit.dart';
 
-class UniversityReviewsBuilder extends StatelessWidget {
-  const UniversityReviewsBuilder({super.key});
+class ProfessorReviewsBuilder extends StatelessWidget {
+  const ProfessorReviewsBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class UniversityReviewsBuilder extends StatelessWidget {
       constraints: const BoxConstraints(
         maxWidth: Public.laptopSize,
       ),
-      child: BlocBuilder<DetailUniversityCubit, DetailUniversityState>(
+      child: BlocBuilder<DetailProfessorCubit, DetailProfessorState>(
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +66,7 @@ class UniversityReviewsBuilder extends StatelessWidget {
                         state.status == DetailStatus.loading
                             ? text.loadingReviews
                             : text.reviewCount(
-                                state.university?.reviews?.length ?? 0),
+                                state.professor?.reviews?.length ?? 0),
                         style: theme.textTheme.labelLarge,
                       ),
                     ),
@@ -77,7 +75,9 @@ class UniversityReviewsBuilder extends StatelessWidget {
                       label: text.newFirst,
                       icon: AppImages.iCalendar,
                       onTap: () {
-                        context.read<DetailUniversityCubit>().changeSort(SortType.date);
+                        context
+                            .read<DetailProfessorCubit>()
+                            .changeSort(SortType.date);
                       },
                       currentType: state.sortType ?? SortType.date,
                       type: SortType.date,
@@ -87,7 +87,9 @@ class UniversityReviewsBuilder extends StatelessWidget {
                       label: text.countLikeFirst,
                       icon: AppImages.iLike,
                       onTap: () {
-                        context.read<DetailUniversityCubit>().changeSort(SortType.like);
+                        context
+                            .read<DetailProfessorCubit>()
+                            .changeSort(SortType.like);
                       },
                       currentType: state.sortType ?? SortType.date,
                       type: SortType.like,
@@ -95,7 +97,7 @@ class UniversityReviewsBuilder extends StatelessWidget {
                   ],
                 ),
               ),
-              if ((state.university?.reviews ?? []).isNotEmpty)
+              if ((state.professor?.reviews ?? []).isNotEmpty)
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -105,24 +107,23 @@ class UniversityReviewsBuilder extends StatelessWidget {
                         bottom: (((index + 1) % 3) == 0) ? 75 : 0,
                       ),
                       child: BlocProvider(
-                        create: (context) => getIt.get<UniversityReviewItemCubit>(),
+                        create: (context) =>
+                            getIt.get<ProfessorReviewItemCubit>(),
                         child: ReviewItem(
                           currentUser: state.userAuthenticated,
-                          university: state.university ?? const University(-1),
-                          review: (state.university?.reviews ?? [])[index],
+                          professor: state.professor ?? const Professor(-1),
+                          review: (state.professor?.reviews ?? [])[index],
                           onUpdateReviewIndex: (review) =>
-                          state.university?.reviews?[index] = review,
+                              state.professor?.reviews?[index] = review,
                         ),
                       ),
                     );
                   },
-                  itemCount: state.university?.reviews?.length ?? 0,
+                  itemCount: state.professor?.reviews?.length ?? 0,
                   separatorBuilder: (_, __) => const SizedBox(height: 30),
                 ),
-              if ((state.university?.reviews ?? []).isEmpty)
-                SizedBox(height: MediaQuery
-                    .sizeOf(context)
-                    .width * 0.5),
+              if ((state.professor?.reviews ?? []).isEmpty)
+                SizedBox(height: MediaQuery.sizeOf(context).width * 0.5),
               const SizedBox(height: 75),
             ],
           );
@@ -132,140 +133,75 @@ class UniversityReviewsBuilder extends StatelessWidget {
   }
 }
 
-class SortButton extends StatelessWidget {
-  final String label;
-  final String icon;
-  final Function onTap;
-  final SortType type;
-  final SortType currentType;
-
-  const SortButton({
-    super.key,
-    required this.label,
-    required this.icon,
-    required this.onTap,
-    required this.type,
-    required this.currentType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return SelectionContainer.disabled(
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () => onTap(),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color:
-              type == currentType ? AppColors.level5 : Colors.transparent,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: SvgPicture.asset(
-                    icon,
-                    colorFilter: ColorFilter.mode(
-                      type == currentType ? Colors.white : AppColors.black,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-                ResponsiveBuilder(
-                  smallView: Container(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      label,
-                      style: theme.primaryTextTheme.titleLarge?.copyWith(
-                        color: type == currentType
-                            ? Colors.white
-                            : AppColors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class ReviewItem extends StatefulWidget {
-  final UniversityReview review;
+  final ProfessorReview review;
   final Profile? currentUser;
-  final University? university;
-  final Function(UniversityReview) onUpdateReviewIndex;
+  final Professor? professor;
+  final Function(ProfessorReview) onUpdateReviewIndex;
   final bool? isPreview;
 
   const ReviewItem({
     super.key,
     this.currentUser,
-    this.university,
+    this.professor,
     this.isPreview = false,
     required this.review,
     required this.onUpdateReviewIndex,
   });
 
   @override
-  State<ReviewItem> createState() => _ReviewItemState();
+  State<ReviewItem> createState() => _ProfessorReviewItemState();
 }
 
-class _ReviewItemState extends State<ReviewItem> {
-  Future<void> _onReport(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      barrierColor: Colors.black12,
-      builder: (BuildContext context) {
-        return BlocProvider(
-          create: (context) => getIt.get<ReportCubit>(),
-          child: ReportReviewForm(review: widget.review),
-        );
-      },
-    );
+class _ProfessorReviewItemState extends State<ReviewItem> {
+  Future<void> _onReport(BuildContext context) async {
+    //TODO: return showDialog<void>(
+    //   context: context,
+    //   barrierColor: Colors.black12,
+    //   builder: (BuildContext context) {
+    //     return BlocProvider(
+    //       create: (context) => getIt.get<ReportCubit>(),
+    //       child: ReportReviewForm(review: widget.review),
+    //     );
+    //   },
+    // );
   }
 
   @override
   void initState() {
     super.initState();
     context
-        .read<UniversityReviewItemCubit>()
+        .read<ProfessorReviewItemCubit>()
         .onInitReviewUI(widget.review, widget.currentUser);
   }
 
   @override
   void didUpdateWidget(covariant ReviewItem oldWidget) {
     context
-        .read<UniversityReviewItemCubit>()
+        .read<ProfessorReviewItemCubit>()
         .onInitReviewUI(widget.review, widget.currentUser);
     super.didUpdateWidget(oldWidget);
   }
 
-  void _likeReview(BuildContext context, UniversityReview review, int? userId) async {
+  void _likeReview(
+      BuildContext context, ProfessorReview review, int? userId) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null || userId == null) {
       _showNoticeMustLoginDialog(context);
     } else {
-      context.read<UniversityReviewItemCubit>().upVoteReview(review, userId);
+      context.read<ProfessorReviewItemCubit>().upVoteReview(review, userId);
     }
   }
 
-  void _dislikeReview(BuildContext context, UniversityReview review, int? userId) async {
+  void _dislikeReview(
+      BuildContext context, ProfessorReview review, int? userId) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null || userId == null) {
       _showNoticeMustLoginDialog(context);
     } else {
-      context.read<UniversityReviewItemCubit>().downVoteReview(review, userId);
+      context.read<ProfessorReviewItemCubit>().downVoteReview(review, userId);
     }
   }
 
@@ -279,23 +215,24 @@ class _ReviewItemState extends State<ReviewItem> {
     );
   }
 
-  void _openEditReviewForm(BuildContext context,
-      UniversityReview review, {
-        University? university,
-      }) async {
+  void _openEditReviewForm(
+    BuildContext context,
+    ProfessorReview review, {
+    Professor? professor,
+  }) async {
     final token = await StorageProvider.instance.get(StorageKeys.token);
     if (!context.mounted) return;
     if (token == null) {
       _showNoticeMustLoginDialog(context);
     } else {
-      context.goNamed(
-        RouteKey.editReview,
-        pathParameters: {
-          "uniId": "${review.schoolId}",
-          "reviewId": "${review.id}",
-        },
-        extra: EditReviewParam(university: university, review: review),
-      );
+      //TODO context.goNamed(
+      //   RouteKey.editReview,
+      //   pathParameters: {
+      //     "uniId": "${review.schoolId}",
+      //     "reviewId": "${review.id}",
+      //   },
+      //   extra: EditReviewParam(professor: professor, review: review),
+      // );
     }
   }
 
@@ -303,13 +240,13 @@ class _ReviewItemState extends State<ReviewItem> {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: BlocListener<UniversityReviewItemCubit, UniversityReviewItemState>(
+      child: BlocListener<ProfessorReviewItemCubit, ProfessorReviewItemState>(
         listener: (context, state) {
-          if (state.status == UniversityReviewItemStatus.success) {
+          if (state.status == ProfessorReviewItemStatus.success) {
             if (state.review == null) return;
             widget.onUpdateReviewIndex(state.review!);
           }
-          if (state.status == UniversityReviewItemStatus.error) {
+          if (state.status == ProfessorReviewItemStatus.error) {
             appToast(
               context,
               message: AppLocalizations.of(context)!.somethingWrong,
@@ -317,7 +254,7 @@ class _ReviewItemState extends State<ReviewItem> {
             );
           }
         },
-        child: BlocBuilder<UniversityReviewItemCubit, UniversityReviewItemState>(
+        child: BlocBuilder<ProfessorReviewItemCubit, ProfessorReviewItemState>(
           builder: (context, state) {
             if (state.review == null) {
               return const SizedBox.shrink();
@@ -331,17 +268,14 @@ class _ReviewItemState extends State<ReviewItem> {
                   children: [
                     MyReview(
                       state: state,
-                      onEditReview: () =>
-                          _openEditReviewForm(
-                            context,
-                            widget.review,
-                            university: widget.university,
-                          ),
-                      onGoToSchool: () => context.goNamed(
-                        RouteKey.university,
-                        pathParameters: {
-                          "id": "${widget.review.schoolId}"
-                        },
+                      onEditReview: () => _openEditReviewForm(
+                        context,
+                        widget.review,
+                        professor: widget.professor,
+                      ),
+                      onGoToProfessor: () => context.goNamed(
+                        RouteKey.professor,
+                        pathParameters: {"id": "${widget.review.teacherId}"},
                       ),
                     ),
                     OverallPoint(review: state.review!),
@@ -350,18 +284,16 @@ class _ReviewItemState extends State<ReviewItem> {
                       state: state,
                       isPreview: widget.isPreview ?? false,
                       onReport: () => _onReport(context),
-                      onLike: (userId) =>
-                          _likeReview(
-                            context,
-                            state.review!,
-                            userId,
-                          ),
-                      onDislike: (userId) =>
-                          _dislikeReview(
-                            context,
-                            state.review!,
-                            userId,
-                          ),
+                      onLike: (userId) => _likeReview(
+                        context,
+                        state.review!,
+                        userId,
+                      ),
+                      onDislike: (userId) => _dislikeReview(
+                        context,
+                        state.review!,
+                        userId,
+                      ),
                       review: state.review!,
                     ),
                   ],
@@ -370,17 +302,14 @@ class _ReviewItemState extends State<ReviewItem> {
                   children: [
                     MyReview(
                       state: state,
-                      onEditReview: () =>
-                          _openEditReviewForm(
-                            context,
-                            widget.review,
-                            university: widget.university,
-                          ),
-                      onGoToSchool: () => context.goNamed(
-                        RouteKey.university,
-                        pathParameters: {
-                          "id": "${widget.review.schoolId}"
-                        },
+                      onEditReview: () => _openEditReviewForm(
+                        context,
+                        widget.review,
+                        professor: widget.professor,
+                      ),
+                      onGoToProfessor: () => context.goNamed(
+                        RouteKey.professor,
+                        pathParameters: {"id": "${widget.review.teacherId}"},
                       ),
                     ),
                     Row(
@@ -393,18 +322,16 @@ class _ReviewItemState extends State<ReviewItem> {
                             state: state,
                             isPreview: widget.isPreview ?? false,
                             onReport: () => _onReport(context),
-                            onLike: (userId) =>
-                                _likeReview(
-                                  context,
-                                  state.review!,
-                                  userId,
-                                ),
-                            onDislike: (userId) =>
-                                _dislikeReview(
-                                  context,
-                                  state.review!,
-                                  userId,
-                                ),
+                            onLike: (userId) => _likeReview(
+                              context,
+                              state.review!,
+                              userId,
+                            ),
+                            onDislike: (userId) => _dislikeReview(
+                              context,
+                              state.review!,
+                              userId,
+                            ),
                             review: state.review!,
                           ),
                         ),
@@ -422,15 +349,15 @@ class _ReviewItemState extends State<ReviewItem> {
 }
 
 class MyReview extends StatelessWidget {
-  final UniversityReviewItemState state;
+  final ProfessorReviewItemState state;
   final Function onEditReview;
-  final Function onGoToSchool;
+  final Function onGoToProfessor;
 
   const MyReview({
     super.key,
     required this.state,
     required this.onEditReview,
-    required this.onGoToSchool,
+    required this.onGoToProfessor,
   });
 
   @override
@@ -445,9 +372,9 @@ class MyReview extends StatelessWidget {
               Flexible(
                 child: PrimaryButton(
                   alignment: Alignment.centerLeft,
-                  onTap: () => onGoToSchool(),
+                  onTap: () => onGoToProfessor(),
                   hasBorder: false,
-                  title: state.review?.schoolName ?? '',
+                  title: state.review?.teacherName ?? '',
                   isOutline: true,
                   titleTextStyleColor: AppColors.black,
                   padding: EdgeInsets.zero,
@@ -521,9 +448,9 @@ class DashLine extends StatelessWidget {
 }
 
 class ReviewContent extends StatelessWidget {
-  final UniversityReview review;
+  final ProfessorReview review;
   final Function onReport;
-  final UniversityReviewItemState state;
+  final ProfessorReviewItemState state;
   final Function(int?) onLike;
   final Function(int?) onDislike;
   final bool isPreview;
@@ -649,21 +576,22 @@ class ReviewContent extends StatelessWidget {
                   icon: SizedBox(
                     height: 30,
                     width: 30,
-                    child: BlocBuilder<UniversityReviewItemCubit, UniversityReviewItemState>(
+                    child: BlocBuilder<ProfessorReviewItemCubit,
+                        ProfessorReviewItemState>(
                       builder: (context, state) {
-                        if (state.status == UniversityReviewItemStatus.loading &&
-                            state.action == UniversityReviewItemAction.like) {
+                        if (state.status == ProfessorReviewItemStatus.loading &&
+                            state.action == ProfessorReviewItemAction.like) {
                           return Padding(
                             padding: const EdgeInsets.all(4),
                             child: PrimaryCircularLoading(
-                              state.status == UniversityReviewItemStatus.loading,
+                              state.status == ProfessorReviewItemStatus.loading,
                               strokeWidth: 5,
                               strokeColor: AppColors.black,
                             ),
                           );
                         }
                         return (state.review?.liked?.userLiked ?? [])
-                            .contains(state.userAuthenticated?.id ?? -1)
+                                .contains(state.userAuthenticated?.id ?? -1)
                             ? SvgPicture.asset(AppImages.iLiked)
                             : SvgPicture.asset(AppImages.iLike);
                       },
@@ -687,21 +615,22 @@ class ReviewContent extends StatelessWidget {
                   icon: SizedBox(
                     height: 30,
                     width: 30,
-                    child: BlocBuilder<UniversityReviewItemCubit, UniversityReviewItemState>(
+                    child: BlocBuilder<ProfessorReviewItemCubit,
+                        ProfessorReviewItemState>(
                       builder: (context, state) {
-                        if (state.status == UniversityReviewItemStatus.loading &&
-                            state.action == UniversityReviewItemAction.dislike) {
+                        if (state.status == ProfessorReviewItemStatus.loading &&
+                            state.action == ProfessorReviewItemAction.dislike) {
                           return Padding(
                             padding: const EdgeInsets.all(4),
                             child: PrimaryCircularLoading(
-                              state.status == UniversityReviewItemStatus.loading,
+                              state.status == ProfessorReviewItemStatus.loading,
                               strokeWidth: 5,
                               strokeColor: AppColors.black,
                             ),
                           );
                         }
                         return (state.review?.liked?.userDisLiked ?? [])
-                            .contains(state.userAuthenticated?.id ?? -1)
+                                .contains(state.userAuthenticated?.id ?? -1)
                             ? SvgPicture.asset(AppImages.iDisliked)
                             : SvgPicture.asset(AppImages.iDislike);
                       },
@@ -738,7 +667,7 @@ class ReviewContent extends StatelessWidget {
 }
 
 class ReviewDescription extends StatelessWidget {
-  final UniversityReview review;
+  final ProfessorReview review;
 
   const ReviewDescription({super.key, required this.review});
 
@@ -746,14 +675,14 @@ class ReviewDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Text(
-      review.content ?? '',
+      review.contentRate ?? '',
       style: theme.primaryTextTheme.bodyMedium,
     );
   }
 }
 
 class ReviewDate extends StatelessWidget {
-  final UniversityReview review;
+  final ProfessorReview review;
 
   const ReviewDate({super.key, required this.review});
 
@@ -773,7 +702,7 @@ class ReviewDate extends StatelessWidget {
 }
 
 class OverallPoint extends StatelessWidget {
-  final UniversityReview review;
+  final ProfessorReview review;
 
   const OverallPoint({super.key, required this.review});
 
@@ -781,31 +710,90 @@ class OverallPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          text.overall,
-          style: theme.primaryTextTheme.bodyLarge,
-        ),
-        const SizedBox(height: 7),
-        ResponsiveBuilder(
-          tinyView: PointContainer.small(
-            point: review.averagePointPerReview ?? 0,
+    return ResponsiveBuilder(
+      mediumView: Row(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                text.quality,
+                style: theme.primaryTextTheme.bodyLarge,
+              ),
+              ResponsiveBuilder(
+                tinyView: PointContainer.small(
+                  point: review.averagePointPerReview ?? 0,
+                ),
+                child: PointContainer.medium(
+                  point: review.averagePointPerReview ?? 0,
+                ),
+              ),
+            ],
           ),
-          child: PointContainer.medium(
-            point: review.averagePointPerReview ?? 0,
+          const SizedBox(width: 40),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                text.hardLevel,
+                style: theme.primaryTextTheme.bodyLarge,
+              ),
+              ResponsiveBuilder(
+                tinyView: PointContainer.small(
+                  point: (review.hard ?? 0).toDouble(),
+                  hasColor: false,
+                ),
+                child: PointContainer.medium(
+                  point: (review.hard ?? 0).toDouble(),
+                  hasColor: false,
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text.quality,
+            style: theme.primaryTextTheme.bodyLarge,
+          ),
+          ResponsiveBuilder(
+            tinyView: PointContainer.small(
+              point: review.averagePointPerReview ?? 0,
+            ),
+            child: PointContainer.medium(
+              point: review.averagePointPerReview ?? 0,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            text.hardLevel,
+            style: theme.primaryTextTheme.bodyLarge,
+          ),
+          ResponsiveBuilder(
+            tinyView: PointContainer.small(
+              point: (review.hard ?? 0).toDouble(),
+              hasColor: false,
+            ),
+            child: PointContainer.medium(
+              point: (review.hard ?? 0).toDouble(),
+              hasColor: false,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class CriteriaItem extends StatelessWidget {
   final Criteria criteria;
-  final UniversityReview review;
+  final ProfessorReview review;
 
   const CriteriaItem({
     super.key,
@@ -869,30 +857,14 @@ class CriteriaItem extends StatelessWidget {
     return color;
   }
 
-  getReviewPoint(UniversityReview review, Criteria criteria) {
+  getReviewPoint(ProfessorReview review, Criteria criteria) {
     switch (criteria) {
-      case Criteria.reputation:
-        return review.reputation ?? 0;
-      case Criteria.competition:
-        return review.competition ?? 0;
-
-      case Criteria.location:
-        return review.location ?? 0;
-
-      case Criteria.internet:
-        return review.internet ?? 0;
-
-      case Criteria.favorite:
-        return review.favourite ?? 0;
-
-      case Criteria.infrastructure:
-        return review.facilities ?? 0;
-
-      case Criteria.clubs:
-        return review.clubs ?? 0;
-
-      case Criteria.food:
-        return review.food ?? 0;
+      case Criteria.pedagogical:
+        return review.pedagogical ?? 0;
+      case Criteria.professional:
+        return review.professional ?? 0;
+      case Criteria.hard:
+        return review.hard ?? 0;
       default:
         return 0.0;
     }

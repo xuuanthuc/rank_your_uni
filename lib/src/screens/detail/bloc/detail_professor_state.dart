@@ -2,8 +2,6 @@ part of 'detail_professor_cubit.dart';
 
 enum DetailStatus { loading, success, error }
 
-enum SortType { date, like }
-
 @immutable
 class DetailProfessorState extends Equatable {
   final DetailStatus? status;

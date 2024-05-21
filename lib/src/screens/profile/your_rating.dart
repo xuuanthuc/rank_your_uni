@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/src/screens/profile/bloc/profile_cubit.dart';
 import '../../di/dependencies.dart';
-import '../detail/bloc/review_item_cubit.dart';
+import '../detail/bloc/university_review_item_cubit.dart';
 import '../detail/widgets/university_reviews.dart';
 
 class YourRatings extends StatefulWidget {
@@ -42,7 +42,7 @@ class _YourRatingsState extends State<YourRatings> {
                 bottom: (((index + 1) % 3) == 0) ? 75 : 0,
               ),
               child: BlocProvider(
-                create: (context) => getIt.get<ReviewItemCubit>(),
+                create: (context) => getIt.get<UniversityReviewItemCubit>(),
                 child: ReviewItem(
                   review: (state.reviews ?? [])[index],
                   currentUser: state.userAuthenticated,

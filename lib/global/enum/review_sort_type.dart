@@ -1,0 +1,1 @@
+enum SortType { date, like }

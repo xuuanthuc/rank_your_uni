@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/repositories/detail_repository.dart';
+import '../../../../global/enum/review_sort_type.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
 import '../../../models/response/professor_review.dart';
+import 'detail_university_cubit.dart';
 
 part 'detail_professor_state.dart';
 

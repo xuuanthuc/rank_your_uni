@@ -14,7 +14,7 @@ class ProfessorReview {
   final String? point;
   final String? contentRate;
   final String? reviewDate;
-  final double? averagePointPerReview;
+  double? averagePointPerReview;
   final List<String>? tags;
   final Liked? liked;
   final int? likedStatus;

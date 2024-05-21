@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/repositories/detail_repository.dart';
+import '../../../../global/enum/review_sort_type.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
 import '../../../models/response/university_review.dart';

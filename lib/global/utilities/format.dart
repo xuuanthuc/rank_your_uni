@@ -10,6 +10,7 @@ abstract class Formatter {
 
       return DateFormat('dd MMMM, yyyy', 'vi').format(dateFormated);
     } catch (e) {
+      print(e);
       return '';
     }
   }

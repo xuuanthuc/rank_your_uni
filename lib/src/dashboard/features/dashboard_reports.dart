@@ -8,7 +8,7 @@ import 'package:template/src/dashboard/features/widget/report_detail_dialog.dart
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/report.dart';
 import 'package:template/src/screens/widgets/loading.dart';
-import '../../screens/detail/bloc/review_item_cubit.dart';
+import '../../screens/detail/bloc/university_review_item_cubit.dart';
 import '../bloc/dashboard_cubit.dart';
 
 class DashboardReports extends StatelessWidget {
@@ -109,7 +109,7 @@ class _ItemReportState extends State<ItemReport> {
               create: (context) => getIt.get<DashboardReportItemCubit>(),
             ),
             BlocProvider(
-              create: (context) => getIt.get<ReviewItemCubit>(),
+              create: (context) => getIt.get<UniversityReviewItemCubit>(),
             ),
           ],
           child: ReportDetailDialog(report: report),

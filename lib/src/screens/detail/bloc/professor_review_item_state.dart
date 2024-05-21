@@ -1,34 +1,34 @@
-part of 'review_item_cubit.dart';
+part of 'professor_review_item_cubit.dart';
 
-enum ReviewItemStatus {
+enum ProfessorReviewItemStatus {
   loading,
   success,
   error,
 }
 
-enum ReviewItemAction { like, dislike }
+enum ProfessorReviewItemAction { like, dislike }
 
 @immutable
-class ReviewItemState extends Equatable {
-  final ReviewItemStatus? status;
-  final ReviewItemAction? action;
-  final UniversityReview? review;
+class ProfessorReviewItemState extends Equatable {
+  final ProfessorReviewItemStatus? status;
+  final ProfessorReviewItemAction? action;
+  final ProfessorReview? review;
   final Profile? userAuthenticated;
 
-  const ReviewItemState({
+  const ProfessorReviewItemState({
     this.status,
     this.review,
     this.action,
     this.userAuthenticated,
   });
 
-  ReviewItemState copyWith({
-    ReviewItemStatus? status,
-    UniversityReview? review,
-    ReviewItemAction? action,
+  ProfessorReviewItemState copyWith({
+    ProfessorReviewItemStatus? status,
+    ProfessorReview? review,
+    ProfessorReviewItemAction? action,
     Profile? userAuthenticated,
   }) {
-    return ReviewItemState(
+    return ProfessorReviewItemState(
       status: status ?? this.status,
       review: review ?? this.review,
       action: action ?? this.action,

@@ -5,19 +5,21 @@ class PointContainer extends StatelessWidget {
   final double point;
   final double size;
   final double fontSize;
+  final bool hasColor;
 
-  const PointContainer.regular({
-    super.key,
-    required this.point,
-    this.size = 62,
-    this.fontSize = 25,
-  });
+  const PointContainer.regular(
+      {super.key,
+      required this.point,
+      this.size = 62,
+      this.fontSize = 25,
+      this.hasColor = true});
 
   const PointContainer.small({
     super.key,
     required this.point,
     this.size = 55,
     this.fontSize = 23,
+    this.hasColor = true,
   });
 
   const PointContainer.tiny({
@@ -25,6 +27,7 @@ class PointContainer extends StatelessWidget {
     required this.point,
     this.size = 34,
     this.fontSize = 14,
+    this.hasColor = true,
   });
 
   const PointContainer.medium({
@@ -32,6 +35,7 @@ class PointContainer extends StatelessWidget {
     required this.point,
     this.size = 70,
     this.fontSize = 30,
+    this.hasColor = true,
   });
 
   @override
@@ -40,7 +44,7 @@ class PointContainer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: getBackgroundPoint(point),
+          color: getBackgroundPoint(hasColor ? point : 0),
         ),
         margin: const EdgeInsets.all(7),
         width: size,
