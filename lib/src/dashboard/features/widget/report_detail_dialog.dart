@@ -96,7 +96,7 @@ class _ReportDetailDialogState extends State<ReportDetailDialog> {
                 ReviewItem(
                   review: state.report?.review ?? UniversityReview(-1),
                   onUpdateReviewIndex: (review) {},
-                  isPreview: true,
+                  isDashboardPreview: true,
                 ),
                 const SizedBox(height: 25),
                 Row(

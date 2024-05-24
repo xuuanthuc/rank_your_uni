@@ -29,9 +29,9 @@ class ProfessorReviewItemCubit extends Cubit<ProfessorReviewItemState> {
         status: ProfessorReviewItemStatus.loading,
         action: ProfessorReviewItemAction.like));
     if ((state.review?.liked?.userLiked ?? []).contains(userId)) {
-      res = await _detailRepository.undoReview(review.id, userId);
+      res = await _detailRepository.undoProfessorReview(review.id, userId);
     } else {
-      res = await _detailRepository.likeReview(review.id, userId);
+      res = await _detailRepository.likeProfessorReview(review.id, userId);
     }
     if (res.isSuccess) {
       emit(state.copyWith(
@@ -53,9 +53,9 @@ class ProfessorReviewItemCubit extends Cubit<ProfessorReviewItemState> {
         status: ProfessorReviewItemStatus.loading,
         action: ProfessorReviewItemAction.dislike));
     if ((state.review?.liked?.userDisLiked ?? []).contains(userId)) {
-      res = await _detailRepository.undoReview(review.id, userId);
+      res = await _detailRepository.undoProfessorReview(review.id, userId);
     } else {
-      res = await _detailRepository.dislikeReview(review.id, userId);
+      res = await _detailRepository.dislikeProfessorReview(review.id, userId);
     }
     if (res.isSuccess) {
       emit(state.copyWith(

@@ -204,13 +204,13 @@ class ReviewItem extends StatefulWidget {
   final Profile? currentUser;
   final University? university;
   final Function(UniversityReview) onUpdateReviewIndex;
-  final bool? isPreview;
+  final bool? isDashboardPreview;
 
   const ReviewItem({
     super.key,
     this.currentUser,
     this.university,
-    this.isPreview = false,
+    this.isDashboardPreview = false,
     required this.review,
     required this.onUpdateReviewIndex,
   });
@@ -227,7 +227,7 @@ class _ReviewItemState extends State<ReviewItem> {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => getIt.get<ReportCubit>(),
-          child: ReportReviewForm(review: widget.review),
+          child: ReportReviewForm(universityReview: widget.review),
         );
       },
     );
@@ -348,7 +348,7 @@ class _ReviewItemState extends State<ReviewItem> {
                     const SizedBox(height: 15),
                     ReviewContent(
                       state: state,
-                      isPreview: widget.isPreview ?? false,
+                      isDashboardPreview: widget.isDashboardPreview ?? false,
                       onReport: () => _onReport(context),
                       onLike: (userId) =>
                           _likeReview(
@@ -391,7 +391,7 @@ class _ReviewItemState extends State<ReviewItem> {
                         Expanded(
                           child: ReviewContent(
                             state: state,
-                            isPreview: widget.isPreview ?? false,
+                            isDashboardPreview: widget.isDashboardPreview ?? false,
                             onReport: () => _onReport(context),
                             onLike: (userId) =>
                                 _likeReview(
@@ -526,7 +526,7 @@ class ReviewContent extends StatelessWidget {
   final UniversityReviewItemState state;
   final Function(int?) onLike;
   final Function(int?) onDislike;
-  final bool isPreview;
+  final bool isDashboardPreview;
 
   const ReviewContent({
     super.key,
@@ -535,7 +535,7 @@ class ReviewContent extends StatelessWidget {
     required this.review,
     required this.onLike,
     required this.onDislike,
-    required this.isPreview,
+    required this.isDashboardPreview,
   });
 
   @override
@@ -637,9 +637,9 @@ class ReviewContent extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 14),
         Visibility(
-          visible: !isPreview,
+          visible: !isDashboardPreview,
           child: Row(
             children: [
               Tooltip(

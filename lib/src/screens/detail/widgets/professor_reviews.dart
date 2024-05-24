@@ -6,7 +6,6 @@ import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/screens/detail/bloc/professor_review_item_cubit.dart';
 import 'package:template/src/screens/detail/widgets/university_reviews.dart';
-import '../../../../global/enum/criteria.dart';
 import '../../../../global/enum/review_sort_type.dart';
 import '../../../../global/routes/route_keys.dart';
 import '../../../../global/storage/storage_keys.dart';
@@ -22,6 +21,8 @@ import '../../widgets/primary_button.dart';
 import '../../widgets/required_login_dialog.dart';
 import '../../widgets/responsive_builder.dart';
 import '../bloc/detail_professor_cubit.dart';
+import '../bloc/report_cubit.dart';
+import '../report_review_form.dart';
 
 class ProfessorReviewsBuilder extends StatelessWidget {
   const ProfessorReviewsBuilder({super.key});
@@ -138,13 +139,13 @@ class ReviewItem extends StatefulWidget {
   final Profile? currentUser;
   final Professor? professor;
   final Function(ProfessorReview) onUpdateReviewIndex;
-  final bool? isPreview;
+  final bool? isDashboardPreview;
 
   const ReviewItem({
     super.key,
     this.currentUser,
     this.professor,
-    this.isPreview = false,
+    this.isDashboardPreview = false,
     required this.review,
     required this.onUpdateReviewIndex,
   });
@@ -155,16 +156,16 @@ class ReviewItem extends StatefulWidget {
 
 class _ProfessorReviewItemState extends State<ReviewItem> {
   Future<void> _onReport(BuildContext context) async {
-    //TODO: return showDialog<void>(
-    //   context: context,
-    //   barrierColor: Colors.black12,
-    //   builder: (BuildContext context) {
-    //     return BlocProvider(
-    //       create: (context) => getIt.get<ReportCubit>(),
-    //       child: ReportReviewForm(review: widget.review),
-    //     );
-    //   },
-    // );
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return BlocProvider(
+          create: (context) => getIt.get<ReportCubit>(),
+          child: ReportReviewForm(professorReview: widget.review),
+        );
+      },
+    );
   }
 
   @override
@@ -282,7 +283,7 @@ class _ProfessorReviewItemState extends State<ReviewItem> {
                     const SizedBox(height: 15),
                     ReviewContent(
                       state: state,
-                      isPreview: widget.isPreview ?? false,
+                      isDashboardPreview: widget.isDashboardPreview ?? false,
                       onReport: () => _onReport(context),
                       onLike: (userId) => _likeReview(
                         context,
@@ -320,7 +321,8 @@ class _ProfessorReviewItemState extends State<ReviewItem> {
                         Expanded(
                           child: ReviewContent(
                             state: state,
-                            isPreview: widget.isPreview ?? false,
+                            isDashboardPreview:
+                                widget.isDashboardPreview ?? false,
                             onReport: () => _onReport(context),
                             onLike: (userId) => _likeReview(
                               context,
@@ -453,7 +455,7 @@ class ReviewContent extends StatelessWidget {
   final ProfessorReviewItemState state;
   final Function(int?) onLike;
   final Function(int?) onDislike;
-  final bool isPreview;
+  final bool isDashboardPreview;
 
   const ReviewContent({
     super.key,
@@ -462,7 +464,7 @@ class ReviewContent extends StatelessWidget {
     required this.review,
     required this.onLike,
     required this.onDislike,
-    required this.isPreview,
+    required this.isDashboardPreview,
   });
 
   @override
@@ -477,96 +479,8 @@ class ReviewContent extends StatelessWidget {
         const SizedBox(height: 14),
         ReviewDescription(review: review),
         const SizedBox(height: 20),
-        ResponsiveBuilder(
-          smallView: Column(
-            children: [
-              CriteriaItem(
-                criteria: Criteria.reputation,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.competition,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.internet,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.location,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.favorite,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.infrastructure,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.clubs,
-                review: review,
-              ),
-              CriteriaItem(
-                criteria: Criteria.food,
-                review: review,
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    CriteriaItem(
-                      criteria: Criteria.reputation,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.competition,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.internet,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.location,
-                      review: review,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 30),
-              Expanded(
-                child: Column(
-                  children: [
-                    CriteriaItem(
-                      criteria: Criteria.favorite,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.infrastructure,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.clubs,
-                      review: review,
-                    ),
-                    CriteriaItem(
-                      criteria: Criteria.food,
-                      review: review,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 15),
         Visibility(
-          visible: !isPreview,
+          visible: !isDashboardPreview,
           child: Row(
             children: [
               Tooltip(
@@ -673,10 +587,69 @@ class ReviewDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Text(
-      review.contentRate ?? '',
-      style: theme.primaryTextTheme.bodyMedium,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          review.courseName ?? '',
+          style: theme.textTheme.labelLarge,
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Visibility(
+              visible: review.hardAttendance != null,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: Row(
+                  children: [
+                    Text(
+                      text.hardAttendance,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    Text(
+                      review.hardAttendance == true ? text.yes : text.no,
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(width: 30)
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: (review.point ?? "").isNotEmpty,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: Row(
+                  children: [
+                    Text(
+                      text.point,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    Text(
+                      review.point ?? '',
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(width: 30)
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Container(
+          constraints: const BoxConstraints(minHeight: 80),
+          child: Text(
+            review.contentRate ?? '',
+            style: theme.primaryTextTheme.bodyMedium,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -788,85 +761,5 @@ class OverallPoint extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class CriteriaItem extends StatelessWidget {
-  final Criteria criteria;
-  final ProfessorReview review;
-
-  const CriteriaItem({
-    super.key,
-    required this.criteria,
-    required this.review,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            criteria.name(context),
-            style: theme.primaryTextTheme.titleLarge,
-          ),
-          SizedBox(
-            height: 16,
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return Container(
-                  height: 16,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: getColorProgress(
-                        index + 1, getReviewPoint(review, criteria)),
-                  ),
-                );
-              },
-              itemCount: 5,
-              separatorBuilder: (_, __) => const SizedBox(width: 2),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Color getColorProgress(int index, double criteriaPoint) {
-    Color color = AppColors.level0;
-    if (index <= criteriaPoint && criteriaPoint >= 5.0) {
-      color = AppColors.level5;
-    } else if (index <= criteriaPoint && criteriaPoint >= 4.0) {
-      color = AppColors.level4;
-    } else if (index <= criteriaPoint && criteriaPoint >= 3.0) {
-      color = AppColors.level3;
-    } else if (index <= criteriaPoint && criteriaPoint >= 2.0) {
-      color = AppColors.level2;
-    } else if (index <= criteriaPoint && criteriaPoint >= 1.0) {
-      color = AppColors.level1;
-    } else if (index <= criteriaPoint && criteriaPoint > 0.0) {
-      color = AppColors.level1;
-    }
-    return color;
-  }
-
-  getReviewPoint(ProfessorReview review, Criteria criteria) {
-    switch (criteria) {
-      case Criteria.pedagogical:
-        return review.pedagogical ?? 0;
-      case Criteria.professional:
-        return review.professional ?? 0;
-      case Criteria.hard:
-        return review.hard ?? 0;
-      default:
-        return 0.0;
-    }
   }
 }

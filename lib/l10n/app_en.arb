@@ -276,5 +276,11 @@
   "professionalSubDescription": "Kiến thức thực tế và các lĩnh vực liên quan tới chuyên môn của giảng viên",
   "hardLevel" : "Độ khó",
   "hardLevelDescription" : "Độ khó của giảng viên",
-  "hardLevelSubDescription" : "Qua môn khó hay dễ?"
+  "hardLevelSubDescription" : "Qua môn khó hay dễ?",
+  "hardAttendance": "Điểm danh chặt: ",
+  "point": "Điểm cuối kỳ: ",
+  "no": "Không",
+  "yes": "Có",
+  "pedagogically": "Sư phạm",
+  "professionally": "Chuyên môn"
 }

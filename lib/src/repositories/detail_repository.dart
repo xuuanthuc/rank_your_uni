@@ -3,6 +3,7 @@ import 'package:template/src/models/request/add_university_request.dart';
 import 'package:template/src/models/request/report_request.dart';
 import 'package:template/src/models/request/review_request.dart';
 import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/response.dart';
 import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
@@ -92,7 +93,7 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> likeReview(int id, int userId) async {
+  Future<RYUResponse> likeUniversityReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -108,7 +109,7 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> dislikeReview(int id, int userId) async {
+  Future<RYUResponse> dislikeUniversityReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -124,8 +125,8 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> undoReview(int id, int userId) async {
-    //cancel like, dislike
+  Future<RYUResponse> undoUniversityReview(int id, int userId) async {
+    //cancel like, cancel dislike
     try {
       final res = await _apiProvider.put(
         "${ApiEndpoint.reviews}/$id",
@@ -162,6 +163,55 @@ class DetailRepository {
         needToken: false,
       );
       return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> likeProfessorReview(int id, int userId) async {
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviewTeacher}/$id",
+        params: {
+          "likedStatus": 1,
+          "id": id,
+          "userId": userId,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> dislikeProfessorReview(int id, int userId) async {
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviewTeacher}/$id",
+        params: {
+          "likedStatus": 2,
+          "id": id,
+          "userId": userId,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> undoProfessorReview(int id, int userId) async {
+    //cancel like, cancel dislike
+    try {
+      final res = await _apiProvider.put(
+        "${ApiEndpoint.reviewTeacher}/$id",
+        params: {
+          "likedStatus": 0,
+          "id": id,
+          "userId": userId,
+        },
+      );
+      return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

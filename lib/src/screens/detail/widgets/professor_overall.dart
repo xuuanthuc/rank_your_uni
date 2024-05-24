@@ -131,17 +131,15 @@ class ProfessorAveragePoint extends StatelessWidget {
                 switch (index) {
                   case 0:
                     return RadarChartTitle(
-                      text: "${text.pedagogical}: ${state.professor?.pedagogicalAvg ?? 0.0}",
+                      text: "${text.pedagogically}: ${state.professor?.pedagogicalAvg ?? 0.0}",
                     );
                   case 1:
                     return RadarChartTitle(
-                      text: "${text.professional}: ${state.professor?.professionalAvg ?? 0.0}",
-                      angle: 300
+                      text: "${text.professionally}: ${state.professor?.professionalAvg ?? 0.0}",
                     );
                   case 2:
                     return RadarChartTitle(
                       text: "${text.hardLevel}: ${state.professor?.hardAvg ?? 0.0}",
-                      angle: 60
                     );
                   default:
                     return const RadarChartTitle(text: '');

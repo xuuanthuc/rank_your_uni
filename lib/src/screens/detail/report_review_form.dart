@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/screens/detail/bloc/report_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,11 +12,13 @@ import '../widgets/primary_dialog.dart';
 import '../widgets/loading_primary_button.dart';
 
 class ReportReviewForm extends StatefulWidget {
-  final UniversityReview review;
+  final UniversityReview? universityReview;
+  final ProfessorReview? professorReview;
 
   const ReportReviewForm({
     super.key,
-    required this.review,
+    this.universityReview,
+    this.professorReview,
   });
 
   @override
@@ -77,10 +80,16 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
                             style: theme.primaryTextTheme.labelLarge,
                           ),
                           const SizedBox(height: 6),
-                          Text(
-                            widget.review.content ?? '',
-                            style: theme.primaryTextTheme.bodyMedium,
-                          ),
+                          if (widget.universityReview != null)
+                            Text(
+                              widget.universityReview?.content ?? '',
+                              style: theme.primaryTextTheme.bodyMedium,
+                            ),
+                          if (widget.professorReview != null)
+                            Text(
+                              widget.professorReview?.contentRate ?? '',
+                              style: theme.primaryTextTheme.bodyMedium,
+                            ),
                           const SizedBox(height: 25),
                           Text(
                             text.whatIsMatter,
@@ -88,7 +97,8 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
                           ),
                           const SizedBox(height: 6),
                           MarkdownBody(
-                            data: 'Nếu bạn cho rằng nhận xét này không phù hợp với [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) chúng mình, hãy báo cáo nhận xét đó và cho chúng mình biết lý do.',
+                            data:
+                                'Nếu bạn cho rằng nhận xét này không phù hợp với [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) chúng mình, hãy báo cáo nhận xét đó và cho chúng mình biết lý do.',
                             selectable: true,
                             onTapLink: (t, u, c) async {
                               if (u != null) {
@@ -144,9 +154,20 @@ class _ReportReviewFormState extends State<ReportReviewForm> {
             const SizedBox(height: 30),
             LoadingPrimaryButton<ReportCubit, ReportState>(
               onTap: () {
-                if (_editingController.text.trim().isNotEmpty) {
-                  context.read<ReportCubit>().reportReview(
-                      widget.review, _editingController.text);
+                final professorReview = widget.professorReview;
+                final universityReview = widget.universityReview;
+                if (_editingController.text.trim().isNotEmpty &&
+                    universityReview != null) {
+                  context.read<ReportCubit>().reportUniversityReview(
+                        universityReview,
+                        _editingController.text,
+                      );
+                } else if (_editingController.text.trim().isNotEmpty &&
+                    professorReview != null) {
+                  context.read<ReportCubit>().reportProfessorReview(
+                        professorReview,
+                        _editingController.text,
+                      );
                 }
               },
               label: text.report,
