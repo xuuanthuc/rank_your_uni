@@ -3,31 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/global/style/styles.dart';
-import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/guideline/widgets/question_item.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/help_cubit.dart';
 
-class HelpScreen extends StatelessWidget {
+class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<HelpCubit>(),
-      child: const HelpView(),
-    );
-  }
+  State<HelpScreen> createState() => _HelpScreenState();
 }
 
-class HelpView extends StatefulWidget {
-  const HelpView({Key? key}) : super(key: key);
-
-  @override
-  State<HelpView> createState() => _HelpViewState();
-}
-
-class _HelpViewState extends State<HelpView> {
+class _HelpScreenState extends State<HelpScreen> {
   late PageController _controller;
 
   @override

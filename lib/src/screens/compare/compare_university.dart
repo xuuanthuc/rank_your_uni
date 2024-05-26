@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/style/styles.dart';
-import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
-import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
 import '../../../global/routes/route_keys.dart';
 import '../widgets/primary_button.dart';
 import 'bloc/compare_cubit.dart';
@@ -14,7 +12,7 @@ import 'widgets/compare_criteria.dart';
 import 'widgets/no_uni_for_compare.dart';
 import 'widgets/uni_for_compare.dart';
 
-class CompareScreen extends StatelessWidget {
+class CompareScreen extends StatefulWidget {
   final String? universityId;
   final String? compareWithUniversityId;
   final University? universityInitial;
@@ -27,42 +25,10 @@ class CompareScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => getIt.get<CompareCubit>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt.get<AutocompletionCubit>(),
-        ),
-      ],
-      child: CompareView(
-        universityId: universityId,
-        compareWithUniversityId: compareWithUniversityId,
-        universityInitial: universityInitial,
-      ),
-    );
-  }
+  State<CompareScreen> createState() => _CompareScreenState();
 }
 
-class CompareView extends StatefulWidget {
-  final String? universityId;
-  final String? compareWithUniversityId;
-  final University? universityInitial;
-
-  const CompareView({
-    super.key,
-    required this.universityId,
-    this.compareWithUniversityId,
-    this.universityInitial,
-  });
-
-  @override
-  State<CompareView> createState() => _CompareViewState();
-}
-
-class _CompareViewState extends State<CompareView> {
+class _CompareScreenState extends State<CompareScreen> {
   @override
   void initState() {
     super.initState();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
@@ -11,39 +10,17 @@ import 'package:template/src/screens/widgets/base_scaffold.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
 
-class UniversityDetail extends StatelessWidget {
+class UniversityDetail extends StatefulWidget {
   final int id;
   final University? university;
 
   const UniversityDetail({super.key, required this.id, this.university});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<DetailUniversityCubit>(),
-      child: UniversityView(
-        id: id,
-        university: university,
-      ),
-    );
-  }
+  State<UniversityDetail> createState() => _UniversityDetailState();
 }
 
-class UniversityView extends StatefulWidget {
-  final int id;
-  final University? university;
-
-  const UniversityView({
-    super.key,
-    required this.id,
-    this.university,
-  });
-
-  @override
-  State<UniversityView> createState() => _UniversityViewState();
-}
-
-class _UniversityViewState extends State<UniversityView> {
+class _UniversityDetailState extends State<UniversityDetail> {
   @override
   void initState() {
     super.initState();

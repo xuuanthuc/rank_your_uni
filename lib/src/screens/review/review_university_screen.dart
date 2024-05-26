@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/routes/route_keys.dart';
-import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
@@ -19,12 +18,12 @@ import '../widgets/loading_primary_button.dart';
 import 'bloc/item_criteria_cubit.dart';
 import 'widgets/review_text_area.dart';
 
-class ReviewForm extends StatelessWidget {
+class ReviewUniversityForm extends StatefulWidget {
   final String universityId;
   final University? university;
   final UniversityReview? review;
 
-  const ReviewForm({
+  const ReviewUniversityForm({
     super.key,
     required this.universityId,
     this.university,
@@ -32,35 +31,10 @@ class ReviewForm extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<ReviewCubit>(),
-      child: ReviewView(
-        universityId: universityId,
-        university: university,
-        review: review,
-      ),
-    );
-  }
+  State<ReviewUniversityForm> createState() => _ReviewUniversityFormState();
 }
 
-class ReviewView extends StatefulWidget {
-  final String universityId;
-  final University? university;
-  final UniversityReview? review;
-
-  const ReviewView({
-    super.key,
-    required this.universityId,
-    this.university,
-    this.review,
-  });
-
-  @override
-  State<ReviewView> createState() => _ReviewViewState();
-}
-
-class _ReviewViewState extends State<ReviewView> {
+class _ReviewUniversityFormState extends State<ReviewUniversityForm> {
   final TextEditingController _reviewContentController =
       TextEditingController();
 

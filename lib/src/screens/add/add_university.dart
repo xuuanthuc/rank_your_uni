@@ -12,26 +12,14 @@ import 'package:template/src/screens/widgets/loading_primary_button.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
 
-class AddUniversity extends StatelessWidget {
+class AddUniversity extends StatefulWidget {
   const AddUniversity({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<AddCubit>(),
-      child: const AddUniversityView(),
-    );
-  }
+  State<AddUniversity> createState() => _AddUniversityState();
 }
 
-class AddUniversityView extends StatefulWidget {
-  const AddUniversityView({super.key});
-
-  @override
-  State<AddUniversityView> createState() => _AddUniversityViewState();
-}
-
-class _AddUniversityViewState extends State<AddUniversityView> {
+class _AddUniversityState extends State<AddUniversity> {
   Future<void> _selectProvince(BuildContext context) async {
     final res = await showDialog<Map<String, dynamic>>(
       context: context,

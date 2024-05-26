@@ -9,8 +9,16 @@ import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/add/add_professor.dart';
 import 'package:template/src/screens/add/add_university.dart';
+import 'package:template/src/screens/add/bloc/add_cubit.dart';
+import 'package:template/src/screens/add/bloc/select_university_cubit.dart';
 import 'package:template/src/screens/appbar/widgets/user_button.dart';
+import 'package:template/src/screens/compare/bloc/compare_cubit.dart';
+import 'package:template/src/screens/detail/bloc/detail_professor_cubit.dart';
+import 'package:template/src/screens/detail/bloc/detail_university_cubit.dart';
 import 'package:template/src/screens/detail/professor_detail.dart';
+import 'package:template/src/screens/guideline/bloc/help_cubit.dart';
+import 'package:template/src/screens/profile/bloc/profile_cubit.dart';
+import 'package:template/src/screens/reset/bloc/reset_password_cubit.dart';
 import 'package:template/src/screens/reset/reset_password_screen.dart';
 import 'package:template/src/screens/compare/compare_university.dart';
 import 'package:template/src/screens/detail/university_detail.dart';
@@ -18,13 +26,16 @@ import 'package:template/src/screens/guideline/guideline_screen.dart';
 import 'package:template/src/screens/guideline/help_screen.dart';
 import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
+import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/delete_review_success.dart';
-import 'package:template/src/screens/review/review_screen.dart';
+import 'package:template/src/screens/review/review_university_screen.dart';
 import 'package:template/src/screens/review/review_success.dart';
+import 'package:template/src/screens/search/bloc/search_cubit.dart';
 import 'package:template/src/screens/search/search_professores_screen.dart';
 import 'package:template/src/screens/search/search_screen.dart';
 import 'package:template/src/screens/term_and_policy/privacy_policy_screen.dart';
 import 'package:template/src/screens/term_and_policy/terms_of_services.dart';
+import 'package:template/src/screens/widgets/bloc/autocompletion_cubit.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,9 +66,12 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: UniversityDetail(
-                id: int.parse(data["id"] as String),
-                university: university,
+              child: BlocProvider(
+                create: (context) => getIt.get<DetailUniversityCubit>(),
+                child: UniversityDetail(
+                  id: int.parse(data["id"] as String),
+                  university: university,
+                ),
               ),
             );
           },
@@ -71,9 +85,12 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ProfessorDetail(
-                id: int.parse(data["id"] as String),
-                professor: professor,
+              child: BlocProvider(
+                create: (context) => getIt.get<DetailProfessorCubit>(),
+                child: ProfessorDetail(
+                  id: int.parse(data["id"] as String),
+                  professor: professor,
+                ),
               ),
             );
           },
@@ -94,8 +111,11 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: SearchScreen(
-                keyword: data['q'],
+              child: BlocProvider(
+                create: (context) => getIt.get<SearchCubit>(),
+                child: SearchScreen(
+                  keyword: data['q'],
+                ),
               ),
             );
           },
@@ -116,8 +136,11 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: SearchProfessorScreen(
-                keyword: data['q'],
+              child: BlocProvider(
+                create: (context) => getIt.get<SearchCubit>(),
+                child: SearchProfessorScreen(
+                  keyword: data['q'],
+                ),
               ),
             );
           },
@@ -131,9 +154,12 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ReviewForm(
-                universityId: data['id'] as String,
-                university: university,
+              child: BlocProvider(
+                create: (context) => getIt.get<ReviewCubit>(),
+                child: ReviewUniversityForm(
+                  universityId: data['id'] as String,
+                  university: university,
+                ),
               ),
             );
           },
@@ -156,10 +182,13 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ReviewForm(
-                universityId: data['uniId'] as String,
-                university: param.university,
-                review: param.review,
+              child: BlocProvider(
+                create: (context) => getIt.get<ReviewCubit>(),
+                child: ReviewUniversityForm(
+                  universityId: data['uniId'] as String,
+                  university: param.university,
+                  review: param.review,
+                ),
               ),
             );
           },
@@ -173,9 +202,19 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: CompareScreen(
-                universityId: data['id'] as String,
-                universityInitial: university,
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt.get<CompareCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<AutocompletionCubit>(),
+                  ),
+                ],
+                child: CompareScreen(
+                  universityId: data['id'] as String,
+                  universityInitial: university,
+                ),
               ),
             );
           },
@@ -189,10 +228,20 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: CompareScreen(
-                universityId: data['id'] as String,
-                compareWithUniversityId: data['withUniId'] as String,
-                universityInitial: university,
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt.get<CompareCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<AutocompletionCubit>(),
+                  ),
+                ],
+                child: CompareScreen(
+                  universityId: data['id'] as String,
+                  compareWithUniversityId: data['withUniId'] as String,
+                  universityInitial: university,
+                ),
               ),
             );
           },
@@ -213,9 +262,12 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ResetPasswordScreen(
-                resetKey: data['key'] as String,
-              ),
+              child: BlocProvider(
+                create: (context) => getIt.get<ResetPasswordCubit>(),
+                child: ResetPasswordScreen(
+                  resetKey: data['key'] as String,
+                ),
+              )
             );
           },
         ),
@@ -226,7 +278,17 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const CompareScreen(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt.get<CompareCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<AutocompletionCubit>(),
+                  ),
+                ],
+                child: const CompareScreen()
+              ),
             );
           },
         ),
@@ -281,7 +343,10 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const ProfileScreen(menu: QuickMenu.profile),
+              child: BlocProvider(
+                create: (context) => getIt.get<ProfileCubit>(),
+                child: const ProfileScreen(menu: QuickMenu.profile),
+              ),
             );
           },
         ),
@@ -292,7 +357,10 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const ProfileScreen(menu: QuickMenu.settingAccount),
+              child: BlocProvider(
+                create: (context) => getIt.get<ProfileCubit>(),
+                child: const ProfileScreen(menu: QuickMenu.settingAccount),
+              ),
             );
           },
         ),
@@ -303,7 +371,10 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const ProfileScreen(menu: QuickMenu.yourRating),
+              child: BlocProvider(
+                create: (context) => getIt.get<ProfileCubit>(),
+                child: const ProfileScreen(menu: QuickMenu.yourRating),
+              ),
             );
           },
         ),
@@ -325,7 +396,10 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const HelpScreen(),
+              child:  BlocProvider(
+                create: (context) => getIt.get<HelpCubit>(),
+                child: const HelpScreen(),
+              ),
             );
           },
         ),
@@ -336,7 +410,10 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const AddUniversity(),
+              child: BlocProvider(
+                create: (context) => getIt.get<AddCubit>(),
+                child: const AddUniversity(),
+              ),
             );
           },
         ),
@@ -347,7 +424,20 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const AddProfessor(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt.get<AutocompletionCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<SelectUniversityCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<AddCubit>(),
+                  ),
+                ],
+                child: const AddProfessor(),
+              ),
             );
           },
         ),

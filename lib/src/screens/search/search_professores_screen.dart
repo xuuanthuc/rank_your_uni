@@ -2,40 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
-import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
 import 'package:template/src/screens/search/widgets/load_more_professores.dart';
 import 'package:template/src/screens/search/widgets/search_results_list.dart';
 import 'package:template/src/screens/search/widgets/text_result_for.dart';
 import 'package:template/src/screens/widgets/base_scaffold.dart';
 
-class SearchProfessorScreen extends StatelessWidget {
+class SearchProfessorScreen extends StatefulWidget {
   final String? keyword;
 
   const SearchProfessorScreen({super.key, this.keyword});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<SearchCubit>(),
-      child: SearchView(keyword: keyword),
-    );
-  }
+  State<SearchProfessorScreen> createState() => _SearchProfessorScreenState();
 }
 
-class SearchView extends StatefulWidget {
-  final String? keyword;
+class _SearchProfessorScreenState extends State<SearchProfessorScreen> {
 
-  const SearchView({
-    super.key,
-    this.keyword,
-  });
-
-  @override
-  State<SearchView> createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +26,7 @@ class _SearchViewState extends State<SearchView> {
   }
 
   @override
-  void didUpdateWidget(covariant SearchView oldWidget) {
+  void didUpdateWidget(covariant SearchProfessorScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     context.read<SearchCubit>().onSearchProfessores(widget.keyword ?? "");
   }

@@ -8,13 +8,12 @@ import 'package:template/src/screens/authentication/widgets/text_field_auth.dart
 import '../../../global/routes/route_keys.dart';
 import '../../../global/utilities/toast.dart';
 import '../../../global/validators/validators.dart';
-import '../../di/dependencies.dart';
 import '../appbar/widgets/logo_appbar.dart';
 import '../widgets/loading_primary_button.dart';
 import '../widgets/responsive_builder.dart';
 import 'bloc/reset_password_cubit.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   final String resetKey;
 
   const ResetPasswordScreen({
@@ -23,27 +22,10 @@ class ResetPasswordScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<ResetPasswordCubit>(),
-      child: ResetPasswordView(resetKey: resetKey),
-    );
-  }
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class ResetPasswordView extends StatefulWidget {
-  final String resetKey;
-
-  const ResetPasswordView({
-    super.key,
-    required this.resetKey,
-  });
-
-  @override
-  State<ResetPasswordView> createState() => _ResetPasswordScreenState();
-}
-
-class _ResetPasswordScreenState extends State<ResetPasswordView> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _editingController = TextEditingController();
 
   void _resetPassword(BuildContext context, String key) {
@@ -137,7 +119,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordView> {
           },
           child: Container(
             constraints: const BoxConstraints(maxWidth: Public.mobileSize),
-            padding: EdgeInsets.all(ResponsiveBuilder.setHorizontalPadding(context)),
+            padding:
+                EdgeInsets.all(ResponsiveBuilder.setHorizontalPadding(context)),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -193,8 +176,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordView> {
                   Text(
                     text.authNotice,
                     textAlign: TextAlign.center,
-                    style:
-                        theme.primaryTextTheme.bodyLarge?.copyWith(fontSize: 14),
+                    style: theme.primaryTextTheme.bodyLarge
+                        ?.copyWith(fontSize: 14),
                   ),
                 ],
               ),
