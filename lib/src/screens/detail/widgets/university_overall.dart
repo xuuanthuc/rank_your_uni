@@ -26,7 +26,7 @@ class UniversityOverview extends StatelessWidget {
       _showNoticeMustLoginDialog(context);
     } else {
       context.goNamed(
-        RouteKey.review,
+        RouteKey.reviewUniversity,
         pathParameters: {
           "id": "${university.id}",
         },

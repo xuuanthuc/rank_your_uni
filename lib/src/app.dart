@@ -28,6 +28,7 @@ import 'package:template/src/screens/home/home_screen.dart';
 import 'package:template/src/screens/profile/profile_screen.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/delete_review_success.dart';
+import 'package:template/src/screens/review/review_professor_screen.dart';
 import 'package:template/src/screens/review/review_university_screen.dart';
 import 'package:template/src/screens/review/review_success.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
@@ -147,7 +148,7 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/review/university/:id',
-          name: RouteKey.review,
+          name: RouteKey.reviewUniversity,
           pageBuilder: (context, state) {
             final data = state.pathParameters;
             final University? university = state.extra as University?;
@@ -156,7 +157,7 @@ class MyApp extends StatelessWidget {
               state: state,
               child: BlocProvider(
                 create: (context) => getIt.get<ReviewCubit>(),
-                child: ReviewUniversityForm(
+                child: ReviewUniversityScreen(
                   universityId: data['id'] as String,
                   university: university,
                 ),
@@ -166,7 +167,7 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/edit-review/university/:uniId/:reviewId',
-          name: RouteKey.editReview,
+          name: RouteKey.editUniversityReview,
           redirect: (BuildContext context, GoRouterState state) {
             EditReviewParam? param = state.extra as EditReviewParam?;
             if (param == null) {
@@ -184,7 +185,7 @@ class MyApp extends StatelessWidget {
               state: state,
               child: BlocProvider(
                 create: (context) => getIt.get<ReviewCubit>(),
-                child: ReviewUniversityForm(
+                child: ReviewUniversityScreen(
                   universityId: data['uniId'] as String,
                   university: param.university,
                   review: param.review,
@@ -460,6 +461,54 @@ class MyApp extends StatelessWidget {
               context: context,
               state: state,
               child: const PrivacyPolicyScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review/lecturer/:id',
+          name: RouteKey.reviewProfessor,
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            final Professor? professor = state.extra as Professor?;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: BlocProvider(
+                create: (context) => getIt.get<ReviewCubit>(),
+                child: ReviewProfessorScreen(
+                  professorId: data['id'] as String,
+                  professor: professor,
+                ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/edit-review/lecturer/:professorId/:reviewId',
+          name: RouteKey.editProfessorReview,
+          redirect: (BuildContext context, GoRouterState state) {
+            EditProfessorReviewParam? param = state.extra as EditProfessorReviewParam?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final data = state.pathParameters;
+            EditProfessorReviewParam? param = state.extra as EditProfessorReviewParam?;
+            param ??= const EditProfessorReviewParam();
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: BlocProvider(
+                create: (context) => getIt.get<ReviewCubit>(),
+                child: ReviewProfessorScreen(
+                  professorId: data['professorId'] as String,
+                  professor: param.professor,
+                  review: param.review,
+                ),
+              ),
             );
           },
         ),

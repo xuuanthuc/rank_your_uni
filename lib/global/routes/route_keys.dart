@@ -22,8 +22,10 @@ abstract class RouteKey {
   static const String authDashboard = "auth_dashboard";
   static const String university = "university";
   static const String professor = "professor";
-  static const String review = "review";
-  static const String editReview = "edit_review";
+  static const String reviewUniversity = "review-university";
+  static const String reviewProfessor = "review-professor";
+  static const String editUniversityReview = "edit_university_review";
+  static const String editProfessorReview = "edit_professor_review";
   static const String compare = "compare";
   static const String compareWith = "compare_with";
   static const String reset = "reset_compare";

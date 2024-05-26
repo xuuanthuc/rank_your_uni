@@ -21,6 +21,7 @@ class ReviewState extends Equatable {
   final int? clubs;
   final int? favorite;
   final int? competition;
+  final Professor? professor;
 
   const ReviewState({
     this.contentRated,
@@ -36,6 +37,7 @@ class ReviewState extends Equatable {
     this.university,
     this.mode,
     this.action,
+    this.professor,
   });
 
   ReviewState copyWith({
@@ -43,6 +45,7 @@ class ReviewState extends Equatable {
     ReviewAction? action,
     ReviewMode? mode,
     University? university,
+    Professor? professor,
     String? contentRated,
     int? reputation,
     int? internet,
@@ -57,6 +60,7 @@ class ReviewState extends Equatable {
     return ReviewState(
       status: status ?? this.status,
       university: university ?? this.university,
+      professor: professor ?? this.professor,
       reputation: reputation ?? this.reputation,
       clubs: clubs ?? this.clubs,
       competition: competition ?? this.competition,
@@ -74,6 +78,7 @@ class ReviewState extends Equatable {
   @override
   List<Object?> get props => [
         university,
+        professor,
         contentRated,
         reputation,
         internet,

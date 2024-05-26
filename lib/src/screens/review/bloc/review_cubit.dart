@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:template/src/models/request/review_request.dart';
+import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/item_criteria_cubit.dart';
 import '../../../../global/enum/criteria.dart';
@@ -39,18 +41,39 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
+  void getDetailProfessor(
+      int id, Professor? professor, ProfessorReview? review) async {
+    if (id == -1) return;
+    if (review != null) {
+      // initEditReviewMode(review);
+    } else {
+      emit(state.copyWith(mode: ReviewMode.create));
+    }
+    if (professor != null) {
+      emit(state.copyWith(professor: professor));
+    } else {
+      final res = await _detailRepository.getDetailProfessor(id);
+      if (res.isSuccess) {
+        emit(state.copyWith(professor: res.data));
+      } else {
+        emit(state.copyWith(status: ReviewStatus.error));
+      }
+    }
+  }
+
   void initEditReviewMode(UniversityReview review) {
     emit(state.copyWith(
-        reputation: parsePoint(review.reputation),
-        contentRated: review.content,
-        competition: parsePoint(review.competition),
-        location: parsePoint(review.location),
-        internet: parsePoint(review.internet),
-        favorite: parsePoint(review.favourite),
-        facilities: parsePoint(review.facilities),
-        clubs: parsePoint(review.clubs),
-        food: parsePoint(review.food),
-        mode: ReviewMode.edit));
+      reputation: parsePoint(review.reputation),
+      contentRated: review.content,
+      competition: parsePoint(review.competition),
+      location: parsePoint(review.location),
+      internet: parsePoint(review.internet),
+      favorite: parsePoint(review.favourite),
+      facilities: parsePoint(review.facilities),
+      clubs: parsePoint(review.clubs),
+      food: parsePoint(review.food),
+      mode: ReviewMode.edit,
+    ));
   }
 
   int parsePoint(double? point) {
@@ -70,7 +93,8 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void onSubmitReview(int schoolId, int userId, {UniversityReview? review}) async {
+  void onSubmitUniversityReview(int schoolId, int userId,
+      {UniversityReview? review}) async {
     if (state.internet == null ||
         state.location == null ||
         state.status == ReviewStatus.loading ||

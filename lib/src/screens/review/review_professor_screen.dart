@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/enum/criteria.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
+import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
@@ -19,23 +21,23 @@ import '../widgets/required_login_dialog.dart';
 import 'bloc/item_criteria_cubit.dart';
 import 'widgets/review_text_area.dart';
 
-class ReviewUniversityScreen extends StatefulWidget {
-  final String universityId;
-  final University? university;
-  final UniversityReview? review;
+class ReviewProfessorScreen extends StatefulWidget {
+  final String professorId;
+  final Professor? professor;
+  final ProfessorReview? review;
 
-  const ReviewUniversityScreen({
+  const ReviewProfessorScreen({
     super.key,
-    required this.universityId,
-    this.university,
+    required this.professorId,
+    this.professor,
     this.review,
   });
 
   @override
-  State<ReviewUniversityScreen> createState() => _ReviewUniversityScreenState();
+  State<ReviewProfessorScreen> createState() => _ReviewProfessorScreenState();
 }
 
-class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
+class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
   final TextEditingController _reviewContentController =
       TextEditingController();
 
@@ -54,12 +56,11 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
       _showNoticeMustLoginDialog(context);
       return;
     }
-
-    context.read<ReviewCubit>().onSubmitUniversityReview(
-          int.tryParse(widget.universityId) ?? -1,
-          user.id!,
-          review: widget.review,
-        );
+    // context.read<ReviewCubit>().onSubmitUniversityReview(
+    //       int.tryParse(widget.universityId) ?? -1,
+    //       user.id!,
+    //       review: widget.review,
+    //     );
   }
 
   void onDeleteReview(BuildContext context, Profile? user) async {
@@ -78,10 +79,10 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
         );
       },
     );
-    if(result ?? false){
-      if (!context.mounted) return;
-      context.read<ReviewCubit>().onDeleteReview(widget.review!.id);
-    }
+    // if(result ?? false){
+    //   if (!context.mounted) return;
+    //   context.read<ReviewCubit>().onDeleteReview(widget.review!.id);
+    // }
   }
 
   void updatePoint(BuildContext context, CriteriaRated rated) {
@@ -91,10 +92,10 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
   @override
   void initState() {
     super.initState();
-    _reviewContentController.text = widget.review?.content ?? '';
-    context.read<ReviewCubit>().getDetailUniversity(
-          int.tryParse(widget.universityId) ?? -1,
-          widget.university,
+    _reviewContentController.text = widget.review?.contentRate ?? '';
+    context.read<ReviewCubit>().getDetailProfessor(
+          int.tryParse(widget.professorId) ?? -1,
+          widget.professor,
           widget.review,
         );
   }
@@ -130,10 +131,10 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
       child: AppScaffold(
         children: [
           BlocBuilder<ReviewCubit, ReviewState>(
-            buildWhen: (_, cur) => cur.university != null,
+            buildWhen: (_, cur) => cur.professor != null,
             builder: (context, state) {
               return AutoSizeText(
-                text.reviewUniversity(state.university?.name ?? ""),
+                text.reviewUniversity(state.professor?.fullName ?? ""),
                 style: theme.primaryTextTheme.displayLarge,
                 maxLines: 3,
                 minFontSize: 12,
@@ -141,54 +142,54 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
             },
           ),
           const SizedBox(height: 30),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue: int.tryParse(
-                widget.review?.reputation.toString() ?? ''),
-            criteria: Criteria.reputation,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue: int.tryParse(
-                widget.review?.competition.toString() ?? ''),
-            criteria: Criteria.competition,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue:
-            int.tryParse(widget.review?.internet.toString() ?? ''),
-            criteria: Criteria.internet,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue:
-            int.tryParse(widget.review?.location.toString() ?? ''),
-            criteria: Criteria.location,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue:
-            int.tryParse(widget.review?.favourite.toString() ?? ''),
-            criteria: Criteria.favorite,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue: int.tryParse(
-                widget.review?.facilities.toString() ?? ''),
-            criteria: Criteria.infrastructure,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue:
-            int.tryParse(widget.review?.clubs.toString() ?? ''),
-            criteria: Criteria.clubs,
-          ),
-          CriteriaReviewLevel(
-            onUpdate: (rate) => updatePoint(context, rate),
-            initialValue:
-            int.tryParse(widget.review?.food.toString() ?? ''),
-            criteria: Criteria.food,
-          ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue: int.tryParse(
+          //       widget.review?.reputation.toString() ?? ''),
+          //   criteria: Criteria.reputation,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue: int.tryParse(
+          //       widget.review?.competition.toString() ?? ''),
+          //   criteria: Criteria.competition,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue:
+          //   int.tryParse(widget.review?.internet.toString() ?? ''),
+          //   criteria: Criteria.internet,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue:
+          //   int.tryParse(widget.review?.location.toString() ?? ''),
+          //   criteria: Criteria.location,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue:
+          //   int.tryParse(widget.review?.favourite.toString() ?? ''),
+          //   criteria: Criteria.favorite,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue: int.tryParse(
+          //       widget.review?.facilities.toString() ?? ''),
+          //   criteria: Criteria.infrastructure,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue:
+          //   int.tryParse(widget.review?.clubs.toString() ?? ''),
+          //   criteria: Criteria.clubs,
+          // ),
+          // CriteriaReviewLevel(
+          //   onUpdate: (rate) => updatePoint(context, rate),
+          //   initialValue:
+          //   int.tryParse(widget.review?.food.toString() ?? ''),
+          //   criteria: Criteria.food,
+          // ),
           ReviewArea(controller: _reviewContentController),
           const SizedBox(height: 45),
           BlocBuilder<AppSettingsBloc, AppSettingsState>(

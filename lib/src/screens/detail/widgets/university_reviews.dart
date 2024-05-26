@@ -289,7 +289,7 @@ class _ReviewItemState extends State<ReviewItem> {
       _showNoticeMustLoginDialog(context);
     } else {
       context.goNamed(
-        RouteKey.editReview,
+        RouteKey.editUniversityReview,
         pathParameters: {
           "uniId": "${review.schoolId}",
           "reviewId": "${review.id}",

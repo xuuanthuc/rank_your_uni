@@ -3,13 +3,18 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:template/l10n/l10n.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
+import '../../../../global/routes/route_keys.dart';
+import '../../../../global/storage/storage_keys.dart';
+import '../../../../global/storage/storage_provider.dart';
 import '../../../../global/style/app_colors.dart';
 import '../../../../global/style/app_images.dart';
 import '../../../../global/utilities/public.dart';
 import '../../widgets/primary_button.dart';
+import '../../widgets/required_login_dialog.dart';
 import '../bloc/detail_professor_cubit.dart';
 
 class ProfessorOverall extends StatelessWidget {
@@ -49,6 +54,43 @@ class ProfessorOverall extends StatelessWidget {
 class ProfessorInfomation extends StatelessWidget {
   const ProfessorInfomation({super.key});
 
+
+  void _openReviewForm(BuildContext context, Professor? professor) async {
+    if (professor == null) return;
+    final token = await StorageProvider.instance.get(StorageKeys.token);
+    if (!context.mounted) return;
+    if (token == null) {
+      _showNoticeMustLoginDialog(context);
+    } else {
+      context.goNamed(
+        RouteKey.reviewProfessor,
+        pathParameters: {
+          "id": "${professor.id}",
+        },
+        extra: professor,
+      );
+    }
+  }
+
+  void _compareUniversity(BuildContext context, Professor? professor) {
+    if (professor == null) return;
+    context.goNamed(
+      RouteKey.compare,
+      pathParameters: {"id": "${professor.id}"},
+      extra: professor,
+    );
+  }
+
+  void _showNoticeMustLoginDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const NoticeMustLoginDialog(about: NoticeAbout.private);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DetailProfessorCubit, DetailProfessorState>(
@@ -66,7 +108,7 @@ class ProfessorInfomation extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             ActionReviewAndCompare(
-              addReview: () {},
+              addReview: () => _openReviewForm(context, state.professor),
               compare: () {},
             )
           ],
