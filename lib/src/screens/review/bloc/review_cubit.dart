@@ -8,8 +8,10 @@ import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/item_criteria_cubit.dart';
+import 'package:template/src/screens/review/widgets/other_review_widgets.dart';
 import '../../../../global/enum/criteria.dart';
 import '../../../models/response/response.dart';
+import '../../../models/response/tag.dart';
 import '../../../models/response/university_review.dart';
 import '../../../repositories/detail_repository.dart';
 
@@ -25,7 +27,7 @@ class ReviewCubit extends Cubit<ReviewState> {
       int id, University? university, UniversityReview? review) async {
     if (id == -1) return;
     if (review != null) {
-      initEditReviewMode(review);
+      initUniversityReviewData(review);
     } else {
       emit(state.copyWith(mode: ReviewMode.create));
     }
@@ -41,11 +43,17 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void getDetailProfessor(
+  void initProfessorData(
+      int id, Professor? professor, ProfessorReview? review) async {
+    await getDetailProfessor(id, professor, review);
+    getProfessorTags();
+  }
+
+  Future<void> getDetailProfessor(
       int id, Professor? professor, ProfessorReview? review) async {
     if (id == -1) return;
     if (review != null) {
-      // initEditReviewMode(review);
+      initProfessorReviewData(review);
     } else {
       emit(state.copyWith(mode: ReviewMode.create));
     }
@@ -61,7 +69,27 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  void initEditReviewMode(UniversityReview review) {
+  void getProfessorTags() async {
+    final res = await _detailRepository.getProfessorTags();
+    if (res.isSuccess) {
+      emit(state.copyWith(
+        tags: [
+          Tag(id: 1, label: "Cứng nhắc"),
+          Tag(id: 2, label: "Tác phong gọn gàng nhắc"),
+          Tag(id: 3, label: "Người truyền cảm hứng"),
+          Tag(id: 4, label: "Lo mà học thôi"),
+          Tag(id: 5, label: "Tâm lý"),
+          Tag(id: 6, label: "Sáng tạo"),
+          Tag(id: 7, label: "Thân thiện"),
+          Tag(id: 8, label: "Đáng kính"),
+        ],
+      ));
+    } else {
+      emit(state.copyWith(tags: []));
+    }
+  }
+
+  void initUniversityReviewData(UniversityReview review) {
     emit(state.copyWith(
       reputation: parsePoint(review.reputation),
       contentRated: review.content,
@@ -76,16 +104,44 @@ class ReviewCubit extends Cubit<ReviewState> {
     ));
   }
 
+  void initProfessorReviewData(ProfessorReview review) {
+    emit(state.copyWith(
+      pedagogical: parsePoint((review.pedagogical ?? 0).toDouble()),
+      professional: parsePoint((review.professional ?? 0).toDouble()),
+      contentRated: review.contentRate,
+      hard: parsePoint((review.hard ?? 0).toDouble()),
+      hardAttendance: review.hardAttendance,
+      courseName: review.courseName,
+      point: review.point,
+      reLearn: review.reLearn,
+      selectedTags: review.tags,
+      mode: ReviewMode.edit,
+    ));
+  }
+
   int parsePoint(double? point) {
     return int.tryParse(point.toString()) ?? 0;
   }
 
-  void onDeleteReview(int id) async {
+  void onDeleteUniversityReview(int id) async {
     emit(state.copyWith(
       status: ReviewStatus.loading,
       action: ReviewAction.delete,
     ));
-    final res = await _detailRepository.deleteReview(id);
+    final res = await _detailRepository.deleteUniversityReview(id);
+    if (res.isSuccess) {
+      emit(state.copyWith(status: ReviewStatus.deleteSuccess));
+    } else {
+      emit(state.copyWith(status: ReviewStatus.error));
+    }
+  }
+
+  void onDeleteProfessorReview(int id) async {
+    emit(state.copyWith(
+      status: ReviewStatus.loading,
+      action: ReviewAction.delete,
+    ));
+    final res = await _detailRepository.deleteProfessorReview(id);
     if (res.isSuccess) {
       emit(state.copyWith(status: ReviewStatus.deleteSuccess));
     } else {
@@ -106,7 +162,7 @@ class ReviewCubit extends Cubit<ReviewState> {
         (state.contentRated ?? "").trim().isEmpty ||
         state.clubs == null ||
         schoolId == -1) return;
-    ReviewRaw reviewRaw = ReviewRaw(
+    ReviewUniversityRaw reviewRaw = ReviewUniversityRaw(
       contentRated: state.contentRated!,
       reputation: state.reputation!,
       internet: state.internet!,
@@ -137,8 +193,81 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
+  void onSubmitProfessorReview(int teacherId, int userId,
+      {ProfessorReview? review}) async {
+    if (state.professional == null ||
+        state.pedagogical == null ||
+        state.status == ReviewStatus.loading ||
+        state.hard == null ||
+        state.courseName == null ||
+        (state.contentRated ?? "").trim().isEmpty ||
+        teacherId == -1) return;
+    ReviewProfessorRaw reviewRaw = ReviewProfessorRaw(
+      contentRated: state.contentRated!,
+      pedagogical: state.pedagogical!,
+      professional: state.professional!,
+      hard: state.hard!,
+      hardAttendance: state.hardAttendance,
+      reLearn: state.reLearn,
+      point: state.point,
+      courseName: state.courseName!,
+      tags: state.selectedTags ?? [],
+      teacherId: teacherId,
+      reviewDate: DateFormat("yyyy-MM-dd'T'hh:mm+07:00").format(DateTime.now()),
+      userId: userId,
+    );
+    emit(state.copyWith(
+      status: ReviewStatus.loading,
+      action: ReviewAction.update,
+    ));
+    RYUResponse? res;
+    if (state.mode == ReviewMode.create) {
+      res = await _detailRepository.reviewProfessor(reviewRaw);
+    } else if (state.mode == ReviewMode.edit && review != null) {
+      res = await _detailRepository.updateProfessorReview(reviewRaw, review.id);
+    }
+    if (res != null && res.isSuccess) {
+      emit(state.copyWith(status: ReviewStatus.success));
+    } else {
+      emit(state.copyWith(status: ReviewStatus.error));
+    }
+  }
+
   void updateContent(String content) {
     emit(state.copyWith(contentRated: content));
+  }
+
+  void updateCourseName(String course) {
+    emit(state.copyWith(courseName: course));
+  }
+
+  void updateHardAttendance(bool value) {
+    emit(state.copyWith(hardAttendance: value));
+  }
+
+  void updateRelearn(bool value) {
+    emit(state.copyWith(reLearn: value));
+  }
+
+  void updateSemesterPoint(String value) {
+    emit(state.copyWith(point: value));
+  }
+
+  void updateTags(Tag tag) {
+    emit(state.copyWith(modifiedAt: DateTime.now()));
+    if ((state.selectedTags ?? []).any((t) => t.id == tag.id)) {
+      emit(state.copyWith(
+        selectedTags: (state.selectedTags ?? [])
+          ..removeWhere((t) => t.id == tag.id),
+        modifiedAt: DateTime.now(),
+      ));
+    } else {
+      if ((state.selectedTags ?? []).length > 2) return;
+      emit(state.copyWith(
+        selectedTags: (state.selectedTags ?? [])..add(tag),
+        modifiedAt: DateTime.now(),
+      ));
+    }
   }
 
   void onUpdateReview(CriteriaRated rated) {
@@ -166,6 +295,15 @@ class ReviewCubit extends Cubit<ReviewState> {
         break;
       case Criteria.food:
         emit(state.copyWith(food: rated.point.index + 1));
+        break;
+      case Criteria.pedagogical:
+        emit(state.copyWith(pedagogical: rated.point.index + 1));
+        break;
+      case Criteria.professional:
+        emit(state.copyWith(professional: rated.point.index + 1));
+        break;
+      case Criteria.hard:
+        emit(state.copyWith(hard: rated.point.index + 1));
         break;
     }
   }

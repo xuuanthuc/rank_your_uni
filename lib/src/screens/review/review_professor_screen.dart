@@ -7,10 +7,9 @@ import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/global_bloc/settings/app_settings_bloc.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/professor_review.dart';
-import 'package:template/src/models/response/university_review.dart';
-import 'package:template/src/models/response/university.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
 import 'package:template/src/screens/review/widgets/item_rate.dart';
+import 'package:template/src/screens/review/widgets/other_review_widgets.dart';
 import 'package:template/src/screens/widgets/primary_dialog.dart';
 import '../../../global/style/styles.dart';
 import '../../../global/utilities/toast.dart';
@@ -40,6 +39,7 @@ class ReviewProfessorScreen extends StatefulWidget {
 class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
   final TextEditingController _reviewContentController =
       TextEditingController();
+  final TextEditingController _academicYearController = TextEditingController();
 
   void _showNoticeMustLoginDialog(BuildContext context) {
     showDialog<void>(
@@ -56,11 +56,11 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
       _showNoticeMustLoginDialog(context);
       return;
     }
-    // context.read<ReviewCubit>().onSubmitUniversityReview(
-    //       int.tryParse(widget.universityId) ?? -1,
-    //       user.id!,
-    //       review: widget.review,
-    //     );
+    context.read<ReviewCubit>().onSubmitProfessorReview(
+          int.tryParse(widget.professorId) ?? -1,
+          user.id!,
+          review: widget.review,
+        );
   }
 
   void onDeleteReview(BuildContext context, Profile? user) async {
@@ -79,10 +79,10 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
         );
       },
     );
-    // if(result ?? false){
-    //   if (!context.mounted) return;
-    //   context.read<ReviewCubit>().onDeleteReview(widget.review!.id);
-    // }
+    if (result ?? false) {
+      if (!context.mounted) return;
+      context.read<ReviewCubit>().onDeleteProfessorReview(widget.review!.id);
+    }
   }
 
   void updatePoint(BuildContext context, CriteriaRated rated) {
@@ -93,7 +93,8 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
   void initState() {
     super.initState();
     _reviewContentController.text = widget.review?.contentRate ?? '';
-    context.read<ReviewCubit>().getDetailProfessor(
+    _academicYearController.text = widget.review?.courseName ?? '';
+    context.read<ReviewCubit>().initProfessorData(
           int.tryParse(widget.professorId) ?? -1,
           widget.professor,
           widget.review,
@@ -142,55 +143,32 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
             },
           ),
           const SizedBox(height: 30),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue: int.tryParse(
-          //       widget.review?.reputation.toString() ?? ''),
-          //   criteria: Criteria.reputation,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue: int.tryParse(
-          //       widget.review?.competition.toString() ?? ''),
-          //   criteria: Criteria.competition,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue:
-          //   int.tryParse(widget.review?.internet.toString() ?? ''),
-          //   criteria: Criteria.internet,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue:
-          //   int.tryParse(widget.review?.location.toString() ?? ''),
-          //   criteria: Criteria.location,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue:
-          //   int.tryParse(widget.review?.favourite.toString() ?? ''),
-          //   criteria: Criteria.favorite,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue: int.tryParse(
-          //       widget.review?.facilities.toString() ?? ''),
-          //   criteria: Criteria.infrastructure,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue:
-          //   int.tryParse(widget.review?.clubs.toString() ?? ''),
-          //   criteria: Criteria.clubs,
-          // ),
-          // CriteriaReviewLevel(
-          //   onUpdate: (rate) => updatePoint(context, rate),
-          //   initialValue:
-          //   int.tryParse(widget.review?.food.toString() ?? ''),
-          //   criteria: Criteria.food,
-          // ),
-          ReviewArea(controller: _reviewContentController),
+          ReviewTextEditting(controller: _academicYearController),
+          CriteriaReviewLevel(
+            onUpdate: (rate) => updatePoint(context, rate),
+            initialValue:
+                int.tryParse(widget.review?.pedagogical.toString() ?? ''),
+            criteria: Criteria.pedagogical,
+          ),
+          CriteriaReviewLevel(
+            onUpdate: (rate) => updatePoint(context, rate),
+            initialValue:
+                int.tryParse(widget.review?.professional.toString() ?? ''),
+            criteria: Criteria.professional,
+          ),
+          CriteriaReviewLevel(
+            onUpdate: (rate) => updatePoint(context, rate),
+            initialValue: int.tryParse(widget.review?.hard.toString() ?? ''),
+            criteria: Criteria.hard,
+          ),
+          const ReviewHardAttendance(),
+          const ReviewRelearn(),
+          const ReviewSemesterPoint(),
+          const ReviewTags(),
+          ReviewArea(
+            controller: _reviewContentController,
+            type: AreaType.professor,
+          ),
           const SizedBox(height: 45),
           BlocBuilder<AppSettingsBloc, AppSettingsState>(
             builder: (context, setting) {
@@ -201,10 +179,8 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
                     child: Visibility(
                       visible: widget.review?.id == null,
                       child: Container(
-                        constraints:
-                        const BoxConstraints(maxWidth: 250),
-                        child: LoadingPrimaryButton<ReviewCubit,
-                            ReviewState>(
+                        constraints: const BoxConstraints(maxWidth: 250),
+                        child: LoadingPrimaryButton<ReviewCubit, ReviewState>(
                           onTap: () {
                             onSubmitReview(
                               context,
@@ -213,25 +189,17 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
                           },
                           label: text.submitReview,
                           updateLoading: (state) {
-                            return state.status ==
-                                ReviewStatus.loading &&
+                            return state.status == ReviewStatus.loading &&
                                 state.action == ReviewAction.update;
                           },
                           updateColor: (state) {
-                            if (state.internet == null ||
-                                state.location == null ||
+                            if (state.pedagogical == null ||
+                                state.professional == null ||
                                 (state.status == ReviewStatus.loading &&
-                                    state.action ==
-                                        ReviewAction.update) ||
-                                state.reputation == null ||
-                                state.favorite == null ||
-                                state.food == null ||
-                                state.facilities == null ||
-                                state.competition == null ||
-                                (state.contentRated ?? "")
-                                    .trim()
-                                    .isEmpty ||
-                                state.clubs == null) {
+                                    state.action == ReviewAction.update) ||
+                                state.hard == null ||
+                                state.courseName == null ||
+                                (state.contentRated ?? "").trim().isEmpty) {
                               return AppColors.grey;
                             } else {
                               return null;
@@ -246,10 +214,8 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
                     child: Visibility(
                       visible: widget.review?.id != null,
                       child: Container(
-                        constraints:
-                        const BoxConstraints(maxWidth: 250),
-                        child: LoadingPrimaryButton<ReviewCubit,
-                            ReviewState>(
+                        constraints: const BoxConstraints(maxWidth: 250),
+                        child: LoadingPrimaryButton<ReviewCubit, ReviewState>(
                           onTap: () {
                             onDeleteReview(
                               context,
@@ -258,8 +224,7 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
                           },
                           label: text.deleteReview,
                           updateLoading: (state) {
-                            return state.status ==
-                                ReviewStatus.loading &&
+                            return state.status == ReviewStatus.loading &&
                                 state.action == ReviewAction.delete;
                           },
                           updateColor: (state) {

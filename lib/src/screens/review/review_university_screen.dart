@@ -80,7 +80,7 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
     );
     if(result ?? false){
       if (!context.mounted) return;
-      context.read<ReviewCubit>().onDeleteReview(widget.review!.id);
+      context.read<ReviewCubit>().onDeleteUniversityReview(widget.review!.id);
     }
   }
 
@@ -189,7 +189,10 @@ class _ReviewUniversityScreenState extends State<ReviewUniversityScreen> {
             int.tryParse(widget.review?.food.toString() ?? ''),
             criteria: Criteria.food,
           ),
-          ReviewArea(controller: _reviewContentController),
+          ReviewArea(
+            controller: _reviewContentController,
+            type: AreaType.university,
+          ),
           const SizedBox(height: 45),
           BlocBuilder<AppSettingsBloc, AppSettingsState>(
             builder: (context, setting) {

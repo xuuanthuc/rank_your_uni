@@ -392,20 +392,20 @@ class ActionReviewAndCompare extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: PrimaryButton(
-            onTap: () => compare(),
-            title: text.compare,
-            isOutline: true,
-            borderColor: theme.primaryColor,
-            titleTextStyleColor: theme.primaryColor,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-          ),
-        ),
+        // const SizedBox(width: 16),
+        // Expanded(
+        //   child: PrimaryButton(
+        //     onTap: () => compare(),
+        //     title: text.compare,
+        //     isOutline: true,
+        //     borderColor: theme.primaryColor,
+        //     titleTextStyleColor: theme.primaryColor,
+        //     padding: const EdgeInsets.symmetric(
+        //       horizontal: 15,
+        //       vertical: 10,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

@@ -10,6 +10,7 @@ abstract class ApiEndpoint{
   static String get report => '/reports';
   static String get register => '/register';
   static String get profile => '/admin/users';
+  static String get tags => '/professor-tags';
   static String get password => '/account/change-password';
   static String get contact => '/contact';
   static String get contacts => '/admin/contacts';

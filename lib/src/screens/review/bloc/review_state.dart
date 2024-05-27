@@ -21,7 +21,17 @@ class ReviewState extends Equatable {
   final int? clubs;
   final int? favorite;
   final int? competition;
+  final int? pedagogical;
+  final int? professional;
+  final int? hard;
   final Professor? professor;
+  final List<Tag>? tags;
+  final List<Tag>? selectedTags;
+  final bool? hardAttendance;
+  final bool? reLearn;
+  final String? point;
+  final String? courseName;
+  final DateTime? modifiedAt;
 
   const ReviewState({
     this.contentRated,
@@ -38,6 +48,16 @@ class ReviewState extends Equatable {
     this.mode,
     this.action,
     this.professor,
+    this.hard,
+    this.professional,
+    this.pedagogical,
+    this.courseName,
+    this.point,
+    this.reLearn,
+    this.hardAttendance,
+    this.tags,
+    this.selectedTags,
+    this.modifiedAt,
   });
 
   ReviewState copyWith({
@@ -56,6 +76,16 @@ class ReviewState extends Equatable {
     int? favorite,
     int? competition,
     int? schoolId,
+    int? pedagogical,
+    int? professional,
+    int? hard,
+    bool? hardAttendance,
+    bool? reLearn,
+    String? point,
+    String? courseName,
+    List<Tag>? tags,
+    List<Tag>? selectedTags,
+    DateTime? modifiedAt,
   }) {
     return ReviewState(
       status: status ?? this.status,
@@ -71,6 +101,16 @@ class ReviewState extends Equatable {
       food: food ?? this.food,
       favorite: favorite ?? this.favorite,
       mode: mode ?? this.mode,
+      pedagogical: pedagogical ?? this.pedagogical,
+      professional: professional ?? this.professional,
+      hard: hard ?? this.hard,
+      point: point ?? this.point,
+      hardAttendance: hardAttendance ?? this.hardAttendance,
+      reLearn: reLearn ?? this.reLearn,
+      courseName: courseName ?? this.courseName,
+      tags: tags ?? this.tags,
+      selectedTags: selectedTags ?? this.selectedTags,
+      modifiedAt: modifiedAt ?? this.modifiedAt,
       action: action,
     );
   }
@@ -91,5 +131,15 @@ class ReviewState extends Equatable {
         status,
         mode,
         action,
+        pedagogical,
+        professional,
+        hard,
+        courseName,
+        point,
+        hardAttendance,
+        reLearn,
+        tags,
+        selectedTags,
+        modifiedAt,
       ];
 }

@@ -1,3 +1,4 @@
+import 'package:template/src/models/response/tag.dart';
 import 'package:template/src/models/response/university_review.dart';
 
 class ProfessorReview {
@@ -15,7 +16,7 @@ class ProfessorReview {
   final String? contentRate;
   final String? reviewDate;
   double? averagePointPerReview;
-  final List<String>? tags;
+  final List<Tag>? tags;
   final Liked? liked;
   final int? likedStatus;
 
@@ -60,7 +61,7 @@ class ProfessorReview {
     final tags = [];
     if (json['tags'] != null) {
       json['tags'].forEach((v) {
-        tags.add(v);
+        tags.add(Tag.fromJson(v));
       });
     }
     final liked = json['liked'] != null

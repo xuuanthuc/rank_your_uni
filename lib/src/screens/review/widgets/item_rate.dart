@@ -155,6 +155,7 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
                                       : getColorProgress(
                                           index,
                                           state.status ?? MouseStatus.none,
+                                          widget.criteria,
                                         ).withOpacity(
                                           state.status == MouseStatus.hover
                                               ? 0.7
@@ -166,6 +167,7 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
                                           : getColorProgress(
                                               index,
                                               state.status ?? MouseStatus.none,
+                                              widget.criteria,
                                             ),
                               borderRadius: BorderRadius.circular(2),
                             ),
@@ -194,11 +196,15 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              text.awful,
+                              widget.criteria == Criteria.hard
+                                  ? text.easyAsPie
+                                  : text.awful,
                               style: theme.primaryTextTheme.bodyLarge,
                             ),
                             Text(
-                              text.excellent,
+                              widget.criteria == Criteria.hard
+                                  ? text.painful
+                                  : text.excellent,
                               style: theme.primaryTextTheme.bodyLarge,
                             ),
                           ],
@@ -211,11 +217,12 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
                         SizedBox(
                           height: sliderItemHeight,
                           width: sliderItemHeight,
-                          child: SvgPicture.asset(state.rated!.point.iconPath),
+                          child: SvgPicture.asset(
+                              state.rated!.point.iconPath(widget.criteria)),
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          state.rated!.point.name(context),
+                          state.rated!.point.name(context, widget.criteria),
                           style: theme.primaryTextTheme.bodyLarge,
                         ),
                       ],
@@ -232,39 +239,74 @@ class _CriteriaReviewViewState extends State<CriteriaReviewView> {
 
   Color getColorRated(int index, CriteriaRated rated) {
     Color color = AppColors.primaryShadow;
-    if (rated.point.index >= index) {
-      if (index == 0) {
-        color = AppColors.level1;
-      } else if (index <= 1) {
-        color = AppColors.level2;
-      } else if (index <= 2) {
-        color = AppColors.level3;
-      } else if (index <= 3) {
-        color = AppColors.level4;
-      } else if (index <= 4) {
-        color = AppColors.level5;
-      }
-    }
 
-    return color;
+    if (rated.criteria == Criteria.hard) {
+      if (rated.point.index >= index) {
+        if (index == 0) {
+          color = AppColors.level5;
+        } else if (index <= 1) {
+          color = AppColors.level4;
+        } else if (index <= 2) {
+          color = AppColors.level3;
+        } else if (index <= 3) {
+          color = AppColors.level2;
+        } else if (index <= 4) {
+          color = AppColors.level1;
+        }
+      }
+
+      return color;
+    } else {
+      if (rated.point.index >= index) {
+        if (index == 0) {
+          color = AppColors.level1;
+        } else if (index <= 1) {
+          color = AppColors.level2;
+        } else if (index <= 2) {
+          color = AppColors.level3;
+        } else if (index <= 3) {
+          color = AppColors.level4;
+        } else if (index <= 4) {
+          color = AppColors.level5;
+        }
+      }
+      return color;
+    }
   }
 
-  Color getColorProgress(int index, MouseStatus status) {
+  Color getColorProgress(int index, MouseStatus status, Criteria crit) {
     Color color = AppColors.primaryShadow;
-    if (status == MouseStatus.hover) {
-      if (index == 0) {
-        color = AppColors.level1;
-      } else if (index <= 1) {
-        color = AppColors.level2;
-      } else if (index <= 2) {
-        color = AppColors.level3;
-      } else if (index <= 3) {
-        color = AppColors.level4;
-      } else if (index <= 4) {
-        color = AppColors.level5;
+    if (crit == Criteria.hard) {
+      if (status == MouseStatus.hover) {
+        if (index == 0) {
+          color = AppColors.level5;
+        } else if (index <= 1) {
+          color = AppColors.level4;
+        } else if (index <= 2) {
+          color = AppColors.level3;
+        } else if (index <= 3) {
+          color = AppColors.level2;
+        } else if (index <= 4) {
+          color = AppColors.level1;
+        }
       }
+      return color;
+    } else {
+      if (status == MouseStatus.hover) {
+        if (index == 0) {
+          color = AppColors.level1;
+        } else if (index <= 1) {
+          color = AppColors.level2;
+        } else if (index <= 2) {
+          color = AppColors.level3;
+        } else if (index <= 3) {
+          color = AppColors.level4;
+        } else if (index <= 4) {
+          color = AppColors.level5;
+        }
+      }
+      return color;
     }
-    return color;
   }
 
   RatePoint getPoint(int index) {

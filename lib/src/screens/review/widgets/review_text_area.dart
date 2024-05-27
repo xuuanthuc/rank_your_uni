@@ -4,16 +4,40 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template/global/routes/route_keys.dart';
 import 'package:template/src/screens/review/bloc/review_cubit.dart';
-
 import '../../../../global/style/styles.dart';
 import '../../widgets/primary_button.dart';
 
+enum AreaType { university, professor }
+
+extension AreaName on AreaType {
+  String label(AppLocalizations text) {
+    switch(this) {
+      case AreaType.university:
+        return text.tooltipWriteReview;
+      case AreaType.professor:
+        return text.takeAboutThisProfessor;
+    }
+  }
+
+  String hint(AppLocalizations text) {
+    switch(this) {
+      case AreaType.university:
+        return text.placeHolderReview;
+      case AreaType.professor:
+        return text.placeHolderProfessorReview;
+    }
+  }
+}
+
+
 class ReviewArea extends StatelessWidget {
   final TextEditingController controller;
+  final AreaType type;
 
   const ReviewArea({
     super.key,
     required this.controller,
+    required this.type,
   });
 
   @override
@@ -44,7 +68,7 @@ class ReviewArea extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      text.tooltipWriteReview,
+                      type.label(text),
                       style: theme.primaryTextTheme.bodyLarge,
                     ),
                   ),
@@ -116,7 +140,7 @@ class ReviewArea extends StatelessWidget {
                 context.read<ReviewCubit>().updateContent(value);
               },
               decoration: InputDecoration(
-                hintText: text.placeHolderReview,
+                hintText: type.hint(text),
                 hintStyle: theme.primaryTextTheme.bodyMedium?.copyWith(
                   color: AppColors.textGrey,
                 ),

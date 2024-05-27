@@ -9,6 +9,7 @@ import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
 import '../models/request/add_professor_request.dart';
+import '../models/response/tag.dart';
 import './../../src/network/endpoint.dart';
 import '../di/dependencies.dart';
 import '../network/api_provider.dart';
@@ -40,7 +41,7 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> reviewUniversity(ReviewRaw review) async {
+  Future<RYUResponse> reviewUniversity(ReviewUniversityRaw review) async {
     try {
       final res = await _apiProvider.post(
         ApiEndpoint.reviews,
@@ -52,7 +53,7 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> updateReview(ReviewRaw review, int id) async {
+  Future<RYUResponse> updateReview(ReviewUniversityRaw review, int id) async {
     try {
       Map<String, dynamic> data = <String, dynamic>{};
       data = review.toJson();
@@ -67,9 +68,46 @@ class DetailRepository {
     }
   }
 
-  Future<RYUResponse> deleteReview(int id) async {
+  Future<RYUResponse> reviewProfessor(ReviewProfessorRaw review) async {
+    try {
+      final res = await _apiProvider.post(
+        ApiEndpoint.reviewTeacher,
+        params: review.toJson(),
+      );
+      return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> updateProfessorReview(
+      ReviewProfessorRaw review, int id) async {
+    try {
+      Map<String, dynamic> data = <String, dynamic>{};
+      data = review.toJson();
+      data['id'] = id;
+      final res = await _apiProvider.patch(
+        '${ApiEndpoint.reviewTeacher}/$id',
+        params: data,
+      );
+      return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> deleteUniversityReview(int id) async {
     try {
       final res = await _apiProvider.delete('${ApiEndpoint.reviews}/$id');
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> deleteProfessorReview(int id) async {
+    try {
+      final res = await _apiProvider.delete('${ApiEndpoint.reviewTeacher}/$id');
       return RYUResponse(isSuccess: true, data: res);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
@@ -212,6 +250,20 @@ class DetailRepository {
         },
       );
       return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> getProfessorTags() async {
+    try {
+      final res = await _apiProvider.get(ApiEndpoint.tags);
+
+      final List<Tag> tags = [];
+      for (var element in (res['listItem'] as List<dynamic>)) {
+        tags.add(Tag.fromJson(element));
+      }
+      return RYUResponse(isSuccess: true, data: tags);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
