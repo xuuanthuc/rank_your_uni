@@ -72,18 +72,7 @@ class ReviewCubit extends Cubit<ReviewState> {
   void getProfessorTags() async {
     final res = await _detailRepository.getProfessorTags();
     if (res.isSuccess) {
-      emit(state.copyWith(
-        tags: [
-          Tag(id: 1, label: "Cứng nhắc"),
-          Tag(id: 2, label: "Tác phong gọn gàng nhắc"),
-          Tag(id: 3, label: "Người truyền cảm hứng"),
-          Tag(id: 4, label: "Lo mà học thôi"),
-          Tag(id: 5, label: "Tâm lý"),
-          Tag(id: 6, label: "Sáng tạo"),
-          Tag(id: 7, label: "Thân thiện"),
-          Tag(id: 8, label: "Đáng kính"),
-        ],
-      ));
+      emit(state.copyWith(tags: res.data));
     } else {
       emit(state.copyWith(tags: []));
     }

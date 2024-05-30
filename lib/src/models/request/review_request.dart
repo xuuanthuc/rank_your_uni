@@ -85,7 +85,7 @@ class ReviewProfessorRaw {
       tagIds.add(t.id);
     }
 
-    data['contentRated'] = contentRated;
+    data['contentRate'] = contentRated;
     data['courseName'] = courseName;
     data['hard'] = hard;
     data['hardAttendance'] = hardAttendance;
@@ -97,7 +97,6 @@ class ReviewProfessorRaw {
     data['reLearn'] = reLearn;
     data['reviewDate'] = reviewDate;
     data['tagId'] = tagIds;
-    data['likedStatus'] = 0;
     data['userId'] = userId;
     return data;
   }

@@ -297,5 +297,7 @@
   "takeAboutThisProfessor": "Thảo luận về kinh nghiệm cá nhân của bạn về giảng viên bao gồm cách giảng dạy và khả năng truyền đạt kiến thức nhé 🤓",
   "placeHolderProfessorReview": "Hãy cho những sinh viên khác biết thêm vài điều về giảng viên này",
   "k69": "Sinh viên K69",
-  "empty": "Trống"
+  "empty": "Trống",
+  "addTag": "Thêm tag",
+  "tagName": "Tag"
 }

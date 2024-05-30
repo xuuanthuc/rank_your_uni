@@ -7,6 +7,7 @@ import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/report.dart';
 import 'package:template/src/models/response/search_response.dart';
+import 'package:template/src/models/response/tag.dart';
 import '../../models/response/university.dart';
 import '../../repositories/dashboard_repository.dart';
 import '../dashboard_root_screen.dart';
@@ -39,10 +40,13 @@ class DashboardCubit extends Cubit<DashboardState> {
       case DashboardPages.professor:
         getAllProfessor();
         break;
+      case DashboardPages.tags:
+        getAllTags();
+        break;
     }
   }
 
-  void onRefresh(){
+  void onRefresh() {
     switch (state.page) {
       case DashboardPages.user:
         getAllAccounts(isRefresh: true);
@@ -60,6 +64,9 @@ class DashboardCubit extends Cubit<DashboardState> {
         break;
       case DashboardPages.professor:
         getAllProfessor(isRefresh: true);
+        break;
+      case DashboardPages.tags:
+        getAllTags(isRefresh: true);
         break;
     }
   }
@@ -165,6 +172,27 @@ class DashboardCubit extends Cubit<DashboardState> {
       emit(state.copyWith(
         status: DashboardStatus.error,
         reports: [],
+      ));
+    }
+  }
+
+  getAllTags({bool isRefresh = false}) async {
+    if (!isRefresh) {
+      if ((state.reports ?? []).isNotEmpty) return;
+    }
+    emit(state.copyWith(status: DashboardStatus.loading));
+    final List<Tag> tags = [];
+    final res = await _adminRepository.getTags();
+    if (res.isSuccess) {
+      tags.addAll(res.data as List<Tag>);
+      emit(state.copyWith(
+        status: DashboardStatus.success,
+        tags: tags,
+      ));
+    } else {
+      emit(state.copyWith(
+        status: DashboardStatus.error,
+        tags: [],
       ));
     }
   }

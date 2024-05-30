@@ -6,7 +6,7 @@ enum DashboardStatus {
   error,
 }
 
-enum DashboardPages { university, user, report, contact, professor }
+enum DashboardPages { university, user, report, contact, professor, tags }
 
 @immutable
 class DashboardState extends Equatable {
@@ -17,6 +17,7 @@ class DashboardState extends Equatable {
   final List<Contact>? contacts;
   final List<Profile>? accounts;
   final List<Report>? reports;
+  final List<Tag>? tags;
 
   const DashboardState({
     this.status,
@@ -26,6 +27,7 @@ class DashboardState extends Equatable {
     this.accounts,
     this.reports,
     this.professors,
+    this.tags,
   });
 
   DashboardState copyWith({
@@ -36,6 +38,7 @@ class DashboardState extends Equatable {
     List<Profile>? accounts,
     List<Report>? reports,
     List<Professor>? professors,
+    List<Tag>? tags,
   }) {
     return DashboardState(
       status: status ?? this.status,
@@ -45,6 +48,7 @@ class DashboardState extends Equatable {
       accounts: accounts ?? this.accounts,
       professors: professors ?? this.professors,
       reports: reports ?? this.reports,
+      tags: tags ?? this.tags,
     );
   }
 
@@ -57,5 +61,6 @@ class DashboardState extends Equatable {
         accounts,
         reports,
         professors,
+        tags,
       ];
 }

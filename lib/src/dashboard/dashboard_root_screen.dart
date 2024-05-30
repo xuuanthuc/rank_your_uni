@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/app_colors.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/src/dashboard/features/dashboard_account.dart';
+import 'package:template/src/dashboard/features/dashboard_tags.dart';
 import 'package:template/src/screens/widgets/responsive_builder.dart';
 import 'bloc/dashboard_cubit.dart';
 import 'features/dashboard_contact.dart';
@@ -42,6 +43,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       type: DashboardPages.university,
     ),
     DashboardPage(
+      icon: Icons.book_outlined,
+      title: "Giảng viên",
+      child: const DashboardProfessors(),
+      type: DashboardPages.professor,
+    ),
+    DashboardPage(
       icon: Icons.person,
       title: "Tài khoản",
       child: const DashboardAccounts(),
@@ -60,11 +67,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       type: DashboardPages.contact,
     ),
     DashboardPage(
-      icon: Icons.book_outlined,
-      title: "Giảng viên",
-      child: const DashboardProfessors(),
-      type: DashboardPages.professor,
+      icon: Icons.tag,
+      title: "Tags",
+      child: const DashboardTags(),
+      type: DashboardPages.tags,
     ),
+
   ];
 
   @override

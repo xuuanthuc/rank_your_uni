@@ -25,5 +25,6 @@ class DashboardReportItemState extends Equatable {
   @override
   List<Object?> get props => [
         status,
+        report,
       ];
 }

@@ -9,7 +9,7 @@ class Tag {
 
   factory Tag.fromJson(Map<String, dynamic> json) {
     final id = json["id"];
-    final label = json["name"];
+    final label = json["tagName"];
 
     return Tag(
       id: id,

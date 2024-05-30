@@ -4,6 +4,7 @@ import 'package:template/src/models/response/contact.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/response.dart';
+import 'package:template/src/models/response/tag.dart';
 import 'package:template/src/models/response/university.dart';
 import 'package:template/src/network/exception.dart';
 import '../models/request/sign_in_with_email_request.dart';
@@ -101,6 +102,29 @@ class DashboardRepository {
         reports.add(Report.fromJson(element));
       }
       return RYUResponse(isSuccess: true, data: reports);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> getTags() async {
+    try {
+      final res = await _apiProvider.get(ApiEndpoint.tags);
+      final List<Tag> tags = [];
+      for (var element in (res['listItem'] as List<dynamic>)) {
+        tags.add(Tag.fromJson(element));
+      }
+      return RYUResponse(isSuccess: true, data: tags);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+
+  Future<RYUResponse> addNewTag(String label) async {
+    try {
+      final res = await _apiProvider.post(ApiEndpoint.tags, params: {"tagName": label});
+      return RYUResponse(isSuccess: true, data: Tag.fromJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

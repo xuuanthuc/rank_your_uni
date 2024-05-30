@@ -86,7 +86,7 @@ class DetailRepository {
       Map<String, dynamic> data = <String, dynamic>{};
       data = review.toJson();
       data['id'] = id;
-      final res = await _apiProvider.patch(
+      final res = await _apiProvider.put(
         '${ApiEndpoint.reviewTeacher}/$id',
         params: data,
       );
@@ -209,12 +209,13 @@ class DetailRepository {
   Future<RYUResponse> likeProfessorReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
-        "${ApiEndpoint.reviewTeacher}/$id",
-        params: {
-          "likedStatus": 1,
-          "id": id,
-          "userId": userId,
-        },
+        // ApiEndpoint.reviewDetail,
+        "${ApiEndpoint.reviewDetail}?reviewTeacherId=$id&userId=$userId&liked=1",
+        // params: {
+        //   "liked": 1,
+        //   "reviewTeacherId": id,
+        //   "userId": userId,
+        // },
       );
       return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
     } on ResponseException catch (e) {
@@ -225,12 +226,13 @@ class DetailRepository {
   Future<RYUResponse> dislikeProfessorReview(int id, int userId) async {
     try {
       final res = await _apiProvider.put(
-        "${ApiEndpoint.reviewTeacher}/$id",
-        params: {
-          "likedStatus": 2,
-          "id": id,
-          "userId": userId,
-        },
+        // ApiEndpoint.reviewDetail,
+        "${ApiEndpoint.reviewDetail}?reviewTeacherId=$id&userId=$userId&liked=2",
+        // params: {
+        //   "liked": 2,
+        //   "reviewTeacherId": id,
+        //   "userId": userId,
+        // },
       );
       return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
     } on ResponseException catch (e) {
@@ -242,12 +244,12 @@ class DetailRepository {
     //cancel like, cancel dislike
     try {
       final res = await _apiProvider.put(
-        "${ApiEndpoint.reviewTeacher}/$id",
-        params: {
-          "likedStatus": 0,
-          "id": id,
-          "userId": userId,
-        },
+        "${ApiEndpoint.reviewDetail}?reviewTeacherId=$id&userId=$userId&liked=0",
+        // params: {
+        //   "liked": 0,
+        //   "reviewTeacherId": id,
+        //   "userId": userId,
+        // },
       );
       return RYUResponse(isSuccess: true, data: ProfessorReview.fromJson(res));
     } on ResponseException catch (e) {

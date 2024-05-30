@@ -309,7 +309,7 @@ class MyApp extends StatelessWidget {
             return buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ReviewSuccessScreen(
+              child: ReviewUniversitySuccessScreen(
                 university: university,
               ),
             );
@@ -508,6 +508,50 @@ class MyApp extends StatelessWidget {
                   professor: param.professor,
                   review: param.review,
                 ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review-lecturer/success',
+          name: RouteKey.reviewProfessorSuccess,
+          redirect: (BuildContext context, GoRouterState state) {
+            Professor? param = state.extra as Professor?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final professor = state.extra as Professor;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ReviewProfessorSuccessScreen(
+                professor: professor,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/review-lecturer/delete',
+          name: RouteKey.deteleProfessorSuccess,
+          redirect: (BuildContext context, GoRouterState state) {
+            Professor? param = state.extra as Professor?;
+            if (param == null) {
+              return '/';
+            } else {
+              return null;
+            }
+          },
+          pageBuilder: (context, state) {
+            final professor = state.extra as Professor;
+            return buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: ReviewProfessorDeletedSuccessScreen(
+                professor: professor,
               ),
             );
           },

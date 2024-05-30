@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:template/src/models/request/edit_review_param.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/screens/detail/bloc/professor_review_item_cubit.dart';
@@ -226,14 +227,14 @@ class _ProfessorReviewItemState extends State<ReviewItem> {
     if (token == null) {
       _showNoticeMustLoginDialog(context);
     } else {
-      //TODO context.goNamed(
-      //   RouteKey.editReview,
-      //   pathParameters: {
-      //     "uniId": "${review.schoolId}",
-      //     "reviewId": "${review.id}",
-      //   },
-      //   extra: EditReviewParam(professor: professor, review: review),
-      // );
+      context.goNamed(
+        RouteKey.editProfessorReview,
+        pathParameters: {
+          "professorId": "${review.teacherId}",
+          "reviewId": "${review.id}",
+        },
+        extra: EditProfessorReviewParam(professor: professor, review: review),
+      );
     }
   }
 
@@ -620,7 +621,8 @@ class ReviewDescription extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: (review.point ?? "").isNotEmpty,
+              visible:
+                  (review.point ?? "").isNotEmpty && review.point != "Trống",
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 14),
                 child: Row(
@@ -647,6 +649,34 @@ class ReviewDescription extends StatelessWidget {
           child: Text(
             review.contentRate ?? '',
             style: theme.primaryTextTheme.bodyMedium,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: List.generate(
+            (review.tags ?? []).length,
+            (index) {
+              final tag = (review.tags ?? [])[index];
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: AppColors.primary,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
+                child: Text(
+                  tag.label ?? '',
+                  style: theme.primaryTextTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                    fontSize: 12
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],

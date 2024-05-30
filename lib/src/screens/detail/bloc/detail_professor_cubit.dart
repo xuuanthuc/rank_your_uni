@@ -11,7 +11,6 @@ import '../../../../global/enum/review_sort_type.dart';
 import '../../../../global/storage/storage_keys.dart';
 import '../../../../global/storage/storage_provider.dart';
 import '../../../models/response/professor_review.dart';
-import 'detail_university_cubit.dart';
 
 part 'detail_professor_state.dart';
 

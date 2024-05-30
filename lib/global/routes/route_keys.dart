@@ -38,6 +38,8 @@ abstract class RouteKey {
   static const String addProfessor = "add_professor";
   static const String reviewSuccess = "review_success";
   static const String deteleSuccess = "delete_success";
+  static const String reviewProfessorSuccess = "review_professor_success";
+  static const String deteleProfessorSuccess = "delete_professor_success";
   static const String terms = "terms_of_service";
   static const String policy = "privacy_policy";
   static const String resetPassword = "reset_password";

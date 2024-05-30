@@ -41,7 +41,7 @@ class ProfessorReview {
   });
 
   factory ProfessorReview.fromJson(Map<String, dynamic> json) {
-    final id = json["id"];
+    final id = json["id"] ?? -1;
     final userId = json["userId"];
     final courseName = json["courseName"];
     final pedagogical = json["pedagogical"];
@@ -58,7 +58,7 @@ class ProfessorReview {
         double.tryParse(json["averagePointPerReview"] ?? '') ?? 0.0;
     final likedStatus = json['likedStatus'];
 
-    final tags = [];
+    final List<Tag> tags = [];
     if (json['tags'] != null) {
       json['tags'].forEach((v) {
         tags.add(Tag.fromJson(v));
@@ -85,6 +85,7 @@ class ProfessorReview {
       hardAttendance: hardAttendance,
       reLearn: reLearn,
       point: point,
+      tags: tags,
       contentRate: contentRate,
       teacherId: teacherId,
       teacherName: teacherName,

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:template/global/style/app_themes.dart';
 import 'package:template/global/utilities/static_variable.dart';
 import 'package:template/src/dashboard/bloc/authenticate/dashboard_authentication_cubit.dart';
+import 'package:template/src/dashboard/bloc/tags/dashboard_tags_cubit.dart';
 import 'package:template/src/di/dependencies.dart';
 import '../global/routes/route_keys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -45,13 +46,19 @@ class MyAdmin extends StatelessWidget {
             }
           },
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
-            context: context,
-            state: state,
-            child: BlocProvider(
-              create: (context) => getIt.get<DashboardCubit>(),
-              child: const DashboardScreen(),
-            ),
-          ),
+              context: context,
+              state: state,
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt.get<DashboardCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt.get<DashboardTagsCubit>(),
+                  ),
+                ],
+                child: const DashboardScreen(),
+              )),
         ),
       ],
     );
