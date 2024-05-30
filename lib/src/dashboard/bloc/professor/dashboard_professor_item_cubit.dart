@@ -31,7 +31,7 @@ class DashboardProfessorItemCubit extends Cubit<DashboardProfessorItemState> {
         fullName: professor.fullName,
         universityId: professor.university?.id,
         majorId: professor.major?.id,
-        status: true,
+        status: 1,
       );
       final res = await _adminRepository.updateProfessor(newProfessor);
       if (res.isSuccess) {

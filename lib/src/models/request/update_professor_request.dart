@@ -3,7 +3,7 @@ class UpdateProfessorRaw {
   final int? majorId;
   final int? universityId;
   final String? fullName;
-  final bool? status;
+  final int? status;
 
   const UpdateProfessorRaw(
       this.id, {
