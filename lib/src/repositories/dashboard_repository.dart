@@ -55,7 +55,7 @@ class DashboardRepository {
           'pageSize': pageSize ?? 10,
         },
       );
-      return RYUResponse(isSuccess: true, data: SearchProfessorModel.fromJson(res));
+      return RYUResponse(isSuccess: true, data: SearchProfessorModel.fromAdminJson(res));
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }

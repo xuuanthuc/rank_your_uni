@@ -80,6 +80,27 @@ class SearchProfessorModel {
     if (json['content'] != null) {
       json['content'].forEach((v) {
         final professor = Professor.fromJson(v);
+        if (professor.status == 1) {
+          professores.add(professor);
+        }
+      });
+    }
+    return SearchProfessorModel(
+      professores: professores,
+      totalPages: totalPages,
+      pageable: pageable,
+      totalElements: totalElements,
+    );
+  }
+
+  factory SearchProfessorModel.fromAdminJson(Map<String, dynamic> json) {
+    final totalPages = json['totalPages'];
+    final totalElements = json['totalElements'];
+    final pageable = Pageable.fromJson(json['pageable']);
+    final professores = <Professor>[];
+    if (json['content'] != null) {
+      json['content'].forEach((v) {
+        final professor = Professor.fromJson(v);
         professores.add(professor);
 
       });
