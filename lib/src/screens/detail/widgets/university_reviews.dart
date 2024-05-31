@@ -787,7 +787,10 @@ class OverallPoint extends StatelessWidget {
       children: [
         Text(
           text.overall,
-          style: theme.primaryTextTheme.bodyLarge,
+          style: theme.primaryTextTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 7),
         ResponsiveBuilder(

@@ -299,5 +299,13 @@
   "k69": "Sinh viên K69",
   "empty": "Trống",
   "addTag": "Thêm tag",
-  "tagName": "Tag"
+  "tagName": "Tag",
+  "thanksForReviewProfessor": "Cám ơn bạn đã đánh giá giảng viên {professor}",
+  "@thanksForReviewProfessor": {
+    "placeholders": {
+      "professor": {
+        "type": "String"
+      }
+    }
+  }
 }

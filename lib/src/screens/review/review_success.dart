@@ -19,10 +19,12 @@ class ReviewUniversitySuccessScreen extends StatefulWidget {
   });
 
   @override
-  State<ReviewUniversitySuccessScreen> createState() => _ReviewUniversitySuccessScreenState();
+  State<ReviewUniversitySuccessScreen> createState() =>
+      _ReviewUniversitySuccessScreenState();
 }
 
-class _ReviewUniversitySuccessScreenState extends State<ReviewUniversitySuccessScreen> {
+class _ReviewUniversitySuccessScreenState
+    extends State<ReviewUniversitySuccessScreen> {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -54,7 +56,8 @@ class _ReviewUniversitySuccessScreenState extends State<ReviewUniversitySuccessS
                     //   textAlign: TextAlign.center,
                     // ),
                     MarkdownBody(
-                      data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
+                      data:
+                          'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
                       selectable: true,
                       onTapLink: (t, u, c) async {
                         if (u != null) {
@@ -104,10 +107,12 @@ class ReviewProfessorSuccessScreen extends StatefulWidget {
   });
 
   @override
-  State<ReviewProfessorSuccessScreen> createState() => _ReviewProfessorSuccessScreenState();
+  State<ReviewProfessorSuccessScreen> createState() =>
+      _ReviewProfessorSuccessScreenState();
 }
 
-class _ReviewProfessorSuccessScreenState extends State<ReviewProfessorSuccessScreen> {
+class _ReviewProfessorSuccessScreenState
+    extends State<ReviewProfessorSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     final text = AppLocalizations.of(context)!;
@@ -127,8 +132,9 @@ class _ReviewProfessorSuccessScreenState extends State<ReviewProfessorSuccessScr
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Text(
-                        text.thanksForReviewUniversity(
-                            widget.professor.fullName ?? ''),
+                        text.thanksForReviewProfessor(
+                          widget.professor.fullName ?? '',
+                        ),
                         style: theme.textTheme.labelLarge,
                         textAlign: TextAlign.center,
                       ),
@@ -139,7 +145,8 @@ class _ReviewProfessorSuccessScreenState extends State<ReviewProfessorSuccessScr
                     //   textAlign: TextAlign.center,
                     // ),
                     MarkdownBody(
-                      data: 'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
+                      data:
+                          'Rank Your UNi sẽ ngày càng hoàn thiện hơn với những đánh giá của bạn 💚. Chúng mình hi vọng bạn sẽ tiếp tục đưa ra các đánh giá liên quan tới giảng đường nhằm góp phần nâng cao chất lượng giáo dục. Xin lưu ý, các đánh giá vi phạm [hướng dẫn sử dụng trang](https://rankyouruni.com/guidelines) sẽ có thể bị ẩn bởi chúng mình nhằm mục đích đảm bảo các nguyên tắc trang 👀. ',
                       selectable: true,
                       onTapLink: (t, u, c) async {
                         if (u != null) {

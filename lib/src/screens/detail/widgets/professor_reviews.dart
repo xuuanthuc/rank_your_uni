@@ -722,10 +722,12 @@ class OverallPoint extends StatelessWidget {
             children: [
               Text(
                 text.quality,
-                style: theme.primaryTextTheme.bodyLarge,
+                style: theme.primaryTextTheme.labelLarge?.copyWith(
+                  fontSize: 13,
+                ),
               ),
               ResponsiveBuilder(
-                tinyView: PointContainer.small(
+                tinyView: PointContainer.regular(
                   point: review.averagePointPerReview ?? 0,
                 ),
                 child: PointContainer.medium(
@@ -734,17 +736,19 @@ class OverallPoint extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 40),
+          const SizedBox(width: 15),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 text.hardLevel,
-                style: theme.primaryTextTheme.bodyLarge,
+                style: theme.primaryTextTheme.labelLarge?.copyWith(
+                  fontSize: 13,
+                ),
               ),
               ResponsiveBuilder(
-                tinyView: PointContainer.small(
+                tinyView: PointContainer.regular(
                   point: (review.hard ?? 0).toDouble(),
                   hasColor: false,
                 ),
@@ -763,10 +767,12 @@ class OverallPoint extends StatelessWidget {
         children: [
           Text(
             text.quality,
-            style: theme.primaryTextTheme.bodyLarge,
+            style: theme.primaryTextTheme.labelLarge?.copyWith(
+              fontSize: 13,
+            ),
           ),
           ResponsiveBuilder(
-            tinyView: PointContainer.small(
+            tinyView: PointContainer.regular(
               point: review.averagePointPerReview ?? 0,
             ),
             child: PointContainer.medium(
@@ -776,10 +782,12 @@ class OverallPoint extends StatelessWidget {
           const SizedBox(height: 24),
           Text(
             text.hardLevel,
-            style: theme.primaryTextTheme.bodyLarge,
+            style: theme.primaryTextTheme.labelLarge?.copyWith(
+              fontSize: 13,
+            ),
           ),
           ResponsiveBuilder(
-            tinyView: PointContainer.small(
+            tinyView: PointContainer.regular(
               point: (review.hard ?? 0).toDouble(),
               hasColor: false,
             ),
