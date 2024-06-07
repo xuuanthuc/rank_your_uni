@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:template/src/models/response/professor.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/profile.dart';
 import 'package:template/src/models/response/university_review.dart';
 import 'package:template/src/repositories/user_repository.dart';
@@ -31,7 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(state.copyWith(page: menu, status: ProfileStatus.success));
   }
 
-  void getMyReview(BuildContext context) async {
+  void getMyUniversityReview(BuildContext context) async {
     emit(state.copyWith(status: ProfileStatus.loading));
 
     final userJson = await StorageProvider.instance.get(StorageKeys.user);
@@ -45,11 +47,37 @@ class ProfileCubit extends Cubit<ProfileState> {
       ));
       return;
     }
-    final res = await _userRepository.getMyReviews(user.id.toString());
+    final res = await _userRepository.getMyUniversityReviews(user.id.toString());
     if (res.isSuccess) {
       emit(state.copyWith(
         status: ProfileStatus.success,
         reviews: res.data,
+        userAuthenticated: user,
+      ));
+    } else {
+      emit(state.copyWith(status: ProfileStatus.error));
+    }
+  }
+
+  void getMyProfessorReview(BuildContext context) async {
+    emit(state.copyWith(status: ProfileStatus.loading));
+
+    final userJson = await StorageProvider.instance.get(StorageKeys.user);
+    if (userJson == null) return;
+    final user = Profile.fromJson(jsonDecode(userJson));
+    if (user.id == null) return;
+    if ((state.reviews ?? []).isNotEmpty) {
+      emit(state.copyWith(
+        status: ProfileStatus.success,
+        userAuthenticated: user,
+      ));
+      return;
+    }
+    final res = await _userRepository.getMyProfessorReviews(user.id.toString());
+    if (res.isSuccess) {
+      emit(state.copyWith(
+        status: ProfileStatus.success,
+        professorReviews: res.data,
         userAuthenticated: user,
       ));
     } else {

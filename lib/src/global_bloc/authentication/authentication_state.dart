@@ -22,6 +22,7 @@ class AuthenticationState extends Equatable {
   final String? errorMessage;
   final AuthenticationStatus? status;
   final AuthenticationAction? action;
+  final Profile? profile;
 
   const AuthenticationState({
     this.isLoading,
@@ -30,6 +31,7 @@ class AuthenticationState extends Equatable {
     this.action,
     this.isError,
     this.errorMessage,
+    this.profile,
   });
 
   AuthenticationState copyWith({
@@ -39,6 +41,7 @@ class AuthenticationState extends Equatable {
     bool? isSuccess,
     bool? isError,
     String? errorMessage,
+    Profile? profile,
   }) {
     return AuthenticationState(
       isLoading: isLoading,
@@ -47,6 +50,7 @@ class AuthenticationState extends Equatable {
       status: status,
       action: action,
       errorMessage: errorMessage,
+      profile: profile,
     );
   }
 
@@ -58,5 +62,6 @@ class AuthenticationState extends Equatable {
         status,
         action,
         errorMessage,
+        profile,
       ];
 }

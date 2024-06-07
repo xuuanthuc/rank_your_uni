@@ -26,6 +26,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     on<UpdateUserProfileEvent>(_updateUserProfile);
     on<UpdatePasswordEvent>(_updatePassword);
     on<GetUserProfileEvent>(_getUserProfile);
+    on<InitUserProfileEvent>(_initUserProfile);
     on<ChangeSearchTypeEvent>(_changeSearchType);
   }
 
@@ -38,6 +39,22 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
           ? SearchType.professor
           : SearchType.university,
       action: AppSettingAction.changeSearchType,
+      status: AppSettingStatus.none
+    ));
+  }
+
+  void _initUserProfile(
+    InitUserProfileEvent event,
+    Emitter<AppSettingsState> emit,
+  ) async {
+    await StorageProvider.instance
+        .save(StorageKeys.user, jsonEncode((event.profile).toJson()));
+    emit(state.copyWith(
+      isSuccess: true,
+      status: AppSettingStatus.success,
+      action: AppSettingAction.updateProfile,
+      profileAuthenticated: event.profile,
+      isLoading: false,
     ));
   }
 

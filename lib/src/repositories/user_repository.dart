@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:template/src/models/request/contact.dart';
 import 'package:template/src/models/request/password_request.dart';
 import 'package:template/src/models/request/profile_request.dart';
+import 'package:template/src/models/response/professor_review.dart';
 import 'package:template/src/models/response/university_review.dart';
 import '../models/response/profile.dart';
 import '../models/response/response.dart';
@@ -26,21 +27,35 @@ class UserRepository {
     }
   }
 
-  Future<RYUResponse> getMyReviews(String id) async {
+  Future<RYUResponse> getMyUniversityReviews(String id) async {
     try {
       List<UniversityReview> reviews = [];
       final data = await _apiProvider.get("${ApiEndpoint.myReviews}/$id");
       for (var element in (data['listItem'] as List<dynamic>)) {
         reviews.add(UniversityReview.fromJson(element));
       }
-      await compute(sortReviewByDate, reviews);
+      await compute(sortUniversityReviewByDate, reviews);
       return RYUResponse(isSuccess: true, data: reviews);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
     }
   }
 
-  List<UniversityReview> sortReviewByDate(List<UniversityReview> reviews) {
+  Future<RYUResponse> getMyProfessorReviews(String id) async {
+    try {
+      List<ProfessorReview> reviews = [];
+      final data = await _apiProvider.get("${ApiEndpoint.myProfessorReviews}/$id");
+      for (var element in (data['listItem'] as List<dynamic>)) {
+        reviews.add(ProfessorReview.fromJson(element));
+      }
+      await compute(sortProfessorReviewByDate, reviews);
+      return RYUResponse(isSuccess: true, data: reviews);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  List<UniversityReview> sortUniversityReviewByDate(List<UniversityReview> reviews) {
     reviews.sort(
       (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
               .parse(second.reviewDate ?? '', true)
@@ -48,6 +63,18 @@ class UserRepository {
           .compareTo(DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
               .parse(first.reviewDate ?? '', true)
               .toUtc()),
+    );
+    return reviews;
+  }
+
+  List<ProfessorReview> sortProfessorReviewByDate(List<ProfessorReview> reviews) {
+    reviews.sort(
+          (first, second) => (DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+          .parse(second.reviewDate ?? '', true)
+          .toUtc())
+          .compareTo(DateFormat("yyyy-MM-dd'T'hh:mm:SSS'Z'")
+          .parse(first.reviewDate ?? '', true)
+          .toUtc()),
     );
     return reviews;
   }

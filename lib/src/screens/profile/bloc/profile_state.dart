@@ -8,12 +8,14 @@ class ProfileState extends Equatable {
   final Profile? userAuthenticated;
   final ProfileStatus? status;
   final List<UniversityReview>? reviews;
+  final List<ProfessorReview>? professorReviews;
   final bool? canEdit;
 
   const ProfileState({
     this.page,
     this.status,
     this.reviews,
+    this.professorReviews,
     this.userAuthenticated,
     this.canEdit,
   });
@@ -22,6 +24,7 @@ class ProfileState extends Equatable {
     QuickMenu? page,
     ProfileStatus? status,
     List<UniversityReview>? reviews,
+    List<ProfessorReview>? professorReviews,
     Profile? userAuthenticated,
     bool? canEdit,
   }) {
@@ -29,6 +32,7 @@ class ProfileState extends Equatable {
       page: page ?? this.page,
       status: status ?? this.status,
       reviews: reviews ?? this.reviews,
+      professorReviews: professorReviews ?? this.professorReviews,
       canEdit: canEdit ?? this.canEdit,
       userAuthenticated: userAuthenticated ?? this.userAuthenticated,
     );
@@ -39,6 +43,7 @@ class ProfileState extends Equatable {
         page,
         status,
         reviews,
+        professorReviews,
         userAuthenticated,
         canEdit,
       ];

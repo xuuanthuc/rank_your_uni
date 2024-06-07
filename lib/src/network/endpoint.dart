@@ -18,6 +18,7 @@ abstract class ApiEndpoint{
   static String get accounts => '/admin/users';
   static String get replyContact => '/admin/reply-contact';
   static String get myReviews => '/reviews-of-user';
+  static String get myProfessorReviews => '/reviews-teacher-of-user';
   static String get forgotPassword => '/account/reset-password/init';
   static String get resetPassword => '/account/reset-password/finish';
 }

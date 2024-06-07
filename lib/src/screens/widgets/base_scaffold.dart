@@ -54,7 +54,10 @@ class _AppScaffoldState extends State<AppScaffold> {
       listenWhen: (_, cur) => cur.action == AuthenticationAction.refreshToken,
       listener: (context, state) {
         if (state.isSuccess == true) {
-          context.read<AppSettingsBloc>().add(GetUserProfileEvent());
+          final pr = state.profile;
+          if (pr != null) {
+            context.read<AppSettingsBloc>().add(InitUserProfileEvent(pr));
+          }
         } else if (state.status == AuthenticationStatus.unauthenticated &&
             state.isLoading == false &&
             state.isSuccess == false &&
@@ -94,9 +97,10 @@ class _AppScaffoldState extends State<AppScaffold> {
                   children: [
                     Center(
                       child: Container(
-                        margin: widget.margin ?? EdgeInsets.all(
-                          ResponsiveBuilder.setHorizontalPadding(context),
-                        ),
+                        margin: widget.margin ??
+                            EdgeInsets.all(
+                              ResponsiveBuilder.setHorizontalPadding(context),
+                            ),
                         constraints: BoxConstraints(
                           maxWidth: widget.maxWidth,
                         ),

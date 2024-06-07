@@ -22,15 +22,25 @@ class UpdatePasswordEvent extends AppSettingsEvent {
   List<Object?> get props => [];
 }
 
-
 class GetUserProfileEvent extends AppSettingsEvent {
-
   @override
   List<Object?> get props => [];
 }
 
-class ChangeSearchTypeEvent extends AppSettingsEvent {
+class InitUserProfileEvent extends AppSettingsEvent {
+  final Profile profile;
 
+  const InitUserProfileEvent(
+    this.profile,
+  );
+
+  @override
+  List<Object?> get props => [
+        profile,
+      ];
+}
+
+class ChangeSearchTypeEvent extends AppSettingsEvent {
   @override
   List<Object?> get props => [];
 }

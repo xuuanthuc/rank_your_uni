@@ -1,6 +1,6 @@
 part of 'app_settings_bloc.dart';
 
-enum AppSettingStatus { loading, success, error }
+enum AppSettingStatus { loading, success, error, none }
 
 enum AppSettingAction { updateProfile, changePassword, changeSearchType }
 
