@@ -61,6 +61,7 @@ class _AddProfessorState extends State<AddProfessor> {
   }
 
   Future<void> _selectMajor(BuildContext context, List<Major> majors) async {
+    if(majors.isEmpty) return;
     final res = await showDialog<Major>(
       context: context,
       barrierColor: Colors.black12,

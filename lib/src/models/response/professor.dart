@@ -35,7 +35,7 @@ class Professor {
     final id = json['id'];
     final major = Major.fromJson(json['major']);
     final university = University.fromDetailJson(json['school']);
-    final status = json['status'] ?? false;
+    final status = json['status'] ?? 0;
     final reviews = <ProfessorReview>[];
     final averagePointAllReviews =
         double.tryParse(json['averagePointAllReviews'] ?? "") ?? 0.0;

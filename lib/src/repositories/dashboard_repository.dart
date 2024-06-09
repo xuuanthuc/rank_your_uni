@@ -154,8 +154,7 @@ class DashboardRepository {
     }
   }
 
-  Future<RYUResponse> updateProfessor(
-      UpdateProfessorRaw newProfessor) async {
+  Future<RYUResponse> updateProfessor(UpdateProfessorRaw newProfessor) async {
     try {
       final res = await _apiProvider.put('${ApiEndpoint.professor}/${newProfessor.id}',
           params: newProfessor.toJson());
@@ -169,6 +168,15 @@ class DashboardRepository {
   Future<RYUResponse> deleteUniversity(University university) async {
     try {
       final res = await _apiProvider.delete('/admin/schools/${university.id}');
+      return RYUResponse(isSuccess: true, data: res);
+    } on ResponseException catch (e) {
+      return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);
+    }
+  }
+
+  Future<RYUResponse> deleteProfessor(Professor professor) async {
+    try {
+      final res = await _apiProvider.delete('/admin/teacher/${professor.id}');
       return RYUResponse(isSuccess: true, data: res);
     } on ResponseException catch (e) {
       return RYUResponse(isSuccess: false, errorMessage: e.title, code: e.code);

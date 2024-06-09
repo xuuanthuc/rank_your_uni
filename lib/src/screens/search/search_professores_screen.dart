@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:template/global/style/styles.dart';
 import 'package:template/global/utilities/toast.dart';
 import 'package:template/src/screens/search/bloc/search_cubit.dart';
+import 'package:template/src/screens/search/widgets/anoucement_add_professor.dart';
 import 'package:template/src/screens/search/widgets/load_more_professores.dart';
 import 'package:template/src/screens/search/widgets/search_results_list.dart';
 import 'package:template/src/screens/search/widgets/text_result_for.dart';
@@ -23,12 +24,23 @@ class _SearchProfessorScreenState extends State<SearchProfessorScreen> {
   void initState() {
     super.initState();
     context.read<SearchCubit>().onSearchProfessores(widget.keyword ?? "");
+    Future.delayed(const Duration(seconds: 1)).then((c) => _showAnnoucementDialog());
   }
 
   @override
   void didUpdateWidget(covariant SearchProfessorScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     context.read<SearchCubit>().onSearchProfessores(widget.keyword ?? "");
+  }
+
+  void _showAnnoucementDialog(){
+    showDialog<String?>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return const AnnoucementAddProfessor();
+      },
+    );
   }
 
   @override

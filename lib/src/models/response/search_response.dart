@@ -1,3 +1,4 @@
+import 'package:template/global/style/styles.dart';
 import 'package:template/src/models/response/pageable.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/models/response/university.dart';
@@ -24,7 +25,7 @@ class SearchModel {
     if (json['content'] != null) {
       json['content'].forEach((v) {
         final university = University.fromSearchJson(v);
-        if (university.status == 1) {
+        if (university.status == UniversityStatus.approved) {
           universities.add(university);
         }
       });
@@ -80,7 +81,7 @@ class SearchProfessorModel {
     if (json['content'] != null) {
       json['content'].forEach((v) {
         final professor = Professor.fromJson(v);
-        if (professor.status == 1) {
+        if (professor.status == ProfessorStatus.approved) {
           professores.add(professor);
         }
       });

@@ -282,12 +282,12 @@ class ReviewRelearn extends StatelessWidget {
                               Transform.scale(
                                 scale: 1.5,
                                 child: Radio<bool?>(
-                                  value: YesNo.no.value,
+                                  value: YesNo.yes.value,
                                   groupValue: state.reLearn,
                                   onChanged: (value) {
                                     context
                                         .read<ReviewCubit>()
-                                        .updateRelearn(value ?? false);
+                                        .updateRelearn(value ?? true);
                                   },
                                 ),
                               ),
@@ -304,12 +304,12 @@ class ReviewRelearn extends StatelessWidget {
                               Transform.scale(
                                 scale: 1.5,
                                 child: Radio<bool?>(
-                                  value: YesNo.yes.value,
+                                  value: YesNo.no.value,
                                   groupValue: state.reLearn,
                                   onChanged: (value) {
                                     context
                                         .read<ReviewCubit>()
-                                        .updateRelearn(value ?? true);
+                                        .updateRelearn(value ?? false);
                                   },
                                 ),
                               ),
@@ -530,7 +530,7 @@ class ReviewTags extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                               color: (state.selectedTags ?? [])
-                                  .any((t) => t.id == tag.id)
+                                      .any((t) => t.id == tag.id)
                                   ? AppColors.primary
                                   : AppColors.textGrey,
                               width: 1,

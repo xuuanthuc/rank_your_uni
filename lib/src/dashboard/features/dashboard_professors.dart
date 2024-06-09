@@ -4,6 +4,7 @@ import 'package:template/global/style/styles.dart';
 import 'package:template/src/dashboard/bloc/professor/dashboard_professor_item_cubit.dart';
 import 'package:template/src/dashboard/features/widget/dashboard_title.dart';
 import 'package:template/src/dashboard/features/widget/header_line.dart';
+import 'package:template/src/dashboard/features/widget/professor_detail_dialog.dart';
 import 'package:template/src/di/dependencies.dart';
 import 'package:template/src/models/response/professor.dart';
 import 'package:template/src/screens/widgets/loading.dart';
@@ -96,6 +97,26 @@ class _ItemProfessorState extends State<ItemProfessor> {
   void initState() {
     super.initState();
     context.read<DashboardProfessorItemCubit>().getProfessors(widget.professor);
+  }
+
+  void _showProfessorDetailDialog(
+      BuildContext context,
+      Professor professor,
+      ) {
+    showDialog<Professor?>(
+      context: context,
+      barrierColor: Colors.black12,
+      builder: (BuildContext context) {
+        return BlocProvider(
+          create: (context) => getIt.get<DashboardProfessorItemCubit>(),
+          child: ProfessorDetailDialog(professor: professor),
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        context.read<DashboardProfessorItemCubit>().getProfessors(value);
+      }
+    });
   }
 
   @override
@@ -210,7 +231,7 @@ class _ItemProfessorState extends State<ItemProfessor> {
                           text.edit,
                           style: theme.primaryTextTheme.titleLarge,
                         ),
-                        onTap: () => {}
+                        onTap: () => _showProfessorDetailDialog(context, widget.professor)
                       ),
                       PopupMenuItem(
                         child: Text(
@@ -220,7 +241,9 @@ class _ItemProfessorState extends State<ItemProfessor> {
                           style: theme.primaryTextTheme.titleLarge,
                         ),
                         onTap: () {
-
+                          context
+                              .read<DashboardProfessorItemCubit>()
+                              .deleteProfessor();
                         },
                       ),
                     ],

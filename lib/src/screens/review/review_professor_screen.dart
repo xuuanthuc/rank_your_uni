@@ -120,9 +120,11 @@ class _ReviewProfessorScreenState extends State<ReviewProfessorScreen> {
             subMessage: AppLocalizations.of(context)!.tryAgainLater,
           );
         } else if (state.status == ReviewStatus.success) {
-          context.goNamed(RouteKey.reviewProfessorSuccess, extra: state.professor);
+          context.goNamed(RouteKey.reviewProfessorSuccess,
+              extra: state.professor);
         } else if (state.status == ReviewStatus.deleteSuccess) {
-          context.goNamed(RouteKey.deteleProfessorSuccess, extra: state.professor);
+          context.goNamed(RouteKey.deteleProfessorSuccess,
+              extra: state.professor);
         }
         // if (state.mode == ReviewMode.edit) {
         //   context.read<ReviewCubit>().initEditReviewMode(widget.review!);
